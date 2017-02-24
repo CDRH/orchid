@@ -1,0 +1,68 @@
+<p>Snippet with variables <%= total %> here</p>
+
+<nav>
+  <ul class="pagination">
+
+    <!-- previous button -->
+    <% if current == 1 %>
+      <li class="disabled">
+        <a href="#">&laquo;</a>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to to_page(current-1, opts) do %>
+          <span aria-hidden="true">&laquo;</span>
+        <% end %>
+      </li>
+    <% end %>
+
+    <!-- add the first page if you're not on it, add dots if necessary -->
+    <% if current != 1 %>
+      <li>
+        <%= link_to "1", to_page(1, opts) %>
+      </li>
+      <% if pages_prior.min != range-1 && current != range-1 %>
+        <li class="disabled"><span>...</span></li>
+      <% end %>
+    <% end %>
+
+    <!-- prior pages -->
+    <% pages_prior.each do |page| %>
+      <li><%= link_to page.to_s, to_page(page, opts) %></li>
+    <% end %>
+
+    <!-- current page -->
+    <li class="active">
+      <%= link_to current.to_s, to_page(current, opts) %>
+    </li>
+
+    <!-- next pages -->
+    <% pages_next.each do |page| %>
+      <li><%= link_to page.to_s, to_page(page, opts) %></li>
+    <% end %>
+
+    <!-- add the last page if you're not on it, add dots if necessary -->
+    <% if current != total %>
+      <% if pages_next.max != total-1 && current != total-1 %>
+        <li class="disabled"><span>...</span></li>
+      <% end %>
+      <li>
+        <%= link_to total.to_s, to_page(total, opts) %>
+      </li>
+    <% end %>
+
+
+    <!-- next button -->
+    <% if current == total %>
+      <li class="disabled">
+        <a href="#">&raquo;</a>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to to_page(current+1, opts) do %>
+          <span aria-hidden="true">&raquo;</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
