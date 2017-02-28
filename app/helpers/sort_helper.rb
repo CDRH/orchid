@@ -1,3 +1,25 @@
 module SortHelper
 
+  def sorter
+    current = ""
+    if !params["sort"].blank? && params["sort"].class == Array
+      current = params["sort"][0]
+    elsif !params["q"].blank?
+      current = "score|desc"
+    else
+      current = "dc-title|asc"
+    end
+    render partial: "partials/sort", locals: {
+      current: current,
+      query: params["q"]
+    }
+  end
+
+  def sort type, direction="desc"
+    new_params = copy_params
+    new_params["sort"] = ["#{type}|#{direction}"]
+    new_params.delete("page")
+    return new_params
+  end
+
 end
