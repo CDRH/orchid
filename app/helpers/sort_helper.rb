@@ -2,16 +2,16 @@ module SortHelper
 
   def sorter
     current = ""
-    if !params["sort"].blank? && params["sort"].class == Array
+    if params["sort"].present? && params["sort"].class == Array
       current = params["sort"][0]
-    elsif !params["q"].blank?
+    elsif params["q"].present?
       current = "score|desc"
     else
       current = "dc-title|asc"
     end
     render partial: "partials/sort", locals: {
       current: current,
-      query: params["q"]
+      query: params["q"].present?
     }
   end
 
