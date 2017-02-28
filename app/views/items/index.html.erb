@@ -1,7 +1,5 @@
 <h2>Search Results</h2>
 
-<%= paginator @res.pages %>
-
 <!-- search form -->
 <div class="row">
   <div class="col-md-3">
@@ -13,7 +11,7 @@
           <%# hidden_field_tag(facet, params[facet]) if params[facet] %>
         <%# end %>
         <% if params["q"] %>
-          <%# link_to "x", clear_search, :class => "brn btn-warning clear_main_search_text" %>
+          <%= link_to "x", clear_search, :class => "brn btn-warning clear_main_search_text" %>
         <% end %>
         <%= submit_tag("Search", :class => "btn btn-info submit_main_search_text") %>
       </div>
@@ -40,16 +38,11 @@
     <div class="row search_controls">
       <div class="col-md-3 search_limit">
         <% if (@res.count > 1) %>
-          Sorting will go here
-          <%# render partial: "sort", 
-            locals: { sort_by: params[:sort], page_type: @page_type, query: params[:qtext]
-            } %>
+          <%# sorter %>
         <% end %>
       </div>
       <div class="col-md-9 pagination_container">
-        Pagination will go here
-        <p>Page <%= params["page"] %> of <%= @res.pages %></p>
-        <%# paginator(@res.pages) %>
+        <%= paginator @res.pages %>
       </div>
     </div>
 
@@ -61,7 +54,7 @@
         <div class="searchResults">
           <div class="row">
             <div class="col-md-12 search_results_info">
-              <%# link_to item["dc-title"], doc_path(doc["id"]) %>
+              <%= link_to item["dc-title"], item_path(item["cdrh-identifier"]) %>
               <ul>
                 <li><strong>Date</strong>: <%= item["cdrh-date_display"] %></li>
                 <!-- TODO loop through creator to make it look nicer -->
@@ -71,6 +64,7 @@
             </div>
             <%# enable this to see highlighting results from query %>
             <div class="col-md-8 search_results_text">
+              <strong>Text:</strong>
               <% if item["highlight"] && item["highlight"]["cdrh-text"] %>
                 <% item["highlight"]["cdrh-text"].each do |hl| %>
                   <p><%= hl.html_safe %></p>
@@ -85,7 +79,7 @@
     <% end %>
 
     <div class="col-md-9 pagination_container">
-      <%# paginator(@total_pages) %>
+      <%= paginator @res.pages %>
     </div>
   </div>
 </div>

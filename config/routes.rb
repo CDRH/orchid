@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # items
   get 'browse' => 'items#browse', as: :browse
-  get 'item/:id' => 'items#show', as: :item, :contrains => { :id => /[^\/]+/ }
+  get 'item/:id' => 'items#show', as: :item, :constraints => { :id => /[^\/]+/ }
   get 'search' => 'items#index', as: :search
 
   # errors

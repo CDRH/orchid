@@ -1,0 +1,18 @@
+<h2><%= @res["dc-title"] %></h2>
+
+<div class="metadata">
+  <ul>
+    <%= metadata(@res, "Title", "dc-title", false) %>
+    <%= metadata(@res, "Date", "cdrh-date_display") %>
+    <%= metadata(@res, "Author(s)", "dc-creators") %>
+    <%= metadata(@res, "Format", "dc-format") %>
+    <%= metadata(@res, "Category", "cdrh-category") %>
+    <%= metadata(@res, "Subcategory", "cdrh-subcategory") %>
+    <%= metadata(@res, "Works", "cdrh-works") %>
+    <%= metadata(@res, "Place(s)", "cdrh-places") %>
+    <li><strong>TEI XML: </strong><a href="<%= @res['uriXML'] %>"><%= @res["cdrh-identifier"] %>.xml</a>
+  </ul>
+</div>
+ 
+<!-- TEXT AND IMAGES -->
+<%# @res.mb_chars.html_safe if @res %>

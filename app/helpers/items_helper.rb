@@ -1,5 +1,6 @@
 module ItemsHelper
+  include DisplayHelper
+  include FacetHelper
   include PaginationHelper
   include SortHelper
-  include FacetHelper
 end
