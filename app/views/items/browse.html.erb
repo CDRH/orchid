@@ -1,0 +1,20 @@
+<h2>Browse</h2>
+
+<p><%= link_to "View all items in the archive", search_path %> or use the following categories to facilitate browsing:</p>
+
+<% @res.each do |type, facet_list| %>
+  <% if facet_list.length > 0 %>
+    <h2><%= type.titleize %></h2>
+    <ul class="browselist">
+      <% facet_list.each do |facet, num| %>
+        <li class="qty<%= num %>">
+          <%= link_to search_path("f" => ["#{type}|#{facet}"]) do %>
+            <% text = facet.blank? ? "No label" : facet %>
+            <span class="browsename"><%= text %></span>
+            <span class="browsenumber"><%= num %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

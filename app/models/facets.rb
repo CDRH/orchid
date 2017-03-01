@@ -5,6 +5,18 @@ module Facets
       "label" => "Category",
       "display" => true
     },
+    "format" => {
+      "label" => "Format",
+      "display" => true
+    },
+    "places" => {
+      "label" => "Places",
+      "display" => true
+    },
+    "project" => {
+      "label" => "Collection",
+      "display" => true
+    },
     "subcategory" => {
       "label" => "Subcategory",
       "display" => true

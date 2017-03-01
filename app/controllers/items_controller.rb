@@ -1,5 +1,9 @@
 class ItemsController < ApplicationController
 
+  def browse
+    @res = $api.query({"facet_num" => 500, "facet_sort" => "term|asc" }).facets
+  end
+
   def index
     @res = $api.query(params)
   end

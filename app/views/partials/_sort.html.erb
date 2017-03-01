@@ -21,7 +21,7 @@ Sort by: <br />
 <% end %>
 
 <!-- title and date links -->
-<%= link_to "Title ^", search_path(sort("title", "asc")), :class => "btn btn-xs #{title_asc == true ? 'btn-info' : 'btn-default'}" %>
-<%= link_to "Title v", search_path(sort("title", "desc")), :class => "btn btn-xs #{title_desc == true ? 'btn-info' : 'btn-default'}" %>
-<%= link_to "Date ^", search_path(sort("date", "asc")), :class => "btn btn-xs #{date_asc == true ? 'btn-info' : 'btn-default'}" %>
-<%= link_to "Date v", search_path(sort("date", "desc")), :class => "btn btn-xs #{date_desc == true ? 'btn-info' : 'btn-default'}" %>
+<%= link_to "Title ^", search_path(sort("title", "asc")), "class" => "btn btn-xs #{title_asc == true ? 'btn-info' : 'btn-default'}" %>
+<%= link_to "Title v", search_path(sort("title", "desc")), "class" => "btn btn-xs #{title_desc == true ? 'btn-info' : 'btn-default'}" %>
+<%= link_to "Date ^", search_path(sort("date", "asc")), "class" => "btn btn-xs #{date_asc == true ? 'btn-info' : 'btn-default'}" %>
+<%= link_to "Date v", search_path(sort("date", "desc")), "class" => "btn btn-xs #{date_desc == true ? 'btn-info' : 'btn-default'}" %>
