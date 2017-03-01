@@ -1,12 +1,12 @@
 module Facets
 
   @facet_info = {
-    "cdrh-category" => {
+    "category" => {
       "label" => "Category",
       "display" => true
     },
-    "cdrh-subcategory" => {
-      "label" => "Sub Category",
+    "subcategory" => {
+      "label" => "Subcategory",
       "display" => true
     }
   }

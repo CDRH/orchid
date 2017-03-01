@@ -1,14 +1,14 @@
 <%# expects
-  - "current" sort ("dc-date|asc")
+  - "current" sort ("date|asc")
   - "query" boolean, false if no q parameter entered
 %>
 
 Sort by: <br />
 <%# if this is a search page, then default to score, else use title %>
-<% date_asc = current == "dc-date|asc" %>
-<% date_desc = current == "dc-date|desc" %>
-<% title_asc = current == "dc-title|asc" %>
-<% title_desc = current == "dc-title|desc" %>
+<% date_asc = current == "date|asc" %>
+<% date_desc = current == "date|desc" %>
+<% title_asc = current == "title|asc" %>
+<% title_desc = current == "title|desc" %>
 <% score_desc = current == "score|desc" %>
 
 <% if query %>
@@ -21,7 +21,7 @@ Sort by: <br />
 <% end %>
 
 <!-- title and date links -->
-<%= link_to "Title ^", search_path(sort("dc-title", "asc")), :class => "btn btn-xs #{title_asc == true ? 'btn-info' : 'btn-default'}" %>
-<%= link_to "Title v", search_path(sort("dc-title", "desc")), :class => "btn btn-xs #{title_desc == true ? 'btn-info' : 'btn-default'}" %>
-<%= link_to "Date ^", search_path(sort("dc-date", "asc")), :class => "btn btn-xs #{date_asc == true ? 'btn-info' : 'btn-default'}" %>
-<%= link_to "Date v", search_path(sort("dc-date", "desc")), :class => "btn btn-xs #{date_desc == true ? 'btn-info' : 'btn-default'}" %>
+<%= link_to "Title ^", search_path(sort("title", "asc")), :class => "btn btn-xs #{title_asc == true ? 'btn-info' : 'btn-default'}" %>
+<%= link_to "Title v", search_path(sort("title", "desc")), :class => "btn btn-xs #{title_desc == true ? 'btn-info' : 'btn-default'}" %>
+<%= link_to "Date ^", search_path(sort("date", "asc")), :class => "btn btn-xs #{date_asc == true ? 'btn-info' : 'btn-default'}" %>
+<%= link_to "Date v", search_path(sort("date", "desc")), :class => "btn btn-xs #{date_desc == true ? 'btn-info' : 'btn-default'}" %>

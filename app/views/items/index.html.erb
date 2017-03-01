@@ -54,23 +54,23 @@
         <div class="searchResults">
           <div class="row">
             <div class="col-md-12 search_results_info">
-              <%= link_to item["dc-title"], item_path(item["cdrh-identifier"]) %>
+              <%= link_to item["title"], item_path(item["identifier"]) %>
               <ul>
-                <li><strong>Date</strong>: <%= item["cdrh-date_display"] %></li>
+                <li><strong>Date</strong>: <%= item["date_display"] %></li>
                 <!-- TODO loop through creator to make it look nicer -->
-                <li><strong>Creator</strong>: <%= item.dig("dc-creator", 0, "name") %></li>
-                <li><strong>Source</strong>: <%= item["dc-source"] %></li>
+                <li><strong>Creator</strong>: <%= item.dig("creator", 0, "name") %></li>
+                <li><strong>Source</strong>: <%= item["source"] %></li>
               </ul>
             </div>
             <%# enable this to see highlighting results from query %>
             <div class="col-md-8 search_results_text">
               <strong>Text:</strong>
-              <% if item["highlight"] && item["highlight"]["cdrh-text"] %>
-                <% item["highlight"]["cdrh-text"].each do |hl| %>
+              <% if item["highlight"] && item["highlight"]["text"] %>
+                <% item["highlight"]["text"].each do |hl| %>
                   <p><%= hl.html_safe %></p>
                 <% end %>
               <% else %>
-                <%= item["cdrh-text"] %>
+                <%= item["text"] %>
               <% end %>
             </div>
           </div>

@@ -7,7 +7,7 @@ module SortHelper
     elsif params["q"].present?
       current = "score|desc"
     else
-      current = "dc-title|asc"
+      current = "title|asc"
     end
     render partial: "partials/sort", locals: {
       current: current,
