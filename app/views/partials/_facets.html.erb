@@ -1,28 +1,52 @@
+<%# iterate through all of the configured facets
+    and match them with the incoming solr facet results %>
+<%# TODO refactor the top portion of this %>
 <% if facets %>
-  <% facets.each do |type, list| %>
-    <% if list.length > 0 %>
+  <% Facets.facet_info.each do |facet_name, info| %>
+    <% if facets.has_key?(facet_name) && info["display"] && facets[facet_name].length > 0 %>
+      <% facet_res = facets[facet_name] %>
+      <% data_safe_name = facet_name.gsub(".", "-") %>
+      <% fparams = params["f"].present? ? params["f"].map{ |f| f.split("|").first } : [] %>
+      <% start_open = fparams.include?(facet_name) %>
+      <% class_in =  start_open ? "in" : "" %>
+      <% class_glyphicon = start_open ? "glyphicon-chevron-down" : "glyphicon-chevron-right" %>
+
       <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"><%= type %></h3>
+
+        <!-- panel heading -->
+        <div class="clearfix panel-heading" data-toggle="collapse" data-target="#fc-<%= data_safe_name %>" aria-label="Show <%= info['label'] %> Filters" role="Option">
+          <h3 class="pull-left panel-title"><%= info["label"] %></h3>
+          <span class="pull-right glyphicon <%= class_glyphicon %>" aria-hidden="true"></span>
         </div>
-        <div class="panel-body">
+
+        <!-- panel body -->
+        <%# if requested parameter, then do not collapse facet %>
+        <div class="panel-body collapse <%= class_in %>" id="fc-<%= data_safe_name %>">
           <ul class="list-unstyled">
-            <% list.each do |label, num| %>
-              <% selected = facet_selected?(type, label) %>
-              <% display = label.length > 0 ? label : "No Label" %>
-              <li <%# selected_class(selected) %>>
-                <%= link_to display, search_path(facet_link(type, label)) %>
-                <span class="badge"><%= num %></span>
+            <% facet_res.each do |key, value| %>
+              <% selected = facet_selected?(facet_name, key) %>
+              <% label = key.length > 0 ? key : "No Label" %>
+
+              <!-- list item -->
+              <li <%= "class=selected" if selected %>>
+                <%= link_to label, search_path(facet_link(facet_name, key)) %>
+                <span class="badge"><%= value %></span>
                 <% if selected %>
-                  <%= link_to search_path(remove_facet(type, label)) do %>
-                    <button class="btn btn-warning btn-xs">x</button>
+                  <%= link_to search_path(remove_facet(facet_name, key)) do %>
+                    <button class="btn btn-default btn-xs" aria-label="Clear <%= info['label'] %> Filter" title="Clear <%= info['label'] %> Filter">
+                      <span class="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
                   <% end %>
                 <% end %>
               </li>
+
             <% end %>
           </ul>
-        </div>
-      </div>
+
+          <%= link_to "See more", browse_path, class: "btn btn-info btn-xs" %>
+        </div> <!-- /panel-body -->
+
+      </div> <!-- /panel panel-default -->
     <% end %>
   <% end %>
 <% end %>

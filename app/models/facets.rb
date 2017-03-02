@@ -5,6 +5,14 @@ module Facets
       "label" => "Category",
       "display" => true
     },
+    "subcategory" => {
+      "label" => "Subcategory",
+      "display" => true
+    },
+    "creator.name" => {
+      "label" => "Creator",
+      "display" => true,
+    },
     "format" => {
       "label" => "Format",
       "display" => true
@@ -17,10 +25,6 @@ module Facets
       "label" => "Collection",
       "display" => true
     },
-    "subcategory" => {
-      "label" => "Subcategory",
-      "display" => true
-    }
   }
 
   def self.facet_info
