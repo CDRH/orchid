@@ -1,6 +1,10 @@
 module Facets
 
   @facet_info = {
+    "project" => {
+      "label" => "Collection",
+      "display" => true
+    },
     "category" => {
       "label" => "Category",
       "display" => true
@@ -19,10 +23,6 @@ module Facets
     },
     "places" => {
       "label" => "Places",
-      "display" => true
-    },
-    "project" => {
-      "label" => "Collection",
       "display" => true
     },
   }
