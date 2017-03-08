@@ -3,10 +3,11 @@
 <%# TODO refactor the top portion of this %>
 <% if facets %>
   <% Facets.facet_info.each do |facet_name, info| %>
-    <% if facets.has_key?(facet_name) && info["display"] && facets[facet_name].length > 0 %>
+    <% if should_display?(facets[facet_name], info) %>
       <% facet_res = facets[facet_name] %>
-      <% data_safe_name = facet_name.gsub(".", "-") %>
-      <% fparams = params["f"].present? ? params["f"].map{ |f| f.split("|").first } : [] %>
+      <% data_safe_name = datify_name facet_name %>
+      <% fparams = pull_out_fparams %>
+      <%# TODO start_open will break if the facet_name has a pipe in it like date|year %>
       <% start_open = fparams.include?(facet_name) %>
       <% class_in =  start_open ? "in" : "" %>
       <% class_glyphicon = start_open ? "glyphicon-chevron-down" : "glyphicon-chevron-right" %>
@@ -25,7 +26,7 @@
           <ul class="list-unstyled">
             <% facet_res.each do |key, value| %>
               <% selected = facet_selected?(facet_name, key) %>
-              <% label = key.length > 0 ? key : "No Label" %>
+              <% label = create_label key, "No Label" %>
 
               <!-- list item -->
               <li <%= "class=selected" if selected %>>

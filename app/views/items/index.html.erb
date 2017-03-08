@@ -6,7 +6,7 @@
     <%= form_tag(search_path, :method => "get", :class => "form-inline") do %>
       <div class="form-group">
         <%= text_field_tag(:q, params["q"], :placeholder => "Search", :class => "form-control main_search_text") %>
-        <%# add facets to hidden fields %>
+        <%# TODO add facets to hidden fields %>
         <%# Facets.facet_list.each do |facet| %>
           <%# hidden_field_tag(facet, params[facet]) if params[facet] %>
         <%# end %>

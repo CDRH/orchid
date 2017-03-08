@@ -7,6 +7,14 @@ module Orchid::FacetHelper
     new_params.delete("page")
   end
 
+  def create_label key, default="No Label"
+    return key ? key : default
+  end
+
+  def datify_name facet_name
+    facet_name.gsub(/[\.|]/, "-")
+  end
+
   # type = "novel"
   # facet = "emma"
   def facet_link type, facet, remove_others=false
@@ -35,11 +43,25 @@ module Orchid::FacetHelper
     end
   end
 
+  def pull_out_fparams
+    if params["f"].present?
+      return params["f"].map do |f|
+        f.split("|").first
+      end
+    else
+      return []
+    end
+  end
+
   def remove_facet type, facet
     new_params = copy_params
     new_params.delete("page")
     new_params["f"].delete("#{type}|#{facet}")
     return new_params
+  end
+
+  def should_display? facet, info
+    return facet && info["display"] && facet.length > 0
   end
 
 end

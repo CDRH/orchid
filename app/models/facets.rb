@@ -9,6 +9,14 @@ module Facets
       "label" => "Category",
       "display" => true
     },
+    # "date" => {
+    #   "label" => "Date",
+    #   "display" => true
+    # },
+    "date.year" => {
+      "label" => "Year",
+      "display" => true
+    },
     "subcategory" => {
       "label" => "Subcategory",
       "display" => true
