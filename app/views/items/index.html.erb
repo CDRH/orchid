@@ -6,10 +6,12 @@
     <%= form_tag(search_path, :method => "get", :class => "form-inline") do %>
       <div class="form-group">
         <%= text_field_tag(:q, params["q"], :placeholder => "Search", :class => "form-control main_search_text") %>
-        <%# TODO add facets to hidden fields %>
-        <%# Facets.facet_list.each do |facet| %>
-          <%# hidden_field_tag(facet, params[facet]) if params[facet] %>
-        <%# end %>
+        <% if params["f"].present? %>
+          <% params["f"].each do |f| %>
+            <%= hidden_field_tag "f[]", f %>
+          <% end %>
+        <% end %>
+
         <% if params["q"] %>
           <%= link_to "x", clear_search, :class => "brn btn-warning clear_main_search_text" %>
         <% end %>
@@ -56,13 +58,15 @@
             <div class="col-md-12 search_results_info">
               <%= link_to item["title"], item_path(item["identifier"]) %>
               <ul>
-                <li><strong>Date</strong>: <%= item["date_display"] %></li>
-                <!-- TODO loop through creator to make it look nicer -->
-                <li><strong>Creator</strong>: <%= item.dig("creator", 0, "name") %></li>
-                <li><strong>Source</strong>: <%= item["source"] %></li>
+                <li><strong>Date</strong>: <%= link_to item["date_display"], search_path({ "f[]" => "date|#{item['date']}" }) %></li>
+                <li><strong>Creator(s)</strong>:
+                  <% item["creator"].each do |c| %>
+                    <%= link_to c["name"], search_path({ "f[]" => "creator.name|#{c['name']}" }) %>
+                  <% end %>
+                </li>
+                <li><strong>Source</strong>: <%= link_to item["source"], search_path({ "f[]" => "source|#{item['source']}" }) %></li>
               </ul>
             </div>
-            <%# enable this to see highlighting results from query %>
             <div class="col-md-8 search_results_text">
               <strong>Text:</strong>
               <% if item["highlight"] && item["highlight"]["text"] %>

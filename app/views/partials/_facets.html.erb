@@ -7,7 +7,6 @@
       <% facet_res = facets[facet_name] %>
       <% data_safe_name = datify_name facet_name %>
       <% fparams = pull_out_fparams %>
-      <%# TODO start_open will break if the facet_name has a pipe in it like date|year %>
       <% start_open = fparams.include?(facet_name) %>
       <% class_in =  start_open ? "in" : "" %>
       <% class_glyphicon = start_open ? "glyphicon-chevron-down" : "glyphicon-chevron-right" %>
