@@ -68,8 +68,8 @@
               </ul>
             </div>
             <div class="col-md-8 search_results_text">
-              <strong>Text:</strong>
               <% if item["highlight"] && item["highlight"]["text"] %>
+                <strong>Text:</strong>
                 <% item["highlight"]["text"].each do |hl| %>
                   <p><%= hl.html_safe %></p>
                 <% end %>
