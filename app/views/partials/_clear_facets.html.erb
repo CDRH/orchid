@@ -1,0 +1,8 @@
+<% if params["f"].present? %>
+  <div class="clear-filters-container">
+    <%= link_to search_path({ "q" => params["q"] }) do %>
+      Clear all filters 
+      <button class="btn btn-warning btn-xs">x</button>
+    <% end %>
+  </div>
+<% end %>

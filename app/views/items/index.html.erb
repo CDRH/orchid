@@ -3,50 +3,15 @@
 <!-- search form -->
 <div class="row">
   <div class="col-md-3">
-    <%= form_tag(search_path, :method => "get", :class => "form-inline") do %>
-      <div class="form-group">
-        <%= text_field_tag(:q, params["q"], :placeholder => "Search", :class => "form-control main_search_text") %>
-        <% if params["f"].present? %>
-          <% params["f"].each do |f| %>
-            <%= hidden_field_tag "f[]", f %>
-          <% end %>
-        <% end %>
+    <%= render partial: "partials/search_box" %>
 
-        <% if params["q"] %>
-          <%= link_to "x", clear_search, :class => "brn btn-warning clear_main_search_text" %>
-        <% end %>
-        <%= submit_tag("Search", :class => "btn btn-info submit_main_search_text") %>
-      </div>
-      <!-- TODO can you? -->
-      <p>Advanced searching: you can exclude with a "-", use boolean operators like AND & OR, group items with (parentheses), and search for a phrase with "quotation marks."</p>
-    <% end %>
+    <%= render partial: "partials/clear_facets" %>
 
-    <!-- clear facets -->
-    <% if params["f"].present? %>
-      <div class="clear-filters-container">
-        <%= link_to search_path({ "q" => params["q"] }) do %>
-          Clear all filters 
-          <button class="btn btn-warning btn-xs">x</button>
-        <% end %>
-      </div>
-    <% end %>
-
-    <!-- facets -->
     <%= render partial: "partials/facets", locals: {facets: @res.facets} %>
   </div> <!-- col-md-3 -->
 
   <div class="col-md-9">
-    <!-- sorting and pagination -->
-    <div class="row search_controls">
-      <div class="col-md-3 search_limit">
-        <% if (@res.count > 1) %>
-          <%= sorter %>
-        <% end %>
-      </div>
-      <div class="col-md-9 pagination_container">
-        <%= paginator @res.pages %>
-      </div>
-    </div>
+    <%= render partial: "partials/sort_and_page_ui" %>
 
     <!-- search results section -->
     <h4>Your search for <%= params["q"] %> returned <%= pluralize @res.count, "result" %></h4>
@@ -54,28 +19,7 @@
     <% if @res.count > 0 %>
       <% @res.items.each do |item| %>
         <div class="searchResults">
-          <div class="row">
-            <div class="col-md-12 search_results_info">
-              <%= link_to item["title"], item_path(item["identifier"]) %>
-              <ul>
-                <li><strong>Date</strong>: <%= link_to item["date_display"], search_path({ "f[]" => "date|#{item['date']}" }) %></li>
-                <li><strong>Creator(s)</strong>:
-                  <% item["creator"].each do |c| %>
-                    <%= link_to c["name"], search_path({ "f[]" => "creator.name|#{c['name']}" }) %>
-                  <% end %>
-                </li>
-                <li><strong>Source</strong>: <%= link_to item["source"], search_path({ "f[]" => "source|#{item['source']}" }) %></li>
-              </ul>
-            </div>
-            <div class="col-md-8 search_results_text">
-              <% if item["highlight"] && item["highlight"]["text"] %>
-                <strong>Text:</strong>
-                <% item["highlight"]["text"].each do |hl| %>
-                  <p><%= hl.html_safe %></p>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
+          <%= render partial: "partials/search_res_item", locals: {item: item } %>
         </div>
       <% end %>
     <% end %>
