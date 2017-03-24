@@ -2,11 +2,11 @@
 
 <!-- search form -->
 <div class="row">
+
+  <%= render partial: "partials/search_box" %>
+
   <div class="col-md-3">
-    <%= render partial: "partials/search_box" %>
-
     <%= render partial: "partials/clear_facets" %>
-
     <%= render partial: "partials/facets", locals: {facets: @res.facets} %>
   </div> <!-- col-md-3 -->
 
