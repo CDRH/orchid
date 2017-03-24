@@ -2,19 +2,40 @@
 
 <p><%= link_to "View all items in the archive", search_path %> or use the following categories to facilitate browsing:</p>
 
-<% @res.each do |type, facet_list| %>
-  <% if facet_list.length > 0 %>
-    <h2><%= type.titleize %></h2>
-    <ul class="browselist">
-      <% facet_list.each do |facet, num| %>
-        <li class="qty<%= num %>">
-          <%= link_to search_path("f" => ["#{type}|#{facet}"]) do %>
-            <% text = facet.blank? ? "No label" : facet %>
-            <span class="browsename"><%= text %></span>
-            <span class="browsenumber"><%= num %></span>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-<% end %>
+<div>
+
+  <!-- tab list -->
+  <ul class="nav nav-tabs" role="tablist">
+    <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
+      <li role="presentation" <%= "class=active" if index == 0 %>>
+        <% id = datify_name facet_name %>
+        <a href="#<%= id %>" aria-controls="<%= id %>" role="tab" data-toggle="tab">
+          <%= facet_info["label"] %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- content -->
+  <div class="tab-content">
+    <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
+      <% id = datify_name facet_name %>
+      <div role="tabpanel" class="tab-pane <%= "active" if index == 0 %>" id="<%= id %>">
+        <% if @res.has_key?(facet_name) %>
+          <ul>
+            <% @res[facet_name].each do |list| %>
+              <li>
+                <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]) do %>
+                  <% text = list[0].blank? ? "No label" : list[0] %>
+                  <span class="browsename"><%= text %></span>
+                  <span class="badge"><%= list[1] %></span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+</div>
