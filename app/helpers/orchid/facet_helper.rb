@@ -35,9 +35,18 @@ module Orchid::FacetHelper
     return new_params
   end
 
-  def facet_selected? type, facet
+  # can return either true when
+  # f[] = ["category|(anything)"]
+  # or you can specify that you would like to match exactly
+  # f[] = ["category|Writings"], etc
+  # will depend on if second parameter is sent
+  def facet_selected? type, facet=""
     if params["f"].present?
-      return params["f"].include?("#{type}|#{facet}")
+      if facet && facet.length > 0
+        return params["f"].include?("#{type}|#{facet}")
+      else
+        return params["f"].any? { |f| f.include?(type) }
+      end
     else
       return false
     end

@@ -1,0 +1,38 @@
+<div class="clearfix">
+  <!-- text search -->
+  <% if params["q"].present? %>
+    <div class="pull-left form-inline buffer-bottom buffer-right-sm">
+      <div class="input-group">
+        <div class="input-group-addon" title="Search Text">
+          Search : <%= params["q"] %>
+        </div>
+        <div class="input-group-btn" aria-label="Clear Search Text" title="Clear Search Text">
+          <%= link_to clear_search_text, class: "btn btn-default btn-sm", role: "button" do %>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- selected facets -->
+  <% if params["f"].present? %>
+    <% params["f"].each do |f| %>
+      <% type, facet = f.split("|") %>
+      <% info = Facets.facet_info[type] %>
+
+      <div class="pull-left form-inline buffer-bottom buffer-right-sm">
+        <div class="input-group">
+          <div class="input-group-addon" title="<%= info['label'] %> Filter">
+            <%= info["label"] %> : <%= facet %>
+          </div>
+          <div class="input-group-btn" aria-label="Clear <%= info["label"] %> Filter" title="Clear <%= info["label"] %> Filter">
+            <%= link_to search_path(remove_facet(type, facet)), class: "btn btn-default btn-sm", role: "button" do %>
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
