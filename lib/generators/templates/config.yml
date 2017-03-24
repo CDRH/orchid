@@ -1,0 +1,24 @@
+# config/config.yml and config/config.example.yml
+
+default: &default
+  # api metadata / description
+  project_name: Sample Template
+  project_shortname: Template
+  version: 0.1.0
+  api_opts:
+    # sort: score desc
+    rows: 50
+    facet_limit: 20
+    # term or count are the only options
+    facet_sort: count|desc
+test:
+  <<: *default
+development:
+  <<: *default
+  api_path: http://api_dev_path.unl.edu
+  # if this app should only be pointed at a specific
+  # collection, use a path similar to the below
+  # api_path: http://api_dev_path.unl.edu/collection/cather
+production:
+  <<: *default
+  api_path: http://api_path.unl.edu
