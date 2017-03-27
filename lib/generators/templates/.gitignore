@@ -1,0 +1,28 @@
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore Byebug command history file.
+.byebug_history
+
+# TODO Comment out these rules if you are OK with secrets being uploaded to the repo
+config/initializers/secret_token.rb
+config/secrets.yml
+
+# Ignore configuration files
+config/config.yml
+config/database.yml
+
+# Ignore precompiled assets
+public/assets
+
+# We all know my feelings on this, I just want to make extra sure
+.DS_Store
