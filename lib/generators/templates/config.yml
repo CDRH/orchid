@@ -6,10 +6,12 @@ default: &default
   project_shortname: Template
   version: 0.1.0
   api_opts:
-    # sort: score desc
+    sort:
+      - title|asc
     rows: 50
+
+    # facet info
     facet_limit: 20
-    # term or count are the only options
     facet_sort: count|desc
 test:
   <<: *default
