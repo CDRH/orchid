@@ -24,6 +24,10 @@ class SetupGenerator < Rails::Generators::Base
     msgs << stylesheet
 
     puts msgs.join("\n")
+
+    Bundler.with_clean_env do
+      run "bundle install"
+    end
   end
 
   private
@@ -60,7 +64,9 @@ class SetupGenerator < Rails::Generators::Base
   end
 
   def gems
-    # TODO: Should we update this version elsewhere?
+    # remove the previous gem from Gemfile
+    gsub_file "#{@app_dir}/Gemfile", /^(?!#\s)gem\s["']api_bridge["'].*$/, ""
+    # install the correct version of the gem
     gem "api_bridge", git: "https://github.com/CDRH/api_bridge", version: "0.0.1"
   end
 
