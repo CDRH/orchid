@@ -1,0 +1,12 @@
+<div class="header">
+  <div class="container">
+    <%= link_to home_path do %>
+      <div class="site_title">
+        <h1><%= CONFIG["project_name"] %></h1>
+        <h2>Subtitle for CDRH Elasticsearch API Sites</h2>
+      </div>
+    <% end %>
+  </div>
+
+  <%= render partial: "layouts/body/navbar" %>
+</div><!-- /header -->
