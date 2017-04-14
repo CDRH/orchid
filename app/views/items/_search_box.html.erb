@@ -8,13 +8,13 @@
               <!-- search box -->
               <%= text_field_tag(:q, params[:q], :placeholder => "Search for...", :class => "form-control") %>
               <!-- add existing search parameters to query -->
-              <%= render partial: "partials/search_hidden_fields" %>
+              <%= render partial: "hidden_fields" %>
               <!-- submit -->
               <span class="input-group-btn">
                 <%= submit_tag "Search", class: "btn btn-primary", name: nil, data: { disable_with: false } %>
               </span>
             <% end %>
-            <%= render partial: "partials/search_help" %>
+            <%= render partial: "help" %>
             <%= link_to "Browse All Items", search_path %>
           </div>
           <div class="col-md-2">

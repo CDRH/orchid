@@ -10,7 +10,7 @@ module Orchid::PaginationHelper
 
       # TODO note this seems to only work with symbols not strings
       # in the hash
-      render partial: "partials/paginator", locals: {
+      render partial: "paginator", locals: {
         current: current,
         opts: new_params,
         pages_next: pages_next,
