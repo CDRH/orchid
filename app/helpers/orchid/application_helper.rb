@@ -6,7 +6,6 @@ module Orchid::ApplicationHelper
 
   def clear_search_text
     new_params = copy_params
-    # TODO also remove qfield from here if that is implemented
     new_params.delete("q")
     return new_params
   end
