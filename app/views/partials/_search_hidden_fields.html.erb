@@ -1,0 +1,9 @@
+<!-- include existing parameters-->
+<% if params["f"].present? %>
+  <% params["f"].each do |f| %>
+    <%= hidden_field_tag "f[]", f %>
+  <% end %>
+<% end %>
+
+<%# any other required hidden fields will go here
+    for example: date ranges %>
