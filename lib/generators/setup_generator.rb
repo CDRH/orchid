@@ -23,11 +23,12 @@ class SetupGenerator < Rails::Generators::Base
     msgs << facets
     msgs << stylesheet
 
-    puts msgs.join("\n")
-
     Bundler.with_clean_env do
       run "bundle install"
     end
+
+    puts msgs.compact.join("\n")
+
   end
 
   private
@@ -54,12 +55,12 @@ class SetupGenerator < Rails::Generators::Base
   end
 
   def facets
-    if !File.exist?("#{@app_dir}/app/models/facets.rb")
+    if File.exist?("#{@app_dir}/app/models/facets.rb")
+      puts "Found existing file at facets.rb, skipping"
+    else
       puts "Copying facets.rb"
       FileUtils.cp("#{@this_dir}/../../app/models/facets.rb", "#{@app_dir}/app/models/facets.rb")
       return "Customize your facets in app/models/facets.rb".green
-    else
-      puts "Found existing file in facets.rb, skipping"
     end
   end
 
@@ -67,7 +68,7 @@ class SetupGenerator < Rails::Generators::Base
     # remove the previous gem from Gemfile
     gsub_file "#{@app_dir}/Gemfile", /^(?!#\s)gem\s["']api_bridge["'].*$/, ""
     # install the correct version of the gem
-    gem "api_bridge", git: "https://github.com/CDRH/api_bridge", version: "0.0.1"
+    gem "api_bridge", git: "https://github.com/CDRH/api_bridge", tag: Orchid.api_bridge_version
   end
 
   def gitignore
@@ -85,7 +86,9 @@ class SetupGenerator < Rails::Generators::Base
 
   def stylesheet
     stylesheet_path = "app/assets/stylesheets/cdrh-bootstrap-variables.scss"
-    if !File.exist?("#{@app_dir}/#{stylesheet_path}")
+    if File.exist?("#{@app_dir}/#{stylesheet_path}")
+      return "Found existing file at cdrh-bootstrap-variables.scss, skipping".cyan
+    else
       FileUtils.cp("#{@this_dir}/../../#{stylesheet_path}", "#{@app_dir}/#{stylesheet_path}")
       return "Customize your stylesheet in #{stylesheet_path}".green
     end
