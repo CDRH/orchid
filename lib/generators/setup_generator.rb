@@ -12,16 +12,18 @@ class SetupGenerator < Rails::Generators::Base
   EOS
 
   def setup_files
-    @this_dir = File.expand_path File.dirname(__FILE__)
-    @app_dir = Rails.root
+    @this_app = "#{File.expand_path File.dirname(__FILE__)}/../.."
+    @new_app = Rails.root
 
     msgs = []
 
+    msgs << copy_initializer
     msgs << copy_configs
     msgs << gitignore
     msgs << gems
     msgs << facets
     msgs << stylesheet
+    msgs << remove_files
 
     Bundler.with_clean_env do
       run "bundle install"
@@ -34,64 +36,57 @@ class SetupGenerator < Rails::Generators::Base
   private
 
   def copy_configs
-    puts "Copying in configuration files"
-
-    # initializer
-    # NOTE: This could be done with the "initializer" method instead
-    # http://guides.rubyonrails.org/generators.html#initializer
-    FileUtils.cp("#{@this_dir}/templates/config.rb", "#{@app_dir}/config/initializers/config.rb")
-
     # example config file
-    FileUtils.cp("#{@this_dir}/templates/config.yml", "#{@app_dir}/config/config.example.yml")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/config.yml", "#{@new_app}/config/config.example.yml")
 
     # config file
-    # does not overwrite existing config file
-    if File.exist?("#{@app_dir}/config/config.yml")
-      return "Verify that your config/config.yml file matches the options in config/config.example.yml".cyan
-    else
-      FileUtils.cp("#{@this_dir}/templates/config.yml", "#{@app_dir}/config/config.yml")
-      return "Customize your app in config/config.yml".green
-    end
+    FileUtils.cp("#{@this_app}/lib/generators/templates/config.yml", "#{@new_app}/config/config.yml")
+    return "Customize your app in config/config.yml".green
+  end
+
+  def copy_initializer
+    # NOTE: This could be done with the "initializer" method instead
+    # http://guides.rubyonrails.org/generators.html#initializer
+    FileUtils.cp("#{@this_app}/lib/generators/templates/config.rb", "#{@new_app}/config/initializers/config.rb")
   end
 
   def facets
-    if File.exist?("#{@app_dir}/app/models/facets.rb")
-      puts "Found existing file at facets.rb, skipping"
-    else
-      puts "Copying facets.rb"
-      FileUtils.cp("#{@this_dir}/../../app/models/facets.rb", "#{@app_dir}/app/models/facets.rb")
-      return "Customize your facets in app/models/facets.rb".green
-    end
+    FileUtils.cp("#{@this_app}/app/models/facets.rb", "#{@new_app}/app/models/facets.rb")
+    return "Customize your facets in app/models/facets.rb".green
   end
 
   def gems
-    # remove the previous gem from Gemfile
-    gsub_file "#{@app_dir}/Gemfile", /^(?!#\s)gem\s["']api_bridge["'].*$/, ""
+
+    # bootstrap
+    gem 'bootstrap-sass', '~> 3.3.6'
+
+    # remove the previous api_bridge gem from Gemfile
+    gsub_file "#{@new_app}/Gemfile", /^(?!#\s)gem\s["']api_bridge["'].*$/, ""
     # install the correct version of the gem
     gem "api_bridge", git: "https://github.com/CDRH/api_bridge", tag: Orchid.api_bridge_version
   end
 
   def gitignore
-    puts "Copying .gitignore file"
+    FileUtils.cp("#{@this_app}/lib/generators/templates/.gitignore", "#{@new_app}/.gitignore")
+    return "Add more files to .gitignore which should not be version controlled".green
+  end
 
-    # if gitignore exists, create example file
-    if File.exist?("#{@app_dir}/.gitignore")
-      FileUtils.cp("#{@this_dir}/templates/.gitignore", "#{@app_dir}/.gitignore_example")
-      return "Verify that your .gitignore file matches the options in .gitignore_example".cyan
-    else
-      FileUtils.cp("#{@this_dir}/templates/.gitignore", "#{@app_dir}/.gitignore")
-      return "Add more files to .gitignore which should not be version controlled".green
-    end
+  def remove_files
+    # application_controller
+    FileUtils.rm("#{@new_app}/app/controllers/application_controller.rb")
+    # layout
+    FileUtils.rm("#{@new_app}/app/views/layouts/application.html.erb")
   end
 
   def stylesheet
-    stylesheet_path = "app/assets/stylesheets/cdrh-bootstrap-variables.scss"
-    if File.exist?("#{@app_dir}/#{stylesheet_path}")
-      return "Found existing file at cdrh-bootstrap-variables.scss, skipping".cyan
-    else
-      FileUtils.cp("#{@this_dir}/../../#{stylesheet_path}", "#{@app_dir}/#{stylesheet_path}")
-      return "Customize your stylesheet in #{stylesheet_path}".green
-    end
+    # variables
+    FileUtils.cp("#{@this_app}/app/assets/stylesheets/cdrh-bootstrap-variables.scss", "#{@new_app}/app/assets/stylesheets/cdrh-bootstrap-variables.scss")
+
+    # sub application.css for scss with variables
+    FileUtils.rm("#{@new_app}/app/assets/stylesheets/application.css")
+    FileUtils.cp("#{@this_app}/app/assets/stylesheets/application.scss", "#{@new_app}/app/assets/stylesheets/application.scss")
+
+    return "Customize your stylesheet in app/assets/stylseheets/cdrh-bootstrap-variables.scss".green
   end
 
 end
