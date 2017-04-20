@@ -19,11 +19,12 @@ class SetupGenerator < Rails::Generators::Base
 
     msgs << copy_initializer
     msgs << copy_configs
-    msgs << gitignore
     msgs << gems
+    msgs << gitignore
     msgs << facets
-    msgs << stylesheet
     msgs << remove_files
+    msgs << scripts
+    msgs << stylesheet
 
     Bundler.with_clean_env do
       run "bundle install"
@@ -59,6 +60,7 @@ class SetupGenerator < Rails::Generators::Base
 
     # bootstrap
     gem 'bootstrap-sass', '~> 3.3.6'
+    gem 'jquery-rails'
 
     # remove the previous api_bridge gem from Gemfile
     gsub_file "#{@new_app}/Gemfile", /^(?!#\s)gem\s["']api_bridge["'].*$/, ""
@@ -76,6 +78,12 @@ class SetupGenerator < Rails::Generators::Base
     FileUtils.rm("#{@new_app}/app/controllers/application_controller.rb")
     # layout
     FileUtils.rm("#{@new_app}/app/views/layouts/application.html.erb")
+  end
+
+  def scripts
+    # copy over application.js
+    FileUtils.cp("#{@this_app}/app/assets/javascripts/application.js", "#{@new_app}/app/assets/javascripts/application.js")
+    return "Add custom javascript to app/assets/javascripts/application.js".green
   end
 
   def stylesheet
