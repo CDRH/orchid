@@ -83,7 +83,7 @@ class SetupGenerator < Rails::Generators::Base
   def scripts
     # copy over application.js
     FileUtils.cp("#{@this_app}/app/assets/javascripts/application.js", "#{@new_app}/app/assets/javascripts/application.js")
-    return "Add custom javascript to app/assets/javascripts/application.js".green
+    return "Add custom site-wide javascript files to app/assets/javascripts/\nAll .js files located there are included on every page".green
   end
 
   def stylesheet
