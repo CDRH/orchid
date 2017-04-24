@@ -54,20 +54,21 @@ gem 'orchid', git: 'https://github.com/CDRH/orchid', tag: '0.0.2'
 
 And then execute:
 ```bash
-$ bundle install
+bundle install
 ```
 
 ## Usage
 
-Once orchid is installed successfully, run a generator to prepare your new rails app. Run this with a `--help` to see what will be changed before you begin. This will NOT erase or overwrite any configuration files, only example configuration files. 
+Once orchid is installed successfully, run a generator to prepare your new rails app. Run this with a `--help` to see what will be changed before you begin. This will NOT erase or overwrite any configuration files, only example configuration files.
 
 ```bash
-$ rails generator setup
+rails g(enerate) setup
 ```
+
 The script should give you instructions about which steps to take next, but in general you will need to customize the following files:
 
-- config/config.yml
-- app/models/facets.rb
+- `config/config.yml`
+- `app/models/facets.rb`
 
 ## Customization
 
@@ -78,9 +79,12 @@ api_path: https://api_dev_path.unl.edu
 api_path: https://api_dev_path.unl.edu/collection/collection_name
 ```
 
-Any endpoint is valid as long as the path `/items` could be appended to it in the API to receive a list of items.  In the configuration file you may also set a long project name, and a shortname which will be used for things like the `<title/>` element. You may also change the number of search results which come back by default, and the type of sort which will be used for browsing, and facet defaults, all settings which may be overridden in specific requests.
+Any endpoint is valid as long as the path `/items` could be appended to it in the API to receive a list of items.  In the configuration file you may also set a long project name, and a shortname which will be used for things like the `<title>` element. You may also change the number of search results which come back by default, and the type of sort which will be used for browsing, and facet defaults, all settings which may be overridden in specific requests.
 
 You may also want to peruse the `app/models/facets.rb` file and alter it for specific fields which you would prefer.
+
+### (Re)start
+After customization, one must (re)start the Rails app.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
