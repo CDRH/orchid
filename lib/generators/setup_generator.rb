@@ -91,14 +91,14 @@ class SetupGenerator < Rails::Generators::Base
   end
 
   def stylesheet
-    # variables
+    # Bootstrap variable overrides
     FileUtils.cp("#{@this_app}/app/assets/stylesheets/cdrh-bootstrap-variables.scss", "#{@new_app}/app/assets/stylesheets/cdrh-bootstrap-variables.scss")
 
-    # sub application.css for scss with variables
+    # Must use application.scss for mixins and variables
     FileUtils.rm("#{@new_app}/app/assets/stylesheets/application.css")
     FileUtils.cp("#{@this_app}/app/assets/stylesheets/application.scss", "#{@new_app}/app/assets/stylesheets/application.scss")
 
-    return "Customize your stylesheet in app/assets/stylseheets/cdrh-bootstrap-variables.scss".green
+    return "Customize Bootstrap in app/assets/stylseheets/cdrh-bootstrap-variables.scss\nApplication-wide styling to be added via application.scss\n\nView-specific styling to be added to @extra_css instance variable, e.g.:\n  @extra_css = [stylesheet_link_tag(\"leaflet\")]".green
   end
 
 end

@@ -10,6 +10,11 @@
 
   <!-- Stylesheets -->
   <%= stylesheet_link_tag 'application', media: 'all' %>
+  <% if !@extra_css.blank? %>
+    <% Array.wrap(@extra_css).each do |css|
+      concat "  #{css}".html_safe
+    end %>
+  <% end %>
 
   <!-- Scripts -->
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
