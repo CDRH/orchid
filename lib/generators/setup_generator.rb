@@ -31,7 +31,7 @@ class SetupGenerator < Rails::Generators::Base
       run "bundle install"
     end
 
-    puts msgs.compact.join("\n")
+    puts msgs.compact.join("\n\n")
 
   end
 
@@ -61,10 +61,10 @@ class SetupGenerator < Rails::Generators::Base
     config_set("project_subtitle", answer)
 
     answer = prompt_for_value("Dev API Path", "https://cdrhdev1.unl.edu/api")
-    config_replace("api_path: https://cdrhdev1.unl.edu/api", answer)
+    config_replace("api_path: https://cdrhdev1.unl.edu/api", "api_path: #{answer}")
 
     answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu")
-    config_replace("api_path: https://cdrhapi.unl.edu", answer)
+    config_replace("api_path: https://cdrhapi.unl.edu", "api_path: #{answer}")
 
     return "Customize your app in config/config.yml".green
   end
@@ -110,9 +110,10 @@ class SetupGenerator < Rails::Generators::Base
   end
 
   def remove_files
-    # This causes the new app to use Orchid's corresponding files
     FileUtils.rm("#{@new_app}/app/controllers/application_controller.rb")
     FileUtils.rm("#{@new_app}/app/views/layouts/application.html.erb")
+
+    return "Application controller and layout removed to use Orchid's"
   end
 
   def scripts
