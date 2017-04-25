@@ -20,17 +20,27 @@
 
   <!-- Stylesheets -->
   <%= stylesheet_link_tag 'application', media: 'all' %>
-  <% if !@extra_css.blank? %>
-    <% Array.wrap(@extra_css).each do |css|
-      concat "  #{css}".html_safe
+  <% if !@ext_css.blank? %>
+    <% Array.wrap(@ext_css).each do |css|
+      stylesheet_link_tag(css)
+    end %>
+  <% end %>
+  <% if !@inline_css.blank? %>
+    <% Array.wrap(@inline_css).each do |css|
+      concat "  <style>#{css}</style>".html_safe
     end %>
   <% end %>
 
   <!-- Scripts -->
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
-  <% if !@extra_js.blank? %>
-    <% Array.wrap(@extra_js).each do |js|
-      concat "  #{js}".html_safe
+  <% if !@ext_js.blank? %>
+    <% Array.wrap(@ext_js).each do |js|
+      javascript_include_tag(js)
+    end %>
+  <% end %>
+  <% if !@inline_js.blank? %>
+    <% Array.wrap(@inline_js).each do |js|
+      concat "  <script>#{js}</script>".html_safe
     end %>
   <% end %>
 

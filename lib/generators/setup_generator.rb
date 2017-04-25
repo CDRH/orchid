@@ -90,7 +90,15 @@ class SetupGenerator < Rails::Generators::Base
     # Create directory for auto-included app-wide JavaScript
     FileUtils.mkdir("#{@new_app}/app/assets/javascripts/global")
 
-    return "Add app-wide JavaScript to app/assets/javascripts/global/\nAll .js file contents there are served with every page\n\nView-specific JS is to be added to @extra_js instance variable, e.g.:\n  @extra_js = [javascript_include_tag(\"search\")]".green
+    return <<-EOS.green
+Add app-wide JavaScript to app/assets/javascripts/global/
+All .js file contents there are served with every page
+
+View-specific JS files to be added via @ext_js instance variable, e.g.:
+  @ext_js = %w(leaflet search)
+Small inline scripting to be added via @inline_js instance variable, e.g.:
+  @inline_js = ["var power_level = 9000;"]
+    EOS
   end
 
   def stylesheet
@@ -101,7 +109,15 @@ class SetupGenerator < Rails::Generators::Base
     FileUtils.rm("#{@new_app}/app/assets/stylesheets/application.css")
     FileUtils.cp("#{@this_app}/app/assets/stylesheets/application.scss", "#{@new_app}/app/assets/stylesheets/application.scss")
 
-    return "Customize Bootstrap in app/assets/stylseheets/cdrh-bootstrap-variables.scss\nApplication-wide styling to be added via application.scss\n\nView-specific styling to be added to @extra_css instance variable, e.g.:\n  @extra_css = [stylesheet_link_tag(\"leaflet\")]".green
+    return <<-EOS.green
+Customize Bootstrap in app/assets/stylseheets/cdrh-bootstrap-variables.scss
+Application-wide styling to be added via application.scss
+
+View-specific styling to be added to @ext_css instance variable, e.g.:
+  @ext_css = %w(leaflet stamen)
+Small inline styling to be added via @inline_css instance variable, e.g.:
+  @inline_css = [".cats .hidden {display: none;}"]
+    EOS
   end
 
 end
