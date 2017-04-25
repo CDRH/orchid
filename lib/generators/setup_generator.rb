@@ -19,9 +19,10 @@ class SetupGenerator < Rails::Generators::Base
 
     msgs << copy_initializer
     msgs << copy_configs
+    msgs << facets
+    msgs << footer_logo
     msgs << gems
     msgs << gitignore
-    msgs << facets
     msgs << remove_files
     msgs << scripts
     msgs << stylesheet
@@ -37,11 +38,9 @@ class SetupGenerator < Rails::Generators::Base
   private
 
   def copy_configs
-    # example config file
     FileUtils.cp("#{@this_app}/lib/generators/templates/config.yml", "#{@new_app}/config/config.example.yml")
-
-    # config file
     FileUtils.cp("#{@this_app}/lib/generators/templates/config.yml", "#{@new_app}/config/config.yml")
+
     return "Customize your app in config/config.yml".green
   end
 
@@ -56,9 +55,14 @@ class SetupGenerator < Rails::Generators::Base
     return "Customize your facets in app/models/facets.rb".green
   end
 
-  def gems
+  def footer_logo
+    logo_image = "footer_unl_logo.png"
+    FileUtils.cp("#{@this_app}/app/assets/images/#{logo_image}", "#{@new_app}/app/assets/images/#{logo_image}")
 
-    # bootstrap
+    return "Footer logo copied to app/assets/images/#{logo_image}"
+  end
+
+  def gems
     gem 'bootstrap-sass', '~> 3.3.6'
     gem 'jquery-rails'
 
@@ -74,9 +78,8 @@ class SetupGenerator < Rails::Generators::Base
   end
 
   def remove_files
-    # application_controller
+    # This causes the new app to use Orchid's corresponding files
     FileUtils.rm("#{@new_app}/app/controllers/application_controller.rb")
-    # layout
     FileUtils.rm("#{@new_app}/app/views/layouts/application.html.erb")
   end
 

@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <title><%= CONFIG["project_shortname"] %></title>
+  <title><% if !@title.blank? %><%= @title %> | <% end %><%= CONFIG["project_shortname"] %></title>
+  <meta name="application-name" content="<%= CONFIG["project_shortname"] %>">
+  <% if !@description.blank? %>
+  <meta name="description" content="<%= @description %>">
+  <% end %>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <%= csrf_meta_tags %>
-  <%# favicon_link_tag %>
+
+  <!-- Favicons -->
+  <%#= favicon_link_tag "favicon.png", rel: "icon", sizes: "192x192", type: nil %>
+  <%#= favicon_link_tag "apple-touch-icon.png", rel: "apple-touch-icon", sizes: "180x180", type: nil %>
+  <!-- <meta name="msapplication-config" content="<%= browserconfig_path format: :xml %>"> -->
+  <%#= favicon_link_tag "favicon.ico", rel: "icon", type: nil %>
 
   <!-- Stylesheets -->
   <%= stylesheet_link_tag 'application', media: 'all' %>
@@ -30,7 +40,6 @@
         <%= link_to home_path do %>
           <div class="site_title">
             <h1><%= CONFIG["project_name"] %></h1>
-            <h2>Subtitle for CDRH Elasticsearch API Sites</h2>
           </div>
         <% end %>
       </div>
@@ -65,7 +74,7 @@
         <div class="footer_info">
           <p>Created by the <a href="http://cdrh.unl.edu">Center for Digital Research in the Humanities</a>.</p>
           <div class="footer_logo">
-            <a href="http://www.unl.edu"><%# image_tag 'unl_black.png' %></a>
+            <a href="http://www.unl.edu"><%= image_tag 'unl_black.png' %></a>
           </div>
         </div><!-- /footer_info -->
       </div> <!-- /container -->
