@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require_tree .
+
+// Include all JS files inside the global/ directory
+//= require_tree ./global

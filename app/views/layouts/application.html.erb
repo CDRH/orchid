@@ -13,6 +13,11 @@
 
   <!-- Scripts -->
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+  <% if !@extra_js.blank? %>
+    <% Array.wrap(@extra_js).each do |js|
+      concat "  #{js}".html_safe
+    end %>
+  <% end %>
 
   <body>
     <div class="header">

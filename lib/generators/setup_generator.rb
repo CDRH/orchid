@@ -81,9 +81,13 @@ class SetupGenerator < Rails::Generators::Base
   end
 
   def scripts
-    # copy over application.js
     FileUtils.cp("#{@this_app}/app/assets/javascripts/application.js", "#{@new_app}/app/assets/javascripts/application.js")
-    return "Add custom site-wide javascript files to app/assets/javascripts/\nAll .js files located there are included on every page".green
+    FileUtils.cp("#{@this_app}/app/assets/javascripts/search.js", "#{@new_app}/app/assets/javascripts/search.js")
+
+    # Create directory for auto-included app-wide JavaScript
+    FileUtils.mkdir("#{@new_app}/app/assets/javascripts/global")
+
+    return "Add app-wide JavaScript to app/assets/javascripts/global/\nAll .js file contents there are served with every page\n\nView-specific JS is to be added to @extra_js instance variable, e.g.:\n  @extra_js = [javascript_include_tag(\"search\")]".green
   end
 
   def stylesheet

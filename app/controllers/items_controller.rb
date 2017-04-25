@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
   end
 
   def index
+    @extra_js = [javascript_include_tag("search")]
     @res = $api.query(params)
   end
 
