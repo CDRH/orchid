@@ -90,6 +90,7 @@ class SetupGenerator < Rails::Generators::Base
   def gems
     gem 'bootstrap-sass', '~> 3.3.6'
     gem 'jquery-rails'
+    gem 'jquery-turbolinks'
 
     # remove the previous api_bridge gem from Gemfile
     gsub_file "#{@new_app}/Gemfile", /^(?!#\s)gem\s["']api_bridge["'].*$/, ""
