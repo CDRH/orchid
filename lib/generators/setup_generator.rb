@@ -119,7 +119,7 @@ class SetupGenerator < Rails::Generators::Base
 
   def scripts
     # Remove default JS assets so Orchid's JS pipeline is used
-    FileUtils.rm_rf("#{@new_app}/app/assets/javascripts/.", secure: true
+    FileUtils.rm_rf("#{@new_app}/app/assets/javascripts/.", secure: true)
 
     # Create directory for auto-included app-wide JavaScript
     FileUtils.mkdir("#{@new_app}/app/assets/javascripts/global")
