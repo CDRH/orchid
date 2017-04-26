@@ -22,7 +22,7 @@
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <% if !@ext_css.blank? %>
     <% Array.wrap(@ext_css).each do |css|
-      stylesheet_link_tag(css)
+      concat stylesheet_link_tag(css)
     end %>
   <% end %>
   <% if !@inline_css.blank? %>
@@ -35,7 +35,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
   <% if !@ext_js.blank? %>
     <% Array.wrap(@ext_js).each do |js|
-      javascript_include_tag(js)
+      concat javascript_include_tag(js)
     end %>
   <% end %>
   <% if !@inline_js.blank? %>
