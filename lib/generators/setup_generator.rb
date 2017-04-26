@@ -117,8 +117,8 @@ class SetupGenerator < Rails::Generators::Base
   end
 
   def scripts
-    FileUtils.cp("#{@this_app}/app/assets/javascripts/application.js", "#{@new_app}/app/assets/javascripts/application.js")
-    FileUtils.cp("#{@this_app}/app/assets/javascripts/search.js", "#{@new_app}/app/assets/javascripts/search.js")
+    # Remove default JS assets so Orchid's JS pipeline is used
+    FileUtils.rm_rf("#{@new_app}/app/assets/javascripts/.", secure: true
 
     # Create directory for auto-included app-wide JavaScript
     FileUtils.mkdir("#{@new_app}/app/assets/javascripts/global")
@@ -126,6 +126,8 @@ class SetupGenerator < Rails::Generators::Base
     return <<-EOS.green
 Add app-wide JavaScript to app/assets/javascripts/global/
 All .js file contents there are served with every page
+
+May also override Orchid JS pipeline and/or any individual scripts
 
 View-specific JS files to be added via @ext_js instance variable, e.g.:
   @ext_js = %w(leaflet search)

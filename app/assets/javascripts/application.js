@@ -17,3 +17,7 @@
 
 // Include all JS files inside the global/ directory
 //= require_tree ./global
+
+// Auto-compile all assets in this directory for dev environment
+// Prevents requiring adding to config/initializers/assets.rb for all envs
+//= link_tree .
