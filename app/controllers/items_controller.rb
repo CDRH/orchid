@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
   end
 
   def index
+    @ext_js = ["search"]
     @res = $api.query(params)
   end
 

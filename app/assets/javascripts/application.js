@@ -12,6 +12,16 @@
 //
 //= require jquery
 //= require jquery_ujs
+// How to fix jquery turbolinks issues:
+// https://github.com/kossnocorp/jquery.turbolinks/issues/61#issuecomment-246404796
+//= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require_tree .
+//= require turbolinks-compatibility
+
+// Include all JS files inside the global/ directory
+//= require_tree ./global
+
+// Auto-compile all assets in this directory for dev environment
+// Prevents requiring adding to config/initializers/assets.rb for all envs
+//= link_tree .

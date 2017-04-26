@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "orchid"
   s.version     = Orchid::VERSION
   s.authors     = ["Jessica Dussault", "Greg Tunink", "Karin Dalziel"]
-  s.email       = ["jdussault4@gmail.com", "techgique.unl.edu", "kdalziel@unl.edu"]
+  s.email       = ["jdussault4@gmail.com", "techgique@gmail.com", "kdalziel@unl.edu"]
   s.homepage    = "https://cdrh.unl.edu"
   s.summary     = "Template for Pando sites"
   s.description = "Template for sites powered off of Pando API"
