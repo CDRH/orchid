@@ -96,11 +96,14 @@ class SetupGenerator < Rails::Generators::Base
   def gems
     gem 'bootstrap-sass', '~> 3.3.6'
     gem 'jquery-rails'
-    gem 'jquery-turbolinks'
 
-    # remove the previous api_bridge gem from Gemfile
-    gsub_file "#{@new_app}/Gemfile", /^(?!#\s)gem\s["']api_bridge["'].*$/, ""
-    # install the correct version of the gem
+    # Remove turbolinks gem
+    gsub_file "#{@new_app}/Gemfile", /^(gem 'turbolinks'.*)$/, "#\\1"
+
+    # Remove the previous api_bridge gem from Gemfile
+    gsub_file "#{@new_app}/Gemfile", /^gem 'api_bridge'.*\n$/, ""
+
+    # Install the correct version of the gem
     gem "api_bridge", git: "https://github.com/CDRH/api_bridge", tag: Orchid.api_bridge_version
   end
 

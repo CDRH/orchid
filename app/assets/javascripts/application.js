@@ -12,12 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-// How to fix jquery turbolinks issues:
-// https://github.com/kossnocorp/jquery.turbolinks/issues/61#issuecomment-246404796
-//= require jquery.turbolinks
 //= require bootstrap-sprockets
-//= require turbolinks
-//= require turbolinks-compatibility
 
 // Include all JS files inside the global/ directory
 //= require_tree ./global
