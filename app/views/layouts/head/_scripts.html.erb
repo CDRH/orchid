@@ -1,5 +1,5 @@
 <!-- Scripts -->
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+<%= javascript_include_tag 'application' %>
 <% if @ext_js.present?
   Array.wrap(@ext_js).each do |js|
     concat "  #{javascript_include_tag js}\n".html_safe
