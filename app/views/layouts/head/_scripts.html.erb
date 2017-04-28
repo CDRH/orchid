@@ -1,12 +1,12 @@
 <!-- Scripts -->
 <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
-<% if !@ext_js.blank? %>
-  <% Array.wrap(@ext_js).each do |js|
-    concat javascript_include_tag(js)
-  end %>
-<% end %>
-<% if !@inline_js.blank? %>
-  <% Array.wrap(@inline_js).each do |js|
-    concat "  <script>#{js}</script>".html_safe
-  end %>
-<% end %>
+<% if @ext_js.present?
+  Array.wrap(@ext_js).each do |js|
+    concat "  #{javascript_include_tag js}\n".html_safe
+  end
+end %>
+<% if @inline_js.present?
+  Array.wrap(@inline_js).each do |js|
+    concat "  <script>\n#{js}\n  </script>\n".html_safe
+  end
+end %>

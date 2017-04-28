@@ -1,5 +1,5 @@
 <head>
-  <title><% if !@title.blank? %><%= @title %> | <% end %><%= CONFIG["project_shortname"] %></title>
+  <title><% if @title.present? %><%= @title %> | <% end %><%= CONFIG["project_shortname"] %></title>
   <%= render partial: "layouts/head/meta" %>
   <%= render partial: "layouts/head/favicon" %>
   <%= render partial: "layouts/head/stylesheets" %>

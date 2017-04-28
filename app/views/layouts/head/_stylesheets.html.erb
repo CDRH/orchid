@@ -1,12 +1,12 @@
 <!-- Stylesheets -->
-<%= stylesheet_link_tag 'application', media: 'all' %>
-<% if !@ext_css.blank? %>
-  <% Array.wrap(@ext_css).each do |css|
-    concat stylesheet_link_tag(css)
-  end %>
-<% end %>
-<% if !@inline_css.blank? %>
-  <% Array.wrap(@inline_css).each do |css|
-    concat "  <style>#{css}</style>".html_safe
-  end %>
-<% end %>
+<%= stylesheet_link_tag 'application' %>
+<% if @ext_css.present?
+  Array.wrap(@ext_css).each do |css|
+    concat "  #{stylesheet_link_tag css}\n".html_safe
+  end
+end %>
+<% if @inline_css.present?
+  Array.wrap(@inline_css).each do |css|
+    concat "  <style>\n#{css}\n  </style>\n".html_safe
+  end
+end %>
