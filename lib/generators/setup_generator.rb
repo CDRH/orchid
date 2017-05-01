@@ -20,6 +20,7 @@ class SetupGenerator < Rails::Generators::Base
     msgs << copy_initializer
     msgs << copy_configs
     msgs << facets
+    msgs << favicon
     msgs << footer_logo
     msgs << gems
     msgs << gitignore
@@ -80,8 +81,13 @@ class SetupGenerator < Rails::Generators::Base
     return "Customize your facets in app/models/facets.rb".green
   end
 
+  def favicon
+    FileUtils.cp("#{@this_app}/app/assets/images/favicon.png", "#{@new_app}/app/assets/images/favicon.png")
+    return "Favicon copied to app/assets/images/favicon.png. Customize implementation in application.html.erb".green
+  end
+
   def footer_logo
-    logo_image = "footer_unl_logo.png"
+    logo_image = "footer_logo.png"
     FileUtils.cp("#{@this_app}/app/assets/images/#{logo_image}", "#{@new_app}/app/assets/images/#{logo_image}")
 
     return "Footer logo copied to app/assets/images/#{logo_image}"
@@ -90,11 +96,14 @@ class SetupGenerator < Rails::Generators::Base
   def gems
     gem 'bootstrap-sass', '~> 3.3.6'
     gem 'jquery-rails'
-    gem 'jquery-turbolinks'
 
-    # remove the previous api_bridge gem from Gemfile
-    gsub_file "#{@new_app}/Gemfile", /^(?!#\s)gem\s["']api_bridge["'].*$/, ""
-    # install the correct version of the gem
+    # Remove turbolinks gem
+    gsub_file "#{@new_app}/Gemfile", /^(gem 'turbolinks'.*)$/, "#\\1"
+
+    # Remove the previous api_bridge gem from Gemfile
+    gsub_file "#{@new_app}/Gemfile", /^gem 'api_bridge'.*\n$/, ""
+
+    # Install the correct version of the gem
     gem "api_bridge", git: "https://github.com/CDRH/api_bridge", tag: Orchid.api_bridge_version
   end
 

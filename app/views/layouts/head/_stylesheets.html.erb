@@ -1,0 +1,12 @@
+<!-- Stylesheets -->
+<%= stylesheet_link_tag 'application' %>
+<% if @ext_css.present?
+  Array.wrap(@ext_css).each do |css|
+    concat "  #{stylesheet_link_tag css}\n".html_safe
+  end
+end %>
+<% if @inline_css.present?
+  Array.wrap(@inline_css).each do |css|
+    concat "  <style>\n#{css}\n  </style>\n".html_safe
+  end
+end %>

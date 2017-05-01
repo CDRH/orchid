@@ -1,0 +1,12 @@
+<!-- Scripts -->
+<%= javascript_include_tag 'application' %>
+<% if @ext_js.present?
+  Array.wrap(@ext_js).each do |js|
+    concat "  #{javascript_include_tag js}\n".html_safe
+  end
+end %>
+<% if @inline_js.present?
+  Array.wrap(@inline_js).each do |js|
+    concat "  <script>\n#{js}\n  </script>\n".html_safe
+  end
+end %>

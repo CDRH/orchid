@@ -9,7 +9,7 @@ module Orchid::SortHelper
     else
       current = "title|asc"
     end
-    render partial: "partials/sort", locals: {
+    render partial: "sort", locals: {
       current: current,
       query: params["q"].present?
     }

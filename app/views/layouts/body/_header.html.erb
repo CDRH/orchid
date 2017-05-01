@@ -1,0 +1,12 @@
+<div class="header">
+  <div class="container">
+    <%= link_to home_path do %>
+      <div id="site-title">
+        <h1><%= CONFIG["project_name"] %></h1>
+      </div>
+    <% end %>
+    <h2><%= CONFIG["project_subtitle"] %></h2>
+  </div>
+
+  <%= render partial: "layouts/body/navbar" %>
+</div><!-- /header -->

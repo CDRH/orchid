@@ -1,18 +1,18 @@
 <h2>Search Results</h2>
 
 <!-- search form -->
-<div class="row search_form">
 
-  <%= render partial: "partials/search_box" %>
+<div class="row search_form">
+  <%= render partial: "search_box" %>
 
   <div class="col-md-3">
-    <%= render partial: "partials/clear_facets" %>
-    <%= render partial: "partials/facets", locals: {facets: @res.facets} %>
+    <%= render partial: "clear_facets" %>
+    <%= render partial: "facets", locals: {facets: @res.facets} %>
   </div> <!-- col-md-3 -->
 
   <div class="col-md-9">
-    <%= render partial: "partials/search_summary_boxes" %>
-    <%= render partial: "partials/sort_and_page_ui" %>
+    <%= render partial: "summary_boxes" %>
+    <%= render partial: "sort_and_page_ui" %>
 
     <!-- search results section -->
     <h4>Your search for <%= params["q"] %> returned <%= pluralize @res.count, "result" %></h4>
@@ -20,7 +20,7 @@
     <% if @res.count > 0 %>
       <% @res.items.each do |item| %>
         <div class="searchResults">
-          <%= render partial: "partials/search_res_item", locals: {item: item } %>
+          <%= render partial: "search_res_item", locals: {item: item } %>
         </div>
       <% end %>
     <% end %>

@@ -1,95 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <title><% if !@title.blank? %><%= @title %> | <% end %><%= CONFIG["project_shortname"] %></title>
-  <meta name="application-name" content="<%= CONFIG["project_shortname"] %>">
-  <% if !@description.blank? %>
-  <meta name="description" content="<%= @description %>">
-  <% end %>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <%= csrf_meta_tags %>
-
-  <!-- Favicons -->
-  <%#= favicon_link_tag "favicon.png", rel: "icon", sizes: "192x192", type: nil %>
-  <%#= favicon_link_tag "apple-touch-icon.png", rel: "apple-touch-icon", sizes: "180x180", type: nil %>
-  <!-- <meta name="msapplication-config" content="<%#= browserconfig_path format: :xml %>"> -->
-  <%#= favicon_link_tag "favicon.ico", rel: "icon", type: nil %>
-
-  <!-- Stylesheets -->
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <% if !@ext_css.blank? %>
-    <% Array.wrap(@ext_css).each do |css|
-      concat stylesheet_link_tag(css)
-    end %>
-  <% end %>
-  <% if !@inline_css.blank? %>
-    <% Array.wrap(@inline_css).each do |css|
-      concat "  <style>#{css}</style>".html_safe
-    end %>
-  <% end %>
-
-  <!-- Scripts -->
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
-  <% if !@ext_js.blank? %>
-    <% Array.wrap(@ext_js).each do |js|
-      concat javascript_include_tag(js)
-    end %>
-  <% end %>
-  <% if !@inline_js.blank? %>
-    <% Array.wrap(@inline_js).each do |js|
-      concat "  <script>#{js}</script>".html_safe
-    end %>
-  <% end %>
-
+  <%= render partial: "layouts/head/head" %>
   <body>
-    <div class="header">
-      <div class="container">
-        <%= link_to home_path do %>
-          <div class="site_title">
-            <h1><%= CONFIG["project_name"] %></h1>
-          </div>
-        <% end %>
-        <h2><%= CONFIG["project_subtitle"] %></h2>
-      </div>
-
-      <div class="navbar navbar-default">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><%= link_to "Home", home_path %></li>
-              <li><%= link_to "Browse", browse_path %></li>
-              <li><%= link_to "Search", search_path %></li>
-              <li><%= link_to "About", about_path %></li>
-            </ul>
-          </div>
-        </div>
-      </div><!-- /navbar -->
-    </div><!-- /header -->
-
-    <div class="container" id="wrapper">
-      <%= yield %>
+    <div id="body-wrapper">
+      <%= render partial: "layouts/body/header" %>
+      <%= render partial: "layouts/body/contents" %>
+      <%= render partial: "layouts/body/footer" %>
     </div>
-
-    <div class="footer">
-      <div class="container">
-        <div class="footer_info">
-          <p>Created by the <a href="http://cdrh.unl.edu">Center for Digital Research in the Humanities</a>.</p>
-          <div class="footer_logo">
-            <a href="http://www.unl.edu"><%= image_tag 'footer_unl_logo.png' %></a>
-          </div>
-        </div><!-- /footer_info -->
-      </div> <!-- /container -->
-    </div><!-- /footer -->
-
   </body>
 </html>
