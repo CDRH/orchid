@@ -1,19 +1,6 @@
 <h2><%= @res["title"] %></h2>
 
-<div class="metadata">
-  <ul>
-    <%= metadata @res, "Title", "title", false %>
-    <%= metadata @res, "Date", "date_display" %>
-    <%= metadata @res, "Author(s)", "creators" %>
-    <%= metadata @res, "Format", "format" %>
-    <%= metadata @res, "Category", "category" %>
-    <%= metadata @res, "Subcategory", "subcategory" %>
-    <%= metadata @res, "Works", "works" %>
-    <%= metadata @res, "Place(s)", "places" %>
-    <%= metadata @res, "Annotations", "annotations", false %>
-    <li><strong>TEI XML: </strong><a href="<%= @res['uriXML'] %>"><%= @res["identifier"] %>.xml</a>
-  </ul>
-  <p>
-  <%= @res["text"] %>
-  </p>
-</div>
+<%= render "show_metadata" %>
+
+<%= render "show_content" %>
+

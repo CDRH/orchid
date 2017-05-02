@@ -33,6 +33,11 @@ class ItemsController < ApplicationController
 
   def show
     @res = $api.get_item_by_id(params["id"]).first
+    if @res
+      url = @res["uri_html"]
+      @html = Net::HTTP.get(URI.parse(url)) if url
+    end
   end
 
 end
+
