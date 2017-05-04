@@ -4,7 +4,7 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
 
 ## Installation
 
-If you have ruby and Rails 5.x installed already, create the Rails app:<br>
+If you have ruby and Rails installed already, create the Rails app:<br>
 `rails new (app name)`
 
 Skip to [All Installs](#all-installs)
@@ -15,24 +15,24 @@ There are a few additional steps when using RVM
 cd /var/local/www/rails
 rvm list
 
-# If ruby 2.4.x is not installed
-rvm install ruby-2.4
-rvm use ruby-2.4.x
+# If ruby is not installed
+rvm install ruby
+rvm use ruby(-x.x.x)
 rvm @global do gem install bundler
 
-# If one skipped the above steps, switch to ruby 2.4.x
-rvm use ruby-2.4.x
+# If one skipped the above steps, switch to desired ruby
+rvm use ruby(-x.x.x)
 rvm gemset create (app name)
 rvm gemset use (app name)
 
-# Install Rails 5.x (--pre for release candidates, --no-ri to skip docs)
-gem install rails --pre --no-ri
+# Install Rails (--no-ri to skip docs)
+gem install rails --no-ri
 
 # Create the rails app
 rails new (app name)
 
 # Set RVM ruby version and gemset
-echo 'ruby-2.4.x' > (app name)/.ruby-version
+echo 'ruby(-x.x.x)' > (app name)/.ruby-version
 echo '(app name)' > (app name)/.ruby-gemset
 ```
 
