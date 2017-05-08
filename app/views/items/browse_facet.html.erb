@@ -1,0 +1,40 @@
+<h2>Browse by <%= @browse_facet_info["label"] %></h2>
+
+<nav>
+  <ul class="nav nav-tabs bottom-buffer" role="tablist">
+    <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
+      <li role="presentation" <%= "class=active" if facet_name == @browse_facet %>>
+        <% if facet_name == @browse_facet %>
+          <a href="#"><%= facet_info["label"] %></a>
+        <% else %>
+          <% id = datify_name facet_name %>
+          <%= link_to browse_facet_path(id), html_options = {"aria-controls": id, role: "tab"} do %>
+            <%= facet_info["label"] %>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
+
+<div class="tab-content">
+  <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
+    <% id = datify_name facet_name %>
+    <div role="tabpanel" class="tab-pane <%= "active" if facet_name == @browse_facet %>" id="<%= id %>">
+      <% if @res.has_key?(facet_name) %>
+        <ul>
+          <% @res[facet_name].each do |list| %>
+            <li>
+              <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]) do %>
+                <% text = list[0].blank? ? "No label" : list[0] %>
+                <span class="browsename"><%= text %></span>
+                <span class="badge"><%= list[1] %></span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
