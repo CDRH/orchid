@@ -35,6 +35,11 @@ module Facets
     },
   }
 
+  # Remove project key if API URL uses a specific collection
+  if /\/collection\/\w+$/.match(API_PATH)
+    @facet_info.delete("project")
+  end
+
   def self.facet_info
     return @facet_info
   end
