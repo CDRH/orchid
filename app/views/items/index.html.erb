@@ -3,21 +3,21 @@
 <!-- search form -->
 
 <div class="row search_form">
-  <%= render partial: "search_box" %>
+  <%= render "search_box" %>
 
   <div class="col-md-3">
-    <%= render partial: "clear_facets" %>
-    <%= render partial: "facets", locals: {facets: @res.facets} %>
+    <%= render "clear_facets" %>
+    <%= render "facets", facets: @res.facets %>
   </div> <!-- col-md-3 -->
 
   <div class="col-md-9">
-    <%= render partial: "summary_boxes" %>
-    <%= render partial: "sort_and_page_ui" %>
+    <%= render "summary_boxes" %>
+    <%= render "sort_and_page_ui" %>
 
     <!-- search results section -->
     <h4>Your search for <%= params["q"] %> returned <%= pluralize @res.count, "result" %></h4>
 
-    <%= render partial: "search_res_items" %>
+    <%= render "search_res_items" %>
 
     <div class="col-md-9 pagination_container">
       <%= paginator @res.pages %>

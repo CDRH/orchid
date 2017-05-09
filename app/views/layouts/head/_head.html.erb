@@ -1,7 +1,7 @@
 <head>
   <title><% if @title.present? %><%= @title %> | <% end %><%= CONFIG["project_shortname"] %></title>
-  <%= render partial: "layouts/head/meta" %>
-  <%= render partial: "layouts/head/favicon" %>
-  <%= render partial: "layouts/head/stylesheets" %>
-  <%= render partial: "layouts/head/scripts" %>
+  <%= render "layouts/head/meta" %>
+  <%= render "layouts/head/favicon" %>
+  <%= render "layouts/head/stylesheets" %>
+  <%= render "layouts/head/scripts" %>
 </head>

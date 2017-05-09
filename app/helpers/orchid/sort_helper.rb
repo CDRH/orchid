@@ -9,10 +9,7 @@ module Orchid::SortHelper
     else
       current = "title|asc"
     end
-    render partial: "sort", locals: {
-      current: current,
-      query: params["q"].present?
-    }
+    render "sort", current: current, query: params["q"].present?
   end
 
   def sort type, direction="desc"
