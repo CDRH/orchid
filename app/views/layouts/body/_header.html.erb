@@ -1,6 +1,5 @@
 <div id="header">
   <div class="container">
-    <%= render "layouts/body/breadcrumbs" %>
     <%= link_to home_path do %>
       <div id="site-title">
         <h1><%= CONFIG["project_name"] %></h1>
@@ -10,4 +9,5 @@
   </div>
 
   <%= render "layouts/body/navbar" %>
+  <%= render "layouts/body/breadcrumbs" %>
 </div><!-- /header -->
