@@ -27,6 +27,8 @@ $brand-info:            #447984 !default; //blue
 $brand-warning:         #FAE579 !default; //yellow
 $brand-danger:          #D3D7D8 !default; //gray
 
+$nav-accent:            #f8f8f8 !default;
+
 
 //== Scaffolding
 //
@@ -377,7 +379,7 @@ $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2
 $navbar-collapse-max-height:       340px !default;
 
 $navbar-default-color:             #777 !default;
-$navbar-default-bg:                #f8f8f8 !default;
+$navbar-default-bg:                $nav-accent !default;
 $navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
 
 // Navbar links
@@ -438,16 +440,16 @@ $nav-disabled-link-color:                   $gray-light !default;
 $nav-disabled-link-hover-color:             $gray-light !default;
 
 //== Tabs
-$nav-tabs-border-color:                     #ddd !default;
+$nav-tabs-border-color:                     $gray-light !default;
 
 $nav-tabs-link-hover-border-color:          $gray-lighter !default;
 
-$nav-tabs-active-link-hover-bg:             $body-bg !default;
-$nav-tabs-active-link-hover-color:          $gray !default;
-$nav-tabs-active-link-hover-border-color:   #ddd !default;
+$nav-tabs-active-link-hover-bg:             $gray-light !default;
+$nav-tabs-active-link-hover-color:          $nav-accent !default;
+$nav-tabs-active-link-hover-border-color:   $gray-light !default;
 
-$nav-tabs-justified-link-border-color:            #ddd !default;
-$nav-tabs-justified-active-link-border-color:     $body-bg !default;
+$nav-tabs-justified-link-border-color:            $gray-light !default;
+$nav-tabs-justified-active-link-border-color:     $gray-light !default;
 
 //== Pills
 $nav-pills-border-radius:                   $border-radius-base !default;

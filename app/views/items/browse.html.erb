@@ -1,41 +1,19 @@
 <h2>Browse</h2>
 
-<p><%= link_to "View all items in the archive", search_path %> or use the following categories to facilitate browsing:</p>
+<p>
+  <%= link_to "All Items in the Archive", search_path, html_options = {class: "btn btn-lg btn-default"} %>
+</p>
 
-<div>
-
-  <!-- tab list -->
-  <ul class="nav nav-tabs" role="tablist">
-    <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
-      <li role="presentation" <%= "class=active" if index == 0 %>>
-        <% id = datify_name facet_name %>
-        <a href="#<%= id %>" aria-controls="<%= id %>" role="tab" data-toggle="tab">
+<h3>Browse by:</h3>
+<% Facets.facet_info.each_slice(3) do |slice| %>
+  <div class="row bottom-buffer-lg">
+    <% slice.each do |(facet_name, facet_info)| %>
+      <div class="col-md-3">
+        <% id = facet_name.parameterize %>
+        <%= link_to browse_facet_path(id), html_options = {"aria-controls": id, class: "btn btn-lg btn-block btn-default"} do %>
           <%= facet_info["label"] %>
-        </a>
-      </li>
-    <% end %>
-  </ul>
-
-  <!-- content -->
-  <div class="tab-content">
-    <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
-      <% id = datify_name facet_name %>
-      <div role="tabpanel" class="tab-pane <%= "active" if index == 0 %>" id="<%= id %>">
-        <% if @res.has_key?(facet_name) %>
-          <ul>
-            <% @res[facet_name].each do |list| %>
-              <li>
-                <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]) do %>
-                  <% text = list[0].blank? ? "No label" : list[0] %>
-                  <span class="browsename"><%= text %></span>
-                  <span class="badge"><%= list[1] %></span>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
         <% end %>
       </div>
     <% end %>
   </div>
-
-</div>
+<% end %>

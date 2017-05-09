@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   # items
   get 'browse' => 'items#browse', as: :browse
+  get 'browse/:facet' => 'items#browse_facet', as: :browse_facet
   get 'item/:id' => 'items#show', as: :item, :constraints => { :id => /[^\/]+/ }
   get 'search' => 'items#index', as: :search
 

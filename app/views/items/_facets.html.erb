@@ -5,7 +5,7 @@
   <% Facets.facet_info.each do |facet_name, info| %>
     <% if should_display?(facets[facet_name], info) %>
       <% facet_res = facets[facet_name] %>
-      <% data_safe_name = datify_name facet_name %>
+      <% data_safe_name = facet_name.parameterize  %>
       <% fparams = pull_out_fparams %>
       <% start_open = fparams.include?(facet_name) %>
       <% class_in =  start_open ? "in" : "" %>
