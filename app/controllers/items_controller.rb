@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
     @browse_facet = params[:facet]
     if @browse_facet.include?("-")
       Facets.facet_info.each_with_index do |(facet_name, facet_info), index|
-        if @browse_facet == helpers.datify_name(facet_name)
+        if @browse_facet == facet_name.parameterize
           @browse_facet = facet_name
           break
         end

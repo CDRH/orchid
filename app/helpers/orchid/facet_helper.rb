@@ -11,10 +11,6 @@ module Orchid::FacetHelper
     return key ? key : default
   end
 
-  def datify_name facet_name
-    facet_name.gsub(/[\.|]/, "-")
-  end
-
   # type = "novel"
   # facet = "emma"
   def facet_link type, facet, remove_others=false
