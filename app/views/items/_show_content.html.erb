@@ -1,0 +1,5 @@
+<% if @html %>
+  <%= @html.mb_chars.html_safe %>
+<% else %>
+  <%= @res["text"] %>
+<% end %>
