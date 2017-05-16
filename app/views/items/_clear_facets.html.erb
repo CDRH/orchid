@@ -1,4 +1,4 @@
-<% if params["f"].present? %>
+<% if params["f"].present? || date_selection?(params["date_from"], params["date_to"]) %>
   <div class="clear-filters-container">
     <%= link_to search_path({ "q" => params["q"] }) do %>
       Clear all filters 

@@ -15,6 +15,22 @@
     </div>
   <% end %>
 
+  <!-- date search -->
+  <% if date_selection?(params["date_from"], params["date_to"]) %>
+    <div class="pull-left form-inline buffer-bottom buffer-right-sm">
+      <div class="input-group">
+        <div class="input-group-addon" title="Date Selection">
+          Date : <%= @from %> to <%= @to %>
+        </div>
+        <div class="input-group-btn" aria-label="Clear Date Filter" title="Clear Date Filter">
+          <%= link_to search_path(clear_dates_params), class: "btn btn-default btn-sm", role: "button" do %>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <!-- selected facets -->
   <% if params["f"].present? %>
     <% params["f"].each do |f| %>

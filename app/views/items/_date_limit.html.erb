@@ -1,0 +1,60 @@
+<% date_selected = date_selection?(params["date_from"], params["date_to"]) %>
+<% class_in = date_selected ? "in" : "" %>
+<% class_glyphicon = date_selected ? "glyphicon-chevron-down" : "glyphicon-chevron-right" %>
+
+<div class="panel panel-default">
+  <div class="clearfix panel-heading" data-toggle="collapse" data-target="#dates" aria-label="Show Date Filters" role="Option">
+    <h3 class="pull-left panel-title">Date</h3>
+    <span class="pull-right glyphicon <%= class_glyphicon %>" aria-hidden="true"></span>
+  </div>
+  <div class="panel-body collapse <%= class_in %>" id="dates">
+    <%= form_tag(search_path, :method => "get") do %>
+      <!-- date from -->
+      <div class="form-group form-inline">
+        <% dfrom = params["date_from"] ? params["date_from"] : [] %>
+        <div class="clearfix">
+          <%= label_tag "date_from", "Date From" %>
+          <% if date_selection?(params["date_from"], params["date_to"]) %>
+            <%= link_to search_path(clear_dates_params), class: "pull-right btn btn-default btn-xs", role: "button", aria_label: "Clear Date Filter", title: "Clear Date Filter" do %>
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            <% end %>
+          <% end %>
+        </div>
+
+        <%= text_field_tag "date_from[]", dfrom[0], id: "date_from",
+            class: "form-control", placeholder: DATE_FIRST[0], maxlength: "4", size: "4", aria_label: "From Year", title: "From Year" %>
+        <%= text_field_tag "date_from[]", dfrom[1],
+            class: "form-control", placeholder: DATE_FIRST[1], maxlength: "2", size: "2", aria_label: "From Month", title: "From Month" %>
+        <%= text_field_tag "date_from[]", dfrom[2],
+            class: "form-control", placeholder: DATE_FIRST[2], maxlength: "2", size: "2", aria_label: "From Day", title: "From Day" %>
+      </div>
+
+      <!-- date to -->
+      <div class="form-group form-inline">
+        <% dto = params["date_to"] ? params["date_to"] : [] %>
+        <%= label_tag "date_to", "Date To" %><br/>
+        <%= text_field_tag "date_to[]", dto[0], id: "date_to",
+            class: "form-control", placeholder: DATE_LAST[0], maxlength: "4", size: "4", aria_label: "To Year", title: "To Year" %>
+        <%= text_field_tag "date_to[]", dto[1],
+            class: "form-control", placeholder: DATE_LAST[1], maxlength: "2", size: "2", aria_label: "To Month", title: "To Month" %>
+        <%= text_field_tag "date_to[]", dto[2],
+            class: "form-control", placeholder: DATE_LAST[2], maxlength: "2", size: "2", aria_label: "To Day", title: "To Day" %>
+      </div>
+      <%= render "hidden_fields" %>
+      <%= hidden_field_tag(:q, params["q"]) %>
+
+      <div class="clearfix buffer-bottom-sm">
+        <%= submit_tag "Filter", class: "btn btn-primary buffer-right-sm", name: nil, data: { disable_with: false } %>
+        <button type="button" class="btn btn-link glyphicon glyphicon-question-sign pull-right"
+          data-toggle="collapse" data-target="#date_help"
+          aria-expanded="false" aria-controls="date_help"
+          aria-label="Date Filter Help" title="Date Filter Help">
+        </button>
+      </div>
+    <% end %>
+
+    <div id="date_help" class="collapse">
+      <%= render "date_filter_help" %>
+    </div>
+  </div>
+</div>
