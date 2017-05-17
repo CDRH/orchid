@@ -10,14 +10,14 @@ module Orchid::DateHelper
 
   # TODO could abstract this into a CDRH gem
   def date_default(date_params, default_date)
-    y, m, d = date_params.map { |x| x.gsub(/\s+/, "") }
+    y, m, d = date_params.map { |x| x.strip }
     y = default_date[0] if y.blank?
     m = default_date[1] if m.blank?
     d = default_date[2] if d.blank?
 
-    # solr can't handle months and days without zero padding (01)
-    m = "0#{m}" if m.length == 1
-    d = "0#{d}" if d.length == 1
+    # pad month and day with zeros (1 => 01)
+    m = m.rjust(2, "0")
+    d = d.rjust(2, "0")
 
     return "#{y}-#{m}-#{d}"
   end
@@ -46,7 +46,7 @@ module Orchid::DateHelper
 
   def date_selection?(from, to)
     [from, to].each do |date|
-      if !date.blank? && !date.reject(&:empty?).blank?
+      if date.present? && date.reject(&:empty?).present?
         return true
       end
     end
