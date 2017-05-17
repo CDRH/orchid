@@ -15,7 +15,7 @@
     <%= render "sort_and_page_ui" %>
 
     <!-- search results section -->
-    <h4>Your search for <%= params["q"] %> returned <%= pluralize @res.count, "result" %></h4>
+    <h4>Your search returned <%= pluralize @res.count, "result" %></h4>
 
     <%= render "search_res_items" %>
 
