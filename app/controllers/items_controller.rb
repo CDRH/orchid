@@ -28,7 +28,8 @@ class ItemsController < ApplicationController
 
   def index
     @ext_js = ["search"]
-    options, @from, @to = helpers.date_filter
+    options = params.permit!.deep_dup
+    options, @from, @to = helpers.date_filter(options)
     @res = $api.query(options)
   end
 

@@ -22,13 +22,16 @@ module Orchid::DateHelper
     return "#{y}-#{m}-#{d}"
   end
 
+  def date_present? date
+    return Array(date).reject(&:empty?).present?
+  end
+
   # main method responsible for taking params and returning
   # a set of options for querying the API
-  def date_filter aParams=params
-    options = params.permit!.deep_dup
+  # assumes that options is a hash, NOT params object
+  def date_filter options
     # date search
-    if (!options["date_from"].nil? && !options["date_from"].join('').empty?) \
-    || (!options["date_to"].nil? && !options["date_to"].join('').empty?)
+    if date_present?(options["date_from"]) || date_present?(options["date_to"])
       from, to = date_set(options["date_from"], options["date_to"])
       options["f"] = [] if !options.has_key?("f")
       options["f"] << "date|#{from}|#{to}"
@@ -41,7 +44,7 @@ module Orchid::DateHelper
   # TODO could abstract this into a CDRH gem
   # if a date is blank, use the other date in its place
   def date_overwrite(original, overwrite)
-    return original.reject(&:empty?).blank? ? overwrite : original
+    return date_present?(original) ? original : overwrite
   end
 
   def date_selection?(from, to)
