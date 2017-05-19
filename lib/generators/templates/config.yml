@@ -10,6 +10,16 @@ default: &default
   # Header <h2>
   project_subtitle: Template Subtitle
 
+  # Date Range
+  # date_first:
+  #   - 1800
+  #   - 01
+  #   - 01
+  # date_last:
+  #   - 1900
+  #   - 12
+  #   - 31
+
   # API
   api_opts:
     sort:

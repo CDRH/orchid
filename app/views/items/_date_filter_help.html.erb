@@ -1,0 +1,33 @@
+<table class="table table-condensed table-striped">
+  <caption class="text-center">Dates in both fields not&nbsp;required</caption>
+  <thead>
+    <th>Entering&nbsp;in only&nbsp;one&nbsp;field</th>
+    <th class="text-right">Searches</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Year,&nbsp;Month, &amp;&nbsp;Day</td>
+      <td class="text-right">Single day</td>
+    </tr>
+    <tr>
+      <td>Year &amp;&nbsp;Month</td>
+      <td class="text-right">Whole month</td>
+    </tr>
+    <tr>
+      <td>Year</td>
+      <td class="text-right">Whole year</td>
+    </tr>
+    <tr>
+      <td>Month &amp;&nbsp;Day</td>
+      <td class="text-right"><%= DATE_FIRST[0] %>-#-# to <%= DATE_LAST[0] %>-#-#</td>
+    </tr>
+    <tr>
+      <td>Month</td>
+      <td class="text-right"><%= DATE_FIRST[0] %>-#-1 to <%= DATE_LAST[0] %>-#-31</td>
+    </tr>
+    <tr>
+      <td>Day</td>
+      <td class="text-right"><%= DATE_FIRST[0] %>-01-#&nbsp;to <%= DATE_LAST[0] %>-12-#</td>
+    </tr>
+  </tbody>
+</table>

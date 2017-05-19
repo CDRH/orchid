@@ -5,5 +5,13 @@
   <% end %>
 <% end %>
 
-<%# any other required hidden fields will go here
-    for example: date ranges %>
+<% if params["date_from"].present? %>
+  <% params["date_from"].each do |d| %>
+    <%= hidden_field_tag("date_from[]", d) %>
+  <% end %>
+<% end %>
+<% if params["date_to"].present? %>
+  <% params["date_to"].each do |d| %>
+    <%= hidden_field_tag("date_to[]", d) %>
+  <% end %>
+<% end %>
