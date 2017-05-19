@@ -36,13 +36,14 @@
     <% params["f"].each do |f| %>
       <% type, facet = f.split("|") %>
       <% info = Facets.facet_info[type] %>
+      <% label = info ? info["label"] : type.titleize %>
 
       <div class="pull-left form-inline buffer-bottom buffer-right-sm">
         <div class="input-group">
-          <div class="input-group-addon" title="<%= info['label'] %> Filter">
-            <%= info["label"] %> : <%= facet %>
+          <div class="input-group-addon" title="<%= label %> Filter">
+            <%= label %> : <%= facet %>
           </div>
-          <div class="input-group-btn" aria-label="Clear <%= info["label"] %> Filter" title="Clear <%= info["label"] %> Filter">
+          <div class="input-group-btn" aria-label="Clear <%= label %> Filter" title="Clear <%= label %> Filter">
             <%= link_to search_path(remove_facet(type, facet)), class: "btn btn-default btn-sm", role: "button" do %>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             <% end %>
