@@ -19,11 +19,14 @@
  */
 
 /* Import bootstrap variable overrides before importing bootstrap */
-@import "cdrh-bootstrap-variables";
+@import "bootstrap-variables";
 
-// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+// "bootstrap-sprockets" must be imported before "bootstrap"
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-// App-wide styling may be added inline or by importing other .scss files
+// Import Orchid-wide styling from Orchid gem
 @import "orchid";
+
+// Import app-wide styling from "global" sub-directory
+@import "global/*";

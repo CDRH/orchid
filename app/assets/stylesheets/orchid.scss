@@ -1,4 +1,12 @@
+// Orchid's stylesheets declared for auto and pre-compilation in
+// javascripts/orchid.js because link_tree directive does not work here
+
+
+// Orchid-wide Styles
+// ==================
+
 // Classes
+// =======
 .bottom-buffer {
   margin-bottom: 1em;
 }
@@ -14,6 +22,7 @@
 
 
 // Unique Elements
+// ===============
 #content-wrapper {
   margin-bottom: 3em;
 }

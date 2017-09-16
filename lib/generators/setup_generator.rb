@@ -4,16 +4,22 @@ class SetupGenerator < Rails::Generators::Base
 
   desc <<-EOS
     This generator prepares applications for API integration:
-      1. Generates config/config.yml file
-      2. Generates .gitignore file
-      3. Includes api_bridge gem in app's Gemfile
-      4. Generates facets file for customization
-      5. Sets up default stylesheet variables file
+      1. Generates config files and config/config.yml file
+      2. Generates facets file for customization
+      3. Generates favicon and footer_logo images
+      4. Disables turbolinks and adds api_bridge gem to app's Gemfile
+      5. Generates .gitignore file
+      6. Removes app's application controller and layout to use Orchid's
+      7. Removes app's application.js; generates new one, "global" directory,
+         and app-named script
+      8. Generates bootstrap variable file; removes app's application.css;
+         generates new Sass one, "global" directory, and app-named stylesheet
   EOS
 
   def setup_files
     @this_app = "#{File.expand_path File.dirname(__FILE__)}/../.."
     @new_app = Rails.root
+    @new_app_name = Rails.application.class.name.split("::").first.underscore
 
     msgs = []
 
@@ -55,7 +61,7 @@ class SetupGenerator < Rails::Generators::Base
     answer = prompt_for_value("Project Name (Header <h1>)", "Sample Template")
     config_set("project_name", answer)
 
-    answer = prompt_for_value("Project Short Name (<title>, meta application-name>)", "Template")
+    answer = prompt_for_value("Project Short Name (<title>, <meta application-name>)", "Template")
     config_set("project_shortname", answer)
 
     answer = prompt_for_value("Project Subtitle (Header <h2>)", "Template Subtitle")
@@ -83,7 +89,7 @@ class SetupGenerator < Rails::Generators::Base
 
   def favicon
     FileUtils.cp("#{@this_app}/app/assets/images/favicon.png", "#{@new_app}/app/assets/images/favicon.png")
-    return "Favicon copied to app/assets/images/favicon.png. Customize implementation in application.html.erb".green
+    return "Favicon copied to app/assets/images/favicon.png. Customize implementation in views/layouts/head/_favicon.html.erb".green
   end
 
   def footer_logo
@@ -123,44 +129,62 @@ class SetupGenerator < Rails::Generators::Base
     FileUtils.rm("#{@new_app}/app/controllers/application_controller.rb")
     FileUtils.rm("#{@new_app}/app/views/layouts/application.html.erb")
 
-    return "Application controller and layout removed to use Orchid's"
+    return "Removed application controller and layout to use Orchid's"
   end
 
   def scripts
-    # Remove default JS assets so Orchid's JS pipeline is used
+    # Remove default JavaScript assets to be replaced from Orchid
     FileUtils.rm_rf("#{@new_app}/app/assets/javascripts/.", secure: true)
 
-    # Create directory for auto-included app-wide JavaScript
+    # Copy new application.js which includes Orchid and app-specific JavaScript
+    FileUtils.rm("#{@new_app}/app/assets/javascripts/application.js")
+    FileUtils.cp("#{@this_app}/app/assets/javascripts/application.js", "#{@new_app}/app/assets/javascripts/application.jss")
+
+    # Create global JS dir & touch app-named file for app-wide scripting
     FileUtils.mkdir("#{@new_app}/app/assets/javascripts/global")
+    FileUtils.touch("#{@new_app}/app/assets/javascripts/global/#{@new_app_name}.js")
 
     return <<-EOS.green
-Add app-wide JavaScript to app/assets/javascripts/global/
-All .js file contents there are served with every page
+JavaScript
+==========
+One should normally not need to edit app/assets/application.js
 
-May also override Orchid JS pipeline and/or any individual scripts
+Add app-wide JavaScript via .js files in app/assets/javascripts/global/
 
-View-specific JS files to be added via @ext_js instance variable, e.g.:
+Conditional scripting files included via @ext_js instance variable, e.g.:
   @ext_js = %w(leaflet search)
-Small inline scripting to be added via @inline_js instance variable, e.g.:
+
+Conditional inline scripting included via @inline_js instance variable, e.g.:
   @inline_js = ["var power_level = 9000;"]
     EOS
   end
 
   def stylesheet
     # Bootstrap variable overrides
-    FileUtils.cp("#{@this_app}/app/assets/stylesheets/cdrh-bootstrap-variables.scss", "#{@new_app}/app/assets/stylesheets/cdrh-bootstrap-variables.scss")
+    FileUtils.cp("#{@this_app}/app/assets/stylesheets/bootstrap-variables.scss", "#{@new_app}/app/assets/stylesheets/bootstrap-variables.scss")
 
-    # Must use application.scss for mixins and variables
+    # Main app application.scss needed for relative app-specific global/* import
     FileUtils.rm("#{@new_app}/app/assets/stylesheets/application.css")
     FileUtils.cp("#{@this_app}/app/assets/stylesheets/application.scss", "#{@new_app}/app/assets/stylesheets/application.scss")
 
-    return <<-EOS.green
-Customize Bootstrap in app/assets/stylseheets/cdrh-bootstrap-variables.scss
-Application-wide styling to be added via application.scss
+    # Create global stylesheets dir & touch app-named file for app-wide styles
+    FileUtils.mkdir("#{@new_app}/app/assets/stylesheets/global/")
+    FileUtils.touch("#{@new_app}/app/assets/stylesheets/global/#{@new_app_name}.scss")
 
-View-specific styling to be added to @ext_css instance variable, e.g.:
+    return <<-EOS.green
+Sass/CSS
+========
+One should normally not need to edit app/assets/application.scss
+
+Customize Bootstrap in app/assets/stylseheets/bootstrap-variables.scss
+
+Add app-wide styling to app/assets/stylesheets/global/#{@new_app}.scss
+or other stylesheets in app/assets/stylesheets/global/
+
+Conditional stylesheets are included via @ext_css instance variable, e.g.:
   @ext_css = %w(leaflet stamen)
-Small inline styling to be added via @inline_css instance variable, e.g.:
+
+Conditional inline styling are included via @inline_css instance variable, e.g.:
   @inline_css = [".cats .hidden {display: none;}"]
     EOS
   end
