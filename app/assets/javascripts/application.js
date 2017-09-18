@@ -27,4 +27,4 @@
 //= link_tree ../stylesheets .css
 
 // Include app-wide scripting from "global" sub-directory
-//= require_tree ./global
+//= require_directory ./global
