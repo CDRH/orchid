@@ -137,8 +137,7 @@ class SetupGenerator < Rails::Generators::Base
     FileUtils.rm_rf("#{@new_app}/app/assets/javascripts/.", secure: true)
 
     # Copy new application.js which includes Orchid and app-specific JavaScript
-    FileUtils.rm("#{@new_app}/app/assets/javascripts/application.js")
-    FileUtils.cp("#{@this_app}/app/assets/javascripts/application.js", "#{@new_app}/app/assets/javascripts/application.jss")
+    FileUtils.cp("#{@this_app}/app/assets/javascripts/application.js", "#{@new_app}/app/assets/javascripts/application.js")
 
     # Create global JS dir & touch app-named file for app-wide scripting
     FileUtils.mkdir("#{@new_app}/app/assets/javascripts/global")
