@@ -22,6 +22,12 @@ class SetupGenerator < Rails::Generators::Base
     @new_app_name = Rails.application.class.name.split("::").first.underscore
 
     msgs = []
+    msgs << <<-EOS
+
+
+Customize Your App
+==================
+    EOS
 
     msgs << copy_initializer
     msgs << copy_configs
@@ -73,7 +79,7 @@ class SetupGenerator < Rails::Generators::Base
     answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu")
     config_replace("api_path: https://cdrhapi.unl.edu", "api_path: #{answer}")
 
-    return "Customize your app in config/config.yml".green
+    return "Customize your app config in config/config.yml".green
   end
 
   def copy_initializer
@@ -84,12 +90,14 @@ class SetupGenerator < Rails::Generators::Base
 
   def facets
     FileUtils.cp("#{@this_app}/app/models/facets.rb", "#{@new_app}/app/models/facets.rb")
-    return "Customize your facets in app/models/facets.rb".green
+    return "Customize your search facets in app/models/facets.rb".green
   end
 
   def favicon
     FileUtils.cp("#{@this_app}/app/assets/images/favicon.png", "#{@new_app}/app/assets/images/favicon.png")
-    return "Favicon copied to app/assets/images/favicon.png. Customize implementation in views/layouts/head/_favicon.html.erb".green
+    msg = "Favicon copied to app/assets/images/favicon.png\n"
+    msg << "Customize implementation in views/layouts/head/_favicon.html.erb".green
+    return msg
   end
 
   def footer_logo
@@ -115,7 +123,7 @@ class SetupGenerator < Rails::Generators::Base
 
   def gitignore
     FileUtils.cp("#{@this_app}/lib/generators/templates/.gitignore", "#{@new_app}/.gitignore")
-    return "Add more files to .gitignore which should not be version controlled".green
+    return "Add more files which should not be version controlled to .gitignore".green
   end
 
   def prompt_for_value(message, default)
@@ -143,12 +151,17 @@ class SetupGenerator < Rails::Generators::Base
     FileUtils.mkdir("#{@new_app}/app/assets/javascripts/global")
     FileUtils.touch("#{@new_app}/app/assets/javascripts/global/#{@new_app_name}.js")
 
-    return <<-EOS.green
+    msg = ""
+    msg << <<-EOS
 JavaScript
 ==========
 One should normally not need to edit app/assets/application.js
 
-Add app-wide JavaScript via .js files in app/assets/javascripts/global/
+    EOS
+
+    msg << <<-EOS.green
+Add app-wide JavaScript to app/assets/javascripts/global/#{@new_app_name}.js
+or other scripts in app/assets/javascripts/global/
 
 Conditional scripting files included via @ext_js instance variable, e.g.:
   @ext_js = %w(leaflet search)
@@ -156,6 +169,8 @@ Conditional scripting files included via @ext_js instance variable, e.g.:
 Conditional inline scripting included via @inline_js instance variable, e.g.:
   @inline_js = ["var power_level = 9000;"]
     EOS
+
+    return msg
   end
 
   def stylesheet
@@ -170,14 +185,18 @@ Conditional inline scripting included via @inline_js instance variable, e.g.:
     FileUtils.mkdir("#{@new_app}/app/assets/stylesheets/global/")
     FileUtils.touch("#{@new_app}/app/assets/stylesheets/global/#{@new_app_name}.scss")
 
-    return <<-EOS.green
+    msg = ""
+    msg << <<-EOS
 Sass/CSS
 ========
 One should normally not need to edit app/assets/application.scss
 
+    EOS
+
+    msg << <<-EOS.green
 Customize Bootstrap in app/assets/stylseheets/bootstrap-variables.scss
 
-Add app-wide styling to app/assets/stylesheets/global/#{@new_app}.scss
+Add app-wide styling to app/assets/stylesheets/global/#{@new_app_name}.scss
 or other stylesheets in app/assets/stylesheets/global/
 
 Conditional stylesheets are included via @ext_css instance variable, e.g.:
@@ -186,6 +205,8 @@ Conditional stylesheets are included via @ext_css instance variable, e.g.:
 Conditional inline styling are included via @inline_css instance variable, e.g.:
   @inline_css = [".cats .hidden {display: none;}"]
     EOS
+
+    return msg
   end
 
 end
