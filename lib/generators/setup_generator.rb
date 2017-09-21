@@ -1,22 +1,26 @@
-require "colorize"
-
 class SetupGenerator < Rails::Generators::Base
 
   desc <<-EOS
     This generator prepares applications for API integration:
-      1. Generates config/config.yml file
-      2. Generates .gitignore file
-      3. Includes api_bridge gem in app's Gemfile
-      4. Generates facets file for customization
-      5. Sets up default stylesheet variables file
+      1. Generates config files and config/config.yml file
+      2. Generates facets file for customization
+      3. Generates favicon and footer_logo images
+      4. Disables turbolinks and adds api_bridge gem to app's Gemfile
+      5. Generates .gitignore file
+      6. Removes app's application controller and layout to use Orchid's
+      7. Removes app's application.js; generates new one, "global" directory,
+         and app-named script
+      8. Generates bootstrap variable file; removes app's application.css;
+         generates new Sass one, "global" directory, and app-named stylesheet
   EOS
 
   def setup_files
     @this_app = "#{File.expand_path File.dirname(__FILE__)}/../.."
     @new_app = Rails.root
+    @new_app_name = Rails.application.class.name.split("::").first.underscore
 
     msgs = []
-
+    msgs << "\n\nSetup Review\n============"
     msgs << copy_initializer
     msgs << copy_configs
     msgs << facets
@@ -27,6 +31,7 @@ class SetupGenerator < Rails::Generators::Base
     msgs << remove_files
     msgs << scripts
     msgs << stylesheet
+    msgs << "For further app configuration, read more at https://github.com/CDRH/orchid#configuration"
 
     Bundler.with_clean_env do
       run "bundle install"
@@ -55,7 +60,7 @@ class SetupGenerator < Rails::Generators::Base
     answer = prompt_for_value("Project Name (Header <h1>)", "Sample Template")
     config_set("project_name", answer)
 
-    answer = prompt_for_value("Project Short Name (<title>, meta application-name>)", "Template")
+    answer = prompt_for_value("Project Short Name (<title>, <meta application-name>)", "Template")
     config_set("project_shortname", answer)
 
     answer = prompt_for_value("Project Subtitle (Header <h2>)", "Template Subtitle")
@@ -67,30 +72,34 @@ class SetupGenerator < Rails::Generators::Base
     answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu")
     config_replace("api_path: https://cdrhapi.unl.edu", "api_path: #{answer}")
 
-    return "Customize your app in config/config.yml".green
+    return "Orchid config copied to config/config.example.yml and config/config.yml updated with initial app customizations"
   end
 
   def copy_initializer
     # NOTE: This could be done with the "initializer" method instead
     # http://guides.rubyonrails.org/generators.html#initializer
     FileUtils.cp("#{@this_app}/lib/generators/templates/config.rb", "#{@new_app}/config/initializers/config.rb")
+
+    return "Initializer to load config values into app copied to config/initializers/config.rb"
   end
 
   def facets
     FileUtils.cp("#{@this_app}/app/models/facets.rb", "#{@new_app}/app/models/facets.rb")
-    return "Customize your facets in app/models/facets.rb".green
+
+    return "Orchid facets copied to app/models/facets.rb"
   end
 
   def favicon
     FileUtils.cp("#{@this_app}/app/assets/images/favicon.png", "#{@new_app}/app/assets/images/favicon.png")
-    return "Favicon copied to app/assets/images/favicon.png. Customize implementation in application.html.erb".green
+
+    return "Favicon copied to app/assets/images/favicon.png"
   end
 
   def footer_logo
     logo_image = "footer_logo.png"
     FileUtils.cp("#{@this_app}/app/assets/images/#{logo_image}", "#{@new_app}/app/assets/images/#{logo_image}")
 
-    return "Footer logo copied to app/assets/images/#{logo_image}"
+    return "Footer logo placeholder copied to app/assets/images/#{logo_image}"
   end
 
   def gems
@@ -100,16 +109,16 @@ class SetupGenerator < Rails::Generators::Base
     # Remove turbolinks gem
     gsub_file "#{@new_app}/Gemfile", /^(gem 'turbolinks'.*)$/, "#\\1"
 
-    # Remove the previous api_bridge gem from Gemfile
-    gsub_file "#{@new_app}/Gemfile", /^gem 'api_bridge'.*\n$/, ""
-
-    # Install the correct version of the gem
+    # Install the version of api_bridge Orchid specifies
     gem "api_bridge", git: "https://github.com/CDRH/api_bridge", tag: Orchid.api_bridge_version
+
+    return "Gems: Turbolinks removed and api_bridge added"
   end
 
   def gitignore
     FileUtils.cp("#{@this_app}/lib/generators/templates/.gitignore", "#{@new_app}/.gitignore")
-    return "Add more files to .gitignore which should not be version controlled".green
+
+    return "Orchid .gitignore file copied to app's root directory"
   end
 
   def prompt_for_value(message, default)
@@ -123,46 +132,36 @@ class SetupGenerator < Rails::Generators::Base
     FileUtils.rm("#{@new_app}/app/controllers/application_controller.rb")
     FileUtils.rm("#{@new_app}/app/views/layouts/application.html.erb")
 
-    return "Application controller and layout removed to use Orchid's"
+    return "Removed app's application controller and layout so it uses Orchid's"
   end
 
   def scripts
-    # Remove default JS assets so Orchid's JS pipeline is used
+    # Remove default JavaScript assets to be replaced from Orchid
     FileUtils.rm_rf("#{@new_app}/app/assets/javascripts/.", secure: true)
 
-    # Create directory for auto-included app-wide JavaScript
+    # Copy new application.js which includes Orchid and app-specific JavaScript
+    FileUtils.cp("#{@this_app}/app/assets/javascripts/application.js", "#{@new_app}/app/assets/javascripts/application.js")
+
+    # Create global JS dir & touch app-named file for app-wide scripting
     FileUtils.mkdir("#{@new_app}/app/assets/javascripts/global")
+    FileUtils.touch("#{@new_app}/app/assets/javascripts/global/#{@new_app_name}.js")
 
-    return <<-EOS.green
-Add app-wide JavaScript to app/assets/javascripts/global/
-All .js file contents there are served with every page
-
-May also override Orchid JS pipeline and/or any individual scripts
-
-View-specific JS files to be added via @ext_js instance variable, e.g.:
-  @ext_js = %w(leaflet search)
-Small inline scripting to be added via @inline_js instance variable, e.g.:
-  @inline_js = ["var power_level = 9000;"]
-    EOS
+    return "Replaced app's JavaScript assets with Orchid's.\nCreated global/ directory and file with app name for app-wide JavaScript"
   end
 
   def stylesheet
     # Bootstrap variable overrides
-    FileUtils.cp("#{@this_app}/app/assets/stylesheets/cdrh-bootstrap-variables.scss", "#{@new_app}/app/assets/stylesheets/cdrh-bootstrap-variables.scss")
+    FileUtils.cp("#{@this_app}/app/assets/stylesheets/bootstrap-variables.scss", "#{@new_app}/app/assets/stylesheets/bootstrap-variables.scss")
 
-    # Must use application.scss for mixins and variables
+    # Main app application.scss needed for relative app-specific global/* import
     FileUtils.rm("#{@new_app}/app/assets/stylesheets/application.css")
     FileUtils.cp("#{@this_app}/app/assets/stylesheets/application.scss", "#{@new_app}/app/assets/stylesheets/application.scss")
 
-    return <<-EOS.green
-Customize Bootstrap in app/assets/stylseheets/cdrh-bootstrap-variables.scss
-Application-wide styling to be added via application.scss
+    # Create global stylesheets dir & touch app-named file for app-wide styles
+    FileUtils.mkdir("#{@new_app}/app/assets/stylesheets/global/")
+    FileUtils.touch("#{@new_app}/app/assets/stylesheets/global/#{@new_app_name}.scss")
 
-View-specific styling to be added to @ext_css instance variable, e.g.:
-  @ext_css = %w(leaflet stamen)
-Small inline styling to be added via @inline_css instance variable, e.g.:
-  @inline_css = [".cats .hidden {display: none;}"]
-    EOS
+    return "Replaced app's stylesheet assets with Orchid's.\nCreated global/ directory and file with app name for app-wide styling"
   end
 
 end

@@ -2,8 +2,8 @@
 
 Orchid is a generator which can be used to create a new CDRH API template site.  The new site can either connect to the entire API's contents or filter by "type," meaning that the new site can be used for a specific collection.
 
-## Installation
 
+## Installation
 If you have ruby and Rails installed already, create the Rails app:<br>
 `rails new (app name)`
 
@@ -37,7 +37,7 @@ echo '(app name)' > (app name)/.ruby-gemset
 ```
 
 ### All Installs
-If you are using a local (development) version of orchid, add the following line to your Gemfile:
+If you are using a local (development) version of Orchid, add the following line to your Gemfile:
 
 ```ruby
 gem 'orchid', path: '/absolute/path/to/orchid'
@@ -57,34 +57,136 @@ And then execute:
 bundle install
 ```
 
-## Usage
 
-Once orchid is installed successfully, run a generator to prepare your new rails app. Run this with a `--help` to see what will be changed before you begin. This will NOT erase or overwrite any configuration files, only example configuration files.
+## Usage
+Once Orchid is installed successfully, run the generator to prepare your new rails app. Run this with a `--help` to see which app files will be changed before you begin.
 
 ```bash
 rails g(enerate) setup
 ```
 
-The script should give you instructions about which steps to take next, but in general you will need to customize the following files:
+The script will ask you for some initial configuration values.
 
-- `config/config.yml`
-- `app/models/facets.rb`
 
-## Customization
+## Configuration
+Most app configuration is located in `config/config.yml`.  If you are updating your version of Orchid, you may already have an existing config file, so you will want to compare it against the `config/config.example.yml` file to see if there are any changes or additions which have been made.
 
-First open `config/config.yml`.  If you are updating your version of orchid, you may already have an existing config file, so you will want to compare it against the `config/config.example.yml` file to see if there are any changes or additions which have been made.  You should set a path to the API endpoint you would like to use.  This should look like one of the following:
+### API
+The API path may be any endpoint in the API to which `/items` can be appended to receive a list of items.  This should look like one of the following:
 
 ```yaml
 api_path: https://api_dev_path.unl.edu
 api_path: https://api_dev_path.unl.edu/collection/collection_name
 ```
 
-Any endpoint is valid as long as the path `/items` could be appended to it in the API to receive a list of items.  In the configuration file you may also set a long project name, and a shortname which will be used for things like the `<title>` element. You may also change the number of search results which come back by default, and the type of sort which will be used for browsing, and facet defaults, all settings which may be overridden in specific requests.
+There are more variables related to API search results not set when running the generator script. You may change:
+- The number of search results which come back by default
+- The type of sort which will be used for browsing
+- Facet list sizes and sorting
+- The earliest and latest dates of the app's documents
 
+All of these settings may be overridden in specific requests later as well.
+
+### Facets
 You may also want to peruse the `app/models/facets.rb` file and alter it for specific fields which you would prefer.
+
+### Favicon
+Replace the image at `app/assets/images/favicon.png` to change your app's
+favicon.
+
+For wider favicon support, create the necessary derivative images and uncomment
+the other markup in `views/layouts/head/_favicon.html.erb`.
+
+### Footer Logo
+Replace the placeholder image at `app/assets/images/footer_logo.png` to change
+your app's footer logo.
+
+### Gitignore
+Add any other files which should not be version controlled to `.gitignore`.
+
+### Scripts
+One should normally not need to edit `app/assets/application.js`.
+
+Add app-wide JavaScript to `app/assets/javascripts/global/(app name).js` or
+other scripts in `app/assets/javascripts/global/`.
+
+Conditional scripting files included via `@ext_js` instance variable, e.g.:<br>
+`@ext_js = %w(leaflet search)`
+
+Conditional inline scripting included via `@inline_js` instance variable, e.g.:<br>
+`@inline_js = ["var power_level = 9000;"]`
+
+### Stylesheets / Bootstrap
+One should normally not need to edit `app/assets/application.scss`
+
+Customize Bootstrap in `app/assets/stylseheets/bootstrap-variables.scss`
+
+Add app-wide styling to `app/assets/stylesheets/global/(app name).scss`
+or other stylesheets in `app/assets/stylesheets/global/`
+
+Conditional stylesheets are included via `@ext_css` instance variable, e.g.:<br>
+`@ext_css = %w(leaflet stamen)`
+
+Conditional inline styling are included via `@inline_css` instance variable, e.g.:<br>
+`@inline_css = [".cats .hidden {display: none;}"]`
 
 ### (Re)start
 After customization, one must (re)start the Rails app.
+
+
+## Assets
+The asset pipeline has been configured to facilitate adding assets without
+the need to update the asset precompilation list or copy/merge files when
+changes are made to Orchid's assets.
+
+Declaring assets for auto and precompilation with `link_tree` directives
+bypasses the need to add to the list of paths in the config variable
+`Rails.application.config.assets.precompile` in `config/initializers/assets.rb`.
+
+### JavaScript Inclusions and Asset Declarations
+The generated app's `application.js` first includes the jQuery and Bootstrap
+gems' assets.
+
+Next, it includes `orchid.js` from the Orchid engine's assets, which is
+accessible because the `require` directive accesses files via the default Rails
+asset path locations, which include the Orchid engine's
+`app/assets/javascripts/` directory.
+
+The `orchid.js` file then recursively declares all files in the Orchid engine's
+`app/assets/javascripts/orchid/`, `app/assets/images/orchid/`, and
+`app/assets/stylesheets/orchid/` directories for auto and precompilation with
+`link_tree` directives. All three are declared in `orchid.js` because Sprockets
+directives do not work in .scss files and one must declare image assets in
+the same place as JavaScript and/or stylesheet assets. Orchid's assets are
+declared here because `link_tree` only uses relative paths and a relative path
+from within the generated app, while possible, would not be portable.
+
+The scripting below the `link_tree` directives will run on every page loaded via
+apps with the Orchid engine.
+
+Then returning to the generated app's `application.js` file, we declare all of
+the app's assets for auto and precompilation. Again we declare them via the
+`link_tree` directive with relative paths.
+
+Lastly, we include scripts from the generated app's
+`app/assets/javascripts/global/` directory to run on all pages in the app.
+We use the `require_directory` directive here to only include scripts at the top
+of `app/assets/javascripts/global/`. We don't want conditional or modular `.js`
+files in framework subdirectories included on all pages.
+
+### Stylesheet Imports
+The generated app's `application.scss` first imports a generated app-specific
+Bootstrap variable file and the Bootstrap gem's assets.
+
+Next, it imports `orchid.scss` from the Orchid engine's assets, which is
+accessible because the `@import` directive accesses files via the default Rails
+asset path locations, which include the Orchid engine's
+`app/assets/stylesheets/` directory.
+
+Lastly, we import stylesheets from the generated app's
+`app/assets/stylesheets/global/` directory to be applied to all pages in the
+app.
+
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

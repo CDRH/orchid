@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
   end
 
   def index
-    @ext_js = ["search"]
+    @ext_js = ["orchid/search"]
     options = params.permit!.deep_dup
     options, @from, @to = helpers.date_filter(options)
     @res = $api.query(options)

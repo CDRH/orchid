@@ -14,9 +14,19 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 
-// Include all JS files inside the global/ directory
-//= require_tree ./global
+// Declaring assets for auto and precompilation with link_tree directives
+// bypasses the need to add assets to the list of paths in the config variable
+// Rails.application.config.assets.precompile in config/initializers/assets.rb
 
-// Auto-compile all assets in this directory for dev environment
-// Prevents requiring adding to config/initializers/assets.rb for all envs
-//= link_tree .
+// Include Orchid asset declarations and Orchid-wide scripting from Orchid gem
+//= require orchid
+
+// Declare this app's assets
+//= link_tree . .js
+//= link_tree ../images
+//= link_tree ../stylesheets .css
+
+// Include app-wide scripting from "global" sub-directory
+// Note: require_directory won't include .js files from framework subdirectories
+// They are declared for auto and precompilation by link_tree above though
+//= require_directory ./global
