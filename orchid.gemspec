@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Jessica Dussault", "Greg Tunink", "Karin Dalziel"]
   s.email       = ["jdussault4@gmail.com", "techgique@gmail.com", "kdalziel@unl.edu"]
   s.homepage    = "https://cdrh.unl.edu"
-  s.summary     = "Template for Pando sites"
-  s.description = "Template for sites powered off of Pando API"
+  s.summary     = "Template for CDRH API sites"
+  s.description = "Template for sites powered off of CDRH API"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
