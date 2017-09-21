@@ -65,7 +65,7 @@ Once Orchid is installed successfully, run the generator to prepare your new rai
 rails g(enerate) setup
 ```
 
-The script will ask you for some initial configuration values and give you instructions about how to further customize your app.
+The script will ask you for some initial configuration values.
 
 
 ## Configuration
@@ -89,6 +89,46 @@ All of these settings may be overridden in specific requests later as well.
 
 ### Facets
 You may also want to peruse the `app/models/facets.rb` file and alter it for specific fields which you would prefer.
+
+### Favicon
+Replace the image at `app/assets/images/favicon.png` to change your app's
+favicon.
+
+For wider favicon support, create the necessary derivative images and uncomment
+the other markup in `views/layouts/head/_favicon.html.erb`.
+
+### Footer Logo
+Replace the placeholder image at `app/assets/images/footer_logo.png` to change
+your app's footer logo.
+
+### Gitignore
+Add any other files which should not be version controlled to `.gitignore`.
+
+### Scripts
+One should normally not need to edit `app/assets/application.js`.
+
+Add app-wide JavaScript to `app/assets/javascripts/global/(app name).js` or
+other scripts in `app/assets/javascripts/global/`.
+
+Conditional scripting files included via `@ext_js` instance variable, e.g.:<br>
+`@ext_js = %w(leaflet search)`
+
+Conditional inline scripting included via `@inline_js` instance variable, e.g.:<br>
+`@inline_js = ["var power_level = 9000;"]`
+
+### Stylesheets / Bootstrap
+One should normally not need to edit `app/assets/application.scss`
+
+Customize Bootstrap in `app/assets/stylseheets/bootstrap-variables.scss`
+
+Add app-wide styling to `app/assets/stylesheets/global/(app name).scss`
+or other stylesheets in `app/assets/stylesheets/global/`
+
+Conditional stylesheets are included via `@ext_css` instance variable, e.g.:<br>
+`@ext_css = %w(leaflet stamen)`
+
+Conditional inline styling are included via `@inline_css` instance variable, e.g.:<br>
+`@inline_css = [".cats .hidden {display: none;}"]`
 
 ### (Re)start
 After customization, one must (re)start the Rails app.
@@ -118,7 +158,7 @@ The `orchid.js` file then recursively declares all files in the Orchid engine's
 `link_tree` directives. All three are declared in `orchid.js` because Sprockets
 directives do not work in .scss files and one must declare image assets in
 the same place as JavaScript and/or stylesheet assets. Orchid's assets are
-declared here because `link_tree` works via relative paths and a relative path
+declared here because `link_tree` only uses relative paths and a relative path
 from within the generated app, while possible, would not be portable.
 
 The scripting below the `link_tree` directives will run on every page loaded via
@@ -130,6 +170,9 @@ the app's assets for auto and precompilation. Again we declare them via the
 
 Lastly, we include scripts from the generated app's
 `app/assets/javascripts/global/` directory to run on all pages in the app.
+We use the `require_directory` directive here to only include scripts at the top
+of `app/assets/javascripts/global/`. We don't want conditional or modular `.js`
+files in framework subdirectories included on all pages.
 
 ### Stylesheet Imports
 The generated app's `application.scss` first imports a generated app-specific

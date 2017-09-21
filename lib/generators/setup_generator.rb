@@ -1,5 +1,3 @@
-require "colorize"
-
 class SetupGenerator < Rails::Generators::Base
 
   desc <<-EOS
@@ -22,13 +20,7 @@ class SetupGenerator < Rails::Generators::Base
     @new_app_name = Rails.application.class.name.split("::").first.underscore
 
     msgs = []
-    msgs << <<-EOS
-
-
-Customize Your App
-==================
-    EOS
-
+    msgs << "\n\nSetup Review\n============"
     msgs << copy_initializer
     msgs << copy_configs
     msgs << facets
@@ -39,6 +31,7 @@ Customize Your App
     msgs << remove_files
     msgs << scripts
     msgs << stylesheet
+    msgs << "For further app configuration, read more at https://github.com/CDRH/orchid#configuration"
 
     Bundler.with_clean_env do
       run "bundle install"
@@ -79,32 +72,34 @@ Customize Your App
     answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu")
     config_replace("api_path: https://cdrhapi.unl.edu", "api_path: #{answer}")
 
-    return "Customize your app config in config/config.yml".green
+    return "Orchid config copied to config/config.example.yml and config/config.yml updated with initial app customizations"
   end
 
   def copy_initializer
     # NOTE: This could be done with the "initializer" method instead
     # http://guides.rubyonrails.org/generators.html#initializer
     FileUtils.cp("#{@this_app}/lib/generators/templates/config.rb", "#{@new_app}/config/initializers/config.rb")
+
+    return "Initializer to load config values into app copied to config/initializers/config.rb"
   end
 
   def facets
     FileUtils.cp("#{@this_app}/app/models/facets.rb", "#{@new_app}/app/models/facets.rb")
-    return "Customize your search facets in app/models/facets.rb".green
+
+    return "Orchid facets copied to app/models/facets.rb"
   end
 
   def favicon
     FileUtils.cp("#{@this_app}/app/assets/images/favicon.png", "#{@new_app}/app/assets/images/favicon.png")
-    msg = "Favicon copied to app/assets/images/favicon.png\n"
-    msg << "Customize implementation in views/layouts/head/_favicon.html.erb".green
-    return msg
+
+    return "Favicon copied to app/assets/images/favicon.png"
   end
 
   def footer_logo
     logo_image = "footer_logo.png"
     FileUtils.cp("#{@this_app}/app/assets/images/#{logo_image}", "#{@new_app}/app/assets/images/#{logo_image}")
 
-    return "Footer logo copied to app/assets/images/#{logo_image}"
+    return "Footer logo placeholder copied to app/assets/images/#{logo_image}"
   end
 
   def gems
@@ -114,16 +109,16 @@ Customize Your App
     # Remove turbolinks gem
     gsub_file "#{@new_app}/Gemfile", /^(gem 'turbolinks'.*)$/, "#\\1"
 
-    # Remove the previous api_bridge gem from Gemfile
-    gsub_file "#{@new_app}/Gemfile", /^gem 'api_bridge'.*\n$/, ""
-
-    # Install the correct version of the gem
+    # Install the version of api_bridge Orchid specifies
     gem "api_bridge", git: "https://github.com/CDRH/api_bridge", tag: Orchid.api_bridge_version
+
+    return "Gems: Turbolinks removed and api_bridge added"
   end
 
   def gitignore
     FileUtils.cp("#{@this_app}/lib/generators/templates/.gitignore", "#{@new_app}/.gitignore")
-    return "Add more files which should not be version controlled to .gitignore".green
+
+    return "Orchid .gitignore file copied to app's root directory"
   end
 
   def prompt_for_value(message, default)
@@ -137,7 +132,7 @@ Customize Your App
     FileUtils.rm("#{@new_app}/app/controllers/application_controller.rb")
     FileUtils.rm("#{@new_app}/app/views/layouts/application.html.erb")
 
-    return "Removed application controller and layout to use Orchid's"
+    return "Removed app's application controller and layout so it uses Orchid's"
   end
 
   def scripts
@@ -151,26 +146,7 @@ Customize Your App
     FileUtils.mkdir("#{@new_app}/app/assets/javascripts/global")
     FileUtils.touch("#{@new_app}/app/assets/javascripts/global/#{@new_app_name}.js")
 
-    msg = ""
-    msg << <<-EOS
-JavaScript
-==========
-One should normally not need to edit app/assets/application.js
-
-    EOS
-
-    msg << <<-EOS.green
-Add app-wide JavaScript to app/assets/javascripts/global/#{@new_app_name}.js
-or other scripts in app/assets/javascripts/global/
-
-Conditional scripting files included via @ext_js instance variable, e.g.:
-  @ext_js = %w(leaflet search)
-
-Conditional inline scripting included via @inline_js instance variable, e.g.:
-  @inline_js = ["var power_level = 9000;"]
-    EOS
-
-    return msg
+    return "Replaced app's JavaScript assets with Orchid's.\nCreated global/ directory and file with app name for app-wide JavaScript"
   end
 
   def stylesheet
@@ -185,28 +161,7 @@ Conditional inline scripting included via @inline_js instance variable, e.g.:
     FileUtils.mkdir("#{@new_app}/app/assets/stylesheets/global/")
     FileUtils.touch("#{@new_app}/app/assets/stylesheets/global/#{@new_app_name}.scss")
 
-    msg = ""
-    msg << <<-EOS
-Sass/CSS
-========
-One should normally not need to edit app/assets/application.scss
-
-    EOS
-
-    msg << <<-EOS.green
-Customize Bootstrap in app/assets/stylseheets/bootstrap-variables.scss
-
-Add app-wide styling to app/assets/stylesheets/global/#{@new_app_name}.scss
-or other stylesheets in app/assets/stylesheets/global/
-
-Conditional stylesheets are included via @ext_css instance variable, e.g.:
-  @ext_css = %w(leaflet stamen)
-
-Conditional inline styling are included via @inline_css instance variable, e.g.:
-  @inline_css = [".cats .hidden {display: none;}"]
-    EOS
-
-    return msg
+    return "Replaced app's stylesheet assets with Orchid's.\nCreated global/ directory and file with app name for app-wide styling"
   end
 
 end

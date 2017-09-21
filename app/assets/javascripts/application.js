@@ -27,4 +27,6 @@
 //= link_tree ../stylesheets .css
 
 // Include app-wide scripting from "global" sub-directory
+// Note: require_directory won't include .js files from framework subdirectories
+// They are declared for auto and precompilation by link_tree above though
 //= require_directory ./global
