@@ -6,9 +6,9 @@ class ItemsController < ApplicationController
   def browse_facet
     # Reverse facet name from url-formatting
     @browse_facet = params[:facet]
-    if @browse_facet.include?("-")
+    if @browse_facet.include?(".")
       Facets.facet_info.each_with_index do |(facet_name, facet_info), index|
-        if @browse_facet == facet_name.parameterize
+        if @browse_facet == facet_name.parameterize(separator: ".")
           @browse_facet = facet_name
           break
         end
