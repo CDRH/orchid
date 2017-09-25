@@ -5,7 +5,7 @@ module Orchid::SortHelper
     if params["sort"].present? && params["sort"].class == Array
       current = params["sort"][0]
     elsif params["q"].present?
-      current = "score|desc"
+      current = "relevancy|desc"
     else
       current = "title|asc"
     end

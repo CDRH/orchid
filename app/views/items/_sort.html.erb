@@ -4,20 +4,20 @@
 %>
 
 Sort by: <br />
-<%# if this is a search page, then default to score, else use title %>
+<%# if this is a search page, then default to relevancy, else use title %>
 <% date_asc = current == "date|asc" %>
 <% date_desc = current == "date|desc" %>
 <% title_asc = current == "title|asc" %>
 <% title_desc = current == "title|desc" %>
-<% score_desc = current == "score|desc" %>
+<% relevancy_desc = current == "relevancy|desc" %>
 
 <% if query %>
   <!-- relevancy link -->
-  <%# if query exists, then score should be the default and should be displayed %>
-  <% score_desc = true if !current %>
-  <%= link_to "Relevancy", search_path(sort("score", "desc")), :class => "btn btn-xs #{score_desc == true ? 'btn-info' : 'btn-default'}" %>
+  <%# if query exists, then relevancy should be the default and should be displayed %>
+  <% relevancy_desc = true if !current %>
+  <%= link_to "Relevancy", search_path(sort("relevancy", "desc")), :class => "btn btn-xs #{relevancy_desc == true ? 'btn-info' : 'btn-default'}" %>
 <% else %>
-  <% title_asc = true if !score_desc && !date_asc && !date_desc && !title_desc %>
+  <% title_asc = true if !relevancy_desc && !date_asc && !date_desc && !title_desc %>
 <% end %>
 
 <!-- title and date links -->
