@@ -7,7 +7,7 @@
         <% if facet_name == @browse_facet %>
           <a href="#"><%= facet_info["label"] %></a>
         <% else %>
-          <% id = facet_name.parameterize  %>
+          <% id = facet_name.parameterize(separator: ".") %>
           <%= link_to browse_facet_path(id), "aria-controls": id, role: "tab" do %>
             <%= facet_info["label"] %>
           <% end %>
@@ -19,7 +19,7 @@
 
 <div class="tab-content">
   <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
-    <% id = facet_name.parameterize  %>
+    <% id = facet_name.parameterize(separator: ".")  %>
     <div role="tabpanel" class="tab-pane <%= "active" if facet_name == @browse_facet %>" id="<%= id %>">
       <% if @res.has_key?(facet_name) %>
         <ul>
