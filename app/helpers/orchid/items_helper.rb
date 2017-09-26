@@ -1,7 +1,5 @@
 module Orchid::ItemsHelper
-  include Orchid::ApplicationHelper
-
-  # include the overridable versions of the helpers
+  # Include related helpers not auto-included by matching controller name
   include DateHelper
   include DisplayHelper
   include FacetHelper

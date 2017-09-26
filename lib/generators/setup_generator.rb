@@ -28,6 +28,7 @@ class SetupGenerator < Rails::Generators::Base
     msgs << footer_logo
     msgs << gems
     msgs << gitignore
+    msgs << helpers
     msgs << remove_files
     msgs << scripts
     msgs << stylesheet
@@ -119,6 +120,13 @@ class SetupGenerator < Rails::Generators::Base
     FileUtils.cp("#{@this_app}/lib/generators/templates/.gitignore", "#{@new_app}/.gitignore")
 
     return "Orchid .gitignore file copied to app's root directory"
+  end
+
+  def helpers
+    FileUtils.rm("#{@new_app}/app/helpers/application_helper.rb")
+    FileUtils.cp(Dir.glob("#{@this_app}/app/helpers/*_helper.rb"), "#{@new_app}/app/helpers/")
+
+    return "Copied extendable helper files which include Orchid's to app"
   end
 
   def prompt_for_value(message, default)
