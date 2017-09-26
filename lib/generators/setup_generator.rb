@@ -67,10 +67,10 @@ class SetupGenerator < Rails::Generators::Base
     config_set("project_subtitle", answer)
 
     answer = prompt_for_value("Dev API Path", "https://cdrhdev1.unl.edu/api")
-    config_replace("api_path: https://cdrhdev1.unl.edu/api", "api_path: #{answer}")
+    config_replace("api_path: https://cdrhdev1.unl.edu/api/v1", "api_path: #{answer}")
 
     answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu")
-    config_replace("api_path: https://cdrhapi.unl.edu", "api_path: #{answer}")
+    config_replace("api_path: https://cdrhapi.unl.edu/v1", "api_path: #{answer}")
 
     return "Orchid config copied to config/config.example.yml and config/config.yml updated with initial app customizations"
   end
