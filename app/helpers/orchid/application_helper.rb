@@ -15,7 +15,7 @@ module Orchid::ApplicationHelper
       # Use override from instance variable
       section = @site_section
     else
-      if current_page?(home_path)
+      if current_page? home_path
         section = "home"
       elsif request.path[/^\/[^\/]+?\/.+/]
         # If request path has a sub-uri section (or namespacing),
