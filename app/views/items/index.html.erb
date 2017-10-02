@@ -1,6 +1,9 @@
-<h2>Search Results</h2>
-
-<!-- search form -->
+<% @site_section = "search" %>
+<% if params["q"].blank? && params["f"].blank? %>
+  <h2>All Items</h2>
+<% else %>
+  <h2>Search Results</h2>
+<% end %>
 
 <div class="row search_form">
   <%= render "search_box" %>
@@ -19,7 +22,11 @@
     <%= render "sort_and_page_ui" %>
 
     <!-- search results section -->
-    <h4>Your search returned <%= pluralize @res.count, "result" %></h4>
+    <% if params["q"].blank? && params["f"].blank? %>
+      <h4>There are a total of <%= pluralize @res.count, "item" %> </h4>
+    <% else %>
+      <h4>Your search returned <%= pluralize @res.count, "result" %></h4>
+    <% end %>
 
     <%= render "search_res_items" %>
 
