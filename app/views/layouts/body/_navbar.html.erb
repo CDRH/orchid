@@ -1,7 +1,8 @@
 <div class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <button type="button" class="navbar-toggle" data-toggle="collapse"
+        data-target=".navbar-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -9,10 +10,18 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><%= link_to "Home", home_path %></li>
-        <li><%= link_to "Browse", browse_path %></li>
-        <li><%= link_to "Search", search_path %></li>
-        <li><%= link_to "About", about_path %></li>
+        <li class="<%= active?(home_path) %>">
+          <%= link_to "Home", home_path %>
+        </li>
+        <li class="<%= active?(/^\/browse/, request.path) %>">
+          <%= link_to "Browse", browse_path %>
+        </li>
+        <li class="<%= active?(search_path) %>">
+          <%= link_to "Search", search_path %>
+        </li>
+        <li class="<%= active?(about_path) %>">
+          <%= link_to "About", about_path %>
+        </li>
       </ul>
     </div>
   </div>
