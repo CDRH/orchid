@@ -1,5 +1,31 @@
 module Orchid::ApplicationHelper
 
+  ##
+  # Return "active" string to class list if path, param, or variable matches
+  #
+  # == Examples
+  #
+  # Request for an explicit path
+  # <li class="<%= active?('/about') %>">
+  #
+  # Request for a named path
+  # <li class="<%= active?(home_path) %>">
+  #
+  # Request for any sub-URI request:
+  # Note default current_page? comparison does not handle Regexp
+  # <li class="<%= active?(/^#{config.relative_url_root}\/browse/,
+  #   request.path) %>">
+  #
+  # Value matches the request's controller name
+  # Note :controller and :action are added to params hash by Rails
+  # <li class="<%= active?("search", :controller) %>">
+  #
+  # Any element of a list matches a parameter
+  # names.each do |name|
+  #   <li class="<%= active?(["foo", "bar", "baz"], :sort) %>">
+  #
+  # Value matches another variable
+  # <li class="<%= active?(article, @current_article) %>">
   def active?(value, comparison=nil)
     if value.class == Regexp
       if comparison.nil?
