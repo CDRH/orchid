@@ -25,6 +25,8 @@ module Orchid::ApplicationHelper
           return "active" if !comparison.nil? && v == params[comparison]
         end
       end
+
+      ""
     end
   end
 
