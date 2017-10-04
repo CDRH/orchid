@@ -23,7 +23,18 @@ class ItemsController < ApplicationController
     end
 
     # Get facet results
-    @res = $api.query({"facet" => @browse_facet, "facet_num" => 500, "facet_sort" => "term|asc" }).facets
+    @res = $api.query({"facet" => @browse_facet, "facet_num" => 10000, "facet_sort" => "term|asc" }).facets
+
+    result_size = @res.length
+    if result_size == 10000
+      raise "Facet results list has hit the limit of 10000. Revisit facet result handling NOW"
+    elsif result_size >= 9000
+      logger.warn "Facet results list has surpassed 9000 of 10000 limit. Please revisit facet result handling SOON"
+    elsif result_size >= 7500
+      logger.warn "Facet results list has surpassed 7500 of 10000 limit. Please revisit facet result handling soon"
+    end
+
+    @res
   end
 
   def index
