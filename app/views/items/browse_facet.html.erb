@@ -3,7 +3,7 @@
 <nav>
   <ul class="nav nav-tabs bottom-buffer" role="tablist">
     <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
-      <li role="presentation" <%= "class=active" if facet_name == @browse_facet %>>
+      <li role="presentation" class="<%= active?(facet_name, @browse_facet) %>">
         <% if facet_name == @browse_facet %>
           <a href="#"><%= facet_info["label"] %></a>
         <% else %>
@@ -20,7 +20,7 @@
 <div class="tab-content">
   <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
     <% id = facet_name.parameterize(separator: ".")  %>
-    <div role="tabpanel" class="tab-pane <%= "active" if facet_name == @browse_facet %>" id="<%= id %>">
+    <div role="tabpanel" class="tab-pane <%= active?(facet_name, @browse_facet) %>" id="<%= id %>">
       <% if @res.has_key?(facet_name) %>
         <ul>
           <% @res[facet_name].each do |list| %>
