@@ -43,7 +43,7 @@
             <% end %>
           </ul>
 
-          <%= link_to "See more", browse_path, class: "btn btn-info btn-xs" %>
+          <%= link_to "See more", browse_facet_path(facet_name.parameterize(separator: ".")), class: "btn btn-info btn-xs" %>
         </div> <!-- /panel-body -->
 
       </div> <!-- /panel panel-default -->
