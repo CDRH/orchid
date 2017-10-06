@@ -1,15 +1,21 @@
 module Orchid::SortHelper
 
   def sorter
-    current = ""
-    if params["sort"].present? && params["sort"].class == Array
-      current = params["sort"][0]
-    elsif params["q"].present?
-      current = "relevancy|desc"
+    sort_by = ""
+
+    if params["sort"].blank?
+      if params["q"].present?
+        sort_by = "relevancy|desc"
+      else
+        sort_by = API_OPTS["sort"].present? ? API_OPTS["sort"] : "title|asc"
+      end
     else
-      current = "title|asc"
+      sort_by = params["sort"]
     end
-    render "sort", current: current, query: params["q"].present?
+
+    sort_by = sort_by.first if sort_by.class == Array
+
+    render "sort", sort_by: sort_by
   end
 
   def sort type, direction="desc"
