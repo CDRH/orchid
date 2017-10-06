@@ -43,8 +43,14 @@ class ItemsController < ApplicationController
 
   def index
     @ext_js = ["orchid/search"]
+
+    if params["sort"].blank? && params["q"].present?
+      params[:sort] = ["relevancy|desc"]
+    end
+
     options = params.permit!.deep_dup
     options, @from, @to = helpers.date_filter(options)
+
     @res = $api.query(options)
   end
 
