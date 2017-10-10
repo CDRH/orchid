@@ -1,27 +1,45 @@
 <%# expects
-  - "current" sort ("date|asc")
-  - "query" boolean, false if no q parameter entered
+  - "sort_by" sort value (e.g. "title|asc")
 %>
 
-Sort by: <br />
-<%# if this is a search page, then default to relevancy, else use title %>
-<% date_asc = current == "date|asc" %>
-<% date_desc = current == "date|desc" %>
-<% title_asc = current == "title|asc" %>
-<% title_desc = current == "title|desc" %>
-<% relevancy_desc = current == "relevancy|desc" %>
-
-<% if query %>
-  <!-- relevancy link -->
-  <%# if query exists, then relevancy should be the default and should be displayed %>
-  <% relevancy_desc = true if !current %>
-  <%= link_to "Relevancy", search_path(sort("relevancy", "desc")), :class => "btn btn-xs #{relevancy_desc == true ? 'btn-info' : 'btn-default'}" %>
-<% else %>
-  <% title_asc = true if !relevancy_desc && !date_asc && !date_desc && !title_desc %>
-<% end %>
-
-<!-- title and date links -->
-<%= link_to "Title ^", search_path(sort("title", "asc")), "class" => "btn btn-xs #{title_asc == true ? 'btn-info' : 'btn-default'}" %>
-<%= link_to "Title v", search_path(sort("title", "desc")), "class" => "btn btn-xs #{title_desc == true ? 'btn-info' : 'btn-default'}" %>
-<%= link_to "Date ^", search_path(sort("date", "asc")), "class" => "btn btn-xs #{date_asc == true ? 'btn-info' : 'btn-default'}" %>
-<%= link_to "Date v", search_path(sort("date", "desc")), "class" => "btn btn-xs #{date_desc == true ? 'btn-info' : 'btn-default'}" %>
+<div class="btn-group bottom-buffer-sm">
+  <button type="button" class="btn btn-default dropdown-toggle"
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sort by:
+    <% if sort_by == "relevancy|desc" %>
+      Relevancy
+    <% elsif sort_by == "date|asc" %>
+      Date (earliest first)
+    <% elsif sort_by == "date|desc" %>
+      Date (latest first)
+    <% elsif sort_by == "title|asc" %>
+      Title (A-Z)
+    <% elsif sort_by == "title|desc" %>
+      Title (Z-A)
+    <% else %>
+      <%= params["sort"].size == 1 ? params["sort"].first : params["sort"] %>
+    <% end %>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <% if params["q"].present? %>
+      <li>
+        <%= link_to "Relevancy", search_path(sort("relevancy", "desc")) %>
+      </li>
+      <li role="separator" class="divider"></li>
+    <% end %>
+    <li>
+      <%= link_to "Date (earliest first)", search_path(sort("date", "asc")) %>
+    </li>
+    <li>
+      <%= link_to "Date (latest first)", search_path(sort("date", "desc")) %>
+    </li>
+    <li role="separator" class="divider"></li>
+    <li>
+      <%= link_to "Title A-Z", search_path(sort("title", "asc")) %>
+    </li>
+    <li>
+      <%= link_to "Title Z-A", search_path(sort("title", "desc")) %>
+    </li>
+  </ul>
+</div>

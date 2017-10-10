@@ -29,3 +29,17 @@
 #footer {
   margin-bottom: 9em;
 }
+
+
+// Site Section-specific
+// =====================
+.site_search {
+  .pagination_container .pagination {
+    margin: 0;
+  }
+
+  .search-filters {
+    margin-bottom: 0.75em;
+    min-height: 2em;
+  }
+}
