@@ -33,6 +33,23 @@
 
 // Site Section-specific
 // =====================
+.site_browse {
+  .browse-item {
+    border-bottom: dotted 0.0125em;
+    margin-bottom: 0.5em;
+    padding-left: 0;
+
+    span {
+      background-color: $light-base;
+      padding: 0 0 0.5em 1em;
+    }
+  }
+
+  a:hover .browse-item {
+    border-bottom: solid 0.0125em;
+  }
+}
+
 .site_search {
   .pagination_container .pagination {
     margin: 0;

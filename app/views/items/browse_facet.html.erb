@@ -62,15 +62,20 @@
 <div class="tab-content">
   <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
     <% id = facet_name.parameterize(separator: ".")  %>
-    <div role="tabpanel" class="tab-pane <%= active?(facet_name, @browse_facet) %>" id="<%= id %>">
+    <div role="tabpanel"
+      class="tab-pane <%= active?(facet_name, @browse_facet) %>" id="<%= id %>">
       <% if @res.has_key?(facet_name) %>
-        <ul>
+        <ul class="list-unstyled">
           <% @res[facet_name].each do |list| %>
-            <li>
+            <li class="row">
               <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]) do %>
                 <% text = list[0].blank? ? "No label" : list[0] %>
-                <span class="browsename"><%= text %></span>
-                <span class="badge"><%= list[1] %></span>
+                <div class="col-lg-5 col-md-6 col-sm-8 col-xs-10 browse-item">
+                  <span><%= text %></span>
+                </div>
+                <div class="col-md-1 col-xs-2">
+                  <span class="badge"><%= list[1] %></span>
+                </div>
               <% end %>
             </li>
           <% end %>
