@@ -22,9 +22,11 @@ class ItemsController < ApplicationController
       return
     end
 
+    facet_sort = params.key?("facet_sort") ? params["facet_sort"] : "count|desc"
+
     # Get facet results
     @res = $api.query({"facet" => @browse_facet, "facet_num" => 10000,
-      "facet_sort" => "term|asc" }).facets
+      "facet_sort" => facet_sort, "num" => 0}).facets
 
     result_size = @res.length
     if result_size == 10000

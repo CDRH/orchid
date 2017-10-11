@@ -17,6 +17,45 @@
   </ul>
 </nav>
 
+<div class="btn-group bottom-buffer-sm">
+  <button type="button" class="btn btn-default dropdown-toggle"
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sort by:
+    <% if !params.key?("facet_sort") || params["facet_sort"] == "count|desc" %>
+      Count (Most first)
+    <% elsif params["facet_sort"] == "count|asc" %>
+      Count (Least first)
+    <% elsif params["facet_sort"] == "term|asc" %>
+      Alphabetically (A-Z)
+    <% elsif params["facet_sort"] == "term|desc" %>
+      Alphabetically (Z-A)
+    <% else %>
+      <%= params["facet_sort"].size == 1 ?
+        params["facet_sort"].first : params["facet_sort"] %>
+    <% end %>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <%= link_to "Count (Most first)",
+        browse_facet_path(facet_sort: "count|desc") %>
+    </li>
+    <li>
+      <%= link_to "Count (Least first)",
+        browse_facet_path(facet_sort: "count|asc") %>
+    </li>
+    <li role="separator" class="divider"></li>
+    <li>
+      <%= link_to "Alphabetically (A-Z)",
+        browse_facet_path(facet_sort: "term|asc") %>
+    </li>
+    <li>
+      <%= link_to "Alphabetically (Z-A)",
+        browse_facet_path(facet_sort: "term|desc") %>
+    </li>
+  </ul>
+</div>
+
 <div class="tab-content">
   <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
     <% id = facet_name.parameterize(separator: ".")  %>
