@@ -1,3 +1,7 @@
+<%# expects
+  - "facet_sort" sort value (e.g. "count|desc")
+%>
+
 <h2>Browse by <%= @browse_facet_info["label"] %></h2>
 
 <nav>
@@ -21,17 +25,16 @@
   <button type="button" class="btn btn-default dropdown-toggle"
     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Sort by:
-    <% if !params.key?("facet_sort") || params["facet_sort"] == "count|desc" %>
+    <% if facet_sort == "count|desc" %>
       Count (Most first)
-    <% elsif params["facet_sort"] == "count|asc" %>
+    <% elsif facet_sort == "count|asc" %>
       Count (Least first)
-    <% elsif params["facet_sort"] == "term|asc" %>
+    <% elsif facet_sort == "term|asc" %>
       Alphabetically (A-Z)
-    <% elsif params["facet_sort"] == "term|desc" %>
+    <% elsif facet_sort == "term|desc" %>
       Alphabetically (Z-A)
     <% else %>
-      <%= params["facet_sort"].size == 1 ?
-        params["facet_sort"].first : params["facet_sort"] %>
+      <%= facet_sort.size == 1 ? facet_sort.first : facet_sort %>
     <% end %>
     <span class="caret"></span>
   </button>

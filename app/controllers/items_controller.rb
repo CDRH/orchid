@@ -22,7 +22,8 @@ class ItemsController < ApplicationController
       return
     end
 
-    facet_sort = params.key?("facet_sort") ? params["facet_sort"] : "count|desc"
+    facet_sort =
+      params.key?("facet_sort") ? params["facet_sort"] : API_OPTS["facet_sort"]
 
     # Get facet results
     @res = $api.query({"facet" => @browse_facet, "facet_num" => 10000,
@@ -40,7 +41,7 @@ class ItemsController < ApplicationController
         revisit facet result handling soon"}
     end
 
-    @res
+    render "browse_facet", locals: { facet_sort: facet_sort }
   end
 
   def index
