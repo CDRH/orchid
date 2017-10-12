@@ -1,5 +1,13 @@
 module Orchid::SortHelper
 
+  def sort(typedir)
+    # typedir expected to be field|direction
+    new_params = copy_params
+    new_params["sort"] = [typedir]
+    new_params.delete("page")
+    return new_params
+  end
+
   def sorter
     sort_by = ""
 
@@ -18,11 +26,26 @@ module Orchid::SortHelper
     render "sort", sort_by: sort_by
   end
 
-  def sort type, direction="desc"
-    new_params = copy_params
-    new_params["sort"] = ["#{type}|#{direction}"]
-    new_params.delete("page")
-    return new_params
+  def sort_fields
+    # relevancy|desc included by default with q parameter
+    # include blank key to indicate groupings
+    {
+      "date|asc" => "Date (earliest first)",
+      "date|desc" => "Date (latest first)",
+      "" => "",
+      "title|asc" => "Title (A-Z)",
+      "title|desc" => "Title (Z-A)",
+    }
+  end
+
+  def sort_selected_label(sort_by)
+    if sort_by == "relevancy|desc"
+      "Relevancy"
+    elsif sort_fields.keys.include?(sort_by)
+      sort_fields[sort_by]
+    else
+      params["sort"].size == 1 ? params["sort"].first : params["sort"]
+    end
   end
 
 end
