@@ -22,16 +22,9 @@
     <%= render "sort_and_page_ui" %>
 
     <!-- search results section -->
-    <% if params["q"].blank? && params["f"].blank? %>
-      <h4>There are a total of <%= pluralize @res.count, "item" %> </h4>
-    <% else %>
-      <h4>Your search returned <%= pluralize @res.count, "result" %></h4>
-    <% end %>
-
+    <%= render "search_res_count" %>
     <%= render "search_res_items" %>
 
-    <div class="col-md-9 pagination_container">
-      <%= paginator @res.pages %>
-    </div>
+    <%= render "sort_and_page_ui" %>
   </div>
 </div>

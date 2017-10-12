@@ -67,7 +67,7 @@ class SetupGenerator < Rails::Generators::Base
     answer = prompt_for_value("Project Subtitle (Header <h2>)", "Template Subtitle")
     config_set("project_subtitle", answer)
 
-    answer = prompt_for_value("Dev API Path", "https://cdrhdev1.unl.edu/api")
+    answer = prompt_for_value("Dev API Path", "https://cdrhdev1.unl.edu/api/v1")
     config_replace("api_path: https://cdrhdev1.unl.edu/api/v1", "api_path: #{answer}")
 
     answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu")
