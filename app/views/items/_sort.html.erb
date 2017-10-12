@@ -3,43 +3,30 @@
 %>
 
 <div class="btn-group bottom-buffer-sm">
+
   <button type="button" class="btn btn-default dropdown-toggle"
     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Sort by:
-    <% if sort_by == "relevancy|desc" %>
-      Relevancy
-    <% elsif sort_by == "date|asc" %>
-      Date (earliest first)
-    <% elsif sort_by == "date|desc" %>
-      Date (latest first)
-    <% elsif sort_by == "title|asc" %>
-      Title (A-Z)
-    <% elsif sort_by == "title|desc" %>
-      Title (Z-A)
-    <% else %>
-      <%= params["sort"].size == 1 ? params["sort"].first : params["sort"] %>
-    <% end %>
+    Sort by: <%= sort_selected_label(sort_by) %>
     <span class="caret"></span>
   </button>
+
   <ul class="dropdown-menu">
+    <%# always start with relevancy when query present %>
     <% if params["q"].present? %>
       <li>
-        <%= link_to "Relevancy", search_path(sort("relevancy", "desc")) %>
+        <%= link_to "Relevancy", search_path(sort("relevancy|desc")) %>
       </li>
       <li role="separator" class="divider"></li>
     <% end %>
-    <li>
-      <%= link_to "Date (earliest first)", search_path(sort("date", "asc")) %>
-    </li>
-    <li>
-      <%= link_to "Date (latest first)", search_path(sort("date", "desc")) %>
-    </li>
-    <li role="separator" class="divider"></li>
-    <li>
-      <%= link_to "Title A-Z", search_path(sort("title", "asc")) %>
-    </li>
-    <li>
-      <%= link_to "Title Z-A", search_path(sort("title", "desc")) %>
-    </li>
+
+    <%# add typical sort fields underneath relevancy %>
+    <% sort_fields.each do |sort_type, label| %>
+      <% if label != "separator" %>
+        <li><%= link_to label, search_path(sort(sort_type)) %></li>
+      <% else %>
+        <li role="separator" class="divider"></li>
+      <% end %>
+    <% end %>
   </ul>
+
 </div>
