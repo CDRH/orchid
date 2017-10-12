@@ -21,10 +21,10 @@
 
     <%# add typical sort fields underneath relevancy %>
     <% sort_fields.each do |sort_type, label| %>
-      <% if label == "separator" %>
-        <li role="separator" class="divider"></li>
-      <% else %>
+      <% if label != "separator" %>
         <li><%= link_to label, search_path(sort(sort_type)) %></li>
+      <% else %>
+        <li role="separator" class="divider"></li>
       <% end %>
     <% end %>
   </ul>
