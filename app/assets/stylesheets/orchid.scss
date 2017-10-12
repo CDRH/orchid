@@ -51,8 +51,12 @@
 }
 
 .site_search {
-  .pagination_container .pagination {
-    margin: 0;
+  .pagination_container {
+    text-align: right;
+
+    .pagination {
+      margin: 0;
+    }
   }
 
   .search-filters {
