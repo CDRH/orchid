@@ -33,13 +33,14 @@
 
 // Site Section-specific
 // =====================
+
 .site_search {
   .pagination_container {
-    text-align:right
-  }
+    text-align: right;
 
-  .pagination_container .pagination {
-    margin: 0;
+    .pagination {
+      margin: 0;
+    }
   }
 
   .search-filters {
