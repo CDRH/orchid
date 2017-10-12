@@ -6,7 +6,7 @@
 
   <button type="button" class="btn btn-default dropdown-toggle"
     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Sort by: <%= sort_selected_label(sort_by) %>
+    Sort by: <%= sort_search_selected_label(sort_by) %>
     <span class="caret"></span>
   </button>
 
@@ -20,7 +20,7 @@
     <% end %>
 
     <%# add typical sort fields underneath relevancy %>
-    <% sort_fields.each do |sort_type, label| %>
+    <% sort_search_fields.each do |sort_type, label| %>
       <% if label != "separator" %>
         <li><%= link_to label, search_path(sort(sort_type)) %></li>
       <% else %>

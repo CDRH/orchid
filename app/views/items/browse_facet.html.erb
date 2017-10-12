@@ -24,38 +24,18 @@
 <div class="btn-group bottom-buffer-sm">
   <button type="button" class="btn btn-default dropdown-toggle"
     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Sort by:
-    <% if facet_sort == "count|desc" %>
-      Count (Most first)
-    <% elsif facet_sort == "count|asc" %>
-      Count (Least first)
-    <% elsif facet_sort == "term|asc" %>
-      Alphabetically (A-Z)
-    <% elsif facet_sort == "term|desc" %>
-      Alphabetically (Z-A)
-    <% else %>
-      <%= facet_sort.size == 1 ? facet_sort.first : facet_sort %>
-    <% end %>
+    Sort by: <%= sort_facet_selected_label(facet_sort) %>
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li>
-      <%= link_to "Count (Most first)",
-        browse_facet_path(facet_sort: "count|desc") %>
-    </li>
-    <li>
-      <%= link_to "Count (Least first)",
-        browse_facet_path(facet_sort: "count|asc") %>
-    </li>
-    <li role="separator" class="divider"></li>
-    <li>
-      <%= link_to "Alphabetically (A-Z)",
-        browse_facet_path(facet_sort: "term|asc") %>
-    </li>
-    <li>
-      <%= link_to "Alphabetically (Z-A)",
-        browse_facet_path(facet_sort: "term|desc") %>
-    </li>
+    <%# add facet sort fields %>
+    <% sort_facet_fields.each do |facet_sort, label| %>
+      <% if label != "separator" %>
+        <li><%= link_to label, browse_facet_path(facet_sort: facet_sort) %></li>
+      <% else %>
+        <li role="separator" class="divider"></li>
+      <% end %>
+    <% end %>
   </ul>
 </div>
 
