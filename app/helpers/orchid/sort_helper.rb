@@ -40,7 +40,7 @@ module Orchid::SortHelper
   end
 
   def sort_fields_search
-    if params.key?("q")
+    if params["q"].present?
       fields = {
         "relevancy|desc" => "Relevancy",
         "rel_separator" => "separator"
