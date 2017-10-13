@@ -41,7 +41,7 @@
     <% id = facet_name.parameterize(separator: ".")  %>
     <div role="tabpanel"
       class="tab-pane <%= active?(facet_name, @browse_facet) %>" id="<%= id %>">
-      <% if @res.has_key?(facet_name) %>
+      <% if @res.key?(facet_name) %>
         <ul class="list-unstyled">
           <% @res[facet_name].each do |list| %>
             <li class="row">

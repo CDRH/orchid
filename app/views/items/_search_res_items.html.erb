@@ -3,7 +3,7 @@
     <div class="searchResults">
       <div class="row">
         <div class="col-md-12 search_results_info">
-          <% title_display = item.has_key?("title") && item["title"].length > 0 ? item["title"] : "Untitled" %>
+          <% title_display = item.key?("title") && item["title"].length > 0 ? item["title"] : "Untitled" %>
           <%= link_to title_display, item_path(item["identifier"]) %>
           <ul>
             <% if item["date_display"] %>
