@@ -21,12 +21,13 @@ module Orchid::SortHelper
       sort_by = params["sort"]
     end
 
+    # Pull value out of single-element array
     sort_by = sort_by.first if sort_by.class == Array
 
     render "sort", sort_by: sort_by
   end
 
-  def sort_facet_fields
+  def sort_fields_facets
     {
       "count|desc" => "Count (most first)",
       "count|asc" => "Count (least first)",
@@ -36,7 +37,7 @@ module Orchid::SortHelper
     }
   end
 
-  def sort_search_fields
+  def sort_fields_search
     # relevancy|desc included by default with q parameter
     # include "grouping" => "separator" to indicate breaks in dropdown
     {
@@ -53,21 +54,19 @@ module Orchid::SortHelper
     }
   end
 
-  def sort_facet_selected_label(sort_by)
-    if sort_facet_fields.keys.include?(sort_by)
-      sort_facet_fields[sort_by]
+  def sort_selected_label(sort_fields, sort_by)
+    if respond_to? "sort_fields_#{sort_fields}"
+      sort_fields = send "sort_fields_#{sort_fields}"
     else
-      sort_by.size == 1 ? sort_by.first : sort_by
+      raise "#{sort_fields} is not an existing sort fields hash"
     end
-  end
 
-  def sort_search_selected_label(sort_by)
     if sort_by == "relevancy|desc"
       "Relevancy"
-    elsif sort_search_fields.keys.include?(sort_by)
-      sort_search_fields[sort_by]
+    elsif sort_fields.keys.include?(sort_by)
+      sort_fields[sort_by]
     else
-      params["sort"].size == 1 ? params["sort"].first : params["sort"]
+      sort_by
     end
   end
 

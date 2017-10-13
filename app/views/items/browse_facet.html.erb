@@ -1,5 +1,5 @@
 <%# expects
-  - "facet_sort" sort value (e.g. "count|desc")
+  - "sort_by" sort value (e.g. "count|desc")
 %>
 
 <h2>Browse by <%= @browse_facet_info["label"] %></h2>
@@ -24,12 +24,12 @@
 <div class="btn-group bottom-buffer-sm">
   <button type="button" class="btn btn-default dropdown-toggle"
     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Sort by: <%= sort_facet_selected_label(facet_sort) %>
+    Sort by: <%= sort_selected_label("facets", sort_by) %>
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
     <%# add facet sort fields %>
-    <% sort_facet_fields.each do |facet_sort, label| %>
+    <% sort_fields_facets.each do |facet_sort, label| %>
       <% if label != "separator" %>
         <li><%= link_to label, browse_facet_path(facet_sort: facet_sort) %></li>
       <% else %>
