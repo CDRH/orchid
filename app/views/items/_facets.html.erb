@@ -28,18 +28,22 @@
               <% label = create_label key, "No Label" %>
 
               <!-- list item -->
-              <li <%= "class=selected" if selected %>>
-                <%= link_to label, search_path(facet_link(facet_name, key)) %>
-                <span class="badge"><%= value %></span>
-                <% if selected %>
+              <% if !selected %>
+                <li>
+                  <%= link_to label, search_path(facet_link(facet_name, key)) %>
+                  <span class="badge"><%= value %></span>
+                </li>
+              <% else %>
+                <li class="selected">
+                  <span><%= key %></span>
+                  <span class="badge"><%= value %></span>
                   <%= link_to search_path(remove_facet(facet_name, key)) do %>
                     <button class="btn btn-default btn-xs" aria-label="Clear <%= info['label'] %> Filter" title="Clear <%= info['label'] %> Filter">
                       <span class="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                   <% end %>
-                <% end %>
-              </li>
-
+                </li>
+              <% end %>
             <% end %>
           </ul>
 

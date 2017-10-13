@@ -27,7 +27,11 @@ module Orchid::FacetHelper
         new_params["f"].delete(f) if f.include?(type)
       end
     end
-    new_params["f"] << "#{type}|#{facet}"
+    # verify that this exact facet has not already been added
+    facet_label = "#{type}|#{facet}"
+    if !new_params["f"].include?(facet_label)
+      new_params["f"] << facet_label
+    end
     return new_params
   end
 
