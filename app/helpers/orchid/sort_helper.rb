@@ -21,14 +21,39 @@ module Orchid::SortHelper
       sort_by = params["sort"]
     end
 
+    # Pull value out of single-element array
     sort_by = sort_by.first if sort_by.class == Array
 
     render "sort", sort_by: sort_by
   end
 
-  def sort_fields
-    # relevancy|desc included by default with q parameter
-    # include "grouping" => "separator" to indicate breaks in dropdown
+  def sort_fields_facets
+    # include "grouping" => "separator" to insert separator in dropdown
+    {
+      "count|desc" => "Count (most first)",
+      "count|asc" => "Count (least first)",
+
+      "terms" => "separator",
+      "term|asc" => "Alphabetically (A-Z)",
+      "term|desc" => "Alphabetically (Z-A)"
+    }
+  end
+
+  def sort_fields_search
+    if params.key?("q")
+      fields = {
+        "relevancy|desc" => "Relevancy",
+        "rel_separator" => "separator"
+      }
+    else
+      fields = {}
+    end
+
+    fields.merge(sort_fields_search_additional)
+  end
+
+  def sort_fields_search_additional
+    # include "grouping" => "separator" to insert separator in dropdown
     {
       "date|asc" => "Date (earliest first)",
       "date|desc" => "Date (latest first)",
@@ -43,13 +68,19 @@ module Orchid::SortHelper
     }
   end
 
-  def sort_selected_label(sort_by)
+  def sort_selected_label(sort_fields, sort_by)
+    if respond_to? "sort_fields_#{sort_fields}"
+      sort_fields = send "sort_fields_#{sort_fields}"
+    else
+      raise "#{sort_fields} is not an existing sort fields hash"
+    end
+
     if sort_by == "relevancy|desc"
       "Relevancy"
     elsif sort_fields.keys.include?(sort_by)
       sort_fields[sort_by]
     else
-      params["sort"].size == 1 ? params["sort"].first : params["sort"]
+      sort_by
     end
   end
 
