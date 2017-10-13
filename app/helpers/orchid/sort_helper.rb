@@ -49,8 +49,12 @@ module Orchid::SortHelper
       fields = {}
     end
 
+    fields.merge(sort_fields_search_additional)
+  end
+
+  def sort_fields_search_additional
     # include "grouping" => "separator" to insert separator in dropdown
-    fields.merge({
+    {
       "date|asc" => "Date (earliest first)",
       "date|desc" => "Date (latest first)",
 
@@ -61,7 +65,7 @@ module Orchid::SortHelper
       "creators" => "separator",
       "creator.name|asc" => "Creator (A-Z)",
       "creator.name|desc" => "Creator (Z-A)"
-    })
+    }
   end
 
   def sort_selected_label(sort_fields, sort_by)
