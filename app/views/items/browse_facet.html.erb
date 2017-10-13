@@ -27,14 +27,11 @@
     Sort by: <%= sort_selected_label("facets", sort_by) %>
     <span class="caret"></span>
   </button>
+
   <ul class="dropdown-menu">
-    <%# add facet sort fields %>
-    <% sort_fields_facets.each do |facet_sort, label| %>
-      <% if label != "separator" %>
-        <li><%= link_to label, browse_facet_path(facet_sort: facet_sort) %></li>
-      <% else %>
-        <li role="separator" class="divider"></li>
-      <% end %>
+    <% sort_fields_facets.each do |sort_field, label| %>
+      <%= render "sort_dropdown_item", label: label,
+        sort_url: browse_facet_path(facet_sort: sort_field) %>
     <% end %>
   </ul>
 </div>

@@ -11,23 +11,10 @@
   </button>
 
   <ul class="dropdown-menu">
-    <%# always start with relevancy when query present %>
-    <% if params["q"].present? %>
-      <li>
-        <%= link_to "Relevancy", search_path(sort("relevancy|desc")) %>
-      </li>
-      <li role="separator" class="divider"></li>
+    <% sort_fields_search.each do |sort_field, label| %>
+      <%= render "sort_dropdown_item", label: label,
+        sort_url: search_path(sort(sort_field)) %>
     <% end %>
-
-    <%# add typical sort fields underneath relevancy %>
-    <% sort_fields_search.each do |sort_type, label| %>
-      <% if label != "separator" %>
-        <li><%= link_to label, search_path(sort(sort_type)) %></li>
-      <% else %>
-        <li role="separator" class="divider"></li>
-      <% end %>
-    <% end %>
-
   </ul>
 
 </div>

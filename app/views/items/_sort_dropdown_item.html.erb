@@ -1,0 +1,9 @@
+<%# expects
+  label - Label for the sort field
+  sort_url - URL to change to sort field
+%>
+<% if label != "separator" %>
+  <li><%= link_to label, sort_url %></li>
+<% else %>
+  <li role="separator" class="divider"></li>
+<% end %>

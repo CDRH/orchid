@@ -28,19 +28,29 @@ module Orchid::SortHelper
   end
 
   def sort_fields_facets
+    # include "grouping" => "separator" to insert separator in dropdown
     {
       "count|desc" => "Count (most first)",
       "count|asc" => "Count (least first)",
-      "term" => "separator",
+
+      "terms" => "separator",
       "term|asc" => "Alphabetically (A-Z)",
       "term|desc" => "Alphabetically (Z-A)"
     }
   end
 
   def sort_fields_search
-    # relevancy|desc included by default with q parameter
-    # include "grouping" => "separator" to indicate breaks in dropdown
-    {
+    if params.key?("q")
+      fields = {
+        "relevancy|desc" => "Relevancy",
+        "rel_separator" => "separator"
+      }
+    else
+      fields = {}
+    end
+
+    # include "grouping" => "separator" to insert separator in dropdown
+    fields.merge({
       "date|asc" => "Date (earliest first)",
       "date|desc" => "Date (latest first)",
 
@@ -51,7 +61,7 @@ module Orchid::SortHelper
       "creators" => "separator",
       "creator.name|asc" => "Creator (A-Z)",
       "creator.name|desc" => "Creator (Z-A)"
-    }
+    })
   end
 
   def sort_selected_label(sort_fields, sort_by)
