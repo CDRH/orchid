@@ -68,7 +68,7 @@ module Orchid::ApplicationHelper
     new_params.delete("q")
 
     # Prevent relevancy sort remaining if one clicks "Clear Search Text" link
-    if params.key?("sort") && params["sort"].first == "relevancy|desc"
+    if params["sort"].present? && params["sort"].first == "relevancy|desc"
       new_params.delete("sort")
     end
 

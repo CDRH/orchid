@@ -33,7 +33,7 @@ module Orchid::DateHelper
     # date search
     if date_present?(options["date_from"]) || date_present?(options["date_to"])
       from, to = date_set(options["date_from"], options["date_to"])
-      options["f"] = [] if !options.has_key?("f")
+      options["f"] = [] if !options.key?("f")
       options["f"] << "date|#{from}|#{to}"
     end
     options.delete("date_from")
