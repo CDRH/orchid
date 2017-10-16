@@ -43,7 +43,7 @@
       <%= render "hidden_fields" %>
       <%= hidden_field_tag(:q, params["q"]) %>
 
-      <div class="clearfix buffer-bottom-sm">
+      <div class="clearfix">
         <%= submit_tag "Filter", class: "btn btn-primary buffer-right-sm", name: nil, data: { disable_with: false } %>
         <button type="button" class="btn btn-link glyphicon glyphicon-question-sign pull-right"
           data-toggle="collapse" data-target="#date_help"

@@ -1,7 +1,7 @@
 <div class="clearfix search-filters">
   <!-- text search -->
   <% if params["q"].present? %>
-    <div class="pull-left form-inline buffer-bottom buffer-right-sm">
+    <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
       <div class="input-group">
         <div class="input-group-addon" title="Search Text">
           Search : <%= params["q"] %>
@@ -17,7 +17,7 @@
 
   <!-- date search -->
   <% if date_selection?(params["date_from"], params["date_to"]) %>
-    <div class="pull-left form-inline buffer-bottom buffer-right-sm">
+    <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
       <div class="input-group">
         <div class="input-group-addon" title="Date Selection">
           Date : <%= @from %> to <%= @to %>
@@ -38,7 +38,7 @@
       <% info = Facets.facet_info[type] %>
       <% label = info ? info["label"] : type.titleize %>
 
-      <div class="pull-left form-inline buffer-bottom buffer-right-sm">
+      <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
         <div class="input-group">
           <div class="input-group-addon" title="<%= label %> Filter">
             <%= label %> : <%= facet %>

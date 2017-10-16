@@ -7,17 +7,29 @@
 
 // Classes
 // =======
-.bottom-buffer {
+.buffer-bottom {
   margin-bottom: 1em;
 }
-.bottom-buffer-lg {
+.buffer-bottom-lg {
   margin-bottom: 1.5em;
 }
-.bottom-buffer-sm {
+.buffer-bottom-sm {
   margin-bottom: 0.5em;
 }
-.bottom-buffer-xl {
+.buffer-bottom-xl {
   margin-bottom: 2em;
+}
+.buffer-right {
+  margin-right: 1em;
+}
+.buffer-right-lg {
+  margin-right: 1.5em;
+}
+.buffer-right-sm {
+  margin-right: 0.5em;
+}
+.buffer-right-xl {
+  margin-right: 2em;
 }
 
 
@@ -60,7 +72,6 @@
   }
 
   .search-filters {
-    margin-bottom: 0.75em;
-    min-height: 2em;
+    min-height: 2.75em;
   }
 }

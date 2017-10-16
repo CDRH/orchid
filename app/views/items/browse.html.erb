@@ -6,7 +6,7 @@
 
 <h3>Browse by:</h3>
 <% Facets.facet_info.each_slice(3) do |slice| %>
-  <div class="row bottom-buffer-lg">
+  <div class="row buffer-bottom-lg">
     <% slice.each do |(facet_name, facet_info)| %>
       <div class="col-md-3">
         <% id = facet_name.parameterize(separator: ".") %>
