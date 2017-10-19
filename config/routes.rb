@@ -2,34 +2,29 @@ Orchid::Engine.routes.draw do
   # TODO put any namespaced or orchid specific routes here
 end
 
-Rails.application.routes.draw do
+# engine includes routes after the app includes routes
+Orchid::Engine.draw_routes
 
-  # generate a list of all the route names from the app running orchid
-  app_route_names = Rails.application.routes.routes.map { |r| r.name }
-
-  # define orchid default routes
-  default_routes = [
-    { get: 'about', location: 'general#about', as: :about, constraints: {} },
-    # items
-    { get: 'browse', location: 'items#browse', as: :browse, constraints: {} },
-    { get: 'browse/:facet', location: 'items#browse_facet', as: :browse_facet, constraints: { :facet => /[^\/]+/ } },
-    { get: 'item/:id', location: 'items#show', as: :item, constraints: { :id => /[^\/]+/ } },
-    { get: 'search', location: 'items#index', as: :search, constraints: {} }
-  ]
-
-  # if no route naming conflict between app and orchid, add orchid default route
-  default_routes.each do |route|
-    next if app_route_names.include?(route[:as].to_s)
-    get route[:get] => route[:location], as: route[:as], constraints: route[:constraints]
-  end
-
-  # use default if no home path specified
-  if !app_route_names.include?("home")
-    root 'general#index', as: "home"
-  end
-
-  # error handling
-  match '/404', to: 'errors#not_found', via: :all
-  match '/500', to: 'errors#server_error', via: :all
-
-end
+# OVERRIDING ROUTES
+#
+# I want to change one of the named routes from orchid to a new path
+#
+#   Assuming that your overridden route can be loaded before the orchid
+#   routes (for example, at a path that won't accidentally catch
+#   other routes if it is loaded first (/:id) )
+#   Simply add your route to the app routes file as normal
+#
+# I want to add a route after the orchid defaults have been drawn
+#
+#   You will need to manually load the orchid routes.  Do this by adding
+#   > Orchid::Engine.draw_routes
+#   to your routes file, then add your routes.
+#
+# I want to add a route after the orchid defaults which overrides a named path
+#
+#   You will manually load the orchid routes as above, but pass the name that
+#   you will be overriding to the orchid method.
+#   > Orchid::Engine.draw_routes("item")
+#   You can also pass a list
+#   > Orchid::Engine.draw_routes("item", "home", "browse")
+#   then add overriding routes to your file as you normally would
