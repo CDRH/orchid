@@ -4,7 +4,7 @@ module Orchid
 
     @@routes_drawn = false
 
-    def self.draw_routes(*reserved_names)
+    def self.draw_routes(reserved_names: [])
       # skip if this method has already been manually called from application
       if !routes_drawn?
         Rails.application.routes.draw do

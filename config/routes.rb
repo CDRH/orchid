@@ -24,7 +24,7 @@ Orchid::Engine.draw_routes
 #
 #   You will manually load the orchid routes as above, but pass the name that
 #   you will be overriding to the orchid method.
-#   > Orchid::Engine.draw_routes("item")
+#   > Orchid::Engine.draw_routes(reserved_names: ["item"])
 #   You can also pass a list
-#   > Orchid::Engine.draw_routes("item", "home", "browse")
+#   > Orchid::Engine.draw_routes(reserved_names: ["item", "home", "browse"])
 #   then add overriding routes to your file as you normally would
