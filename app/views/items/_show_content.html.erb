@@ -1,5 +1,9 @@
-<% if @html %>
-  <%= @html.mb_chars.html_safe %>
+<% if @res %>
+  <% if @html %>
+    <%= @html.mb_chars.html_safe %>
+  <% else %>
+    <%= @res["text"] %>
+  <% end %>
 <% else %>
-  <%= @res["text"] %>
+  No item with identifier <%= params["id"] %> found!
 <% end %>
