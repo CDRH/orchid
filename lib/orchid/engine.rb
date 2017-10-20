@@ -41,8 +41,6 @@ module Orchid
 
           @@routes_drawn = true
         end
-      else
-        puts "the routes have already been drawn!!!"
       end
     end
 
