@@ -7,6 +7,11 @@ module Orchid
       with_period = /[^\/]+/
 
       ROUTES = [
+        # Home
+        { name: 'home', definition: proc {
+          root 'general#index', as: 'home'
+        }},
+
         # General
         { name: 'about', definition: proc {
           get 'about', to: 'general#about', as: :about
@@ -39,7 +44,7 @@ module Orchid
     end
 
     # Draw routes second time this code is called for routing after main app's
-    draw if defined? @@ready_to_draw
+    draw if defined?(@@ready_to_draw)
   end
 end
 

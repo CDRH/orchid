@@ -3,6 +3,7 @@ require_relative "../../config/routes"
 
 module Orchid
   class Routing
+
     # Indicate draw method below available in routes.rb when run by Rails
     @@ready_to_draw = true
 
@@ -23,11 +24,6 @@ module Orchid
 
             # Call routing DSL methods in Orchid route procs in this context
             instance_eval(&route[:definition])
-          end
-
-          # Use default if no home path specified
-          if !app_route_names.include?("home")
-            root 'general#index', as: "home"
           end
 
           @@routes_drawn = true
