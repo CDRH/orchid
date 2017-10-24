@@ -19,16 +19,23 @@ module Orchid
           # Add names reserved by main app for more general routes, e.g. '/:id'
           app_route_names += reserved_names
 
-          ROUTES.each do |route|
-            next if app_route_names.include?(route[:name])
+          # Handle apps with relative url root
+          url_prefix = Rails.application.config.relative_url_root.present? ?
+            Rails.application.config.relative_url_root : "/"
 
-            # Call routing DSL methods in Orchid route procs in this context
-            instance_eval(&route[:definition])
+          scope url_prefix do
+            ROUTES.each do |route|
+              next if app_route_names.include?(route[:name])
+
+              # Call routing DSL methods in Orchid route procs in this context
+              instance_eval(&route[:definition])
+            end
           end
 
           @@routes_drawn = true
         end
       end
     end
+
   end
 end
