@@ -56,7 +56,7 @@ end
 # I want to add a route after the orchid defaults have been drawn
 #
 #   You will need to manually load the orchid routes.  Do this by adding
-#   > Orchid::Engine.draw_routes
+#   > Orchid::Routing.draw
 #   to your routes file, then add your routes.
 #
 # I want to add a route after the orchid defaults which overrides a named path
