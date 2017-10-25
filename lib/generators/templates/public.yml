@@ -1,0 +1,44 @@
+default: &default
+
+  app_options:
+    version: 0.1.0
+    # Header <h1>
+    project_name: Sample Template
+    # <title>, meta application-name
+    project_shortname: Sample
+    # Header <h2>
+    project_subtitle: Template Subtitle
+
+  api_options:
+    # only grab letters by default
+    f:
+      - subcategory|Letters
+    # sorting and response number
+    sort:
+      - title|asc
+    rows: 50
+    # facet info
+    facet_limit: 20
+    facet_sort: count|desc
+    # highlighting
+    hl_fl: annotations_text, transcription_t, text
+    hl_num: 5
+
+  date_range:
+    date_first:
+      - 1800
+      - 01
+      - 01
+    date_last:
+      - 1900
+      - 12
+      - 31
+
+test:
+  <<: *default
+
+development:
+  <<: *default
+
+production:
+  <<: *default
