@@ -1,6 +1,9 @@
 # Run by lib/orchid/routing.rb so ROUTES defined when doing main app's routing
 # in case Orchid routes to be drawn before or between main app's
 # Run a second time automatically by Rails after main app's routing
+
+# For more information, please refer to the README's Configuration section
+
 module Orchid
   class Routing
     if !defined? ROUTES
@@ -47,28 +50,3 @@ module Orchid
     draw if defined?(@@ready_to_draw)
   end
 end
-
-# TODO Move documentation on how to use to README
-# OVERRIDING ROUTES
-#
-# I want to change one of the named routes from orchid to a new path
-#
-#   Assuming that your overridden route can be loaded before the orchid
-#   routes (for example, at a path that won't accidentally catch
-#   other routes if it is loaded first (/:id) )
-#   Simply add your route to the app routes file as normal
-#
-# I want to add a route after the orchid defaults have been drawn
-#
-#   You will need to manually load the orchid routes.  Do this by adding
-#   > Orchid::Routing.draw
-#   to your routes file, then add your routes.
-#
-# I want to add a route after the orchid defaults which overrides a named path
-#
-#   You will manually load the orchid routes as above, but pass the name that
-#   you will be overriding to the orchid method.
-#   > Orchid::Routing.draw(reserved_names: ["item"])
-#   You can also pass a list
-#   > Orchid::Routing.draw(reserved_names: ["item", "home", "browse"])
-#   then add overriding routes to your file as you normally would
