@@ -53,11 +53,9 @@ class SetupGenerator < Rails::Generators::Base
   end
 
   def copy_configs
-    puts "about to copy"
     FileUtils.cp("#{@this_app}/lib/generators/templates/private.yml", "#{@new_app}/config/private.example.yml")
     FileUtils.cp("#{@this_app}/lib/generators/templates/private.yml", "#{@new_app}/config/private.yml")
     FileUtils.cp("#{@this_app}/lib/generators/templates/public.yml", "#{@new_app}/config/public.yml")
-    puts "after copying"
 
     puts "Please enter the following for initial app customization"
 
