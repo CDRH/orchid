@@ -2,6 +2,26 @@
 
 Orchid is a generator which can be used to create a new CDRH API template site.  The new site can either connect to the entire API's contents or filter by "type," meaning that the new site can be used for a specific collection.
 
+## Contents
+
+- [Installation](#installation)
+  - [RVM](#rvm)
+  - [All Installs](#all-installs)
+- [Usage](#usage)
+- [Configuration](#configuration)
+  - [API](#api)
+  - [Facets](#facets)
+  - [Favicon](#favicon)
+  - [Footer Logo](#footer-logo)
+  - [Gitignore](#gitignore)
+  - [Routes](#routes)
+  - [Scripts](#scripts)
+  - [Stylesheets / Bootstrap](#stylesheets--bootstrap)
+  - [(Re)start](#restart)
+- [Assets](#assets)
+  - [Javascript Inclusions and Asset Declarations](#javascript-inclusions-and-asset-declarations)
+  - [Stylesheet Imports](#stylesheet-imports)
+- [License](#license)
 
 ## Installation
 If you have ruby and Rails installed already, create the Rails app:<br>
