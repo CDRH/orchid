@@ -2,10 +2,10 @@
   <div class="container">
     <%= link_to home_path do %>
       <div id="site-title">
-        <h1><%= CONFIG["project_name"] %></h1>
+        <h1><%= APP_OPTS["project_name"] %></h1>
       </div>
     <% end %>
-    <h2><%= CONFIG["project_subtitle"] %></h2>
+    <h2><%= APP_OPTS["project_subtitle"] %></h2>
   </div>
 
   <%= render "layouts/body/navbar" %>
