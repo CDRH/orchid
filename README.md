@@ -85,27 +85,29 @@ Once Orchid is installed successfully, run the generator to prepare your new rai
 rails g(enerate) setup
 ```
 
+Note: If the above command hangs, try running `spring stop`.
+
 The script will ask you for some initial configuration values.
 
 
 ## Configuration
-Most app configuration is located in `config/config.yml`.  If you are updating your version of Orchid, you may already have an existing config file, so you will want to compare it against the `config/config.example.yml` file to see if there are any changes or additions which have been made.
+Most app configuration is located in `config/public.yml` and `config/private.yml`.  If you are updating your version of Orchid, you may already have existing config files, so you will want to compare them against the orchid config template files to see if any changes need to be made.
 
 ### API
-The API path may be any endpoint in the API to which `/items` can be appended to receive a list of items.  This should look like one of the following:
+The API path may be any endpoint in the API to which `/items` can be appended to receive a list of items.  The path is set in `config/private.yml`.  This should look like one of the following:
 
 ```yaml
 api_path: https://api_dev_path.unl.edu
 api_path: https://api_dev_path.unl.edu/collection/collection_name
 ```
 
-There are more variables related to API search results not set when running the generator script. You may change:
+There are more variables related to API search results not set when running the generator script. You may change the following in `config/public.yml`:
 - The number of search results which come back by default
 - The type of sort which will be used for browsing
 - Facet list sizes and sorting
 - The earliest and latest dates of the app's documents
 
-All of these settings may be overridden in specific requests later as well.
+All of these settings may be overridden in specific requests later as well.  Please refer to https://github.com/CDRH/api for more information about the options.
 
 ### Facets
 You may also want to peruse the `app/models/facets.rb` file and alter it for specific fields which you would prefer.

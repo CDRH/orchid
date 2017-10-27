@@ -2,7 +2,7 @@ class SetupGenerator < Rails::Generators::Base
 
   desc <<-EOS
     This generator prepares applications for API integration:
-      1. Generates config files and config/config.yml file
+      1. Generates config files
       2. Generates facets file for customization
       3. Generates favicon and footer_logo images
       4. Disables turbolinks and adds api_bridge gem to app's Gemfile
@@ -44,36 +44,37 @@ class SetupGenerator < Rails::Generators::Base
 
   private
 
-  def config_replace(original, new)
-    gsub_file "#{@new_app}/config/config.yml", original, new
+  def config_replace(config_type, original, new)
+    gsub_file "#{@new_app}/config/#{config_type}.yml", original, new
   end
 
-  def config_set(var_name, value)
-    gsub_file "#{@new_app}/config/config.yml", /^(\s*#{var_name}:).+$/, "\\1 #{value}"
+  def config_set(config_type, var_name, value)
+    gsub_file "#{@new_app}/config/#{config_type}.yml", /^(\s*#{var_name}:).+$/, "\\1 #{value}"
   end
 
   def copy_configs
-    FileUtils.cp("#{@this_app}/lib/generators/templates/config.yml", "#{@new_app}/config/config.example.yml")
-    FileUtils.cp("#{@this_app}/lib/generators/templates/config.yml", "#{@new_app}/config/config.yml")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/private.yml", "#{@new_app}/config/private.example.yml")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/private.yml", "#{@new_app}/config/private.yml")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/public.yml", "#{@new_app}/config/public.yml")
 
     puts "Please enter the following for initial app customization"
 
     answer = prompt_for_value("Project Name (Header <h1>)", "Sample Template")
-    config_set("project_name", answer)
+    config_set("public", "project_name", answer)
 
     answer = prompt_for_value("Project Short Name (<title>, <meta application-name>)", "Template")
-    config_set("project_shortname", answer)
+    config_set("public", "project_shortname", answer)
 
     answer = prompt_for_value("Project Subtitle (Header <h2>)", "Template Subtitle")
-    config_set("project_subtitle", answer)
+    config_set("public", "project_subtitle", answer)
 
     answer = prompt_for_value("Dev API Path", "https://cdrhdev1.unl.edu/api/v1")
-    config_replace("api_path: https://cdrhdev1.unl.edu/api/v1", "api_path: #{answer}")
+    config_replace("private", "api_path: https://cdrhdev1.unl.edu/api/v1", "api_path: #{answer}")
 
     answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu")
-    config_replace("api_path: https://cdrhapi.unl.edu/v1", "api_path: #{answer}")
+    config_replace("private", "api_path: https://cdrhapi.unl.edu/v1", "api_path: #{answer}")
 
-    return "Orchid config copied to config/config.example.yml and config/config.yml updated with initial app customizations"
+    return "Configuration files copied to config/private.example.yml, config/private.yml, and config/public.yml. Updated with initial app customizations"
   end
 
   def copy_initializer

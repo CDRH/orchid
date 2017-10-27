@@ -1,0 +1,15 @@
+default: &default
+  # If app should only be using a specific collection,
+  # append "/collection/(collection_name)" to path
+  api_path: https://cdrhdev1.unl.edu/api/v1
+
+test:
+  <<: *default
+
+development:
+  <<: *default
+  api_path: https://cdrhdev1.unl.edu/api/v1
+
+production:
+  <<: *default
+  api_path: https://cdrhapi.unl.edu/v1
