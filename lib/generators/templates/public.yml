@@ -10,9 +10,9 @@ default: &default
     project_subtitle: Template Subtitle
 
   api_options:
-    # only grab letters by default
-    f:
-      - subcategory|Letters
+    # example of default filter for all queries
+    # f:
+    #   - subcategory|Writings
     # sorting and response number
     sort:
       - title|asc
@@ -26,11 +26,11 @@ default: &default
 
   date_range:
     first:
-      - 1800
+      - 1600
       - 01
       - 01
     last:
-      - 1900
+      - 2100
       - 12
       - 31
 

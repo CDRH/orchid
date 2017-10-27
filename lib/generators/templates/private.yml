@@ -12,4 +12,4 @@ development:
 
 production:
   <<: *default
-  api_path: https://cdrhapi.unl.edu
+  api_path: https://cdrhapi.unl.edu/v1
