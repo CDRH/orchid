@@ -1,18 +1,52 @@
-Orchid::Engine.routes.draw do
-  # TODO put any namespaced or orchid specific routes here
-end
+# Run by lib/orchid/routing.rb so ROUTES defined when doing main app's routing
+# in case Orchid routes to be drawn before or between main app's
+# Run a second time automatically by Rails after main app's routing
 
-Rails.application.routes.draw do
-  root 'general#index', as: :home
-  get 'about' => 'general#about', as: :about
+# For more information, please refer to the README's Configuration section
 
-  # items
-  get 'browse' => 'items#browse', as: :browse
-  get 'browse/:facet' => 'items#browse_facet', as: :browse_facet, :constraints => { :facet => /[^\/]+/ }
-  get 'item/:id' => 'items#show', as: :item, :constraints => { :id => /[^\/]+/ }
-  get 'search' => 'items#index', as: :search
+module Orchid
+  class Routing
+    if !defined? ROUTES
+      with_period = /[^\/]+/
 
-  # errors
-  match '/404', to: 'errors#not_found', via: :all
-  match '/500', to: 'errors#server_error', via: :all
+      ROUTES = [
+        # Home
+        { name: 'home', definition: proc {
+          root 'general#index', as: 'home'
+        }},
+
+        # General
+        { name: 'about', definition: proc {
+          get 'about', to: 'general#about', as: :about
+        }},
+
+        # Items
+        { name: 'browse', definition: proc {
+          get 'browse', to: 'items#browse', as: :browse
+        }},
+        { name: 'browse_facet', definition: proc {
+          get 'browse/:facet', to: 'items#browse_facet', as: :browse_facet,
+            constraints: { facet: with_period }
+        }},
+        { name: 'item', definition: proc {
+          get 'item/:id', to: 'items#show', as: :item,
+            constraints: { id: with_period }
+        }},
+        { name: 'search', definition: proc {
+          get 'search', to: 'items#index', as: :search
+        }},
+
+        # Errors
+        { name: 'not_found', definition: proc {
+          match '/404', to: 'errors#not_found', via: :all
+        }},
+        { name: 'server_error', definition: proc {
+          match '/500', to: 'errors#server_error', via: :all
+        }}
+      ]
+    end
+
+    # Draw routes second time this code is called for routing after main app's
+    draw if defined?(@@ready_to_draw)
+  end
 end

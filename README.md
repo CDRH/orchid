@@ -2,6 +2,26 @@
 
 Orchid is a generator which can be used to create a new CDRH API template site.  The new site can either connect to the entire API's contents or filter by "type," meaning that the new site can be used for a specific collection.
 
+## Contents
+
+- [Installation](#installation)
+  - [RVM](#rvm)
+  - [All Installs](#all-installs)
+- [Usage](#usage)
+- [Configuration](#configuration)
+  - [API](#api)
+  - [Facets](#facets)
+  - [Favicon](#favicon)
+  - [Footer Logo](#footer-logo)
+  - [Gitignore](#gitignore)
+  - [Routes](#routes)
+  - [Scripts](#scripts)
+  - [Stylesheets / Bootstrap](#stylesheets--bootstrap)
+  - [(Re)start](#restart)
+- [Assets](#assets)
+  - [Javascript Inclusions and Asset Declarations](#javascript-inclusions-and-asset-declarations)
+  - [Stylesheet Imports](#stylesheet-imports)
+- [License](#license)
 
 ## Installation
 If you have ruby and Rails installed already, create the Rails app:<br>
@@ -103,6 +123,24 @@ your app's footer logo.
 
 ### Gitignore
 Add any other files which should not be version controlled to `.gitignore`.
+
+### Routes
+
+Orchid's routes load after the application's routes.  This means that generally you may add routes to the app's `config/routes.rb` file as normal.  Orchid will detect and avoid overriding any named routes which it might otherwise have set.
+
+Occasionally you may wish to add a route to your application after Orchid's default routes have been drawn.  For example, you may wish to add or alter a route which would otherwise capture many following routes (`/:id` would capture paths like `/about` and `/browse` if drawn first).  In this case, you will need to instruct Orchid to draw its routes before your paths.
+
+```
+# in application's config/routes.rb
+
+Orchid::Routing.draw
+```
+
+If you will be overriding a named route set by Orchid as a default, you will need to tell Orchid not to draw that route.  You may pass a list of route names.
+
+```
+Orchid::Routing.draw(reserved_names: ["item", "home"])
+```
 
 ### Scripts
 One should normally not need to edit `app/assets/application.js`.
