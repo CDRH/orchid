@@ -109,6 +109,23 @@ There are more variables related to API search results not set when running the 
 
 All of these settings may be overridden in specific requests later as well.  Please refer to https://github.com/CDRH/api for more information about the options.
 
+### Controllers and Actions
+It is possible to override the behavior of specific actions within controllers.  To add or override a controller action, first create a file in the controllers directory with a name ending in `_override.rb`.  For example, `app/controllers/general_override.rb`.
+
+Then, you will need a line at the top that indicates which controller you are working on.
+
+```
+GeneralController.class_eval do
+
+  def action_name
+    [code here]
+  end
+
+end
+```
+
+You can also override an entire controller by simply placing a file with the controller's name in the controllers directory.  For example, `app/controllers/general_controller.rb` would take the place of the Orchid version of this file.  *This approach is not recommended.*
+
 ### Facets
 You may also want to peruse the `app/models/facets.rb` file and alter it for specific fields which you would prefer.
 
