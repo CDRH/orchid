@@ -1,11 +1,11 @@
-# Run by lib/orchid/routing.rb so ROUTES defined when doing main app's routing
+# Symlinked from initializers/routes.rb so ROUTES defined for main app's routing
 # in case Orchid routes to be drawn before or between main app's
 # Run a second time automatically by Rails after main app's routing
 
 # For more information, please refer to the README's Configuration section
 
 module Orchid
-  class Routing
+  module Routing
     if !defined? ROUTES
       with_period = /[^\/]+/
 
@@ -44,9 +44,9 @@ module Orchid
           match '/500', to: 'errors#server_error', via: :all
         }}
       ]
+    else
+      # Draw routes second time this code is called for routing after main app's
+      draw
     end
-
-    # Draw routes second time this code is called for routing after main app's
-    draw if defined?(@@ready_to_draw)
   end
 end
