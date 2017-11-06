@@ -13,10 +13,6 @@ module Orchid
           # Add names reserved by main app for more general routes, e.g. '/:id'
           drawn_routes += reserved_names
 
-          # Handle apps with relative url root
-          url_prefix = Rails.application.config.relative_url_root.present? ?
-            Rails.application.config.relative_url_root : "/"
-
           ROUTES.each do |route|
             next if drawn_routes.include?(route[:name])
 
