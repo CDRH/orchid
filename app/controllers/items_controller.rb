@@ -65,5 +65,19 @@ class ItemsController < ApplicationController
     end
   end
 
+  private
+
+  # methods to handle semicolons
+  def decode_filter(filter)
+    filter = filter.gsub("%3B", ";")
+    filter.gsub("%253B", ";")
+  end
+  helper_method :decode_filter
+
+  def encode_filter(filter)
+    filter.gsub(";", "%3B")
+  end
+  helper_method :encode_filter
+
 end
 

@@ -25,7 +25,7 @@
           <ul class="list-unstyled">
             <% facet_res.each do |key, value| %>
               <% selected = facet_selected?(facet_name, key) %>
-              <% label = create_label key, "No Label" %>
+              <% label = create_label(key, "No Label") %>
 
               <!-- list item -->
               <% if !selected %>

@@ -8,7 +8,7 @@ module Orchid::FacetHelper
   end
 
   def create_label key, default="No Label"
-    return key ? key : default
+    return key ? decode_filter(key) : default
   end
 
   # type = "novel"
@@ -28,7 +28,7 @@ module Orchid::FacetHelper
       end
     end
     # verify that this exact facet has not already been added
-    facet_label = "#{type}|#{facet}"
+    facet_label = "#{type}|#{encode_filter(facet)}"
     if !new_params["f"].include?(facet_label)
       new_params["f"] << facet_label
     end
@@ -43,7 +43,7 @@ module Orchid::FacetHelper
   def facet_selected? type, facet=""
     if params["f"].present?
       if facet && facet.length > 0
-        return params["f"].include?("#{type}|#{facet}")
+        return params["f"].include?("#{type}|#{encode_filter(facet)}")
       else
         return params["f"].any? { |f| f.include?(type) }
       end
@@ -65,7 +65,7 @@ module Orchid::FacetHelper
   def remove_facet type, facet
     new_params = copy_params
     new_params.delete("page")
-    new_params["f"].delete("#{type}|#{facet}")
+    new_params["f"].delete("#{type}|#{encode_filter(facet)}")
     return new_params
   end
 
