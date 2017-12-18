@@ -17,9 +17,11 @@ default: &default
     sort:
       - title|asc
     rows: 50
-    # facet info
+    # facet info on search page
     facet_limit: 20
     facet_sort: count|desc
+    # facet info on browse page
+    browse_sort: term|asc
     # highlighting
     hl_fl: annotations_text, transcription_t, text
     hl_num: 5

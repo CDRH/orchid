@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
     end
 
     sort_by = params["facet_sort"].present? ?
-      params["facet_sort"] : API_OPTS["facet_sort"]
+      params["facet_sort"] : API_OPTS["browse_sort"]
 
     # Get facet results
     @res = $api.query({"facet" => @browse_facet, "facet_num" => 10000,
