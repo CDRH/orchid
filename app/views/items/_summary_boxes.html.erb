@@ -41,7 +41,7 @@
       <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
         <div class="input-group">
           <div class="input-group-addon" title="<%= label %> Filter">
-            <%= label %> : <%= facet %>
+            <%= label %> : <%= decode_filter(facet) %>
           </div>
           <div class="input-group-btn" aria-label="Clear <%= label %> Filter" title="Clear <%= label %> Filter">
             <%= link_to search_path(remove_facet(type, facet)), class: "btn btn-default btn-sm", role: "button" do %>
