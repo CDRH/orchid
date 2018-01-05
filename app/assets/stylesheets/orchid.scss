@@ -45,23 +45,8 @@
 
 // Site Section-specific
 // =====================
-.site_browse {
-  .browse-item {
-    border-bottom: dotted 0.0125em;
-    margin-bottom: 0.5em;
-    padding-left: 0;
 
-    span {
-      background-color: $light-base;
-      padding: 0 0 0.5em 1em;
-    }
-  }
-
-  a:hover .browse-item {
-    border-bottom: solid 0.0125em;
-  }
-}
-
+// Search Pages
 .site_search {
   .pagination_container {
     text-align: right;
@@ -73,5 +58,34 @@
 
   .search-filters {
     min-height: 2.75em;
+  }
+}
+
+// Index Pages
+.index_num {
+  font-size: 1.2em;
+  text-align: right;
+  vertical-align: top;
+}
+
+.index_spacer {
+  vertical-align: top;
+
+  span {
+    display: block;
+    width: 2em;
+    height: 1.2em;
+    margin: 0 .5em;
+    border-bottom: 1px dotted #333;
+  }
+}
+
+.index_table {
+  tr:hover {
+    background-color: #fff;
+  }
+
+  a {
+    display: block;
   }
 }
