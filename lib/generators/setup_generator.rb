@@ -28,6 +28,7 @@ class SetupGenerator < Rails::Generators::Base
     msgs << footer_logo
     msgs << gems
     msgs << gitignore
+    msgs << handle_exceptions
     msgs << helpers
     msgs << remove_files
     msgs << scripts
@@ -71,7 +72,7 @@ class SetupGenerator < Rails::Generators::Base
     answer = prompt_for_value("Dev API Path", "https://cdrhdev1.unl.edu/api/v1")
     config_replace("private", "api_path: https://cdrhdev1.unl.edu/api/v1", "api_path: #{answer}")
 
-    answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu")
+    answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu/v1")
     config_replace("private", "api_path: https://cdrhapi.unl.edu/v1", "api_path: #{answer}")
 
     return "Configuration files copied to config/private.example.yml, config/private.yml, and config/public.yml. Updated with initial app customizations"
@@ -121,6 +122,15 @@ class SetupGenerator < Rails::Generators::Base
     FileUtils.cp("#{@this_app}/lib/generators/templates/.gitignore", "#{@new_app}/.gitignore")
 
     return "Orchid .gitignore file copied to app's root directory"
+  end
+
+  def handle_exceptions
+    inject_into_file "#{@new_app}/config/application.rb", after: "config.load_defaults 5.1\n" do <<-EOS
+    # Enable custom error pages
+    config.exceptions_app = self.routes
+    EOS
+    end
+    return "Added exceptions handling into application.rb"
   end
 
   def helpers
