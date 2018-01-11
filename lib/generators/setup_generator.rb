@@ -107,7 +107,7 @@ class SetupGenerator < Rails::Generators::Base
 
   def gems
     gem 'bootstrap-sass', '~> 3.3.6'
-    gem 'jquery-rails'
+    gem 'jquery-rails', '~> 4.3'
 
     # Remove turbolinks gem
     gsub_file "#{@new_app}/Gemfile", /^(gem 'turbolinks'.*)$/, "#\\1"
