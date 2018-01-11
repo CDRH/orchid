@@ -1,5 +1,5 @@
 module Orchid
-  VERSION = '0.1.0'
+  VERSION = '1.0.0'
 
   def self.api_bridge_version
     'v0.0.3'
