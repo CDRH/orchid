@@ -22,11 +22,11 @@
         </div>
 
         <%= text_field_tag "date_from[]", dfrom[0], id: "date_from",
-            class: "form-control", placeholder: DATE_FIRST[0], maxlength: "4", size: "4", aria_label: "From Year", title: "From Year" %>
+            class: "form-control input-sm", placeholder: DATE_FIRST[0], maxlength: "4", size: "4", aria_label: "From Year", title: "From Year" %>
         <%= text_field_tag "date_from[]", dfrom[1],
-            class: "form-control", placeholder: DATE_FIRST[1], maxlength: "2", size: "2", aria_label: "From Month", title: "From Month" %>
+            class: "form-control input-sm", placeholder: DATE_FIRST[1], maxlength: "2", size: "2", aria_label: "From Month", title: "From Month" %>
         <%= text_field_tag "date_from[]", dfrom[2],
-            class: "form-control", placeholder: DATE_FIRST[2], maxlength: "2", size: "2", aria_label: "From Day", title: "From Day" %>
+            class: "form-control input-sm", placeholder: DATE_FIRST[2], maxlength: "2", size: "2", aria_label: "From Day", title: "From Day" %>
       </div>
 
       <!-- date to -->
@@ -34,11 +34,11 @@
         <% dto = params["date_to"] ? params["date_to"] : [] %>
         <%= label_tag "date_to", "Date To" %><br/>
         <%= text_field_tag "date_to[]", dto[0], id: "date_to",
-            class: "form-control", placeholder: DATE_LAST[0], maxlength: "4", size: "4", aria_label: "To Year", title: "To Year" %>
+            class: "form-control input-sm", placeholder: DATE_LAST[0], maxlength: "4", size: "4", aria_label: "To Year", title: "To Year" %>
         <%= text_field_tag "date_to[]", dto[1],
-            class: "form-control", placeholder: DATE_LAST[1], maxlength: "2", size: "2", aria_label: "To Month", title: "To Month" %>
+            class: "form-control input-sm", placeholder: DATE_LAST[1], maxlength: "2", size: "2", aria_label: "To Month", title: "To Month" %>
         <%= text_field_tag "date_to[]", dto[2],
-            class: "form-control", placeholder: DATE_LAST[2], maxlength: "2", size: "2", aria_label: "To Day", title: "To Day" %>
+            class: "form-control input-sm", placeholder: DATE_LAST[2], maxlength: "2", size: "2", aria_label: "To Day", title: "To Day" %>
       </div>
       <%= render "hidden_fields" %>
       <%= hidden_field_tag(:q, params["q"]) %>
