@@ -1,11 +1,12 @@
 module Orchid::DateHelper
 
   def clear_dates_params
-    # duplicate parameters, remove date fields, and return
-    options = params.permit!.deep_dup
-    options.delete("date_from")
-    options.delete("date_to")
-    return options
+    new_params = copy_params
+    new_params.delete("date_from")
+    new_params.delete("date_to")
+    # Remove page to return to first page of reorganized results
+    new_params.delete("page")
+    return new_params
   end
 
   # TODO could abstract this into a CDRH gem
