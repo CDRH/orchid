@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    orchid (1.1.0)
+    orchid (1.1.1)
       rails (~> 5.2.0)
 
 GEM
