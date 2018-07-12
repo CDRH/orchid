@@ -14,7 +14,9 @@
       <div class="panel panel-default">
 
         <!-- panel heading -->
-        <div class="clearfix panel-heading" data-toggle="collapse" data-target="#fc-<%= data_safe_name %>" aria-label="Show <%= info['label'] %> Filters" role="Option">
+        <div class="clearfix panel-heading" data-toggle="collapse"
+             data-target="#fc-<%= data_safe_name %>" role="Option"
+             aria-label="<%= t("search.filters.show", label: info['label'], default: "Show #{info['label']} Filters") %>">
           <h3 class="pull-left panel-title"><%= info["label"] %></h3>
           <span class="pull-right glyphicon <%= class_glyphicon %>" aria-hidden="true"></span>
         </div>
@@ -25,7 +27,7 @@
           <ul class="list-unstyled">
             <% facet_res.each do |key, value| %>
               <% selected = facet_selected?(facet_name, key) %>
-              <% label = create_label key, "No Label" %>
+              <% label = create_label key, t("search.filters.no_label", default: "No Label") %>
 
               <!-- list item -->
               <% if !selected %>
@@ -38,7 +40,9 @@
                   <span><%= key %></span>
                   <span class="badge"><%= value %></span>
                   <%= link_to search_path(remove_facet(facet_name, key)) do %>
-                    <button class="btn btn-default btn-xs" aria-label="Clear <%= info['label'] %> Filter" title="Clear <%= info['label'] %> Filter">
+                    <button class="btn btn-default btn-xs"
+                            title="Clear <%= info['label'] %> Filter"
+                            aria-label="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>">
                       <span class="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                   <% end %>
@@ -47,7 +51,7 @@
             <% end %>
           </ul>
 
-          <%= link_to "See more", browse_facet_path(facet_name.parameterize(separator: ".")), class: "btn btn-info btn-xs" %>
+          <%= link_to t("search.filters.see_more", default: "See more"), browse_facet_path(facet: facet_name.parameterize(separator: ".")), class: "btn btn-info btn-xs" %>
         </div> <!-- /panel-body -->
 
       </div> <!-- /panel panel-default -->
