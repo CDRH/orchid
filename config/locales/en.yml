@@ -1,0 +1,8 @@
+en:
+  general:
+    # Header <1>
+    project_name: Sample Template
+    # <title>, meta application-name
+    project_shortname: Sample
+    # Header <h2>
+    project_subtitle: Template Subtitle

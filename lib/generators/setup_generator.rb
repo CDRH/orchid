@@ -7,10 +7,11 @@ class SetupGenerator < Rails::Generators::Base
       3. Generates favicon and footer_logo images
       4. Disables turbolinks and adds api_bridge gem to app's Gemfile
       5. Generates .gitignore file
-      6. Removes app's application controller and layout to use Orchid's
-      7. Removes app's application.js; generates new one, "global" directory,
+      6. Generates locales en file for customization
+      7. Removes app's application controller and layout to use Orchid's
+      8. Removes app's application.js; generates new one, "global" directory,
          and app-named script
-      8. Generates bootstrap variable file; removes app's application.css;
+      9. Generates bootstrap variable file; removes app's application.css;
          generates new Sass one, "global" directory, and app-named stylesheet
   EOS
 
@@ -30,6 +31,7 @@ class SetupGenerator < Rails::Generators::Base
     msgs << gitignore
     msgs << handle_exceptions
     msgs << helpers
+    msgs << locales
     msgs << remove_files
     msgs << scripts
     msgs << stylesheet
@@ -138,6 +140,12 @@ class SetupGenerator < Rails::Generators::Base
     FileUtils.cp(Dir.glob("#{@this_app}/app/helpers/*_helper.rb"), "#{@new_app}/app/helpers/")
 
     return "Copied extendable helper files which include Orchid's to app"
+  end
+
+  def locales
+    FileUtils.cp("#{@this_app}/config/locales/en.yml", "#{@new_app}/config/locales/en.yml")
+
+    return "Orchid locales copied to config/locales/en.yml"
   end
 
   def prompt_for_value(message, default)

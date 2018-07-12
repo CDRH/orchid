@@ -13,11 +13,16 @@ module Orchid
           # Add names reserved by main app for more general routes, e.g. '/:id'
           drawn_routes += reserved_names
 
-          ROUTES.each do |route|
-            next if drawn_routes.include?(route[:name])
+          langs = APP_OPTS["languages"]
+          locales = langs ? Regexp.new(langs) : /en/
 
-            # Call routing DSL methods in Orchid route procs in this context
-            instance_eval(&route[:definition])
+          scope "(:locale)", locale: locales do
+            ROUTES.each do |route|
+              next if drawn_routes.include?(route[:name])
+
+              # Call routing DSL methods in Orchid route procs in this context
+              instance_eval(&route[:definition])
+            end
           end
         end
       end
