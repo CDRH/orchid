@@ -76,7 +76,7 @@ module Orchid::ApplicationHelper
   end
 
   def locale
-    params["locale"] || APP_OPTS["language_default"]
+    I18n.locale
   end
 
   def localized_partial(partial_name, prefixes)
