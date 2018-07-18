@@ -8,7 +8,7 @@ module Orchid
         Rails.application.routes.routes.map { |r| r.name } : []
 
       # If home path drawn, assume Orchid's routes have already been drawn
-      if !drawn_routes.include?("home")
+      if !drawn_routes.include?("home") && const_defined?(:APP_OPTS)
         Rails.application.routes.draw do
           # Add names reserved by main app for more general routes, e.g. '/:id'
           drawn_routes += reserved_names

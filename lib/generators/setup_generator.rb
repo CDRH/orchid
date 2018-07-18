@@ -71,6 +71,13 @@ class SetupGenerator < Rails::Generators::Base
     answer = prompt_for_value("Project Subtitle (Header <h2>)", "Template Subtitle")
     config_set("public", "project_subtitle", answer)
 
+    answer = prompt_for_value("Primary Language", "en")
+    config_set("public", "language_default", answer)
+
+    answer = prompt_for_value("All Languages (separate with a pipe: en|es|de)", "en")
+    puts "ANSWER: #{answer}"
+    config_set("public", "    languages", answer)
+
     answer = prompt_for_value("Dev API Path", "https://cdrhdev1.unl.edu/api/v1")
     config_replace("private", "api_path: https://cdrhdev1.unl.edu/api/v1", "api_path: #{answer}")
 
