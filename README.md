@@ -127,7 +127,19 @@ end
 You can also override an entire controller by simply placing a file with the controller's name in the controllers directory.  For example, `app/controllers/general_controller.rb` would take the place of the Orchid version of this file.  *This approach is not recommended.*
 
 ### Facets
-You may also want to peruse the `app/models/facets.rb` file and alter it for specific fields which you would prefer.
+You may also want to peruse the `app/models/facets.rb` file and alter it for specific fields which you would prefer.  If your app supports multiple languages, you will need to make sure that the facets are organized by language, for example:
+
+```
+{
+  "en": {
+    ...facets...
+  },
+  "es": {
+    ...facets...
+  }
+}
+```
+
 
 ### Favicon
 Replace the image at `app/assets/images/favicon.png` to change your app's
@@ -142,6 +154,41 @@ your app's footer logo.
 
 ### Gitignore
 Add any other files which should not be version controlled to `.gitignore`.
+
+### Languages
+By default, Orchid assumes you are developing an English-only application. However, if you wish to add multiple languages or change the default language, first change `config/public.yml`:
+
+```
+language_default: es
+languages: en|es
+```
+
+Most of the navigation, buttons, and general wording throughout orchid has been pulled out into `locales/en.yml`.  Copy that file to match the other language(s) your app will support, for example: `locales/es.yml`.  Translate each entry of the yaml file.  You may toggle between languages in the application and view the language differences.
+
+Please check the "Facets" section of this README for more information about how to customize the behavior and labels of the facets by language.
+
+If you need to override a view to accommodate large amounts of content in multiple languages, please first create a directory to hold the specific language variation partials within your views.  The name of the controller and partial in the example should be modified for your application and purpose:
+
+```
+# app/views/[controller]
+
+excavation_sites
+        |-- sites_cz.html.erb
+        |-- sites_en.html.erb
+        |-- sites_es.html.erb
+_normal_partial.html.erb
+show.html.erb
+traditions
+        |-- traditions_cz.html.erb
+        |-- traditions_en.html.erb
+        |-- traditions_es.html.erb
+```
+
+To call the appropriate partial depending on language, include this in a view:
+
+```
+<%= render localized_partial("sites", "[controller]/excavation_sites") %>
+```
 
 ### Routes
 
