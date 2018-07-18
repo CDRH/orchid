@@ -85,6 +85,7 @@ module Orchid::ApplicationHelper
       "#{prefixes}/#{localized}"
     else
       # fallback to informative partial about customization
+      @missing_partial = "#{prefixes}/#{localized}"
       "errors/missing_partial"
     end
   end

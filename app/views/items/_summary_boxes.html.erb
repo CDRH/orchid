@@ -3,10 +3,12 @@
   <% if params["q"].present? %>
     <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
       <div class="input-group">
-        <div class="input-group-addon" title="Search Text">
+        <div class="input-group-addon" title="<%= t "search.search_text", default: "Search Text" %>">
           <%= t "search.results.summary.query", default: "Search" %> : <%= params["q"] %>
         </div>
-        <div class="input-group-btn" aria-label="<%= t "search.clear_text", default: "Clear Search Text" %>" title="Clear Search Text">
+        <div class="input-group-btn"
+             aria-label="<%= t "search.clear_text", default: "Clear Search Text" %>"
+             title="<%= t "search.clear_text", default: "Clear Search Text" %>">
           <%= link_to clear_search_text, class: "btn btn-default btn-sm", role: "button" do %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           <% end %>
@@ -19,11 +21,12 @@
   <% if date_selection?(params["date_from"], params["date_to"]) %>
     <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
       <div class="input-group">
-        <div class="input-group-addon" title="Date Selection">
+        <div class="input-group-addon" title="<%= t "search.dates.selection", default: "Date Selection" %>">
           <%= t "search.dates.date", default: "Date" %> :
           <%= @from %> <%= t "search.dates.range_divider", default: "to" %> <%= @to %>
         </div>
-        <div class="input-group-btn" title="Clear Date Filter"
+        <div class="input-group-btn"
+             title="<%= t "search.dates.clear_filter", default: "Clear Date Filter" %>"
              aria-label="<%= t "search.dates.clear_filter", default: "Clear Date Filter" %>">
           <%= link_to search_path(clear_dates_params), class: "btn btn-default btn-sm", role: "button" do %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -42,10 +45,11 @@
 
       <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
         <div class="input-group">
-          <div class="input-group-addon" title="<%= label %> Filter">
+          <div class="input-group-addon" title="<%= t "search.filters.summary_box", specific_filter: label, default: "#{label} Filter" %>">
             <%= label %> : <%= facet %>
           </div>
-          <div class="input-group-btn" title="Clear <%= label %> Filter"
+          <div class="input-group-btn"
+               title="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>"
                aria-label="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>">
             <%= link_to search_path(remove_facet(type, facet)), class: "btn btn-default btn-sm", role: "button" do %>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

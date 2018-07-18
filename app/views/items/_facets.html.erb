@@ -41,7 +41,7 @@
                   <span class="badge"><%= value %></span>
                   <%= link_to search_path(remove_facet(facet_name, key)) do %>
                     <button class="btn btn-default btn-xs"
-                            title="Clear <%= info['label'] %> Filter"
+                            title="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>"
                             aria-label="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>">
                       <span class="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>

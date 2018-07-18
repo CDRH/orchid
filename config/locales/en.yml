@@ -5,7 +5,7 @@ en:
   #################
   general:
     # footer content with link to CDRH site
-    cdrh_link_html: Created by the <a href="http://cdrh.unl.edu">Center for Digital Research in the Humanities</a>.
+    cdrh_link_html: Created by the <a href="https://cdrh.unl.edu">Center for Digital Research in the Humanities</a>.
     # close a popup window
     close: Close
     # Header <1>
@@ -22,7 +22,7 @@ en:
     # page title
     title: About
     # placeholder "riker ipsum" for about page. If about page has few contents,
-    # it's recommended that you override it in your locales files. If you about
+    # it's recommended that you override it in your config/locales files. If your about
     # page is more involved, please override the about.html.erb template entirely
     contents_html: |-
       <p>To edit the contents of this page, please open config/locales/en.yml and alter "contents_html",
@@ -130,8 +130,12 @@ en:
       help: Date Filter Help
       # divider between a range of dates, such as "2012 to 2014"
       range_divider: to
+      # hidden label marking section for date search
+      selection: Date Selection
       # hidden label for date filter dropdown
       show_filters: Show Date Filters
+      # label for applying the selected date filters
+      submit: Filter
       # latest date in range day
       to_day: To Day
       # latest date in range month
@@ -157,8 +161,6 @@ en:
     filters:
       # clearing filters (not the text search)
       clear_all: Clear Filters
-      # the word "filter" singular
-      filter: Filter
       # label above the filters
       filter_by: Filter by
       # display when a specific filter option is an empty string
@@ -167,6 +169,8 @@ en:
       see_more: See more
       # hidden label to expand a filter category
       show: "Show %{label} Filters"
+      # hidden label for filter summary boxes
+      summary_box: "%{specific_filter} Filter"
     # placeholder for the text search field
     placeholder: Search for...
     results:
@@ -199,6 +203,8 @@ en:
         query: Search
     # title text that appears when search / filters have been applied
     search_results: Search Results
+    # hidden label for the text search input
+    search_text: Search Text
     sort:
       # label for sorting options
       sort_by: Sort By
