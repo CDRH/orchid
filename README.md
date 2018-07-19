@@ -163,7 +163,7 @@ language_default: es
 languages: en|es
 ```
 
-Most of the navigation, buttons, and general wording throughout orchid has been pulled out into `locales/en.yml`.  Copy that file to match the other language(s) your app will support, for example: `locales/es.yml`.  Translate each entry of the yaml file.  You may toggle between languages in the application and view the language differences. **This file must exist for every language your app config specifies, though you may leave it blank.**
+Most of the navigation, buttons, and general wording throughout orchid has been pulled out into `locales/en.yml`.  Copy that file to match the other language(s) your app will support, for example: `locales/es.yml`.  Translate each entry of the yaml file.  You may toggle between languages in the application and view the language differences. **This file must exist for every language your app config specifies, though you may leave it blank.**  Double check that you have changed the key `en` at the top of the file, or else rails will not be able to find the appropriate language text for your application.
 
 Please check the "Facets" section of this README for more information about how to customize the behavior and labels of the facets by language.
 
