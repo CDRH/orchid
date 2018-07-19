@@ -20,6 +20,7 @@ config/secrets.yml
 # Ignore configuration files
 config/config.yml
 config/database.yml
+config/private.yml
 
 # Ignore precompiled assets
 public/assets
