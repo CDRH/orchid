@@ -67,6 +67,8 @@ en:
   errors:
     # general consolation message to the user on an error
     apology: We're sorry for the inconvenience.
+    # browse page specific message when selected facet cannot be viewed
+    browse: "Cannot browse by key: %{facet}"
     # page not found (404) explanation
     not_found: This page was not found!
     # server error (500) explanation
@@ -213,6 +215,28 @@ en:
     # hidden label for the text search input
     search_text: Search Text
     sort:
+      # alphabetically ascending sort
+      alpha_asc: "Alphabetically (A-Z)"
+      # alphabetically descending sort
+      alpha_desc: "Alphabetically (Z-A)"
+      # sort by fewest to most items
+      count_asc: "Count (least first)"
+      # sort by most to fewest items
+      count_desc: "Count (most first)"
+      # creator ascending sort
+      creator_asc: "Creator (A-Z)"
+      # creator descending sort
+      creator_desc: "Creator (Z-A)"
+      # date ascending sort
+      date_asc: "Date (earliest first)"
+      # date descending sort
+      date_desc: "Date (latest first)"
+      # title ascending sort
+      title_asc: "Title (A-Z)"
+      # title descending sort
+      title_desc: "Title (Z-A)"
+      # relevancy (descending), how likely the search results are to be valuable
+      relevancy: "Relevancy"
       # label for sorting options
       sort_by: Sort By
     # label for applying text search options ("Go!", "Search", etc)

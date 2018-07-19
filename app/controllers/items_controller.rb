@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
     # Get selected facet's info
     @browse_facet_info = Facets.facet_info[@browse_facet]
     if @browse_facet_info.blank?
-      redirect_to browse_path, notice: "Cannot browse by key: '#{@browse_facet}'"
+      redirect_to browse_path, notice: t("errors.browse", facet: @browse_facet, default: "Cannot browse by key: '#{@browse_facet}'")
       return
     end
 
