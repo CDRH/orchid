@@ -75,8 +75,7 @@ class SetupGenerator < Rails::Generators::Base
     config_set("public", "language_default", answer)
 
     answer = prompt_for_value("All Languages (separate with a pipe: en|es|de)", "en")
-    puts "ANSWER: #{answer}"
-    config_set("public", "    languages", answer)
+    config_set("public", "languages", answer)
 
     answer = prompt_for_value("Dev API Path", "https://cdrhdev1.unl.edu/api/v1")
     config_replace("private", "api_path: https://cdrhdev1.unl.edu/api/v1", "api_path: #{answer}")
