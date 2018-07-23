@@ -8,6 +8,10 @@ default: &default
     project_shortname: Sample
     # Header <h2>
     project_subtitle: Template Subtitle
+    # defaults to "en" (english) if no default language set
+    language_default: en
+    # defaults to "en" if nothing passed in, pipe delineated values (en|es|de)
+    languages: en
 
   api_options:
     # example of default filter for all queries

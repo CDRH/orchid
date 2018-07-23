@@ -6,7 +6,7 @@
 
   <button type="button" class="btn btn-default dropdown-toggle"
     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Sort by: <%= sort_selected_label("search", sort_by) %>
+    <%= t "search.sort.sort_by", default: "Sort by" %>: <%= sort_selected_label("search", sort_by) %>
     <span class="caret"></span>
   </button>
 

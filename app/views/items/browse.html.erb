@@ -1,10 +1,10 @@
-<h2>Browse</h2>
+<h2><% t "browse.title", default: "Browse" %></h2>
 
 <p>
-  <%= link_to "All Items in the Archive", search_path, html_options = {class: "btn btn-lg btn-default"} %>
+  <%= link_to t("browse.all_link", default: "All Items in the Archive"), search_path, html_options = {class: "btn btn-lg btn-default"} %>
 </p>
 
-<h3>Browse by:</h3>
+<h3><%= t "browse.browse_type", default: "Browse by" %>:</h3>
 <% Facets.facet_info.each_slice(3) do |slice| %>
   <div class="row buffer-bottom-lg">
     <% slice.each do |(facet_name, facet_info)| %>

@@ -1,8 +1,8 @@
 <% @site_section = "search" %>
 <% if params["q"].blank? && params["f"].blank? %>
-  <h2>All Items</h2>
+  <h2><%= t "search.all_items", default: "All Items" %></h2>
 <% else %>
-  <h2>Search Results</h2>
+  <h2><%= t "search.search_results", default: "Search Results" %></h2>
 <% end %>
 
 <div class="row search_form">
@@ -10,7 +10,9 @@
 
   <div class="col-sm-3">
     <div class="clearfix">
-      <h4 class="pull-left">Filter by:</h4>
+      <h4 class="pull-left">
+        <%= t "search.filters.filter_by", default: "Filter by" %>:
+      </h4>
       <%= render "clear_facets" %>
     </div>
     <%= render "date_limit" %>

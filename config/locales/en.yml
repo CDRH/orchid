@@ -1,0 +1,248 @@
+# If adding a new language, copy this file, change the "en" code to the new language
+# and translate the text of the fields
+#
+# It is recommended, when adding entirely new fields to this file, to mark in the comment
+# that they are a custom field. This will help you upgrade the file when migrating to
+# new versions of orchid
+#   Ex:  # CDRH - explanation of label
+
+en:
+
+  #################
+  # GENERAL PAGES #
+  #################
+  general:
+    # footer content with link to CDRH site
+    cdrh_link_html: Created by the <a href="https://cdrh.unl.edu">Center for Digital Research in the Humanities</a>.
+    # close a popup window
+    close: Close
+    # Header <1>
+    project_name: Sample Template
+    # <title>, meta application-name
+    project_shortname: Sample
+    # Header <h2>
+    project_subtitle: Template Subtitle
+
+  #########
+  # ABOUT #
+  #########
+  about:
+    # page title
+    title: About
+    # placeholder "riker ipsum" for about page. If about page has few contents,
+    # it's recommended that you override it in your config/locales files. If your about
+    # page is more involved, please override the about.html.erb template entirely
+    contents_html: |-
+      <p>To edit the contents of this page, please open config/locales/en.yml and alter "contents_html",
+      or override about.html.erb in your local application.</p>
+      <p>And now, a few words from Star Trek:</p>
+      <p>Damage report! Now we know what they mean by 'advanced' tactical training. Is it my imagination, or have tempers become a little frayed on the ship lately?
+      You did exactly what you had to do. You considered all your options, you tried every alternative and then you made the hard choice.
+      In all trust, there is the possibility for betrayal. Earl Grey tea, watercress sandwiches... and Bularian canapés? Are you up for promotion?
+      Wait a minute - you've been declared dead. You can't give orders around here. Some days you get the bear, and some days the bear gets you.
+      Maybe if we felt any human loss as keenly as we feel one of those close to us, human history would be far less bloody.</p>
+      <p>The Enterprise computer system is controlled by three primary main processor cores, cross-linked with a redundant melacortz ramistat, fourteen kiloquad interface modules.
+      Well, that's certainly good to know. Well, I'll say this for him - he's sure of himself. Maybe we better talk out here; the observation lounge has turned into a swamp.
+      A lot of things can change in twelve years, Admiral. Computer, belay that order. Congratulations - you just destroyed the Enterprise.
+      Ensign Babyface! Did you come here for something in particular or just general Riker-bashing? Fear is the true enemy, the only enemy.
+      I will obey your orders. I will serve this ship as First Officer. And in an attack against the Enterprise, I will die with this crew. But I will not break my oath of loyalty to Starfleet.</p>
+
+  ##########
+  # BROWSE #
+  ##########
+  browse:
+    # link to search all items
+    all_link: All Items in the Archive
+    # label for browsing filters
+    browse_type: Browse by
+    # how to display specific filters which have no label
+    no_label: No label
+    # label for browsing sort (sort by: alphabetical descending)
+    sort_by: Sort by
+    # page title
+    title: Browse
+
+  ##########
+  # ERRORS #
+  ##########
+  errors:
+    # general consolation message to the user on an error
+    apology: We're sorry for the inconvenience.
+    # browse page specific message when selected facet cannot be viewed
+    browse: "Cannot browse by key: %{facet}"
+    # page not found (404) explanation
+    not_found: This page was not found!
+    # server error (500) explanation
+    server_error: Something went wrong!
+
+  #############
+  # HOME PAGE #
+  #############
+  home:
+    # greeting to the user
+    greeting: Welcome
+    # page title
+    title: Home
+
+  #############
+  # ITEM VIEW #
+  #############
+  item:
+    # a box of information shown about each item separate from the text and images
+    metadata:
+      # category of the item, such as "Writings"
+      category: Category
+      # the creator or creators of this item
+      creators: Author(s)
+      # the date of this item as it was originally recorded ("display date")
+      date: Date
+      # the format of the item, such as "envelope," "photograph," "postcard"
+      format: Format
+      # locations referenced by this item
+      places: Place(s)
+      # subcategory of the item, such as "Letters"
+      subcategory: Subcategory
+      # description of the title of the item
+      title: Title
+      # any works (often literary) referenced by this item, such as "O Pioneers!"
+      works: Works
+    # description of missing item error
+    no_item: "No item with identifier %{id} found!"
+    # title for error when item not found
+    not_found: Not Found
+
+  ########################
+  # SEARCH AND FILTERING #
+  ########################
+  search:
+    # title text that appears when no search / filters have been applied
+    all_items: All Items
+    # clearing all search / filters
+    clear_all: Clear Search
+    # clearing only the text search field
+    clear_text: Clear Search Text
+    dates:
+      # clearing the date filter
+      clear_filter: Clear Date Filter
+      # the word "date" singular
+      date: Date
+      # label for earliest date in range
+      date_from_label: Date From
+      # label for latest date in range
+      date_to_label: Date To
+      # earliest date in range day
+      from_day: From Day
+      # earliest date in range month
+      from_month: From Month
+      # earliest date in range year
+      from_year: From Year
+      # date filter help label
+      help: Date Filter Help
+      # divider between a range of dates, such as "2012 to 2014"
+      range_divider: to
+      # hidden label marking section for date search
+      selection: Date Selection
+      # hidden label for date filter dropdown
+      show_filters: Show Date Filters
+      # label for applying the selected date filters
+      submit: Filter
+      # latest date in range day
+      to_day: To Day
+      # latest date in range month
+      to_month: To Month
+      # latest date in range year
+      to_year: To Year
+    help:
+      # section title
+      title: Search Help
+      # search help html, this may need to be recreated per language
+      # instead of translated literally due to differences with stemming and grammar
+      html: |-
+        <h4>Basic Search</h4>
+        <p>Simply enter the word you wish to find and the search engine will search for every instance of the word in the journals. For example: Fight. All instances of the use of the word fight will show up on the results page.</p>
+        <h4>Wildcard Searches</h4>
+        <p>Using an asterisk (*) will increase the odds of finding the results you are seeking. For example: Fight*. The search results will display every instance of fight, fights, fighting, etc. More than one wildcard may be used. For example: *ricar*. This search will return most references to the Aricara tribe, including Ricara, Ricares, Aricaris, Ricaries, Ricaree, Ricareis, and Ricarra. Using a question mark (?) instead of an asterisk (*) will allow you to search for a single character. For example, r?n will find all instances of ran and run, but will not find rain or ruin.</p>
+        <h4>Capitalization</h4>
+        <p>Searches are not case sensitive. For example: george will come up with the same results as George.</p>
+        <h4>Phrase Search</h4>
+        <p>Searching for a specific phrase may help narrow down the results. Rather long phrases are no problem. For example: "This white pudding we all esteem".</p>
+        <h4>Subsequent Searches</h4>
+        <p>Because of the creative spellings used by the journalists, it may be necessary to try your search multiple times. For example: P?ro*. This search brings up numerous variant spellings of the French word pirogue, "a large dugout canoe or open boat." Searching for P?*r*og?* will bring up other variant spellings. Searching for canoe or boat also may be helpful.</p>
+    filters:
+      # clearing filters (not the text search)
+      clear_all: Clear Filters
+      # label above the filters
+      filter_by: Filter by
+      # display when a specific filter option is an empty string
+      no_label: No Label
+      # link text to view all the possible filter options
+      see_more: See more
+      # hidden label to expand a filter category
+      show: "Show %{label} Filters"
+      # hidden label for filter summary boxes
+      summary_box: "%{specific_filter} Filter"
+    # placeholder for the text search field
+    placeholder: Search for...
+    results:
+      # how to display number of results when no search / filters have been applied
+      # and therefore user is browsing all items
+      general:
+        zero: 0 results
+        one: 1 result
+        other: "%{count} results"
+      # labels for individual item descriptions in results
+      item:
+        # creators of the item
+        creator: Creator(s)
+        # the date of the item used for search results
+        date: Date
+        # the format of the item
+        format: Format
+        # label to display if the item itself has no title
+        no_title: Untitled
+        # the source of the item, such as the repository
+        source: Source
+      # how to display number of results when a search / filter have been applied
+      # and therefore the user is browsing a subset of items
+      query:
+        zero: 0 items
+        one: 1 item
+        other: "%{count} items"
+      # summary box of selected search / filters
+      summary:
+        query: Search
+    # title text that appears when search / filters have been applied
+    search_results: Search Results
+    # hidden label for the text search input
+    search_text: Search Text
+    sort:
+      # alphabetically ascending sort
+      alpha_asc: "Alphabetically (A-Z)"
+      # alphabetically descending sort
+      alpha_desc: "Alphabetically (Z-A)"
+      # sort by fewest to most items
+      count_asc: "Count (least first)"
+      # sort by most to fewest items
+      count_desc: "Count (most first)"
+      # creator ascending sort
+      creator_asc: "Creator (A-Z)"
+      # creator descending sort
+      creator_desc: "Creator (Z-A)"
+      # date ascending sort
+      date_asc: "Date (earliest first)"
+      # date descending sort
+      date_desc: "Date (latest first)"
+      # title ascending sort
+      title_asc: "Title (A-Z)"
+      # title descending sort
+      title_desc: "Title (Z-A)"
+      # relevancy (descending), how likely the search results are to be valuable
+      relevancy: "Relevancy"
+      # label for sorting options
+      sort_by: Sort By
+    # label for applying text search options ("Go!", "Search", etc)
+    submit: Search
+    # page title
+    title: Search
+    # browse items without applying any search / filters
+    view_all: View All Items

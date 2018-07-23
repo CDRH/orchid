@@ -1,13 +1,15 @@
 <div class="metadata">
   <ul>
-    <%= metadata @res, "Title", "title", false %>
-    <%= metadata @res, "Date", "date_display" %>
-    <%= metadata @res, "Author(s)", "creators" %>
-    <%= metadata @res, "Format", "format" %>
-    <%= metadata @res, "Category", "category" %>
-    <%= metadata @res, "Subcategory", "subcategory" %>
-    <%= metadata @res, "Works", "works" %>
-    <%= metadata @res, "Place(s)", "places" %>
-    <li><strong>TEI XML: </strong><a href="<%= @res['uriXML'] %>"><%= @res["identifier"] %>.xml</a>
+    <%= metadata @res, t("item.metadata.title", default: "Title"), "title", false %>
+    <%= metadata @res, t("item.metadata.date", default: "Date"), "date_display" %>
+    <%= metadata @res, t("item.metadata.creators", default: "Author(s)"), "creators" %>
+    <%= metadata @res, t("item.metadata.format", default: "Format"), "format" %>
+    <%= metadata @res, t("item.metadata.category", default: "Category"), "category" %>
+    <%= metadata @res, t("item.metadata.subcategory", default: "Subcategory"), "subcategory" %>
+    <%= metadata @res, t("item.metadata.works", default: "Works"), "works" %>
+    <%= metadata @res, t("item.metadata.places", default: "Place(s)"), "places" %>
+    <li><strong>TEI XML: </strong>
+        <a href="<%= @res['uriXML'] %>"><%= @res["identifier"] %>.xml</a>
+    </li>
   </ul>
 </div>

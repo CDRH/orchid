@@ -1,5 +1,5 @@
 <% if params["q"].blank? && params["f"].blank? %>
-  <h4><%= pluralize @res.count, "item" %></h4>
+  <h4><%= t "search.results.query", count: @res.count %></h4>
 <% else %>
-  <h4>Returned <%= pluralize @res.count, "result" %></h4>
+  <h4><%= t "search.results.general", count: @res.count %></h4>
 <% end %>

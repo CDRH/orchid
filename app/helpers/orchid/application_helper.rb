@@ -75,6 +75,21 @@ module Orchid::ApplicationHelper
     return new_params
   end
 
+  def locale
+    I18n.locale
+  end
+
+  def localized_partial(partial_name, prefixes)
+    localized = "#{partial_name}_#{locale}"
+    if lookup_context.template_exists?(localized, prefixes, true)
+      "#{prefixes}/#{localized}"
+    else
+      # fallback to informative partial about customization
+      @missing_partial = "#{prefixes}/#{localized}"
+      "errors/missing_partial"
+    end
+  end
+
   def site_section
     if @site_section.present?
       # Use override from instance variable

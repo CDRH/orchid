@@ -1,10 +1,24 @@
-<meta name="application-name" content="<%= APP_OPTS["project_shortname"] %>">
-  <% if @description.present? %>
-  <meta name="description" content="<%= @description %>">
-  <% end %>
+<meta name="application-name" content="<%= t "general.project_shortname", default: APP_OPTS["project_shortname"] %>">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <%= csrf_meta_tags %>
+<% if @description.present? %>
+  <meta name="description" content="<%= @description %>">
+<% end %>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<%= csrf_meta_tags %>
+
+<%# links for alternate language pages %>
+<% if APP_OPTS["languages"].length > 1 %>
+  <% APP_OPTS["languages"].split("|").each do |lang_code| %>
+    <% next if lang_code == I18n.locale.to_s %>
+    <% opts = {
+      action: params["action"],
+      controller: params["controller"],
+      locale: lang_code
+    }%>
+    <%= link_to "", opts, hreflang: lang_code, rel: "alternate" %>
+  <% end %>
+<% end %>

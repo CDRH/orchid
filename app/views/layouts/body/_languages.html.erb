@@ -1,0 +1,15 @@
+<% if APP_OPTS["languages"].length > 1 %>
+  <div class="container language_selection">
+    Languages:
+    <% APP_OPTS["languages"].split("|").each do |lang_code| %>
+      <% active = lang_code == I18n.locale.to_s ? "active" : "" %>
+      <span class="language_link">
+        <%= link_to lang_code.upcase, {
+          action: params["action"],
+          controller: params["controller"],
+          locale: lang_code
+        }, class: active %>
+      </span>
+    <% end %>
+  </div>
+<% end %>

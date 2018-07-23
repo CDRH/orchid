@@ -30,19 +30,19 @@ module Orchid::SortHelper
   def sort_fields_facets
     # include "grouping" => "separator" to insert separator in dropdown
     {
-      "count|desc" => "Count (most first)",
-      "count|asc" => "Count (least first)",
+      "count|desc" => t("search.sort.count_desc", default: "Count (most first)"),
+      "count|asc" => t("search.sort.count_asc", default: "Count (least first)"),
 
       "terms" => "separator",
-      "term|asc" => "Alphabetically (A-Z)",
-      "term|desc" => "Alphabetically (Z-A)"
+      "term|asc" => t("search.sort.alpha_asc", default: "Alphabetically (A-Z)"),
+      "term|desc" => t("search.sort.alpha_desc", default: "Alphabetically (Z-A)")
     }
   end
 
   def sort_fields_search
     if params["q"].present?
       fields = {
-        "relevancy|desc" => "Relevancy",
+        "relevancy|desc" => t("search.sort.relevancy", default: "Relevancy"),
         "rel_separator" => "separator"
       }
     else
@@ -55,16 +55,16 @@ module Orchid::SortHelper
   def sort_fields_search_additional
     # include "grouping" => "separator" to insert separator in dropdown
     {
-      "date|asc" => "Date (earliest first)",
-      "date|desc" => "Date (latest first)",
+      "date|asc" => t("search.sort.date_asc", default: "Date (earliest first)"),
+      "date|desc" => t("search.sort.date_desc", default: "Date (latest first)"),
 
       "titles" => "separator",
-      "title|asc" => "Title (A-Z)",
-      "title|desc" => "Title (Z-A)",
+      "title|asc" => t("search.sort.title_asc", default: "Title (A-Z)"),
+      "title|desc" => t("search.sort.title_desc", default: "title (Z-A)"),
 
       "creators" => "separator",
-      "creator.name|asc" => "Creator (A-Z)",
-      "creator.name|desc" => "Creator (Z-A)"
+      "creator.name|asc" => t("search.sort.creator_asc", default: "Creator (A-Z)"),
+      "creator.name|desc" => t("search.sort.creator_desc", default: "Creator (Z-A)")
     }
   end
 
@@ -76,7 +76,7 @@ module Orchid::SortHelper
     end
 
     if sort_by == "relevancy|desc"
-      "Relevancy"
+      t("search.sort.relevancy", default: "Relevancy")
     elsif sort_fields.keys.include?(sort_by)
       sort_fields[sort_by]
     else
