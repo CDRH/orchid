@@ -11,7 +11,7 @@
 <%= csrf_meta_tags %>
 
 <%# links for alternate language pages %>
-<% if APP_OPTS["languages"].length > 1 %>
+<% if APP_OPTS.key?("languages") && APP_OPTS["languages"].length > 1 %>
   <% APP_OPTS["languages"].split("|").each do |lang_code| %>
     <% next if lang_code == I18n.locale.to_s %>
     <% opts = {
