@@ -6,12 +6,11 @@
 #   "[api_field]" => {
 #     "label" => "[label_to_display]",
 #     "display" => [boolean]
-# }
+#   }
 #
 # The portions in brackets must be customized
 #   api_field: this should match a field in the API, and may be nested (creator.name)
-#   label_to_display: how the field appears in the website. you may use the same field
-#                     with multiple languages by changing the label
+#   label_to_display: how the field appears in the website
 #   display boolean: if true, this facet appears on the search and browse pages
 #                    if false, it only appears on the browse page
 #

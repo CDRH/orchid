@@ -4,6 +4,7 @@
 # It is recommended, when adding entirely new fields to this file, to mark in the comment
 # that they are a custom field. This will help you upgrade the file when migrating to
 # new versions of orchid
+#   Ex:  # CDRH - explanation of label
 
 en:
 
