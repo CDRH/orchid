@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options
-    { locale: I18n.locale }
+    params["locale"] ? { locale: I18n.locale } : {}
   end
 
   if API_PATH
