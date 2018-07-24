@@ -12,7 +12,7 @@
           <a href="#"><%= facet_info["label"] %></a>
         <% else %>
           <% id = facet_name.parameterize(separator: ".") %>
-          <%= link_to browse_facet_path(id), "aria-controls": id, role: "tab" do %>
+          <%= link_to browse_facet_path(facet: id), "aria-controls": id, role: "tab" do %>
             <%= facet_info["label"] %>
           <% end %>
         <% end %>
