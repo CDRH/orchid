@@ -69,7 +69,7 @@ Otherwise, grab a version from the CDRH's github.  The `tag:` is optional but re
 gem 'orchid', git: 'https://github.com/CDRH/orchid'
 
 # Specify a tag (release), branch, or ref
-gem 'orchid', git: 'https://github.com/CDRH/orchid', tag: '0.0.2'
+gem 'orchid', git: 'https://github.com/CDRH/orchid', tag: '2.0.0'
 ```
 
 And then execute:

@@ -1,8 +1,8 @@
 # Migration
 
-## 1.1.1 to 1.2.0
+## 1.1.1 to 2.0.0
 
-This minor version introduces multiple language support.
+This major version introduces multiple language support.
 
 __config/public.yml__
 
