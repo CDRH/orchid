@@ -23,7 +23,7 @@ class SetupGenerator < Rails::Generators::Base
     msgs = []
     msgs << "\n\nSetup Review\n============"
     msgs << copy_initializer
-    msgs << copy_configs
+    msgs << copy_configs_and_locales
     msgs << facets
     msgs << favicon
     msgs << footer_logo
@@ -31,7 +31,6 @@ class SetupGenerator < Rails::Generators::Base
     msgs << gitignore
     msgs << handle_exceptions
     msgs << helpers
-    msgs << locales
     msgs << remove_files
     msgs << scripts
     msgs << stylesheet
@@ -55,35 +54,51 @@ class SetupGenerator < Rails::Generators::Base
     gsub_file "#{@new_app}/config/#{config_type}.yml", /^(\s*#{var_name}:).+$/, "\\1 #{value}"
   end
 
-  def copy_configs
+  def copy_configs_and_locales
+    # config files
     FileUtils.cp("#{@this_app}/lib/generators/templates/private.yml", "#{@new_app}/config/private.example.yml")
     FileUtils.cp("#{@this_app}/lib/generators/templates/private.yml", "#{@new_app}/config/private.yml")
     FileUtils.cp("#{@this_app}/lib/generators/templates/public.yml", "#{@new_app}/config/public.yml")
+    # en locale file is always copied by default
+    FileUtils.cp("#{@this_app}/config/locales/en.yml", "#{@new_app}/config/locales/en.yml")
 
     puts "Please enter the following for initial app customization"
 
+    lang_default = prompt_for_value("Primary Language", "en")
+    config_set("public", "language_default", lang_default)
+
+    langs = prompt_for_value("All Languages (separate with a pipe: en|es|de)", "en")
+    config_set("public", "languages", langs)
+
+    # if the user selects a non english language, copy the locale file there as well
+    langs.split("|").each do |lang|
+      next if lang == "en"
+      FileUtils.cp("#{@this_app}/config/locales/en.yml", "#{@new_app}/config/locales/#{lang}.yml")
+      gsub_file "#{@new_app}/config/locales/#{lang}.yml", /^en:$/, "#{lang}:"
+    end
+
+    # locales customization
     answer = prompt_for_value("Project Name (Header <h1>)", "Sample Template")
-    config_set("public", "project_name", answer)
+    config_set("locales/#{lang_default}", "project_name", answer)
 
     answer = prompt_for_value("Project Short Name (<title>, <meta application-name>)", "Template")
-    config_set("public", "project_shortname", answer)
+    config_set("locales/#{lang_default}", "project_shortname", answer)
 
     answer = prompt_for_value("Project Subtitle (Header <h2>)", "Template Subtitle")
-    config_set("public", "project_subtitle", answer)
+    config_set("locales/#{lang_default}", "project_subtitle", answer)
 
-    answer = prompt_for_value("Primary Language", "en")
-    config_set("public", "language_default", answer)
-
-    answer = prompt_for_value("All Languages (separate with a pipe: en|es|de)", "en")
-    config_set("public", "languages", answer)
-
+    # private config customization
     answer = prompt_for_value("Dev API Path", "https://cdrhdev1.unl.edu/api/v1")
     config_replace("private", "api_path: https://cdrhdev1.unl.edu/api/v1", "api_path: #{answer}")
 
     answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu/v1")
     config_replace("private", "api_path: https://cdrhapi.unl.edu/v1", "api_path: #{answer}")
 
-    return "Configuration files copied to config/private.example.yml, config/private.yml, and config/public.yml. Updated with initial app customizations"
+    <<-HEREDOC
+Configuration files copied to config/private.example.yml, config/private.yml, and config/public.yml.
+Locale files copied to config/locales/{lang_default}.yml
+Updated with initial app customizations
+    HEREDOC
   end
 
   def copy_initializer
@@ -146,12 +161,6 @@ class SetupGenerator < Rails::Generators::Base
     FileUtils.cp(Dir.glob("#{@this_app}/app/helpers/*_helper.rb"), "#{@new_app}/app/helpers/")
 
     return "Copied extendable helper files which include Orchid's to app"
-  end
-
-  def locales
-    FileUtils.cp("#{@this_app}/config/locales/en.yml", "#{@new_app}/config/locales/en.yml")
-
-    return "Orchid locales copied to config/locales/en.yml"
   end
 
   def prompt_for_value(message, default)

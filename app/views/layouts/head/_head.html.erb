@@ -1,7 +1,7 @@
 <head>
   <title>
     <% if @title.present? %><%= @title %> | <% end %>
-    <%= t "general.project_shortname", default: APP_OPTS["project_shortname"] %>
+    <%= t "general.project_shortname" %>
   </title>
   <%= render "layouts/head/meta" %>
   <%= render "layouts/head/favicon" %>

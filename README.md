@@ -14,6 +14,7 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
   - [Favicon](#favicon)
   - [Footer Logo](#footer-logo)
   - [Gitignore](#gitignore)
+  - [Languages](#languages)
   - [Routes](#routes)
   - [Scripts](#scripts)
   - [Stylesheets / Bootstrap](#stylesheets--bootstrap)
@@ -91,7 +92,7 @@ The script will ask you for some initial configuration values.
 
 
 ## Configuration
-Most app configuration is located in `config/public.yml` and `config/private.yml`.  If you are updating your version of Orchid, you may already have existing config files, so you will want to compare them against the orchid config template files to see if any changes need to be made.
+Most app configuration is located in `config/public.yml` and `config/private.yml`.  If you are updating your version of Orchid, you may already have existing config files, so you will want to compare them against the orchid config template files to see if any changes need to be made. Site title and subtitle name configuration is stored in `config/locales/en.yml` (and other language files if your app is multi-language).
 
 ### API
 The API path may be any endpoint in the API to which `/items` can be appended to receive a list of items.  The path is set in `config/private.yml`.  This should look like one of the following:
@@ -156,7 +157,7 @@ your app's footer logo.
 Add any other files which should not be version controlled to `.gitignore`.
 
 ### Languages
-By default, Orchid assumes you are developing an English-only application. However, if you wish to add multiple languages or change the default language, first change `config/public.yml`:
+By default, Orchid assumes you are developing an English-only application. Even if you are only using English, you may wish to review this file and change the project title, subtitle, and strings that will be displayed to the users.  However, if you wish to add multiple languages or change the default language, first change `config/public.yml`:
 
 ```
 language_default: es
