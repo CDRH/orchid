@@ -96,7 +96,7 @@ class SetupGenerator < Rails::Generators::Base
 
     <<-HEREDOC
 Configuration files copied to config/private.example.yml, config/private.yml, and config/public.yml.
-Locale files copied to config/locales/{lang_default}.yml
+Locale files copied to config/locales
 Updated with initial app customizations
     HEREDOC
   end
