@@ -48,12 +48,12 @@
 .language_link {
   display: inline-block;
   padding-bottom: .3em;
-}
 
-.language_link .active {
-  border: solid $gray-light 1px;
-  font-weight: 800;
-  padding: .3em;
+  .active {
+    border: solid $gray-light 1px;
+    font-weight: 800;
+    padding: .3em;
+  }
 }
 
 
