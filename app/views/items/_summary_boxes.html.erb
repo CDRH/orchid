@@ -49,8 +49,8 @@
             <%= label %> : <%= facet %>
           </div>
           <div class="input-group-btn"
-               title="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>"
-               aria-label="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>">
+               title="<%= t("search.filters.clear", label: label, default: "Clear #{label} Filter") %>"
+               aria-label="<%= t("search.filters.clear", label: label, default: "Clear #{label} Filter") %>">
             <%= link_to search_path(remove_facet(type, facet)), class: "btn btn-default btn-sm", role: "button" do %>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             <% end %>

@@ -2,16 +2,11 @@ default: &default
 
   app_options:
     version: 0.1.0
-    # Header <h1>
-    project_name: Sample Template
-    # <title>, meta application-name
-    project_shortname: Sample
-    # Header <h2>
-    project_subtitle: Template Subtitle
     # defaults to "en" (english) if no default language set
     language_default: en
     # defaults to "en" if nothing passed in, pipe delineated values (en|es|de)
     languages: en
+    # for application title settings, please alter the files in config/locales
 
   api_options:
     # example of default filter for all queries
