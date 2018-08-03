@@ -2,7 +2,7 @@
 
 Orchid is a generator which can be used to create a new CDRH API template site.  The new site can either connect to the entire API's contents or filter by "type," meaning that the new site can be used for a specific collection.
 
-**Orchid Documentation can be found [in our documentation repository](https://github.com/CDRH/orchid/blob/master/docs/api/README.md)** 
+**Orchid Documentation can be found [in our documentation repository](https://github.com/CDRH/sneezewort/blob/master/docs/orchid/README.md)** 
 
 **Documentation for entire publishing system can be found here: ([https://github.com/CDRH/sneezewort](https://github.com/CDRH/sneezewort))**
 
