@@ -1,5 +1,18 @@
 # Migration
 
+## 2.0.0 to 2.1.0
+
+This "minor" version changes configuration and addresses display bugs
+
+__config/public.yml__
+
+`title`, `subtitle`, and `shortname` have been moved to the locale files for language support. This is technically a breaking change for existing sites using 2.0.0 which relied on the default behavior for a single language to pull from the config instead of `locales/en.yml`, but as that is currently only one site, we are considering it a minor change.
+
+__assets__
+
+Recompile assets after updating to 2.1.0
+
+
 ## 1.1.1 to 2.0.0
 
 This major version introduces multiple language support.
