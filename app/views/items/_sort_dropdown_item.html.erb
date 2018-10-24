@@ -3,7 +3,7 @@
   sort_url - URL to change to sort field
 %>
 <% if label != "separator" %>
-  <li><%= link_to label, sort_url %></li>
+  <li><%= link_to label, sort_url, rel: "nofollow" %></li>
 <% else %>
   <li role="separator" class="divider"></li>
 <% end %>

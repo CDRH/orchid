@@ -17,7 +17,9 @@
         <div class="clearfix">
           <%= label_tag "date_from", t("search.dates.date_from_label", default: "Date From") %>
           <% if date_selection?(params["date_from"], params["date_to"]) %>
-            <%= link_to search_path(clear_dates_params), class: "pull-right btn btn-default btn-xs", role: "button", aria_label: t("search.dates.clear_filter", default: "Clear Date Filter"), title: "Clear Date Filter" do %>
+            <%= link_to search_path(clear_dates_params), class: "pull-right btn btn-default btn-xs",
+                  aria_label: t("search.dates.clear_filter", default: "Clear Date Filter"),
+                  rel: "nofollow", role: "button", title: "Clear Date Filter" do %>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             <% end %>
           <% end %>

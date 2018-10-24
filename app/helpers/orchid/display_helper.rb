@@ -10,7 +10,7 @@ module Orchid::DisplayHelper
       dataArray = data.map do |item|
         if link_bool
           search_params = { "f" => ["#{search_ele}|#{item}"] }
-          link_to item, search_path(search_params)
+          link_to item, search_path(search_params), rel: "nofollow"
         else
           item
         end

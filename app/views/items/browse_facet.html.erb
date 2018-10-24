@@ -48,17 +48,17 @@
               <tr>
                   <% text = list[0].blank? ? t("browse.no_label", default: "No label") : list[0] %>
                   <td class="index_num">
-                    <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]) do %>
+                    <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
                       <%= list[1] %>
                     <% end %>
                   </td>
                   <td class="index_spacer">
-                    <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]) do %>
+                    <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
                       <span></span>
                     <% end %>
                   </td>
                   <td class="index_name">
-                    <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]) do %>
+                    <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
                       <%= text %>
                     <% end %>
                   </td>
