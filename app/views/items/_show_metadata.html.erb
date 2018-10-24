@@ -8,8 +8,10 @@
     <%= metadata @res, t("item.metadata.subcategory", default: "Subcategory"), "subcategory" %>
     <%= metadata @res, t("item.metadata.works", default: "Works"), "works" %>
     <%= metadata @res, t("item.metadata.places", default: "Place(s)"), "places" %>
-    <li><strong>TEI XML: </strong>
-        <a href="<%= @res['uriXML'] %>"><%= @res["identifier"] %>.xml</a>
-    </li>
+    <% if @res["uri_data"].present? %>
+        <li><strong>Source Document: </strong>
+            <a href="<%= @res["uri_data"] %>"><%= File.basename(@res["uri_data"]) %></a>
+        </li>
+    <% end %>
   </ul>
 </div>
