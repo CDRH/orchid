@@ -9,7 +9,8 @@
             <% if item["date_display"] %>
               <li>
                 <strong><%= t "search.results.item.date", default: "Date" %></strong>:
-                <%= link_to item["date_display"], search_path({ "f[]" => "date|#{item['date']}" }) %>
+                <%= link_to item["date_display"], search_path({ "f[]" => "date|#{item['date']}" }),
+                      rel: "nofollow" %>
               </li>
             <% end %>
             <%# creator is a multivalued, nested field %>
@@ -17,20 +18,23 @@
               <li>
                 <strong><%= t "search.results.item.creator", default: "Creator(s)" %></strong>:
                 <% item["creator"].each do |c| %>
-                  <%= link_to c["name"], search_path({ "f[]" => "creator.name|#{c['name']}" }) %>
+                  <%= link_to c["name"], search_path({ "f[]" => "creator.name|#{c['name']}" }),
+                        rel: "nofollow" %>
                 <% end %>
               </li>
             <% end %>
             <% if item["format"] %>
               <li>
                 <strong><%= t "search.results.item.format", default: "Format" %></strong>:
-                <%= link_to item["format"], search_path({ "f[]" => "format|#{item['format']}" }) %>
+                <%= link_to item["format"], search_path({ "f[]" => "format|#{item['format']}" }),
+                      rel: "nofollow" %>
               </li>
             <% end %>
             <% if item["source"] %>
               <li>
                 <strong><%= t "search.results.item.source", default: "Source" %></strong>:
-                <%= link_to item["source"], search_path({ "f[]" => "source|#{item['source']}" }) %>
+                <%= link_to item["source"], search_path({ "f[]" => "source|#{item['source']}" }),
+                      rel: "nofollow" %>
               </li>
             <% end %>
           </ul>

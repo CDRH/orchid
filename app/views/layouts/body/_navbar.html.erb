@@ -18,7 +18,7 @@
           <%= link_to t("browse.title", default: "Browse"), browse_path %>
         </li>
         <li class="<%= active?(search_path) %>">
-          <%= link_to t("search.title", default: "Search"), search_path %>
+          <%= link_to t("search.title", default: "Search"), search_path, rel: "search" %>
         </li>
         <li class="<%= active?(about_path) %>">
           <%= link_to t("about.title", default: "About"), about_path %>
