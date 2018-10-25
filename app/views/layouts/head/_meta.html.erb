@@ -19,6 +19,8 @@
       controller: params["controller"],
       locale: lang_code
     }%>
-    <%= link_to "", opts, hreflang: lang_code, rel: "alternate" %>
+    <% url = url_for opts %>
+    <link rel="alternate" hreflang="<%= lang_code %>" href="<%= url %>" />
   <% end %>
+
 <% end %>
