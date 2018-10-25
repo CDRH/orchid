@@ -18,17 +18,25 @@ class ItemsController < ApplicationController
     # Get selected facet's info
     @browse_facet_info = Facets.facet_info[@browse_facet]
     if @browse_facet_info.blank?
-      redirect_to browse_path, notice: t("errors.browse", facet: @browse_facet, default: "Cannot browse by key: '#{@browse_facet}'")
+      redirect_to browse_path, notice: t("errors.browse",
+        facet: @browse_facet, default: "Cannot browse by key: '#{@browse_facet}'")
       return
     end
 
     sort_by = params["facet_sort"].present? ?
       params["facet_sort"] : API_OPTS["browse_sort"]
 
-    # Get facet results
-    @res = $api.query({"facet" => @browse_facet, "facet_num" => 10000,
-      "facet_sort" => sort_by, "num" => 0}).facets
+    options = {
+      facet: @browse_facet,
+      facet_num: 10000,
+      facet_sort: sort_by,
+      num: 0
+    }
 
+    # Get facet results
+    @res = $api.query(options).facets
+
+    # Warn when approaching facet result limit
     result_size = @res.length
     if result_size == 10000
       raise {"Facet results list has hit the limit of 10000. Revisit facet
@@ -48,7 +56,7 @@ class ItemsController < ApplicationController
     @ext_js = ["orchid/search"]
 
     if params["sort"].blank? && params["q"].present?
-      params[:sort] = ["relevancy|desc"]
+      params["sort"] = ["relevancy|desc"]
     end
 
     options = params.permit!.deep_dup

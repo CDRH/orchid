@@ -13,7 +13,8 @@
                       rel: "nofollow" %>
               </li>
             <% end %>
-            <% if item["creator"] %>
+            <%# creator is a multivalued, nested field %>
+            <% if item["creator"].present? %>
               <li>
                 <strong><%= t "search.results.item.creator", default: "Creator(s)" %></strong>:
                 <% item["creator"].each do |c| %>

@@ -10,8 +10,10 @@
     <%= metadata @res, t("item.metadata.places", default: "Place(s)"), "places" %>
     <%# When copying this template into projects, consider adding rel tag to the source link
         to note the format and if the link is external %>
-    <li><strong>TEI XML: </strong>
-        <a href="<%= @res['uriXML'] %>"><%= @res["identifier"] %>.xml</a>
-    </li>
+    <% if @res["uri_data"].present? %>
+        <li><strong>Source Document: </strong>
+            <a href="<%= @res["uri_data"] %>"><%= File.basename(@res["uri_data"]) %></a>
+        </li>
+    <% end %>
   </ul>
 </div>

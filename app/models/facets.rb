@@ -35,7 +35,7 @@ module Facets
 
   Facets.facet_info = {
     "en" => {
-      "project" => {
+      "collection" => {
         "label" => "Collection",
         "display" => true
       },
