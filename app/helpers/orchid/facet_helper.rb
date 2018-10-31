@@ -8,7 +8,7 @@ module Orchid::FacetHelper
   end
 
   def create_label key, default="No Label"
-    return key ? key : default
+    key.present? ? key : default
   end
 
   # type = "novel"
