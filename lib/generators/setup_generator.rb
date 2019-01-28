@@ -87,12 +87,25 @@ class SetupGenerator < Rails::Generators::Base
     answer = prompt_for_value("Project Subtitle (Header <h2>)", "Template Subtitle")
     config_set("locales/#{lang_default}", "project_subtitle", answer)
 
+    # public media settings
+    answer = prompt_for_value("Media Server Directory", "sample_template")
+    config_set("public", "media_server_dir", answer)
+
+    answer = prompt_for_value("Thumbnail Size (default: !200,200)", "!200,200")
+    config_set("public", "thumbnail_size", answer)
+
     # private config customization
     answer = prompt_for_value("Dev API Path", "https://cdrhdev1.unl.edu/api/v1")
     config_replace("private", "api_path: https://cdrhdev1.unl.edu/api/v1", "api_path: #{answer}")
 
     answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu/v1")
     config_replace("private", "api_path: https://cdrhapi.unl.edu/v1", "api_path: #{answer}")
+
+    answer = prompt_for_value("Dev IIIF Path", "https://cdrhdev1.unl.edu/iiif/2")
+    config_replace("private", "iiif_path: https://cdrhdev1.unl.edu/iiif/2", "iiif_path: #{answer}")
+
+    answer = prompt_for_value("Production IIIF Path", "https://cdrhmedia.unl.edu/iiif/2")
+    config_replace("private", "iiif_path: https://cdrhmedia.unl.edu/iiif/2", "iiif_path: #{answer}")
 
     <<-HEREDOC
 Configuration files copied to config/private.example.yml, config/private.yml, and config/public.yml.

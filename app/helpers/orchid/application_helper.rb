@@ -75,6 +75,19 @@ module Orchid::ApplicationHelper
     return new_params
   end
 
+  # image is path relative to iiif server + project of image
+  #   "documents/doc.0001.jpg" or "doc.1887.82.jpg"
+  # size must be in format "w,h" or "!w,h" like "!200,200"
+  def iiif(image, size: APP_OPTS["thumbnail_size"])
+    server = IIIF_PATH
+    project = APP_OPTS["media_server_dir"]
+    # use %2F for image specific path, / for iiif server path
+    image_esc = image.gsub("/", "%2F")
+    iiif_opts = "full/#{size}/0/default.jpg"
+
+    path = "#{server}/#{project}%2F#{image_esc}/#{iiif_opts}"
+  end
+
   def locale
     I18n.locale
   end
