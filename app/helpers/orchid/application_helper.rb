@@ -85,7 +85,7 @@ module Orchid::ApplicationHelper
     image_esc = image.gsub("/", "%2F")
     iiif_opts = "full/#{size}/0/default.jpg"
 
-    path = "#{server}/#{project}%2F#{image_esc}/#{iiif_opts}"
+    "#{server}/#{project}%2F#{image_esc}/#{iiif_opts}"
   end
 
   def locale
