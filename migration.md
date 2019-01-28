@@ -1,5 +1,25 @@
 # Migration
 
+## 2.1.0 to ?
+
+(Future release)
+
+Provides basic support for IIIF image URLs in views with the helper `iiif(partial_image_path, size: "!150,150")`
+
+__config/private.yml__
+
+`iiif_path` must be added, see example in orchid's `private.yml` template
+
+__config/public.yml__
+
+`app_options.media_server_dir` is the name of the project's directory following the IIIF server path
+`app_options.thumbnail_size` is the width and height of the image. Use "!" to preserve the ratio. Ex: "!200,200"
+
+__config/initializers/config.rb__
+
+Add `IIIF_PATH = PRIVATE["iiif_path"]` to this file to make `IIIF_PATH` accessible to application
+
+
 ## 2.0.0 to 2.1.0
 
 This "minor" version changes configuration and addresses display bugs
