@@ -8,6 +8,7 @@ VERSION = PUBLIC["app_options"]["version"]
 API_OPTS = PUBLIC["api_options"]
 API_PATH = PRIVATE["api_path"]
 APP_OPTS = PUBLIC["app_options"]
+IIIF_PATH = PRIVATE["iiif_path"]
 
 DATE_FIRST = PUBLIC["date_range"]["first"] || ["1800", "01", "01"]
 DATE_LAST = PUBLIC["date_range"]["last"] || ["1900", "12", "31"]
