@@ -13,13 +13,23 @@ module Orchid
           # Add names reserved by main app for more general routes, e.g. '/:id'
           drawn_routes += reserved_names
 
+          # if app has specified multiple language support
+          # then they should be included as possible routes
+          # the default language should NOT be specified
+          # as it will not have a locale in the URL
           langs = APP_OPTS["languages"]
-          locales = langs ? Regexp.new(langs) : /en/
-
-          scope "(:locale)", locale: locales do
+          if langs.present?
+            locales = Regexp.new(langs)
+            scope "(:locale)", constraints: { locale: locales } do
+              ROUTES.each do |route|
+                next if drawn_routes.include?(route[:name])
+                # Call routing DSL methods in Orchid route procs in this context
+                instance_eval(&route[:definition])
+              end
+            end
+          else
             ROUTES.each do |route|
               next if drawn_routes.include?(route[:name])
-
               # Call routing DSL methods in Orchid route procs in this context
               instance_eval(&route[:definition])
             end
