@@ -101,6 +101,13 @@ module Orchid::ApplicationHelper
     opts
   end
 
+  # partial_name does not include the locale, underscore, or extensions
+  #   (ex: index, not _index_en.html.erb)
+  # prefixes refers to the path to reach the partial in question
+  #
+  # Usage:
+  #   render localized_partial("index", "explore/partials")
+  #   (would include "explore/partials/_index_en.html.erb" if locale == en)
   def localized_partial(partial_name, prefixes)
     localized = "#{partial_name}_#{locale}"
     if lookup_context.template_exists?(localized, prefixes, true)
