@@ -4,8 +4,8 @@ default: &default
     version: 0.1.0
     # defaults to "en" (english) if no default language set
     language_default: en
-    # defaults to "en" if nothing passed in, pipe delineated values (en|es|de)
-    languages: en
+    # pipe delineated values (es|de) for all non-default languages
+    # languages:
     # for application title settings, please alter the files in config/locales
 
     # name of the appropriate directory in media server filesystem (project name)

@@ -1,18 +1,14 @@
-<% if APP_OPTS.key?("languages") %>
-  <% languages = APP_OPTS["languages"].split("|") %>
-  <% if languages.length > 1 %>
-    <div class="container language_selection">
-      Languages:
-      <% languages.each do |lang_code| %>
-        <% active = lang_code == I18n.locale.to_s ? "active" : "" %>
-        <span class="language_link">
-          <%= link_to lang_code.upcase, {
-            action: params["action"],
-            controller: params["controller"],
-            locale: lang_code
-          }, class: active, hreflang: lang_code, rel: "alternate" %>
-        </span>
-      <% end %>
-    </div>
-  <% end %>
+<% if APP_OPTS["languages"].present? %>
+  <div class="language_link btn-group" role="group" aria-label="language choice">
+    <% langs = APP_OPTS["languages"].split("|") %>
+    <%# add the default to the list of languages %>
+    <% langs << APP_OPTS["language_default"] %>
+    <% langs.each do |lang_code| %>
+      <% active = lang_code == I18n.locale.to_s ?
+        "btn btn-primary" : "btn btn-default" %>
+      <%# create link to switch languages that keeps current parameters %>
+      <%= link_to lang_code.upcase, locale_link_options(lang_code),
+          class: active, hreflang: lang_code, rel: "alternate" %>
+    <% end %>
+  </div>
 <% end %>

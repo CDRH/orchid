@@ -92,6 +92,15 @@ module Orchid::ApplicationHelper
     I18n.locale
   end
 
+  def locale_link_options(lang_code)
+    # don't use copy_params because we still want the action and controller
+    opts = params.to_unsafe_h
+    # if the requested language is the default, then it needs to be blank
+    # but otherwise, fill in locale with the requested language
+    opts["locale"] = lang_code == APP_OPTS["language_default"] ? "" : lang_code
+    opts
+  end
+
   def localized_partial(partial_name, prefixes)
     localized = "#{partial_name}_#{locale}"
     if lookup_context.template_exists?(localized, prefixes, true)
