@@ -26,7 +26,8 @@
             <% if item["format"] %>
               <li>
                 <strong><%= t "search.results.item.format", default: "Format" %></strong>:
-                <%= link_to item["format"], search_path({ "f[]" => "format|#{item['format']}" }),
+                <% label = value_label("format", item["format"]) %>
+                <%= link_to label, search_path({ "f[]" => "format|#{item['format']}" }),
                       rel: "nofollow" %>
               </li>
             <% end %>

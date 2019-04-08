@@ -46,7 +46,7 @@
           <tbody>
             <% @res[facet_name].each do |list| %>
               <tr>
-                  <% text = list[0].blank? ? t("browse.no_label", default: "No label") : list[0] %>
+                  <% text = list[0].blank? ? t("browse.no_label", default: "No label") : value_label(facet_name, list[0]) %>
                   <td class="index_num">
                     <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
                       <%= list[1] %>

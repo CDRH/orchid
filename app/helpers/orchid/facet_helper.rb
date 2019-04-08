@@ -74,4 +74,32 @@ module Orchid::FacetHelper
     return facet && info["display"] && facet.length > 0
   end
 
+  # the particular value of, for example, the "format" field may need
+  # to be displayed in another language based on the app settings
+  # so if "translate" is true on a field in the Facets configuration, then
+  # check for translations via locale files
+  # yml values need to be the exact field name at
+  #   facet_value.{field_name}.{value_name}
+  #   fields / values like person.role, "Postal Card" are stored
+  # in locales yml as person_role, Postal_Card
+  def value_label field, value
+    info = Facets.facet_info[field]
+    if info && info["translate"] == true
+      field_name = field.gsub(".", "_")
+      # if this is a list of values, we need to return a list as well
+      subs = /[\., ]/
+      if value.class == Array
+        value.map do |v|
+          v = v.gsub(subs, "_")
+          t "facet_value.#{field_name}.#{v}", default: v
+        end
+      else
+        value_name = value.gsub(subs, "_")
+        t "facet_value.#{field_name}.#{value_name}", default: value
+      end
+    else
+      value
+    end
+  end
+
 end
