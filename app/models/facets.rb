@@ -29,6 +29,33 @@
 #     "category" => { "label" => "Categoría", "display": false }
 #   }
 # }
+#
+# You may also need to translate the specific facet results being
+# returned by the API and not just the field's label
+# For example, the category field might return the values of 4 categories
+# If you need to translate these, add the optional boolean "translate":
+#
+# "es" => {
+#   "format" => {
+#     "label" => "Categoría",
+#     "display": true,
+#     "translate": true
+#   }
+# }
+#
+# You will then need to add the desired mappings to a locale file. You may add it
+# to the general [lang].yml file, or create your own [your_choice].yml.
+# Store the values at this path:
+#   facet_value.{field_name}.{value_name}
+#   fields / values like person.role, "Postal Card" should use underscores
+#   => person_role, Postal_Card
+#
+# es:
+#   facet_value:
+#     format:
+#       photograph: fotografía
+#       manuscript: manuscrito
+
 
 module Facets
   extend Orchid::Facets
