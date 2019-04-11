@@ -84,7 +84,7 @@ module Orchid::FacetHelper
   # in locales yml as person_role, Postal_Card
   def value_label field, value
     info = Facets.facet_info[field]
-    if info && info["translate"] == true
+    if info && info["translate"]
       field_name = field.gsub(".", "_")
       # if this is a list of values, we need to return a list as well
       subs = /[\., ]/
