@@ -97,7 +97,7 @@ module Orchid::ApplicationHelper
     opts = params.to_unsafe_h
     # if the requested language is the default, then it needs to be blank
     # but otherwise, fill in locale with the requested language
-    opts["locale"] = lang_code == APP_OPTS["language_default"] ? "" : lang_code
+    opts["locale"] = lang_code == APP_OPTS["language_default"] ? nil : lang_code
     opts
   end
 
