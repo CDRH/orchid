@@ -40,7 +40,7 @@
                 </li>
               <% else %>
                 <li class="selected">
-                  <span><%= key %></span>
+                  <span><%= label %></span>
                   <span class="badge"><%= value %></span>
                   <%= link_to search_path(remove_facet(facet_name, key)), rel: "nofollow" do %>
                     <button class="btn btn-default btn-xs"
