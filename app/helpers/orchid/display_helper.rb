@@ -1,4 +1,12 @@
+require "orchid/live_transformer"
+
 module Orchid::DisplayHelper
+
+  def live_transform(item_id, collection_loc)
+    # TODO this might not always be true!
+    LiveTransformer.transform(item_id, collection_loc)
+  end
+
   # TODO refactor this?
   # It will need to handle nested fields if nothing else
   
