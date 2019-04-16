@@ -84,12 +84,12 @@ module Orchid::FacetHelper
   # in locales yml as person_role, Postal_Card
   def value_label field, value
     info = Facets.facet_info[field]
-    if info && info["translate"]
+    if value.present? && info && info["translate"]
       field_name = field.gsub(".", "_")
       # if this is a list of values, we need to return a list as well
       subs = /[\., ]/
       if value.class == Array
-        value.map do |v|
+        value.compact.map do |v|
           v = v.gsub(subs, "_")
           t "facet_value.#{field_name}.#{v}", default: v
         end
