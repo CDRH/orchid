@@ -59,8 +59,8 @@ module Orchid::SortHelper
       "date|desc" => t("search.sort.date_desc", default: "Date (latest first)"),
 
       "titles" => "separator",
-      "title|asc" => t("search.sort.title_asc", default: "Title (A-Z)"),
-      "title|desc" => t("search.sort.title_desc", default: "title (Z-A)"),
+      "title_sort|asc" => t("search.sort.title_asc", default: "Title (A-Z)"),
+      "title_sort|desc" => t("search.sort.title_desc", default: "title (Z-A)"),
 
       "creators" => "separator",
       "creator.name|asc" => t("search.sort.creator_asc", default: "Creator (A-Z)"),
