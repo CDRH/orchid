@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
 
   def browse
+    @title = t "browse.title"
   end
 
   def browse_facet
@@ -49,6 +50,7 @@ class ItemsController < ApplicationController
         revisit facet result handling soon"}
     end
 
+    @title = "#{t "browse.browse_type"} #{@browse_facet_info["label"]}"
     render "browse_facet", locals: { sort_by: sort_by }
   end
 
@@ -62,6 +64,7 @@ class ItemsController < ApplicationController
     options = params.permit!.deep_dup
     options, @from, @to = helpers.date_filter(options)
 
+    @title = t "search.title"
     @res = $api.query(options)
   end
 
@@ -70,6 +73,19 @@ class ItemsController < ApplicationController
     if @res
       url = @res["uri_html"]
       @html = Net::HTTP.get(URI.parse(url)) if url
+      @title = item_title
+    end
+  end
+
+  private
+
+  # separated from show action to allow overriding only the
+  # title display for individual items instead of the entire action
+  def item_title
+    if @res["title"].present?
+      @res["title"].length > 20 ? "#{@res["title"][0,20]}..." : @res["title"]
+    else
+      "Item #{@res["identifier"]}"
     end
   end
 
