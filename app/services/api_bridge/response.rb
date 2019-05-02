@@ -5,7 +5,7 @@ module ApiBridge
     attr_reader :req_url
     attr_reader :res
 
-    def initialize res, url, options
+    def initialize(res, url, options)
       @req_opts = options
       @req_url = url
       @res = res
@@ -27,8 +27,11 @@ module ApiBridge
       @res.dig("res", "items", 0)
     end
 
+    # given the total number of results and the number requested per page
+    # calculate the total number of pages of results
     def pages
-      ApiBridge.calculate_page self.count, @req_opts["num"]
+      num = @req_opts["num"]
+      self.count && num ? (self.count.to_f/num.to_i).ceil : 1
     end
   end
 
