@@ -22,6 +22,7 @@ module ApiBridge
         # make app default facets available via accessor
         # and add to the app default request options as well
         @app_facets = facets
+        # singular because API ultimately expects facet[]=...
         @app_options["facet"] = facets
       else
         raise "Provided URL must be valid! #{url}"
@@ -37,7 +38,7 @@ module ApiBridge
       if !options.key?("start")
         # use the page and rows to set a start, use default is no num specified
         num = options.key?("num") ? options["num"].to_i : @app_options["num"].to_i
-        options["start"] = get_start(page, num)
+        options["start"] = (page - 1) * num
       end
       options
     end
@@ -82,12 +83,6 @@ module ApiBridge
       ApiBridge::Response.new(res, url, { "id" => id })
     end
 
-    # calculate the result start number to request based on the page
-    # and number of results per page currently set
-    def get_start(page, num)
-      (page - 1) * num
-    end
-
     # check if a particular string is a valid url
     def is_url?(url)
       # rely on uri gem to do the heavy lifting
@@ -122,7 +117,8 @@ module ApiBridge
       opts = remove_rows(opts)
       # remove page and replace with start
       opts = calc_start(opts)
-      # remove .year from the middle of date filters for api's sake
+      # remove .year from the middle of date filters for api's sake which
+      # automatically adds Jan 1 and Dec 31 to incoming date strings of years
       opts["f"].map { |f| f.slice!(".year") } if opts.has_key?("f")
       opts
     end
@@ -160,7 +156,7 @@ module ApiBridge
 
     # check if the requested page is valid, if not default to 1
     def set_page(page)
-      page.nil? || !/\A\d+\z/.match(page) ? 1 : page.to_i
+      page.nil? || !/\A[1-9]\d*\z/.match(page) ? 1 : page.to_i
     end
 
   end
