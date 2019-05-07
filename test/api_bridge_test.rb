@@ -11,29 +11,29 @@ class Orchid::Test < ActiveSupport::TestCase
     )
   end
 
-  # INITIALIZATION
-
-  test "initialization: bad url" do
+  test "initialization" do
+    # bad url
     assert_raises do
       ApiBridge::Query.new("bad_url")
     end
-  end
 
-  test "initialization: no options" do
+    # no options
     api = ApiBridge::Query.new("https://validurl.unl.edu/v1")
     assert api
     assert_equal [], api.app_facets
     assert_equal({ "num" => 50, "facet" => [] }, api.app_options)
-  end
 
-  test "initialization: override options" do
-    assert @api
+    # override options
     facets = ["creator.name", "date.year", "subcategory"]
     assert_equal facets, @api.app_facets
     assert_equal(
       { "num" => 5, "sort" => "title|asc", "facet" => facets },
       @api.app_options
     )
+
+    # preference incoming rows over default num
+    api = ApiBridge::Query.new("https://validurl.unl.edu/v1", [], { "rows" => "2" })
+    assert_equal "2", api.app_options["num"]
   end
 
   test "calc_start" do
@@ -112,18 +112,11 @@ class Orchid::Test < ActiveSupport::TestCase
   end
 
   test "prepare_options" do
-    # make sure rows does not override num when also sent in
+    # make sure rows overrides num when also sent in
     # (@api created with num)
-    opts = @api.prepare_options({ "rows" => 20 })
+    opts = @api.prepare_options({ "rows" => "20" })
     assert_not_includes opts, "rows"
-    assert_equal 5, opts["num"]
-    # TODO figure out if we want rows to override num even though
-    # there is a default num set...will need to figure something out
-    # to determine if num was the default or passed in....??
-    # api = ApiBridge::Query.new("https://test.unl.edu/v1", [], {})
-    # opts = api.prepare_options({ "rows" => 20 })
-    # assert_not_includes opts, "rows"
-    # assert_equal 20, opts["num"]
+    assert_equal "20", opts["num"]
 
     # make sure to remove rails stuff
     req_opts = ActionController::Parameters.new({
@@ -131,6 +124,13 @@ class Orchid::Test < ActiveSupport::TestCase
     })
     res_opts = { "num"=>5, "sort"=>"title|asc", "facet"=>["creator.name", "date.year", "subcategory"], "q"=>"water", "start"=>0 }
     assert_equal res_opts, @api.prepare_options(req_opts)
+
+    # calculate the start when nothing sent specifically about it
+    assert_equal 0, @api.prepare_options({})["start"]
+
+    # calculate the start when something IS sent in about it
+    assert_equal 8, @api.prepare_options({ "num" => "2", "page" => "5" })["start"]
+    assert_equal 20, @api.prepare_options({ "num" => "20", "page" => "2" })["start"]
   end
 
   test "query" do
@@ -138,9 +138,9 @@ class Orchid::Test < ActiveSupport::TestCase
   end
 
   test "remove_rows" do
-    # TODO see commentary in prepare_options above
-    # we should perhaps prefer rows to num for backwards compatibility
-    # if they are sending it for a specific request
+    # rows always overrides num....for now!
+    opts = { "rows" => "5", "num" => "10" }
+    assert_equal({ "num" => "5"}, @api.remove_rows(opts))
   end
 
   test "send_request" do

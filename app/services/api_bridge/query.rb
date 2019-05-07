@@ -36,8 +36,9 @@ module ApiBridge
       page = set_page(options["page"])
       options.delete("page")
       if !options.key?("start")
-        # use the page and rows to set a start, use default is no num specified
-        num = options.key?("num") ? options["num"].to_i : @app_options["num"].to_i
+        # use the page and rows to set a start
+        # num will always have been set in initialization
+        num = options["num"].to_i
         options["start"] = (page - 1) * num
       end
       options
@@ -135,10 +136,14 @@ module ApiBridge
 
     # rows is a deprecated option, please use num instead
     # still supporting for backwards compatibility
+    # overriding num with rows because if an app is specifically
+    # sending a rows request, then we need to override the default
+    # num set when class was initialized
     def remove_rows(opts={})
       if opts.key?("rows")
-        opts["num"] = opts["rows"] if !opts.key?("num")
+        opts["num"] = opts["rows"]
         opts.delete("rows")
+        Rails.logger.warn("Parameter 'rows' is deprecated, please use 'num' instead")
       end
       opts
     end
