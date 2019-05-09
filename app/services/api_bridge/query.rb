@@ -139,6 +139,7 @@ module ApiBridge
     # overriding num with rows because if an app is specifically
     # sending a rows request, then we need to override the default
     # num set when class was initialized
+    # TODO remove deprecation warning and support for rows
     def remove_rows(opts={})
       if opts.key?("rows")
         opts["num"] = opts["rows"]

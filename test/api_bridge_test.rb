@@ -154,6 +154,8 @@ class Orchid::Test < ActiveSupport::TestCase
     assert_equal 1, @api.set_page("0")
     assert_equal 1, @api.set_page("00")
     assert_equal 1, @api.set_page("-1")
+    # no leading zeroes, please
+    assert_equal 1, @api.set_page("09")
     # page has to be some type of number
     assert_equal 1, @api.set_page("one")
     # valid pages should come back as integers
