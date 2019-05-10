@@ -2,10 +2,10 @@
   <%= link_to home_path do %>
     <h1>
       <% if I18n.exists?("general.project_name", locale) %>
-        <span id="maintitle"><%= t "general.project_name" %></span>
+        <span class="site-title"><%= t "general.project_name" %></span>
       <% end %>
       <% if I18n.exists?("general.project_subtitle", locale) %>
-        <span class="small"><%= t "general.project_subtitle" %></span>
+        <small class="site-subtitle"><%= t "general.project_subtitle" %></small>
       <% end %>
     </h1>
   <% end %>
