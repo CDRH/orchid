@@ -102,7 +102,7 @@ class Orchid::Test < ActiveSupport::TestCase
     assert_not_includes cloned, :b
     cloned.delete("a")
     assert_includes original, "a"
-    # TODO ActionController::Parameters object next!
+    # Same checks for ActionController::Parameters object
     original = ActionController::Parameters.new({ "a" => 1, b: 2 })
     cloned = @api.params_to_hash(original)
     assert_includes cloned, "b"
