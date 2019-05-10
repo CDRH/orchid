@@ -1,13 +1,5 @@
 <div id="header">
-  <div class="container">
-    <%= link_to home_path do %>
-      <div id="site-title">
-        <h1><%= t "general.project_name" %></h1>
-      </div>
-    <% end %>
-    <h2><%= t "general.project_subtitle" %></h2>
-  </div>
-
+  <%= render "layouts/body/title" %>
   <%= render "layouts/body/languages" %>
   <%= render "layouts/body/navbar" %>
   <%= render "layouts/body/breadcrumbs" %>
