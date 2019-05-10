@@ -5,7 +5,7 @@ class SetupGenerator < Rails::Generators::Base
       1. Generates config files
       2. Generates facets file for customization
       3. Generates favicon and footer_logo images
-      4. Disables turbolinks and adds api_bridge gem to app's Gemfile
+      4. Disables turbolinks in app's Gemfile
       5. Generates .gitignore file
       6. Generates locales en file for customization
       7. Removes app's application controller and layout to use Orchid's
@@ -148,10 +148,7 @@ Updated with initial app customizations
     # Remove turbolinks gem
     gsub_file "#{@new_app}/Gemfile", /^(gem 'turbolinks'.*)$/, "#\\1"
 
-    # Install the version of api_bridge Orchid specifies
-    gem "api_bridge", git: "https://github.com/CDRH/api_bridge", tag: Orchid.api_bridge_version
-
-    return "Gems: Turbolinks removed and api_bridge added"
+    return "Gems: Turbolinks removed"
   end
 
   def gitignore
