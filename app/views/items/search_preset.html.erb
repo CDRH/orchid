@@ -1,0 +1,19 @@
+<%# set @site_section and @content_label in the action %>
+
+<h2><%= @content_label %></h2>
+
+<div class="row search_form search_preset search_preset_<%= @content_label.parameterize %>">
+
+  <%# do not display any facet options or summary boxes
+      for this view, even though they have likely been selected %>
+
+  <%= render "search_preset_text" %>
+
+  <%= render "sort_and_page_ui" %>
+
+  <!-- search results section -->
+  <%= render "search_res_count" %>
+  <%= render "search_res_items" %>
+
+  <%= render "sort_and_page_ui" %>
+</div>
