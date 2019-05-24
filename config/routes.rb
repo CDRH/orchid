@@ -11,29 +11,35 @@ module Orchid
 
       ROUTES = [
         # Home
-        { name: 'home', definition: proc {
-          root 'general#index', as: 'home'
+        { name: 'home', definition: proc { |prefix|
+          prefix += "_" if prefix.present?
+          root 'general#index', as: "#{prefix}home"
         }},
 
         # General
-        { name: 'about', definition: proc {
-          get 'about', to: 'general#about', as: :about
+        { name: 'about', definition: proc { |prefix|
+          prefix += "_" if prefix.present?
+          get 'about', to: 'general#about', as: "#{prefix}about"
         }},
 
         # Items
-        { name: 'browse', definition: proc {
-          get 'browse', to: 'items#browse', as: :browse
+        { name: 'browse', definition: proc { |prefix|
+          prefix += "_" if prefix.present?
+          get 'browse', to: 'items#browse', as: "#{prefix}browse"
         }},
-        { name: 'browse_facet', definition: proc {
-          get 'browse/:facet', to: 'items#browse_facet', as: :browse_facet,
-            constraints: { facet: with_period }
+        { name: 'browse_facet', definition: proc { |prefix|
+          prefix += "_" if prefix.present?
+          get 'browse/:facet', to: 'items#browse_facet',
+            as: "#{prefix}browse_facet", constraints: { facet: with_period }
         }},
-        { name: 'item', definition: proc {
-          get 'item/:id', to: 'items#show', as: :item,
+        { name: 'item', definition: proc { |prefix|
+          prefix += "_" if prefix.present?
+          get 'item/:id', to: 'items#show', as: "#{prefix}item",
             constraints: { id: with_period }
         }},
-        { name: 'search', definition: proc {
-          get 'search', to: 'items#index', as: :search
+        { name: 'search', definition: proc { |prefix|
+          prefix += "_" if prefix.present?
+          get 'search', to: 'items#index', as: "#{prefix}search"
         }},
 
         # Errors

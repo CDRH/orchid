@@ -2,7 +2,7 @@ module Orchid
   module Routing
     module_function
 
-    def draw(reserved_names: [], parent_scope: "")
+    def draw(reserved_names: [], parent_prefix: "", parent_scope: "")
       # Retrieve list of main app's route names
       drawn_routes = defined?(Rails.application.routes) ?
         Rails.application.routes.routes.map { |r| r.name } : []
@@ -18,16 +18,15 @@ module Orchid
           scope "(:locale)", constraints: { locale: locales } do
             ROUTES.each do |route|
               next if drawn_routes.include?(route[:name])
-
               # Call routing DSL methods in Orchid route procs in this context
-              instance_eval(&route[:definition])
+              instance_exec(parent_prefix, &route[:definition])
             end
           end
         else
           ROUTES.each do |route|
             next if drawn_routes.include?(route[:name])
             # Call routing DSL methods in Orchid route procs in this context
-            instance_eval(&route[:definition])
+            instance_exec(parent_prefix, &route[:definition])
           end
         end
       }
