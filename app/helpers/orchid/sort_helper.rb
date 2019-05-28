@@ -60,7 +60,7 @@ module Orchid::SortHelper
 
       "titles" => "separator",
       "title_sort|asc" => t("search.sort.title_asc", default: "Title (A-Z)"),
-      "title_sort|desc" => t("search.sort.title_desc", default: "title (Z-A)"),
+      "title_sort|desc" => t("search.sort.title_desc", default: "Title (Z-A)"),
 
       "creators" => "separator",
       "creator.name|asc" => t("search.sort.creator_asc", default: "Creator (A-Z)"),

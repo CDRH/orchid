@@ -137,6 +137,29 @@ module Orchid::ApplicationHelper
     end
   end
 
+  def prefix_path(path, *args, **kwargs)
+    # Hash with rocket syntax `"f" => ["...|..."]` comes through in args here,
+    # so merge into kwargs and empty args
+    if args.length == 1 && args[0].is_a?(Hash)
+      kwargs = kwargs.merge(args[0])
+      args = []
+    end
+
+    if args.empty?
+      if kwargs.empty?
+        send("#{@path_prefix}#{path}")
+      else
+        send("#{@path_prefix}#{path}", kwargs)
+      end
+    else
+      if kwargs.empty?
+        send("#{@path_prefix}#{path}", args)
+      else
+        send("#{@path_prefix}#{path}", args, kwargs)
+      end
+    end
+  end
+
   def site_section
     if @site_section.present?
       # Use override from instance variable
