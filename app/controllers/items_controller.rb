@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_action :set_path_prefix
 
   def browse
     @title = t "browse.title"
@@ -87,6 +88,11 @@ class ItemsController < ApplicationController
     else
       "Item #{@res["identifier"]}"
     end
+  end
+
+  def set_path_prefix
+    @path_prefix = params[:path_prefix]
+    params.delete :path_prefix
   end
 
 end

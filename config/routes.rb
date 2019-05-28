@@ -25,21 +25,24 @@ module Orchid
         # Items
         { name: 'browse', definition: proc { |prefix|
           prefix += "_" if prefix.present?
-          get 'browse', to: 'items#browse', as: "#{prefix}browse"
+          get 'browse', to: 'items#browse', as: "#{prefix}browse",
+            defaults: { path_prefix: prefix }
         }},
         { name: 'browse_facet', definition: proc { |prefix|
           prefix += "_" if prefix.present?
           get 'browse/:facet', to: 'items#browse_facet',
-            as: "#{prefix}browse_facet", constraints: { facet: with_period }
+            as: "#{prefix}browse_facet", constraints: { facet: with_period },
+            defaults: { path_prefix: prefix }
         }},
         { name: 'item', definition: proc { |prefix|
           prefix += "_" if prefix.present?
           get 'item/:id', to: 'items#show', as: "#{prefix}item",
-            constraints: { id: with_period }
+            constraints: { id: with_period }, defaults: { path_prefix: prefix }
         }},
         { name: 'search', definition: proc { |prefix|
           prefix += "_" if prefix.present?
-          get 'search', to: 'items#index', as: "#{prefix}search"
+          get 'search', to: 'items#index', as: "#{prefix}search",
+            defaults: { path_prefix: prefix }
         }},
 
         # Errors

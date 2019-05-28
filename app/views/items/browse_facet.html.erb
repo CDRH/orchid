@@ -9,10 +9,12 @@
     <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
       <li role="presentation" class="<%= active?(facet_name, @browse_facet) %>">
         <% if facet_name == @browse_facet %>
+          <%# TODO Fix a11y - Shouldn't be in tab order / focusable %>
           <a href="#"><%= facet_info["label"] %></a>
         <% else %>
           <% id = facet_name.parameterize(separator: ".") %>
-          <%= link_to browse_facet_path(facet: id), "aria-controls": id, role: "tab" do %>
+          <%= link_to prefix_path("browse_facet_path", facet: id),
+            "aria-controls": id, role: "tab" do %>
             <%= facet_info["label"] %>
           <% end %>
         <% end %>
@@ -31,7 +33,7 @@
   <ul class="dropdown-menu">
     <% sort_fields_facets.each do |sort_field, label| %>
       <%= render "sort_dropdown_item", label: label,
-        sort_url: browse_facet_path(facet_sort: sort_field) %>
+        sort_url: prefix_path("browse_facet_path", facet_sort: sort_field) %>
     <% end %>
   </ul>
 </div>
@@ -48,17 +50,20 @@
               <tr>
                   <% text = list[0].blank? ? t("browse.no_label", default: "No label") : value_label(facet_name, list[0]) %>
                   <td class="index_num">
-                    <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
+                    <%= link_to prefix_path("search_path",
+                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
                       <%= list[1] %>
                     <% end %>
                   </td>
                   <td class="index_spacer">
-                    <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
+                    <%= link_to prefix_path("search_path",
+                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
                       <span></span>
                     <% end %>
                   </td>
                   <td class="index_name">
-                    <%= link_to search_path("f" => ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
+                    <%= link_to prefix_path("search_path",
+                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
                       <%= text %>
                     <% end %>
                   </td>

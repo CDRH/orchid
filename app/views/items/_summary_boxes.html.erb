@@ -29,8 +29,9 @@
         <div class="input-group-btn"
              title="<%= t "search.dates.clear_filter", default: "Clear Date Filter" %>"
              aria-label="<%= t "search.dates.clear_filter", default: "Clear Date Filter" %>">
-          <%= link_to search_path(clear_dates_params), class: "btn btn-default btn-sm",
-                rel: "nofollow", role: "button" do %>
+          <%= link_to prefix_path("search_path", clear_dates_params),
+            class: "btn btn-default btn-sm", rel: "nofollow",
+            role: "button" do %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           <% end %>
         </div>
@@ -53,8 +54,9 @@
           <div class="input-group-btn"
                title="<%= t("search.filters.clear", label: label, default: "Clear #{label} Filter") %>"
                aria-label="<%= t("search.filters.clear", label: label, default: "Clear #{label} Filter") %>">
-            <%= link_to search_path(remove_facet(type, facet)), class: "btn btn-default btn-sm",
-                  rel: "nofollow", role: "button" do %>
+            <%= link_to prefix_path("search_path", remove_facet(type, facet)),
+              class: "btn btn-default btn-sm", rel: "nofollow",
+              role: "button" do %>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             <% end %>
           </div>

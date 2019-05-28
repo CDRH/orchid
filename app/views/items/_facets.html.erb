@@ -35,14 +35,16 @@
               <!-- list item -->
               <% if !selected %>
                 <li>
-                  <%= link_to label, search_path(facet_link(facet_name, key)), rel: "nofollow" %>
+                  <%= link_to label, prefix_path("search_path",
+                    facet_link(facet_name, key)), rel: "nofollow" %>
                   <span class="badge"><%= value %></span>
                 </li>
               <% else %>
                 <li class="selected">
                   <span><%= label %></span>
                   <span class="badge"><%= value %></span>
-                  <%= link_to search_path(remove_facet(facet_name, key)), rel: "nofollow" do %>
+                  <%= link_to prefix_path("search_path",
+                    remove_facet(facet_name, key)), rel: "nofollow" do %>
                     <button class="btn btn-default btn-xs"
                             title="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>"
                             aria-label="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>">
@@ -54,8 +56,10 @@
             <% end %>
           </ul>
 
-          <%= link_to t("search.filters.see_more", default: "See more"), browse_facet_path(facet: facet_name.parameterize(separator: ".")),
-                class: "btn btn-info btn-xs", rel: "nofollow" %>
+          <%= link_to t("search.filters.see_more", default: "See more"),
+            prefix_path("browse_facet_path",
+            facet: facet_name.parameterize(separator: ".")),
+            class: "btn btn-info btn-xs", rel: "nofollow" %>
         </div> <!-- /panel-body -->
 
       </div> <!-- /panel panel-default -->

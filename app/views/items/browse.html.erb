@@ -1,7 +1,7 @@
 <h1><% t "browse.title", default: "Browse" %></h1>
 
 <p>
-  <%= link_to t("browse.all_link", default: "All Items in the Archive"), search_path,
+  <%= link_to t("browse.all_link", default: "All Items in the Archive"), prefix_path("search_path"),
         class: "btn btn-lg btn-default", rel: "search" %>
 </p>
 
@@ -11,7 +11,9 @@
     <% slice.each do |(facet_name, facet_info)| %>
       <div class="col-md-3">
         <% id = facet_name.parameterize(separator: ".") %>
-        <%= link_to browse_facet_path(facet: id), html_options = {"aria-controls": id, class: "btn btn-lg btn-block btn-default"} do %>
+        <%= link_to prefix_path("browse_facet_path", facet: id),
+          html_options = {"aria-controls": id,
+          class: "btn btn-lg btn-block btn-default"} do %>
           <%= facet_info["label"] %>
         <% end %>
       </div>

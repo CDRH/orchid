@@ -4,13 +4,14 @@
       <div class="row">
         <div class="col-md-12 search_results_info">
           <% title_display = item["title"].present? ? item["title"] : t("search.results.item.no_title", default: "Untitled") %>
-          <%= link_to title_display, item_path(id: item["identifier"]) %>
+          <%= link_to title_display, prefix_path("item_path",
+            id: item["identifier"]) %>
           <ul>
             <% if item["date_display"] %>
               <li>
                 <strong><%= t "search.results.item.date", default: "Date" %></strong>:
-                <%= link_to item["date_display"], search_path({ "f[]" => "date|#{item['date']}" }),
-                      rel: "nofollow" %>
+                <%= link_to item["date_display"], prefix_path("search_path",
+                  { "f[]" => "date|#{item['date']}" }), rel: "nofollow" %>
               </li>
             <% end %>
             <%# creator is a multivalued, nested field %>
@@ -18,8 +19,9 @@
               <li>
                 <strong><%= t "search.results.item.creator", default: "Creator(s)" %></strong>:
                 <% item["creator"].each do |c| %>
-                  <%= link_to c["name"], search_path({ "f[]" => "creator.name|#{c['name']}" }),
-                        rel: "nofollow" %>
+                  <%= link_to c["name"], prefix_path("search_path",
+                    { "f[]" => "creator.name|#{c['name']}" }),
+                    rel: "nofollow" %>
                 <% end %>
               </li>
             <% end %>
@@ -27,15 +29,15 @@
               <li>
                 <strong><%= t "search.results.item.format", default: "Format" %></strong>:
                 <% label = value_label("format", item["format"]) %>
-                <%= link_to label, search_path({ "f[]" => "format|#{item['format']}" }),
-                      rel: "nofollow" %>
+                <%= link_to label, prefix_path("search_path",
+                  { "f[]" => "format|#{item['format']}" }), rel: "nofollow" %>
               </li>
             <% end %>
             <% if item["source"] %>
               <li>
                 <strong><%= t "search.results.item.source", default: "Source" %></strong>:
-                <%= link_to item["source"], search_path({ "f[]" => "source|#{item['source']}" }),
-                      rel: "nofollow" %>
+                <%= link_to item["source"], prefix_path("search_path",
+                  { "f[]" => "source|#{item['source']}" }), rel: "nofollow" %>
               </li>
             <% end %>
           </ul>
