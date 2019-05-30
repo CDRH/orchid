@@ -18,6 +18,9 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
   - [Languages](#languages)
   - [Item Features](#item-features)
   - [Routes](#routes)
+    - [Scoped Routes](#scoped-routes)
+    - [Prefixed Routes](#prefixed-routes)
+      - [Prefix Orchid Routes](#prefix-orchid-routes)
   - [Scripts](#scripts)
   - [Stylesheets / Bootstrap](#stylesheets--bootstrap)
   - [(Re)start](#restart)
@@ -25,6 +28,8 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
   - [Javascript Inclusions and Asset Declarations](#javascript-inclusions-and-asset-declarations)
   - [Stylesheet Imports](#stylesheet-imports)
   - [Conditional Assets](#conditional-assets)
+- [Links](#links)
+  - [Prefixed Paths](#prefixed-paths)
 - [License](#license)
 
 ## Installation
@@ -200,7 +205,7 @@ Orchid's routes load after the application's routes.  This means that generally 
 
 Occasionally you may wish to add a route to your application after Orchid's default routes have been drawn.  For example, you may wish to add or alter a route which would otherwise capture many following routes (`/:id` would capture paths like `/about` and `/browse` if drawn first).  In this case, you will need to instruct Orchid to draw its routes before your paths.
 
-```
+```ruby
 # in application's config/routes.rb
 
 Orchid::Routing.draw
@@ -208,8 +213,87 @@ Orchid::Routing.draw
 
 If you will be overriding a named route set by Orchid as a default, you will need to tell Orchid not to draw that route.  You may pass a list of route names.
 
-```
+```ruby
 Orchid::Routing.draw(reserved_names: ["item", "home"])
+```
+
+#### Scoped Routes
+Using Rails's route scoping does not work if wrapped around the Orchid route
+drawing due to the `draw` method calling Orchid's route definitions with no
+scope at the root of the app. To scope the routes that Orchid draws, an
+additional keyword parameter `parent_scope` must be passed to the `draw` method
+with the same string value passed to the `scope` method, e.g.
+
+```ruby
+# Doesn't scope Orchid routes
+scope '/section' do
+  # Other route definitions
+  …
+  Orchid::Routing.draw
+end
+
+# Does scope Orchid routes
+scope '/section' do
+  # Other route definitions
+  …
+  Orchid::Routing.draw(parent_scope: '/section')
+end
+```
+
+The `Orchid::Routing.draw` call can be outside the scope block, but it will
+probably be easier to follow to keep it alongside any other scoped routes.
+
+#### Prefixed Routes
+To assist different sections of an app in utilizing the same Orchid logic and
+templates for different purposes such as when an app uses multiple paths to
+access different groups of items from the API, the routes drawn by Orchid may
+be given different path names via prefixes. The Orchid routes that use the Items
+controller have all been augmented to optionally utilize use a prefix and the
+corresponding views will render links using the prefixed path name helpers.
+
+For example, some items may be linked to with the primary `item_path` helper and
+others with a prefixed name like `section_item_path`. The separate path
+helpers alone could be accomplished with an additional route definition, but
+would still require duplicating templates to set path helper use within
+templates to render the appropriate links between pages in that section. Here is
+an example of how to set both item routes:
+
+```ruby
+# Sub-section routes
+scope '/section' do
+  # Other route definitions
+  …
+  # Skips drawing non-Items controller routes
+  Orchid::Routing.draw(reserved_names: ['about', 'home', 'not_found',
+    'server_error'], parent_prefix: 'section', parent_scope:
+    '/section')
+end
+
+# Site-wide routes
+Orchid::Routing.draw
+```
+
+Prefixed path helpers may safely be called individually in main app templates
+used by only one route. But see [Prefixed Paths](#prefixed-paths) if you would
+like to add or modify links within templates that will be used by multiple
+routes using different prefixes.
+
+##### Prefix Orchid Routes
+To make Orchid routes compatible with prefixing, the `prefix` parameter must be
+set at the beginning of the `proc` for the route definition. This `prefix`
+parameter will be the value set in the main app with `parent_prefix`. Then if a
+prefix is present it needs an underscore appended. The route name must now be
+written with the prefix value prepended. Lastly, the prefix needs to
+be available to the controllers and actions called by the route. This is done by
+setting the prefix as a default parameter named `path_prefix`. The resulting
+prefix-compatible Orchid route looks like this:
+
+```ruby
+{ name: 'item', definition: proc { |prefix|
+  prefix += "_" if prefix.present?
+  get 'item/:id', to: 'items#show', as: "#{prefix}item",
+    constraints: { id: with_period }, defaults: { path_prefix: prefix }
+}},
 ```
 
 ### Scripts
@@ -381,6 +465,89 @@ Rails.application.config.assets.precompile += %w(
   section_b.css
   section_b.js
 )
+
+## Links
+We will ignore [resourceful
+routes](https://guides.rubyonrails.org/routing.html#resource-routing-the-rails-default)
+for now and focus on the [non-resourceful
+routes](https://guides.rubyonrails.org/routing.html#non-resourceful-routes) we
+define and name in `config/routes.rb`:
+
+```ruby
+# Route with no parameters
+get 'about', to: 'general#about', as: :about
+
+# Route requiring a parameter, :id
+get 'item/:id', to: 'items#show', as: :item
+```
+
+Links are generally written in either what we will call "string form" or "block
+form" depending on whether a simple string of text will be clickable or whether
+nested HTML such as an image or text that must be marked up with other HTML tags
+will be clickable.
+
+In string form, links for the above routes are written:
+
+```html
+<li>
+  <%= link_to "About", about_path, html_options %>
+</li>
+
+<li>
+  <%= link_to "Item ABC", item_path("ABC"), html_options %>
+</li>
+or
+<li>
+  <%= link_to "Item ABC", item_path(id: "ABC"), html_options %>
+</li>
+```
+
+The link with the route requiring a parameter may be written two ways. If
+parameters are passed to the path helper as an array, they will be set in the
+order the parameters appear in the path. Otherwise, they may be named as keys in
+a hash. Additional parameters will be appended to the resulting URL as query
+string parameters.
+
+It's important to keep parameters meant for the path helper separate from those
+intended to be `html_options` by wrapping them in parentheses. `html_options`
+are the keyword parameters (e.g. `id: "link_abc", class: "text-center"`)
+that add attributes to the `<a>` element. They are automatically passed as a
+hash to `link_to` if not explicitly written with brackets around them, which is
+rarely necessary. To add `data-name="value"` attributes, pass the attribute
+names and values as their own hash, e.g. `data: { name: "value" }`. For other
+`html_options`, read the [link_to options
+documentation](https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to-label-Options).
+
+In block form, the links are written:
+
+```html
+<%= link_to about_path, html_options do %>
+  <img src="/images/about.png" class="img-responsive" alt="Team photo">
+  <span class="text-center">About the Project</span>
+<% end %>
+
+<%= link_to item_path("ABC"), html_options do %>
+  <img src="/images/item_abc.png" class="img-responsive" alt="ABC photo">
+  <span class="text-center">Item ABC</span>
+<% end %>
+```
+
+See [more examples in the Rails API link_to
+documentation](https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to-label-Examples).
+
+### Prefixed Paths
+If adding or modifying links within templates used by more than one route, the
+application helper `prefix_path` has been added to Orchid to simplify calling
+the appropriate path helper. It takes the place of where the path helper would
+normally be used. The path helper's name as a string is the first parameter and
+all following parameters are the parameters to be sent to the path helper.
+
+```html
+<!-- Regular path helper use -->
+<%= link_to item_path("ABC"), html_options %>
+
+<!-- Prefixed path use -->
+<%= link_to prefix_path("item_path", "ABC"), html_options %>
 ```
 
 ## License
