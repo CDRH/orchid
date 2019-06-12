@@ -20,20 +20,15 @@ module Orchid
     @@redirects = nil
     @@uri_prefix = nil
 
-    # Save redirects as class variable to only load once at server start
-    if @@redirects.nil?
-      begin
-        @@redirects = YAML.load_file("#{Rails.root}/config/redirects.yml")
-      rescue => e
-        puts "Orchid::Redirect - Unable to open #{Rails.root}/config/redirects.yml:\n  #{e}"
-        exit 1
-      end
-    end
-
     private
 
     def initialize(app)
       @app = app
+      # Save redirects as class variable to only load once at server start
+      if @@redirects.nil?
+        redirect_files = APP_OPTS["redirect_files"]
+        @@redirects = compile_redirects(redirect_files)
+      end
     end
 
     protected
@@ -62,6 +57,17 @@ module Orchid
       end
     end
 
+    def compile_redirects(paths)
+      # if no paths specified, then do not assign redirects
+      if paths
+        redirects = []
+        paths.each do |path|
+          redirects += load_yaml(File.join(Rails.root, path))
+        end
+        redirects
+      end
+    end
+
     def compute_to(from, request, path_qs, to)
       # Prepend URI prefix if present
       to = @@uri_prefix + to if !@@uri_prefix.blank?
@@ -81,6 +87,13 @@ module Orchid
       else
         return to
       end
+    end
+
+    def load_yaml(path)
+      YAML.load_file(path)
+    rescue => e
+      puts "Orchid::Redirect - Unable to open #{path}:\n  #{e}"
+      exit 1
     end
 
     def match_options_not?(from_not, request, path_qs)
