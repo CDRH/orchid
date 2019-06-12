@@ -17,6 +17,7 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
   - [Gitignore](#gitignore)
   - [Languages](#languages)
   - [Item Features](#item-features)
+  - [Redirects](#redirects)
   - [Routes](#routes)
     - [Scoped Routes](#scoped-routes)
     - [Prefixed Routes](#prefixed-routes)
@@ -197,6 +198,41 @@ To call the appropriate partial depending on language, include this in a view:
 
 ```
 <%= render localized_partial("sites", "[controller]/excavation_sites") %>
+```
+
+### Redirects
+
+Orchid contains middleware which allows your app to redirect or rewrite URLs. This may be useful if you are moving to Orchid from an older website and are updating the URL structure, or would like to clean up URLs with `.html` and `.php`.  Copy the `config/redirects.example.yml` file to whatever name you would like (`config/redirects.yml` for our purposes) and enable it in the `config/public.yml` file.  You can add more than one redirect file if you wish:
+
+```
+# config/public.yml
+
+default: &default
+  app_options:
+    redirect_files:
+      - config/redirects.yml
+      - config/redirects_by_section.yml
+```
+
+Here are some examples of how to create redirects in orchid in your newly enabled redirect files specified in the config. Further documentation is pending.
+
+```
+# config/redirects.yml
+
+# simple redirect
+
+-
+  method:     r301
+  from:       /index.nf.html
+  to:         /writings/nonfiction
+
+# redirect with regular expression matching
+
+-
+  # /ss016.html -> /writings/shortfiction/ss016
+  method:     r301
+  from:       !ruby/regexp /^\/(ss\d{3}).html$/
+  to:         /writings/shortfiction/$1
 ```
 
 ### Routes
