@@ -51,7 +51,7 @@ module Orchid
       response = !@@redirects.nil? ? route_request(env) : nil
 
       if !response.nil?
-        return response
+        response
       else
         @app.call(env)
       end
@@ -61,9 +61,7 @@ module Orchid
       # if no paths specified, then do not assign redirects
       if paths
         redirects = []
-        paths.each do |path|
-          redirects += load_yaml(File.join(Rails.root, path))
-        end
+        paths.each { |path| redirects += load_yaml(File.join(Rails.root, path)) }
         redirects
       end
     end
@@ -83,9 +81,9 @@ module Orchid
           computed_to.gsub!("$#{num}", matched_path[num].to_s)
         end
 
-        return computed_to
+        computed_to
       else
-        return to
+        to
       end
     end
 
@@ -97,11 +95,9 @@ module Orchid
     end
 
     def match_options_not?(from_not, request, path_qs)
-      from_not.is_a?(Regexp) \
+      !!(from_not.is_a?(Regexp) \
       && (request.path_info.match(from_not) || path_qs.match(from_not)) \
-      || (request.path_info == from_not || path_qs == from_not) \
-          ? true \
-          : false
+      || (request.path_info == from_not || path_qs == from_not))
     end
 
     def route_request(env)
@@ -134,7 +130,7 @@ module Orchid
           method = redirect['method']
           to = compute_to(redirect['from'], request, path_qs, to)
           to_qs = (!qs.empty? && !options['no_qs']) \
-              ? to +'?'+ qs \
+              ? (to + '?' + qs) \
               : to
 
           if to == request.path
@@ -177,25 +173,23 @@ module Orchid
         end
       end
 
-      return nil
+      nil
     end # /route_request
 
     def rule_matches?(from, request, path_qs, from_not)
-      from.is_a?(Regexp) \
+      !!(from.is_a?(Regexp) \
       &&  ((request.path_info.match(from) || path_qs.match(from)) \
           && !match_options_not?(from_not, request, path_qs) \
       ) \
       || ((request.path_info == from || path_qs == from) \
           && !match_options_not?(from_not, request, path_qs) \
-      ) \
-          ? true \
-          : false
+      ))
     end
 
     public
 
     def call(env)
-        dup._call(env)  # Thread-safety for instance vars
+      dup._call(env)  # Thread-safety for instance vars
     end
 
   end
