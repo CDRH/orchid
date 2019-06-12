@@ -1,18 +1,31 @@
 default: &default
 
   app_options:
-    version: 0.1.0
+    # the version of this rails application
+    version: 0.0.1
+
+    # LANGUAGE
+
     # defaults to "en" (english) if no default language set
     language_default: en
     # pipe delineated values (es|de) for all non-default languages
     # languages:
     # for application title settings, please alter the files in config/locales
 
+    # IMAGES
+
     # name of the appropriate directory in media server filesystem (project name)
     media_server_dir: project_name
     # thumbnail size, ! means not to alter ratio, then max-width, max-height
     # IIIF size syntax reference: https://iiif.io/api/image/2.1/#size
     thumbnail_size: "!200,200"
+
+    # REDIRECTS / REWRITES
+
+    # accepts an array of yaml file locations, loaded in the order they appear below
+    # see config/redirects.example.yml for more information
+    # redirect_files:
+    #   - config/redirects.yml
 
   api_options:
     # example of default filter for all queries

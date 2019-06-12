@@ -1,0 +1,26 @@
+# a list of paths that will be redirected or rewritten
+# include your redirect file(s) by specifying in config/public.yml "redirect_files"
+
+# simple redirect
+
+-
+  method:     r301
+  from:       /index.nf.html
+  to:         /writings/nonfiction
+
+# redirect with regular expression matching
+
+-
+  # /ss016.html -> /writings/shortfiction/ss016
+  method:     r301
+  from:       !ruby/regexp /^\/(ss\d{3}).html$/
+  to:         /writings/shortfiction/$1
+
+# rewrite with options
+
+-
+  method:     rewrite
+  from:       !ruby/regexp /^\/(?:php\/xslt\.php|read\/)\?&?_xmlsrc=(?:http:\/\/lewisandclarkjournals\.unl\.edu\/files\/xml\/)?(.+?)?(?:&_xslsrc=(?:http:\/\/lewisandclarkjournals\.unl\.edu\/)?LCstyles\.xsl)?$/
+  to:         /item/$1
+  options:
+    no_qs: 1

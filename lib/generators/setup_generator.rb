@@ -24,6 +24,7 @@ class SetupGenerator < Rails::Generators::Base
     msgs << "\n\nSetup Review\n============"
     msgs << copy_initializer
     msgs << copy_configs_and_locales
+    msgs << copy_remaining_templates
     msgs << facets
     msgs << favicon
     msgs << footer_logo
@@ -130,6 +131,12 @@ Updated with initial app customizations
     FileUtils.cp("#{@this_app}/lib/generators/templates/config.rb", "#{@new_app}/config/initializers/config.rb")
 
     return "Initializer to load config values into app copied to config/initializers/config.rb"
+  end
+
+  def copy_remaining_templates
+    FileUtils.cp("#{@this_app}/lib/generators/templates/redirects.example.yml", "#{@new_app}/config/redirects.example.yml")
+
+    return "Redirect middleware configuration demo file copied to config/redirects.example.yml"
   end
 
   def facets
