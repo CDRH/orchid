@@ -56,6 +56,18 @@ module Orchid::ApplicationHelper
     end
   end
 
+  def add_assets(asset_array, *assets)
+    for asset in assets
+      if asset.is_a?(Array)
+        asset_array = Array(asset_array) + asset
+      else
+        asset_array = Array(asset_array) << asset
+      end
+    end
+
+    asset_array
+  end
+
   def copy_params
     # Remove Rails internal parameters "action" and "controller" from URLs
     # They are always accessible via params["action"] and params["controller"]
