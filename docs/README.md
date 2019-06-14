@@ -24,6 +24,7 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
 - [Assets](#assets)
   - [Javascript Inclusions and Asset Declarations](#javascript-inclusions-and-asset-declarations)
   - [Stylesheet Imports](#stylesheet-imports)
+  - [Conditional Assets](#conditional-assets)
 - [License](#license)
 
 ## Installation
@@ -294,6 +295,93 @@ Lastly, we import stylesheets from the generated app's
 `app/assets/stylesheets/global/` directory to be applied to all pages in the
 app.
 
+### Conditional Assets
+Our views may load assets conditionally rather than on every page in the app.
+Conditional asset files must be added to
+`(app|vendor)/assets/(javascripts|stylesheets)/`, and not to the `global/`
+subdirectories found within. One may create subdirectories for organization if
+desired, but the subdirectory must be included with the asset filename when
+added. Note that asset filenames do not need the file extension as it will be
+handled by Rails:
+
+```ruby
+# for app/assets/javascripts/section/page.js
+@ext_js = helpers.add_assets(@ext_js, "section/page")
+```
+
+We've written an application helper `add_assets` intended to make the code
+easier to read and less error prone. Asset filenames may be written as multiple
+strings:
+```ruby
+@ext_css = helpers.add_assets(@ext_css, "sheet1", "sheet2")
+```
+
+or using [percent string
+syntax](https://ruby-doc.org/core/doc/syntax/literals_rdoc.html#label-Percent+Strings)
+for an array of strings:
+```ruby
+@ext_css = helpers.add_assets(@ext_css, %w(sheet1 sheet2))
+```
+
+Conditional asset loading may be handled in either the controller using the
+syntax above or in the view template without the `helpers.` syntax:
+```ruby
+<% @ext_css = add_assets(@ext_css, %w(sheet1 sheet2)) %>
+```
+
+To load assets on all pages rendered by a controller, use a [before
+filter](https://guides.rubyonrails.org/action_controller_overview.html#filters)
+to call the `add_assets` helper:
+```ruby
+class SectionController < ApplicationController
+  before_action :append_assets
+…
+  private
+
+  def append_assets
+    @ext_css = helpers.add_assets(@ext_css, "section")
+    @ext_js = helpers.add_assets(@ext_js, "section")
+  end
+end
+```
+
+The before filter may be configured to only apply to a list of specific actions
+within the controller too:
+```ruby
+  before_action :append_assets, only: [:action1, :action3]
+```
+
+If a section's pages are rendered by more than one controller, one may add a
+check in the application controller or action used by multiple pages to add
+assets if the request path matches:
+```ruby
+if request.path[/^\/section\//]
+  @ext_css = helpers.add_assets(@ext_css, "section")
+  @ext_js = helpers.add_assets(@ext_js, "section")
+end
+```
+
+Some systems seem unable to find our assets through the `link_tree`
+directives which automatically add them to the asset precompilation list.
+For such situations, we still need to add our assets manually in
+`config/initializers/assets.rb`. These filenames indicate what the compiled file
+will be named rather than the source file, so if one's asset file is
+`filename.scss(.erb)` file, it will still be written as `filename.css` here.
+The additions to the precompile list may be broken up for organization e.g.:
+
+```ruby
+# Section A
+Rails.application.config.assets.precompile += %w(
+  section_a.css
+  section_a.js
+)
+
+# Section B
+Rails.application.config.assets.precompile += %w(
+  section_b.css
+  section_b.js
+)
+```
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
