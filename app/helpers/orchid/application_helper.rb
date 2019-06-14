@@ -57,7 +57,7 @@ module Orchid::ApplicationHelper
   end
 
   def add_assets(asset_array, *assets)
-    for asset in assets
+    assets.each do |asset|
       if asset.is_a?(Array)
         asset_array = Array(asset_array) + asset
       else
