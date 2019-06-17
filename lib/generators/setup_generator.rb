@@ -124,7 +124,7 @@ Updated with initial app customizations
   end
 
   def copy_remaining_templates
-    FileUtils.cp("#{@this_app}/lib/generators/templates/redirects.example.yml", "#{@new_app}/config/redirects.example.yml")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/redirects.yml", "#{@new_app}/config/redirects.example.yml")
 
     return "Redirect middleware configuration demo file copied to config/redirects.example.yml"
   end
