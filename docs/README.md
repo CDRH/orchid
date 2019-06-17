@@ -17,7 +17,7 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
   - [Gitignore](#gitignore)
   - [Languages](#languages)
   - [Item Features](#item-features)
-  - [Redirects](#redirects)
+  - [Redirects and Rewrites](#redirects-and-rewrites)
   - [Routes](#routes)
     - [Scoped Routes](#scoped-routes)
     - [Prefixed Routes](#prefixed-routes)
@@ -200,11 +200,16 @@ To call the appropriate partial depending on language, include this in a view:
 <%= render localized_partial("sites", "[controller]/excavation_sites") %>
 ```
 
-### Redirects
+### Redirects and Rewrites
 
-Orchid contains middleware which allows your app to redirect or rewrite URLs. This may be useful if you are moving to Orchid from an older website and are updating the URL structure, or would like to clean up URLs with `.html` and `.php`.  Copy the `config/redirects.example.yml` file to whatever name you would like (`config/redirects.yml` for our purposes) and enable it in the `config/public.yml` file.  You can add more than one redirect file if you wish:
+Orchid contains middleware which allows your app to redirect or rewrite URLs.
+This may be useful if you are moving to Orchid from an older website and are
+updating the URL structure, or would like to clean up URLs with `.html` and
+`.php`. Copy the `config/redirects.example.yml` file to whatever name you would
+like (`config/redirects.yml` for our purposes) and enable it in the
+`config/public.yml` file. You can add more than one redirect file if you wish:
 
-```
+```yaml
 # config/public.yml
 
 default: &default
@@ -214,26 +219,41 @@ default: &default
       - config/redirects_by_section.yml
 ```
 
-Here are some examples of how to create redirects in orchid in your newly enabled redirect files specified in the config. Further documentation is pending.
+To get started quickly, follow the examples in
+[`config/redirects.example.yml`](../lib/generators/templates/redirects.yml).
+The file is formatted as a list of associate arrays so each rule begins with
+`-` and following indented lines have the rule's keys and values. Every rule
+must have the `method`, `from`, and `to` keys and values.
 
-```
-# config/redirects.yml
+`method` determines whether the rule is:
 
-# simple redirect
+- a redirect (and which [HTTP Redirect
+Status
+Code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection)
+is returned) if the value is `r301`, `r302`, `r303`, `r307`, or `r308`
+- a rewrite if the value is `rewrite`
 
--
-  method:     r301
-  from:       /index.nf.html
-  to:         /writings/nonfiction
+`from` is either a string or regular expression preceded by `!ruby/regexp` that
+is matched against the request path and query string to determine when redirects
+and rewrites occur.
 
-# redirect with regular expression matching
+`to` is a string which defines the destination URL for the redirect or rewrite.
+The string may contain numbered backreferences like `$1` which will be replaced
+by substrings captured in the `from` value if it is a regular expression.
 
--
-  # /ss016.html -> /writings/shortfiction/ss016
-  method:     r301
-  from:       !ruby/regexp /^\/(ss\d{3}).html$/
-  to:         /writings/shortfiction/$1
-```
+`options` may be added for further rule conditions. The available `options` keys
+are:
+
+- `scheme` - The request scheme must match this string or regular expression,
+  e.g. `http` or `https`
+- `host` - The host for the request must match this string or regular
+  expression, e.g. `cdrh.unl.edu`
+- `method` - The request must match this HTTP request method, e.g. `GET`,
+  `POST`, `DELETE`, etc
+- `not` - The path and query string must _not_ match this string or regular
+  expression. This allows excluding some matches for the `from` value.
+- `no_qs` - The query string will be dropped and not added to `to`, the
+  destination URL.
 
 ### Routes
 
