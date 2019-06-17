@@ -252,8 +252,8 @@ are:
   `POST`, `DELETE`, etc
 - `not` - The path and query string must _not_ match this string or regular
   expression. This allows excluding some matches for the `from` value.
-- `no_qs` - The query string will be dropped and not added to `to`, the
-  destination URL.
+- `drop_qs` - The query string will be dropped and not added to `to`, the
+  destination URL. It will still be matched against the `from` value though.
 
 ### Routes
 

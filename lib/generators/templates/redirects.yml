@@ -20,7 +20,7 @@
   from:       !ruby/regexp /^\/(?:php\/xslt\.php|read\/)\?&?_xmlsrc=(?:http:\/\/lewisandclarkjournals\.unl\.edu\/files\/xml\/)?(.+?)?(?:&_xslsrc=(?:http:\/\/lewisandclarkjournals\.unl\.edu\/)?LCstyles\.xsl)?$/
   to:         /item/$1
   options:
-    no_qs:    1
+    drop_qs:  1
 
 # Redirect with 308 from path only if POST request and no legacy query param
 -
@@ -39,5 +39,5 @@
   options:
     scheme:   http
     host:     legacy-domain.com
-    no_qs:    1
+    drop_qs:  1
 

@@ -8,7 +8,7 @@
 # URL rewrites and redirects with regexes work, but no procs or sending files
 
 # Additions
-# - May specify to drop the query string with options['no_qs']
+# - May specify to drop the query string with options['drop_qs']
 # - Rewrites are checked again before returned to prevent multiple redirects
 
 require 'yaml'
@@ -129,7 +129,7 @@ module Orchid
           # Redirect variables
           method = redirect['method']
           to = compute_to(redirect['from'], request, path_qs, to)
-          to_qs = (!qs.empty? && !options['no_qs']) \
+          to_qs = (!qs.empty? && !options['drop_qs']) \
               ? (to + '?' + qs) \
               : to
 
@@ -157,7 +157,7 @@ module Orchid
             env['REQUEST_URI'] = to_qs
             if q_index = to_qs.index('?')
                 env['PATH_INFO'] = to_qs[0..q_index-1]
-                env['QUERY_STRING'] = (!options['no_qs']) \
+                env['QUERY_STRING'] = (!options['drop_qs']) \
                     ? to_qs[q_index+1..-1] \
                     : ''
             else
