@@ -75,6 +75,10 @@ class ItemsController < ApplicationController
       url = @res["uri_html"]
       @html = Net::HTTP.get(URI.parse(url)) if url
       @title = item_title
+    else
+      @title = t "item.no_item", id: params["id"],
+        default: "No item with identifier #{params["id"]} found!"
+      render "show_not_found", status: 404
     end
   end
 
