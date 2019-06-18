@@ -1,14 +1,3 @@
-<% if @res %>
-
-  <h2><%= @res["title"] %></h2>
-  <%= render "show_metadata" %>
-  <%= render "show_content" %>
-
-<% else %>
-
-  <h2><%= t("item.not_found", default: "Not Found") %></h2>
-  <%= t "item.no_item", id: params["id"], default: "No item with identifier #{params["id"]} found!" %>
-
-<% end %>
-
-
+<h2><%= @res["title"] %></h2>
+<%= render "show_metadata" %>
+<%= render "show_content" %>
