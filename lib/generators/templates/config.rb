@@ -10,6 +10,15 @@ API_PATH = PRIVATE["api_path"]
 APP_OPTS = PUBLIC["app_options"]
 IIIF_PATH = PRIVATE["iiif_path"]
 
+if APP_OPTS.key?("sections")
+  SECTIONS = {}
+  APP_OPTS["sections"].each do |section|
+    section_name = section[/^config\/sections\/([\w.-]+)\.yml$/, 1]
+    SECTIONS[section_name] = YAML.load_file("#{Rails.root}/#{section}")[Rails.env]
+    SECTIONS[section_name]["name"] = section_name
+  end
+end
+
 DATE_FIRST = PUBLIC["date_range"]["first"] || ["1800", "01", "01"]
 DATE_LAST = PUBLIC["date_range"]["last"] || ["1900", "12", "31"]
 

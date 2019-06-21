@@ -17,4 +17,14 @@ class ApplicationController < ActionController::Base
   else
     raise "No API path found for project, please make sure the config file is correctly filled out"
   end
+
+  # Section API objects
+  if SECTIONS
+    SECTIONS.each do |section, config|
+      $api_sections = {}
+      $api_sections[section] = ApiBridge::Query.new(API_PATH, Facets.facet_list,
+        config["api_options"])
+      logger.info("Connecting to API for section: #{section}")
+    end
+  end
 end

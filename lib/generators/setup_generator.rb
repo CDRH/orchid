@@ -125,8 +125,14 @@ Updated with initial app customizations
 
   def copy_remaining_templates
     FileUtils.cp("#{@this_app}/lib/generators/templates/redirects.yml", "#{@new_app}/config/redirects.example.yml")
+    FileUtils.mkdir("#{@new_app}/config/sections/")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/section.yml", "#{@new_app}/config/sections/section.example.yml")
 
-    return "Redirect middleware configuration demo file copied to config/redirects.example.yml"
+    <<-MSG
+Redirect middleware configuration example file copied to
+  config/redirects.example.yml
+Section configuration example file copied to config/sections/section.example.yml
+    MSG
   end
 
   def facets
