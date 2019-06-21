@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
 
   def set_section
     @section = params[:section]
-    @section.chomp!("_")
+    @section.chomp!("_") if @section.present?
     params.delete :section
   end
 end
