@@ -3,6 +3,8 @@ class ItemsController < ApplicationController
 
   def browse
     @title = t "browse.title"
+
+    render_overridable("items", "browse")
   end
 
   def browse_facet
@@ -52,7 +54,7 @@ class ItemsController < ApplicationController
     end
 
     @title = "#{t "browse.browse_type"} #{@browse_facet_info["label"]}"
-    render "browse_facet", locals: { sort_by: sort_by }
+    render_overridable("items", "browse_facet", locals: { sort_by: sort_by })
   end
 
   def index
@@ -67,6 +69,8 @@ class ItemsController < ApplicationController
 
     @title = t "search.title"
     @res = @items_api.query(options)
+
+    render_overridable("items", "index")
   end
 
   def show
@@ -81,10 +85,12 @@ class ItemsController < ApplicationController
       url = @res["uri_html"]
       @html = Net::HTTP.get(URI.parse(url)) if url
       @title = item_title
+
+      render_overridable("items", "show")
     else
-      render "show_not_found", status: 404
       @title = t "item.no_item", id: id,
         default: "No item with identifier #{id} found!"
+      render_overridable("items", "show_not_found", status: 404)
     end
   end
 
