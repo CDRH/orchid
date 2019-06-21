@@ -30,6 +30,15 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def render_overridable(path, template, is_partial: false, **kwargs)
+    if @section.present? && lookup_context.template_exists?(template, @section,
+                                                            is_partial)
+      path = @section
+    end
+
+    render "#{path}/#{template}", kwargs
+  end
+
   def set_section
     @section = params[:section]
     @section.chomp!("_")
