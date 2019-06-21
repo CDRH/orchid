@@ -341,14 +341,14 @@ parameter will be the value set in the main app with `parent_prefix`. Then if a
 prefix is present it needs an underscore appended. The route name must now be
 written with the prefix value prepended. Lastly, the prefix needs to
 be available to the controllers and actions called by the route. This is done by
-setting the prefix as a default parameter named `path_prefix`. The resulting
+setting the prefix as a default parameter named `section`. The resulting
 prefix-compatible Orchid route looks like this:
 
 ```ruby
 { name: 'item', definition: proc { |prefix|
   prefix += "_" if prefix.present?
   get 'item/:id', to: 'items#show', as: "#{prefix}item",
-    constraints: { id: with_period }, defaults: { path_prefix: prefix }
+    constraints: { id: with_period }, defaults: { section: prefix }
 }},
 ```
 

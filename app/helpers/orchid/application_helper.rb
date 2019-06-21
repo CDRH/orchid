@@ -147,15 +147,15 @@ module Orchid::ApplicationHelper
 
     if args.empty?
       if kwargs.empty?
-        send("#{@path_prefix}#{path}")
+        send("#{@section}_#{path}")
       else
-        send("#{@path_prefix}#{path}", kwargs)
+        send("#{@section}_#{path}", kwargs)
       end
     else
       if kwargs.empty?
-        send("#{@path_prefix}#{path}", args)
+        send("#{@section}_#{path}", args)
       else
-        send("#{@path_prefix}#{path}", args, kwargs)
+        send("#{@section}_#{path}", args, kwargs)
       end
     end
   end
