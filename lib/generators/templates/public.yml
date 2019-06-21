@@ -27,6 +27,12 @@ default: &default
     # redirect_files:
     #   - config/redirects.yml
 
+    # SECTIONS
+    # List of yaml files named to match route prefixes
+    # Yaml file contains api_options values applied section-wide
+    # sections:
+    #   - config/sections/section.yml
+
   api_options:
     # example of default filter for all queries
     # f:
