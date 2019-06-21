@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_path_prefix
+  before_action :set_items_api
 
   def browse
     @title = t "browse.title"
@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
     }
 
     # Get facet results
-    @res = $api.query(options).facets
+    @res = @items_api.query(options).facets
 
     # Warn when approaching facet result limit
     result_size = @res.length
@@ -66,23 +66,27 @@ class ItemsController < ApplicationController
     options, @from, @to = helpers.date_filter(options)
 
     @title = t "search.title"
-    @res = $api.query(options)
+    @res = @items_api.query(options)
   end
 
   def show
-    @res = $api.get_item_by_id(params["id"]).first
+    item_retrieve(params["id"])
+  end
+
+  private
+
+  def item_retrieve(id)
+    @res = @items_api.get_item_by_id(id).first
     if @res
       url = @res["uri_html"]
       @html = Net::HTTP.get(URI.parse(url)) if url
       @title = item_title
     else
-      @title = t "item.no_item", id: params["id"],
-        default: "No item with identifier #{params["id"]} found!"
       render "show_not_found", status: 404
+      @title = t "item.no_item", id: id,
+        default: "No item with identifier #{id} found!"
     end
   end
-
-  private
 
   # separated from show action to allow overriding only the
   # title display for individual items instead of the entire action
@@ -94,9 +98,12 @@ class ItemsController < ApplicationController
     end
   end
 
-  def set_path_prefix
-    @path_prefix = params[:path_prefix]
-    params.delete :path_prefix
+  def set_items_api
+    if @section.present?
+      @items_api = $api_sections[@section]
+    else
+      @items_api = $api
+    end
   end
 
 end

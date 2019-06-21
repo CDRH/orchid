@@ -26,23 +26,23 @@ module Orchid
         { name: 'browse', definition: proc { |prefix|
           prefix += "_" if prefix.present?
           get 'browse', to: 'items#browse', as: "#{prefix}browse",
-            defaults: { path_prefix: prefix }
+            defaults: { section: prefix }
         }},
         { name: 'browse_facet', definition: proc { |prefix|
           prefix += "_" if prefix.present?
           get 'browse/:facet', to: 'items#browse_facet',
             as: "#{prefix}browse_facet", constraints: { facet: with_period },
-            defaults: { path_prefix: prefix }
+            defaults: { section: prefix }
         }},
         { name: 'item', definition: proc { |prefix|
           prefix += "_" if prefix.present?
           get 'item/:id', to: 'items#show', as: "#{prefix}item",
-            constraints: { id: with_period }, defaults: { path_prefix: prefix }
+            constraints: { id: with_period }, defaults: { section: prefix }
         }},
         { name: 'search', definition: proc { |prefix|
           prefix += "_" if prefix.present?
           get 'search', to: 'items#index', as: "#{prefix}search",
-            defaults: { path_prefix: prefix }
+            defaults: { section: prefix }
         }},
 
         # Errors

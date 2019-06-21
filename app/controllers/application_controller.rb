@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  before_action :set_locale
+  before_action :set_locale, :set_section
 
   def set_locale
     I18n.locale = params["locale"] || APP_OPTS["language_default"] || "en"
@@ -26,5 +26,13 @@ class ApplicationController < ActionController::Base
         config["api_options"])
       logger.info("Connecting to API for section: #{section}")
     end
+  end
+
+  private
+
+  def set_section
+    @section = params[:section]
+    @section.chomp!("_")
+    params.delete :section
   end
 end
