@@ -20,8 +20,8 @@ class ApplicationController < ActionController::Base
 
   # Section API objects
   if SECTIONS
+    $api_sections = {}
     SECTIONS.each do |section, config|
-      $api_sections = {}
       $api_sections[section] = ApiBridge::Query.new(API_PATH, Facets.facet_list,
         config["api_options"])
       logger.info("Connecting to API for section: #{section}")
