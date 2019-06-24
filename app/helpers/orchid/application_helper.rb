@@ -145,17 +145,19 @@ module Orchid::ApplicationHelper
       args = []
     end
 
+    path_helper = @section.present? ? "#{@section}_#{path}" : path
+
     if args.empty?
       if kwargs.empty?
-        send("#{@section}_#{path}")
+        send(path_helper)
       else
-        send("#{@section}_#{path}", kwargs)
+        send(path_helper, kwargs)
       end
     else
       if kwargs.empty?
-        send("#{@section}_#{path}", args)
+        send(path_helper, args)
       else
-        send("#{@section}_#{path}", args, kwargs)
+        send(path_helper, args, kwargs)
       end
     end
   end
