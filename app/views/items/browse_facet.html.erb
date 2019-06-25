@@ -6,7 +6,7 @@
 
 <nav>
   <ul class="nav nav-tabs buffer-bottom" role="tablist">
-    <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
+    <% @page_facets.each_with_index do |(facet_name, facet_info), index| %>
       <li role="presentation" class="<%= active?(facet_name, @browse_facet) %>">
         <% if facet_name == @browse_facet %>
           <%# TODO Fix a11y - Shouldn't be in tab order / focusable %>
@@ -39,7 +39,7 @@
 </div>
 
 <div class="tab-content">
-  <% Facets.facet_info.each_with_index do |(facet_name, facet_info), index| %>
+  <% @page_facets.each_with_index do |(facet_name, facet_info), index| %>
     <% id = facet_name.parameterize(separator: ".")  %>
     <div role="tabpanel"
       class="tab-pane <%= active?(facet_name, @browse_facet) %>" id="<%= id %>">

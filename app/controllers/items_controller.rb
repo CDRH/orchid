@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_items_api
+  before_action :set_page_facets, only: [:browse, :browse_facet, :index]
 
   def browse
     @title = t "browse.title"
@@ -11,7 +12,7 @@ class ItemsController < ApplicationController
     # Reverse facet name from url-formatting
     @browse_facet = params[:facet]
     if @browse_facet.include?(".")
-      Facets.facet_info.each_with_index do |(facet_name, facet_info), index|
+      @page_facets.each_with_index do |(facet_name, facet_info), index|
         if @browse_facet == facet_name.parameterize(separator: ".")
           @browse_facet = facet_name
           break
@@ -20,7 +21,7 @@ class ItemsController < ApplicationController
     end
 
     # Get selected facet's info
-    @browse_facet_info = Facets.facet_info[@browse_facet]
+    @browse_facet_info = @page_facets[@browse_facet]
     if @browse_facet_info.blank?
       redirect_to browse_path, notice: t("errors.browse",
         facet: @browse_facet, default: "Cannot browse by key: '#{@browse_facet}'")
@@ -110,6 +111,11 @@ class ItemsController < ApplicationController
     else
       @items_api = $api
     end
+  end
+
+  def set_page_facets
+    @page_facets = @section.present? ?
+      Facets.section_facets(@section) : Facets.facet_info
   end
 
 end
