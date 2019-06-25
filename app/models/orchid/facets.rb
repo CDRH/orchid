@@ -10,9 +10,9 @@ module Orchid::Facets
 
   # sets the list of facets with or without the entire API's collections
   def facet_info=(val)
-    # Remove project key if API URL uses a specific collection
+    # Remove collection key if API URL uses a specific collection
     if /\/collection\/\w+$/.match(API_PATH)
-      val.delete("project")
+      val.delete("collection")
     end
     @facet_info = val
   end
