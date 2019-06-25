@@ -2,7 +2,7 @@
     and match them with the incoming solr facet results %>
 <%# TODO refactor the top portion of this %>
 <% if facets %>
-  <% Facets.facet_info.each do |facet_name, info| %>
+  <% @page_facets.each do |facet_name, info| %>
     <% if should_display?(facets[facet_name], info) %>
       <% facet_res = facets[facet_name] %>
       <% data_safe_name = facet_name.parameterize  %>

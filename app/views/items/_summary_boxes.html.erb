@@ -43,7 +43,7 @@
   <% if params["f"].present? %>
     <% params["f"].each do |f| %>
       <% type, facet = f.split("|") %>
-      <% info = Facets.facet_info[type] %>
+      <% info = @page_facets[type] %>
       <% label = info ? info["label"] : type.titleize %>
 
       <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">

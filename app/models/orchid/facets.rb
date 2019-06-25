@@ -34,4 +34,24 @@ module Orchid::Facets
     end
   end
 
+  def section_facets(section)
+    if SECTIONS[section]["facets"].key?(I18n.locale.to_s)
+      facets = SECTIONS[section]["facets"][I18n.locale.to_s]
+    elsif SECTIONS[section]["facets"].key?("en")
+      facets = SECTIONS[section]["facets"]["en"]
+    else
+      facets = SECTIONS[section]["facets"]
+    end
+
+    if /\/collection\/\w+$/.match(API_PATH)
+      facets.delete("collection")
+    end
+
+    facets
+  end
+
+  def section_list(section)
+    section_facets(section).keys
+  end
+
 end

@@ -6,7 +6,7 @@
 </p>
 
 <h3><%= t "browse.browse_type", default: "Browse by" %>:</h3>
-<% Facets.facet_info.each_slice(3) do |slice| %>
+<% @page_facets.each_slice(3) do |slice| %>
   <div class="row buffer-bottom-lg">
     <% slice.each do |(facet_name, facet_info)| %>
       <div class="col-md-3">

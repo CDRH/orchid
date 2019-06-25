@@ -83,7 +83,7 @@ module Orchid::FacetHelper
   #   fields / values like person.role, "Postal Card" are stored
   # in locales yml as person_role, Postal_Card
   def value_label field, value
-    info = Facets.facet_info[field]
+    info = @page_facets[field]
     if value.present? && info && info["translate"]
       field_name = field.gsub(".", "_")
       # if this is a list of values, we need to return a list as well
