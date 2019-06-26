@@ -106,7 +106,9 @@ class ItemsController < ApplicationController
   end
 
   def set_items_api
-    if @section.present?
+    if @section.present? && $api_sections.present? &&
+      $api_sections.key?(@section)
+
       @items_api = $api_sections[@section]
     else
       @items_api = $api
@@ -114,7 +116,8 @@ class ItemsController < ApplicationController
   end
 
   def set_page_facets
-    @page_facets = @section.present? ?
+    @page_facets = @section.present? && SECTIONS.present? &&
+      SECTIONS.dig(@section, "facets") ?
       Facets.section_facets(@section) : Facets.facet_info
   end
 
