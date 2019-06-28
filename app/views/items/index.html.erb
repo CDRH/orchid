@@ -6,27 +6,27 @@
 <% end %>
 
 <div class="row search_form">
-  <%= render "search_box" %>
+  <%= render_overridable("search_box") %>
 
   <div class="col-sm-3">
     <div class="clearfix">
       <h4 class="pull-left">
         <%= t "search.filters.filter_by", default: "Filter by" %>:
       </h4>
-      <%= render "clear_facets" %>
+      <%= render_overridable("clear_facets") %>
     </div>
-    <%= render "date_limit" %>
-    <%= render "facets", facets: @res.facets %>
+    <%= render_overridable("date_limit") %>
+    <%= render_overridable("facets", facets: @res.facets) %>
   </div> <!-- col-md-3 -->
 
   <div class="col-sm-9">
-    <%= render "summary_boxes" %>
-    <%= render "sort_and_page_ui" %>
+    <%= render_overridable("summary_boxes") %>
+    <%= render_overridable("sort_and_page_ui") %>
 
     <!-- search results section -->
-    <%= render "search_res_count" %>
-    <%= render "search_res_items" %>
+    <%= render_overridable("search_res_count") %>
+    <%= render_overridable("search_res_items") %>
 
-    <%= render "sort_and_page_ui" %>
+    <%= render_overridable("sort_and_page_ui") %>
   </div>
 </div>

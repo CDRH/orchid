@@ -1,11 +1,11 @@
 class ErrorsController < ApplicationController
 
   def not_found
-    render :status => 404
+    render_overridable(status: 404)
   end
 
   def server_error
-    render :status => 500
+    render_overridable(status: 500)
   end
 
 end

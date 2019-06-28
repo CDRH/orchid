@@ -8,7 +8,7 @@
     <h2><%= t "general.project_subtitle" %></h2>
   </div>
 
-  <%= render "layouts/body/languages" %>
-  <%= render "layouts/body/navbar" %>
-  <%= render "layouts/body/breadcrumbs" %>
+  <%= render_overridable("layouts/body", "languages") %>
+  <%= render_overridable("layouts/body", "navbar") %>
+  <%= render_overridable("layouts/body", "breadcrumbs") %>
 </div><!-- /header -->

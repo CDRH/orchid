@@ -46,7 +46,7 @@
         <%= text_field_tag "date_to[]", dto[2],
             class: "form-control input-sm", placeholder: DATE_LAST[2], maxlength: "2", size: "2", aria_label: t("search.dates.to_day", default: "To Day"), title: "To Day" %>
       </div>
-      <%= render "hidden_fields" %>
+      <%= render_overridable("hidden_fields") %>
       <%= hidden_field_tag(:q, params["q"]) %>
 
       <div class="clearfix">
@@ -61,7 +61,7 @@
     <% end %>
 
     <div id="date_help" class="collapse">
-      <%= render localized_partial("help", "items/date_filter_help") %>
+      <%= render_overridable("items/date_filter_help", "help") %>
     </div>
   </div>
 </div>

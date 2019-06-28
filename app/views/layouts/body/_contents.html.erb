@@ -1,4 +1,4 @@
 <div class="container" id="content-wrapper">
-  <%= render "layouts/body/flash" %>
+  <%= render_overridable("layouts/body", "flash") %>
   <%= yield %>
 </div>
