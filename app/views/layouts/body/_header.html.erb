@@ -1,6 +1,6 @@
 <div id="header">
-  <%= render "layouts/body/title" %>
-  <%= render "layouts/body/languages" %>
-  <%= render "layouts/body/navbar" %>
-  <%= render "layouts/body/breadcrumbs" %>
-</div><!-- /header -->
+  <%= render_overridable("layouts/body", "title") %>
+  <%= render_overridable("layouts/body", "languages") %>
+  <%= render_overridable("layouts/body", "navbar") %>
+  <%= render_overridable("layouts/body", "breadcrumbs") %>
+</div>

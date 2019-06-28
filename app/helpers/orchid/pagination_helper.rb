@@ -8,13 +8,13 @@ module Orchid::PaginationHelper
       pages_prior = (current-display_range..current-1).reject { |x| x <= 1 }
       pages_next = (current+1..current+display_range).reject { |x| x >= total }
 
-      render "paginator",
+      render_overridable("paginator",
         current: current,
         opts: new_params,
         pages_next: pages_next,
         pages_prior: pages_prior,
         range: display_range,
-        total: total_pages
+        total: total_pages)
     end
   end
 
