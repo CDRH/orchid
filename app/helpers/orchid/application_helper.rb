@@ -162,6 +162,55 @@ module Orchid::ApplicationHelper
     end
   end
 
+  # Render section overrides and localized partials
+  # Partial name does not include the locale, underscore, or extensions
+  # Example:
+  #   render_overridable("explore/partials", "index")
+  #   Looks for in order:
+  #     If @section defined & locale == "es", "@section/_index_es.html.erb"
+  #     If @section defined & no locale, "@section/_index.html.erb"
+  #     If no @section & locale == "es", "explore/partials/_index_es.html.erb"
+  #     If no @section or locale, "explore/partials/_index.html.erb"
+  #  If no partial found, render an error message with missing partial path
+  def render_overridable(path="", partial="", **kwargs)
+    # If only one arg, give partial the arg value and empty path
+    if partial == ""
+      partial = path
+      # Set to lookup_context.prefixes so calls to template_exists? work
+      path = lookup_context.prefixes
+    end
+
+    # If partial still empty (no args), use controller action as template name
+    if partial == ""
+      partial = params[:action]
+    end
+
+    is_partial = true  # Must be true, regardless of whether partial or not
+    localized = "#{partial}_#{locale}"
+    if @section.present? && lookup_context.template_exists?(localized, @section,
+                                                            is_partial)
+      path = "#{@section}"
+      partial = localized
+    elsif @section.present? && lookup_context.template_exists?(partial,
+                                                               @section,
+                                                               is_partial)
+      path = "#{@section}"
+    elsif lookup_context.template_exists?(localized, path, is_partial)
+      partial = localized
+    elsif !lookup_context.template_exists?(partial, path, is_partial)
+      # fallback to informative partial about customization
+      path << "/" if path.present?
+      @missing_partial = "#{path}#{partial}"
+      return render "errors/missing_partial", kwargs
+    end
+
+    # Revert earlier assignment so render argument passed as desired
+    path = "" if path == lookup_context.prefixes
+
+    path << "/" if path.present?
+    render "#{path}#{partial}", kwargs
+  end
+
   def site_section
     if @site_section.present?
       # Use override from instance variable
