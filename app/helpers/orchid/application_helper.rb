@@ -185,7 +185,8 @@ module Orchid::ApplicationHelper
       partial = params[:action]
     end
 
-    is_partial = true  # Must be true, regardless of whether partial or not
+    # True when looking for partials rather than views
+    is_partial = true
     localized = "#{partial}_#{locale}"
     if @section.present? && lookup_context.template_exists?(localized, @section,
                                                             is_partial)
