@@ -9,8 +9,9 @@
         <div class="input-group-btn"
              aria-label="<%= t "search.clear_text", default: "Clear Search Text" %>"
              title="<%= t "search.clear_text", default: "Clear Search Text" %>">
-          <%= link_to clear_search_text, class: "btn btn-default btn-sm",
-                rel: "nofollow", role: "button" do %>
+          <%= link_to prefix_path("search_path", clear_search_text),
+                      class: "btn btn-default btn-sm", rel: "nofollow",
+                      role: "button" do %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           <% end %>
         </div>
