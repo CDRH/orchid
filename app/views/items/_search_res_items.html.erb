@@ -3,9 +3,7 @@
     <div class="searchResults">
       <div class="row">
         <div class="col-md-12 search_results_info">
-          <% title_display = item["title"].present? ? item["title"] : t("search.results.item.no_title", default: "Untitled") %>
-          <%= link_to title_display, prefix_path("item_path",
-            id: item["identifier"]) %>
+          <%= search_item_link(item) %>
           <ul>
             <% if item["date_display"] %>
               <li>
