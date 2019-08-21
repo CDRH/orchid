@@ -301,28 +301,37 @@ are:
 
 ### Routes
 
-Orchid's routes load after the application's routes.  This means that generally you may add routes to the app's `config/routes.rb` file as normal.  Orchid will detect and avoid overriding any named routes which it might otherwise have set.
+Orchid's routes load after the application's routes by default. This means that
+generally you may add routes to the app's `config/routes.rb` file as normal.
+Orchid will detect and avoid overriding any named routes which it might
+otherwise have set.
 
-Occasionally you may wish to add a route to your application after Orchid's default routes have been drawn.  For example, you may wish to add or alter a route which would otherwise capture many following routes (`/:id` would capture paths like `/about` and `/browse` if drawn first).  In this case, you will need to instruct Orchid to draw its routes before your paths.
+You may need to add a route to your application after Orchid's routes have been
+drawn. For example, you may wish to add a greedy route which would otherwise
+capture many following routes, e.g. `/:id` would capture paths to Orchid routes
+for `/about` and `/browse` if drawn first. In this case, you will need to call
+Orchid's method to draw its routes before yours.
 
 ```ruby
-# in application's config/routes.rb
-
+# Draw all of Orchid's routes on-demand, skipping any named routes already drawn
 Orchid::Routing.draw
 ```
 
-If you will be overriding a named route set by Orchid as a default, you will need to tell Orchid not to draw that route.  You may pass a list of route names.
+If you are adding a named route normally drawn by Orchid, you will need to
+prevent Orchid from drawing that route. Orchid's `draw` method accepts a keyword
+argument `paths` as an array of specific path names to draw.
 
 ```ruby
-Orchid::Routing.draw(reserved_names: ["item", "home"])
+# Draw specific Orchid routes on-demand, skipping any named routes already drawn
+Orchid::Routing.draw(paths: ["home", "item"])
 ```
 
 #### Scoped Routes
 Using Rails's route scoping does not work if wrapped around the Orchid route
 drawing due to the `draw` method calling Orchid's route definitions with no
 scope at the root of the app. To scope the routes that Orchid draws, an
-additional keyword parameter `parent_scope` must be passed to the `draw` method
-with the same string value passed to the `scope` method, e.g.
+additional keyword parameter `scope` must be passed to the `draw` method with
+the same string value passed to the `scope` method, e.g.
 
 ```ruby
 # Doesn't scope Orchid routes
@@ -336,7 +345,7 @@ end
 scope '/section' do
   # Other route definitions
   …
-  Orchid::Routing.draw(parent_scope: '/section')
+  Orchid::Routing.draw(scope: '/section')
 end
 ```
 
@@ -363,10 +372,9 @@ an example of how to set both item routes:
 scope '/section' do
   # Other route definitions
   …
-  # Skips drawing non-Items controller routes
-  Orchid::Routing.draw(reserved_names: ['about', 'home', 'not_found',
-    'server_error'], parent_prefix: 'section', parent_scope:
-    '/section')
+  # Only draw specific prefix-compatible Items routes
+  Orchid::Routing.draw(paths: ["browse", "browse_facet", "search"],
+    prefix: 'letters', scope: '/writings/letters')
 end
 
 # Site-wide routes
@@ -381,7 +389,7 @@ routes using different prefixes.
 ##### Prefix Orchid Routes
 To make Orchid routes compatible with prefixing, the `prefix` parameter must be
 set at the beginning of the `proc` for the route definition. This `prefix`
-parameter will be the value set in the main app with `parent_prefix`. Then if a
+parameter will be the value set in the main app with `prefix`. Then if a
 prefix is present it needs an underscore appended. The route name must now be
 written with the prefix value prepended. Lastly, the prefix needs to
 be available to the controllers and actions called by the route. This is done by

@@ -2,7 +2,7 @@ module Orchid
   module Routing
     module_function
 
-    def draw(reserved_names: [], parent_prefix: "", parent_scope: "")
+    def draw(paths: [], prefix: "", scope: "")
       # Retrieve list of main app's route names
       drawn_routes = defined?(Rails.application.routes) ?
         Rails.application.routes.routes.map { |r| r.name } : []
@@ -17,16 +17,20 @@ module Orchid
           locales = Regexp.new(langs)
           scope "(:locale)", constraints: { locale: locales } do
             ROUTES.each do |route|
-              next if drawn_routes.include?(route[:name])
+              # Don't draw routes if not in "paths" allow list or already drawn
+              next if (paths.present? && !paths.include?(route[:name])) \
+                || drawn_routes.include?(route[:name])
               # Call routing DSL methods in Orchid route procs in this context
-              instance_exec(parent_prefix, &route[:definition])
+              instance_exec(prefix, &route[:definition])
             end
           end
         else
           ROUTES.each do |route|
-            next if drawn_routes.include?(route[:name])
+            # Don't draw routes if not in "paths" allow list or already drawn
+            next if (paths.present? && !paths.include?(route[:name])) \
+              || drawn_routes.include?(route[:name])
             # Call routing DSL methods in Orchid route procs in this context
-            instance_exec(parent_prefix, &route[:definition])
+            instance_exec(prefix, &route[:definition])
           end
         end
       }
@@ -34,11 +38,8 @@ module Orchid
       # If home path drawn, assume Orchid's routes have already been drawn
       if !drawn_routes.include?("home") && const_defined?(:APP_OPTS)
         Rails.application.routes.draw do
-          # Add names reserved by main app for more general routes, e.g. '/:id'
-          drawn_routes += reserved_names
-
-          if parent_scope.present?
-            scope parent_scope do
+          if scope.present?
+            scope scope do
               instance_eval(&eval_routes)
             end
           else
