@@ -16,7 +16,6 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
   - [Footer Logo](#footer-logo)
   - [Gitignore](#gitignore)
   - [Languages](#languages)
-  - [Item Features](#item-features)
   - [Redirects and Rewrites](#redirects-and-rewrites)
   - [Routes](#routes)
     - [Scoped Routes](#scoped-routes)
