@@ -10,6 +10,7 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
 - [Usage](#usage)
 - [Configuration](#configuration)
   - [API](#api)
+  - [Canonical Search Item Paths](#canonical-search-item-paths)
   - [Controllers and Actions](#controllers-and-actions)
   - [Facets](#facets)
   - [Favicon](#favicon)
@@ -117,6 +118,50 @@ There are more variables related to API search results not set when running the 
 - The earliest and latest dates of the app's documents
 
 All of these settings may be overridden in specific requests later as well.  Please refer to https://github.com/CDRH/api for more information about the options.
+
+### Canonical Search Item Paths
+One may write their app to show items at a variety of paths, to group them
+according to criteria such as category / subcategory and/or to render items
+without parts of some of their IDs in the URL.
+
+Corresponding routes must be defined the app's `config/routes.rb`, e.g.:
+```ruby
+…
+  get 'life/:id', to: 'life#show', as: :life_item,
+    constraints: { id: /chronology|shortbio|longbio|woodress/ }
+  get 'writings/books/:id', to: 'items#show', as: :writings_book_item,
+      constraints: { id: /(\d{4}|nf006(?:_\d{2})?|nf060|nf061)/ }
+…
+```
+
+These can be utilized by writing links in views and partials to use the path
+helpers `life_item_path(id: item_id)`, `writings_books_item_path(id: item_id)`.
+
+To render links throughout the app canonically, we need the links in search
+results to use these path helpers as well. This is facilitated by overriding the
+helper method used to render them in `app/helpers/items_helper.rb`:
+```ruby
+module ItemsHelper
+  include Orchid::ItemsHelper
+
+  def search_item_link(item)
+    category = item["category"].downcase
+    item_id = item["identifier"][/^cat\.(.+)$/, 1]
+    path = "#"
+    title_display = item["title"].present? ?
+      item["title"] : t("search.results.item.no_title", default: "Untitled")
+    
+    if category == "life"
+      item_id = item_id[/^life\.(.+)$/, 1]
+      path = life_item_path(id: item_id)
+    elsif category == "writing"
+      path = writings_book_item_path(id: item_id)
+    end
+
+    link_to title_display, path
+  end
+end
+```
 
 ### Controllers and Actions
 It is possible to override the behavior of specific actions within controllers.  To add or override a controller action, first create a file in the controllers directory with a name ending in `_override.rb`.  For example, `app/controllers/general_override.rb`.
