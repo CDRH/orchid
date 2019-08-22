@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Section API objects
-  if SECTIONS
+  if defined? SECTIONS
     $api_sections = {}
     SECTIONS.each do |section, config|
       $api_sections[section] = ApiBridge::Query.new(API_PATH,
