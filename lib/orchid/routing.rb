@@ -2,7 +2,7 @@ module Orchid
   module Routing
     module_function
 
-    def draw(paths: [], prefix: "", scope: "")
+    def draw(prefix: "", routes: [], scope: "")
       # Retrieve list of main app's route names
       drawn_routes = defined?(Rails.application.routes) ?
         Rails.application.routes.routes.map { |r| r.name } : []
@@ -17,8 +17,8 @@ module Orchid
           locales = Regexp.new(langs)
           scope "(:locale)", constraints: { locale: locales } do
             ROUTES.each do |route|
-              # Don't draw routes if not in "paths" allow list or already drawn
-              next if (paths.present? && !paths.include?(route[:name])) \
+              # Don't draw routes if not in "routes" allow list or already drawn
+              next if (routes.present? && !routes.include?(route[:name])) \
                 || drawn_routes.include?(route[:name])
               # Call routing DSL methods in Orchid route procs in this context
               instance_exec(prefix, &route[:definition])
@@ -26,8 +26,8 @@ module Orchid
           end
         else
           ROUTES.each do |route|
-            # Don't draw routes if not in "paths" allow list or already drawn
-            next if (paths.present? && !paths.include?(route[:name])) \
+            # Don't draw routes if not in "routes" allow list or already drawn
+            next if (routes.present? && !routes.include?(route[:name])) \
               || drawn_routes.include?(route[:name])
             # Call routing DSL methods in Orchid route procs in this context
             instance_exec(prefix, &route[:definition])

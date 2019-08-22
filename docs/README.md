@@ -319,11 +319,11 @@ Orchid::Routing.draw
 
 If you are adding a named route normally drawn by Orchid, you will need to
 prevent Orchid from drawing that route. Orchid's `draw` method accepts a keyword
-argument `paths` as an array of specific path names to draw.
+argument `routes` as an array of specific route names to draw.
 
 ```ruby
 # Draw specific Orchid routes on-demand, skipping any named routes already drawn
-Orchid::Routing.draw(paths: ["home", "item"])
+Orchid::Routing.draw(routes: ["home", "item"])
 ```
 
 #### Scoped Routes
@@ -373,8 +373,8 @@ scope '/section' do
   # Other route definitions
   …
   # Only draw specific prefix-compatible Items routes
-  Orchid::Routing.draw(paths: ["browse", "browse_facet", "search"],
-    prefix: 'letters', scope: '/writings/letters')
+  Orchid::Routing.draw(prefix: 'letters',
+    routes: ["browse", "browse_facet", "search"], scope: '/writings/letters')
 end
 
 # Site-wide routes
