@@ -173,10 +173,12 @@ module Orchid::ApplicationHelper
   #     If no @section or locale, "explore/partials/_index.html.erb"
   #  If no partial found, render an error message with missing partial path
   def render_overridable(path="", partial="", **kwargs)
-    # If only one arg, give partial the arg value and empty path
+    # Only one arg will be passed if replacing a simple `render "template"` call
+    # In that case, set partial to arg value assigned to path and empty path
     if partial == ""
       partial = path
-      # Set to lookup_context.prefixes so calls to template_exists? work
+      # template_exists? still needs a path to search; lookup_context.prefixes
+      # is what render code uses when only one arg, so assign it to path here
       path = lookup_context.prefixes
     end
 
@@ -205,7 +207,8 @@ module Orchid::ApplicationHelper
       return render "errors/missing_partial", kwargs
     end
 
-    # Revert earlier assignment so render argument passed as desired
+    # Revert earlier assignment of lookup_context.prefixes so render args are
+    # same as simple call `render "template"` being overridden
     path = "" if path == lookup_context.prefixes
 
     path << "/" if path.present?
