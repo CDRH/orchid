@@ -35,8 +35,7 @@ module Orchid
         end
       }
 
-      # If home path drawn, assume Orchid's routes have already been drawn
-      if !drawn_routes.include?("home") && const_defined?(:APP_OPTS)
+      if const_defined?(:APP_OPTS)
         Rails.application.routes.draw do
           if scope.present?
             scope scope do
