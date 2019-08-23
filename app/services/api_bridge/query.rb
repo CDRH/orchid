@@ -112,7 +112,14 @@ module ApiBridge
     def prepare_options(options)
       # combine the incoming params with the app default options
       params_hash = params_to_hash(options)
-      opts = @app_options.clone.merge(params_hash)
+      opts = @app_options.clone.merge(params_hash) { |key, app, req|
+        if app.is_a?(Array) && req.is_a?(Array)
+          app + req
+        else
+          # Default is to override app option with request option
+          req
+        end
+      }
       # remove rails specific parameters and reassign "rows"
       %w[action commit controller utf8].each { |p| opts.delete(p) }
       opts = remove_rows(opts)
