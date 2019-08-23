@@ -26,9 +26,8 @@ module Orchid::Facets
     # finds the appropriate facets by language
     if @facet_info.key?(I18n.locale.to_s)
       @facet_info[I18n.locale.to_s]
-    elsif @facet_info.key?("en")
-      # default to english if it exists
-      @facet_info["en"]
+    elsif @facet_info.key?(APP_OPTS["language_default"])
+      @facet_info[APP_OPTS["language_default"]]
     else
       @facet_info
     end
@@ -37,8 +36,8 @@ module Orchid::Facets
   def section_facets(section)
     if SECTIONS[section]["facets"].key?(I18n.locale.to_s)
       facets = SECTIONS[section]["facets"][I18n.locale.to_s]
-    elsif SECTIONS[section]["facets"].key?("en")
-      facets = SECTIONS[section]["facets"]["en"]
+    elsif SECTIONS[section]["facets"].key?(APP_OPTS["language_default"])
+      facets = SECTIONS[section]["facets"][APP_OPTS["language_default"]]
     else
       facets = SECTIONS[section]["facets"]
     end
