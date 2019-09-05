@@ -137,11 +137,21 @@ class Orchid::Test < ActiveSupport::TestCase
 
     # set a new filter which is not the same as the app wide filter
     assert_equal ["collection|letters", "subcategory|memos"], @api.prepare_options({ "f" => ["subcategory|memos"] })["f"]
+  end
 
+  test "prepare_options f[]" do
     # TODO this fails to override an app wide filter, is this expected behavior?
     # actually returns ["collection|letters", "collection|whitman", "subcategory|marginalia"]
     setting = ["collection|whitman", "subcategory|marginalia"]
     assert_equal setting, @api.prepare_options({ "f" => setting })["f"]
+  end
+
+  test "prepare_options facet[]" do
+    # TODO this fails to override an app wide filter, because it is appending
+    # on the other hand, it would return more facets, so in some ways it wouldn't fail spectacularly
+    # but I wonder if we actually want to completely override the facet array
+    assert_equal ["creator.name", "date.year", "subcategory"], @api.prepare_options({})["facet"]
+    assert_equal ["category", "person.name"], @api.prepare_options({ "facet" => ["category, person.name"] })["facet"]
   end
 
   test "query" do
