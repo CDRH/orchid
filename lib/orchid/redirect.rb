@@ -25,7 +25,7 @@ module Orchid
     def initialize(app)
       @app = app
       # Save redirects as class variable to only load once at server start
-      if @@redirects.nil?
+      if defined?(APP_OPTS) && @@redirects.nil?
         redirect_files = APP_OPTS["redirect_files"]
         @@redirects = compile_redirects(redirect_files)
       end
