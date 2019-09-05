@@ -16,14 +16,12 @@ en:
     cdrh_link_html: Created by the <a href="https://cdrh.unl.edu">Center for Digital Research in the Humanities</a>.
     # close a popup window
     close: Close
-    # NOTE commenting out the below so that if a project does
-    # not have title, subtitle, etc, these defaults will not
-    # impede checking for the existence of the field
-    # Header <1>
+    # Below commented to avoid fallback use from a project site omitting them
+    # Header title
     # project_name: Sample Template
     # <title>, meta application-name
     # project_shortname: Sample
-    # Header <h2>
+    # Header subtitle
     # project_subtitle: Template Subtitle
 
   #########
