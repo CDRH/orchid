@@ -7,7 +7,7 @@ class Orchid::Test < ActiveSupport::TestCase
     super
     @api = ApiBridge::Query.new("https://test.unl.edu/v1",
       ["creator.name", "date.year", "subcategory"],
-      { "num" => 5, "sort" => "title|asc" }
+      { "num" => 5, "sort" => "title|asc", "f" => ["collection|letters"] }
     )
   end
 
@@ -27,7 +27,7 @@ class Orchid::Test < ActiveSupport::TestCase
     facets = ["creator.name", "date.year", "subcategory"]
     assert_equal facets, @api.app_facets
     assert_equal(
-      { "num" => 5, "sort" => "title|asc", "facet" => facets },
+      {"num"=>5, "sort"=>"title|asc", "f"=>["collection|letters"], "facet"=>["creator.name", "date.year", "subcategory"]},
       @api.app_options
     )
 
@@ -122,7 +122,7 @@ class Orchid::Test < ActiveSupport::TestCase
     req_opts = ActionController::Parameters.new({
       controller: "items", action: "index", utf8: "✓", q: "water"
     })
-    res_opts = { "num"=>5, "sort"=>"title|asc", "facet"=>["creator.name", "date.year", "subcategory"], "q"=>"water", "start"=>0 }
+    res_opts = {"num"=>5, "sort"=>"title|asc", "f"=>["collection|letters"], "facet"=>["creator.name", "date.year", "subcategory"], "q"=>"water", "start"=>0}
     assert_equal res_opts, @api.prepare_options(req_opts)
 
     # calculate the start when nothing sent specifically about it
@@ -131,6 +131,17 @@ class Orchid::Test < ActiveSupport::TestCase
     # calculate the start when something IS sent in about it
     assert_equal 8, @api.prepare_options({ "num" => "2", "page" => "5" })["start"]
     assert_equal 20, @api.prepare_options({ "num" => "20", "page" => "2" })["start"]
+
+    # check that there is a filter still applied in the api settings
+    assert_equal ["collection|letters"], opts["f"]
+
+    # set a new filter which is not the same as the app wide filter
+    assert_equal ["collection|letters", "subcategory|memos"], @api.prepare_options({ "f" => ["subcategory|memos"] })["f"]
+
+    # TODO this fails to override an app wide filter, is this expected behavior?
+    # actually returns ["collection|letters", "collection|whitman", "subcategory|marginalia"]
+    setting = ["collection|whitman", "subcategory|marginalia"]
+    assert_equal setting, @api.prepare_options({ "f" => setting })["f"]
   end
 
   test "query" do
