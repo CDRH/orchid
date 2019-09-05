@@ -159,15 +159,16 @@ en:
       # search help html, this may need to be recreated per language
       # instead of translated literally due to differences with stemming and grammar
       html: |-
-        <h4>Basic Search</h4>
+        <h2 class="sr-only">Search Help</h2>
+        <h3>Basic Search</h3>
         <p>Simply enter the word you wish to find and the search engine will search for every instance of the word in the journals. For example: Fight. All instances of the use of the word fight will show up on the results page.</p>
-        <h4>Wildcard Searches</h4>
+        <h3>Wildcard Searches</h3>
         <p>Using an asterisk (*) will increase the odds of finding the results you are seeking. For example: Fight*. The search results will display every instance of fight, fights, fighting, etc. More than one wildcard may be used. For example: *ricar*. This search will return most references to the Aricara tribe, including Ricara, Ricares, Aricaris, Ricaries, Ricaree, Ricareis, and Ricarra. Using a question mark (?) instead of an asterisk (*) will allow you to search for a single character. For example, r?n will find all instances of ran and run, but will not find rain or ruin.</p>
-        <h4>Capitalization</h4>
+        <h3>Capitalization</h3>
         <p>Searches are not case sensitive. For example: george will come up with the same results as George.</p>
-        <h4>Phrase Search</h4>
+        <h3>Phrase Search</h3>
         <p>Searching for a specific phrase may help narrow down the results. Rather long phrases are no problem. For example: "This white pudding we all esteem".</p>
-        <h4>Subsequent Searches</h4>
+        <h3>Subsequent Searches</h3>
         <p>Because of the creative spellings used by the journalists, it may be necessary to try your search multiple times. For example: P?ro*. This search brings up numerous variant spellings of the French word pirogue, "a large dugout canoe or open boat." Searching for P?*r*og?* will bring up other variant spellings. Searching for canoe or boat also may be helpful.</p>
     filters:
       # clearing filters (not the text search)
