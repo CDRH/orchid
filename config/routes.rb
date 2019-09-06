@@ -11,38 +11,38 @@ module Orchid
 
       ROUTES = [
         # Home
-        { name: 'home', definition: proc { |prefix|
-          prefix += "_" if prefix.present?
-          root 'general#index', as: "#{prefix}home"
+        { name: 'home', definition: proc { |section|
+          section += "_" if section.present?
+          root 'general#index', as: "#{section}home"
         }},
 
         # General
-        { name: 'about', definition: proc { |prefix|
-          prefix += "_" if prefix.present?
-          get 'about', to: 'general#about', as: "#{prefix}about"
+        { name: 'about', definition: proc { |section|
+          section += "_" if section.present?
+          get 'about', to: 'general#about', as: "#{section}about"
         }},
 
         # Items
-        { name: 'browse', definition: proc { |prefix|
-          prefix += "_" if prefix.present?
-          get 'browse', to: 'items#browse', as: "#{prefix}browse",
-            defaults: { section: prefix }
+        { name: 'browse', definition: proc { |section|
+          section += "_" if section.present?
+          get 'browse', to: 'items#browse', as: "#{section}browse",
+            defaults: { section: section }
         }},
-        { name: 'browse_facet', definition: proc { |prefix|
-          prefix += "_" if prefix.present?
+        { name: 'browse_facet', definition: proc { |section|
+          section += "_" if section.present?
           get 'browse/:facet', to: 'items#browse_facet',
-            as: "#{prefix}browse_facet", constraints: { facet: with_period },
-            defaults: { section: prefix }
+            as: "#{section}browse_facet", constraints: { facet: with_period },
+            defaults: { section: section }
         }},
-        { name: 'item', definition: proc { |prefix|
-          prefix += "_" if prefix.present?
-          get 'item/:id', to: 'items#show', as: "#{prefix}item",
-            constraints: { id: with_period }, defaults: { section: prefix }
+        { name: 'item', definition: proc { |section|
+          section += "_" if section.present?
+          get 'item/:id', to: 'items#show', as: "#{section}item",
+            constraints: { id: with_period }, defaults: { section: section }
         }},
-        { name: 'search', definition: proc { |prefix|
-          prefix += "_" if prefix.present?
-          get 'search', to: 'items#index', as: "#{prefix}search",
-            defaults: { section: prefix }
+        { name: 'search', definition: proc { |section|
+          section += "_" if section.present?
+          get 'search', to: 'items#index', as: "#{section}search",
+            defaults: { section: section }
         }},
 
         # Errors

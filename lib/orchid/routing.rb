@@ -2,7 +2,7 @@ module Orchid
   module Routing
     module_function
 
-    def draw(prefix: "", routes: [], scope: "")
+    def draw(section: "", routes: [], scope: "")
       # Retrieve list of main app's route names
       drawn_routes = defined?(Rails.application.routes) ?
         Rails.application.routes.routes.map { |r| r.name } : []
@@ -21,7 +21,7 @@ module Orchid
               next if (routes.present? && !routes.include?(route[:name])) \
                 || drawn_routes.include?(route[:name])
               # Call routing DSL methods in Orchid route procs in this context
-              instance_exec(prefix, &route[:definition])
+              instance_exec(section, &route[:definition])
             end
           end
         else
@@ -30,13 +30,16 @@ module Orchid
             next if (routes.present? && !routes.include?(route[:name])) \
               || drawn_routes.include?(route[:name])
             # Call routing DSL methods in Orchid route procs in this context
-            instance_exec(prefix, &route[:definition])
+            instance_exec(section, &route[:definition])
           end
         end
       }
 
       if const_defined?(:APP_OPTS)
         Rails.application.routes.draw do
+          # Set scope to section name if no scope set
+          scope = "/#{section}" if section.present? && scope.blank?
+
           if scope.present?
             scope scope do
               instance_eval(&eval_routes)
