@@ -5,9 +5,11 @@ class Orchid::Test < ActiveSupport::TestCase
 
   def before_setup
     super
+    @f_app = ["collection|letters", "keyword|production"]
+    @facet_app = ["creator.name", "date.year", "subcategory"]
     @api = ApiBridge::Query.new("https://test.unl.edu/v1",
-      ["creator.name", "date.year", "subcategory"],
-      { "num" => 5, "sort" => "title|asc", "f" => ["collection|letters"] }
+      @facet_app,
+      { "num" => 5, "sort" => "title|asc", "f" => @f_app }
     )
   end
 
@@ -27,7 +29,7 @@ class Orchid::Test < ActiveSupport::TestCase
     facets = ["creator.name", "date.year", "subcategory"]
     assert_equal facets, @api.app_facets
     assert_equal(
-      {"num"=>5, "sort"=>"title|asc", "f"=>["collection|letters"], "facet"=>["creator.name", "date.year", "subcategory"]},
+      {"num"=>5, "sort"=>"title|asc", "f"=> @f_app, "facet"=>["creator.name", "date.year", "subcategory"]},
       @api.app_options
     )
 
@@ -122,7 +124,7 @@ class Orchid::Test < ActiveSupport::TestCase
     req_opts = ActionController::Parameters.new({
       controller: "items", action: "index", utf8: "✓", q: "water"
     })
-    res_opts = {"num"=>5, "sort"=>"title|asc", "f"=>["collection|letters"], "facet"=>["creator.name", "date.year", "subcategory"], "q"=>"water", "start"=>0}
+    res_opts = {"num"=>5, "sort"=>"title|asc", "f"=>["collection|letters", "keyword|production"], "facet"=>["creator.name", "date.year", "subcategory"], "q"=>"water", "start"=>0}
     assert_equal res_opts, @api.prepare_options(req_opts)
 
     # calculate the start when nothing sent specifically about it
@@ -131,27 +133,32 @@ class Orchid::Test < ActiveSupport::TestCase
     # calculate the start when something IS sent in about it
     assert_equal 8, @api.prepare_options({ "num" => "2", "page" => "5" })["start"]
     assert_equal 20, @api.prepare_options({ "num" => "20", "page" => "2" })["start"]
-
-    # check that there is a filter still applied in the api settings
-    assert_equal ["collection|letters"], opts["f"]
-
-    # set a new filter which is not the same as the app wide filter
-    assert_equal ["collection|letters", "subcategory|memos"], @api.prepare_options({ "f" => ["subcategory|memos"] })["f"]
   end
 
   test "prepare_options f[]" do
-    # TODO this fails to override an app wide filter, is this expected behavior?
-    # actually returns ["collection|letters", "collection|whitman", "subcategory|marginalia"]
-    setting = ["collection|whitman", "subcategory|marginalia"]
-    assert_equal setting, @api.prepare_options({ "f" => setting })["f"]
+    # check that there is a filter applied in the app wide settings
+    assert_equal @f_app, @api.prepare_options({})["f"]
+
+    # set a new filter which is not the same as the app wide filter
+    assert_equal ["collection|letters", "keyword|production", "subcategory|memos"], @api.prepare_options({ "f" => ["subcategory|memos"] })["f"]
+
+    # if a filter collides (collection in this case), make sure the newly requested one wins out!
+    assert_equal(
+      ["keyword|production", "collection|whitman", "subcategory|marginalia"],
+      @api.prepare_options({ "f" => ["collection|whitman", "subcategory|marginalia"] })["f"]
+    )
+
+    # check that filter collisions where the request has multiple of the same filter preferences request
+    assert_equal(
+      ["collection|letters", "keyword|development", "keyword|in_review"],
+      @api.prepare_options({ "f" => ["keyword|development", "keyword|in_review"] })["f"]
+    )
   end
 
   test "prepare_options facet[]" do
-    # TODO this fails to override an app wide filter, because it is appending
-    # on the other hand, it would return more facets, so in some ways it wouldn't fail spectacularly
-    # but I wonder if we actually want to completely override the facet array
-    assert_equal ["creator.name", "date.year", "subcategory"], @api.prepare_options({})["facet"]
-    assert_equal ["category", "person.name"], @api.prepare_options({ "facet" => ["category, person.name"] })["facet"]
+    # check that requested facets completely override default facets
+    assert_equal @facet_app, @api.prepare_options({})["facet"]
+    assert_equal ["category", "person.name"], @api.prepare_options({ "facet" => ["category", "person.name"] })["facet"]
   end
 
   test "query" do
