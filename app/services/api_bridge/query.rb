@@ -114,17 +114,13 @@ module ApiBridge
       params_hash = params_to_hash(options)
       opts = @app_options.clone.merge(params_hash) { |key, app, req|
         if key == "f"
-          # repeated filters are treated as ANDs and for that
-          # reason, adding req to app may result in no results
-          # instead, if an existing app filter is requested,
-          # take only the request, and if users require the app
-          # settings applied as well, they will need to specify them
-          # see test "prepare_options f[]" for examples
+          # Remove app filter if request contains the same filter.
+          # Otherwise multiples of a filter are AND-ed in the API query
+          # and will likely return no results. To preserve any app filters,
+          # they must be sent along with the request filters.
 
           req_f_fields = req.map { |r| r.split("|").first }
           app_filtered = app.reject do |a|
-            # remove the app setting if there is any hint of that same
-            # filter in the request f[] list
             req_f_fields.include?(a.split("|").first)
           end
           app_filtered + req
