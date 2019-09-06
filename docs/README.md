@@ -20,8 +20,11 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
   - [Redirects and Rewrites](#redirects-and-rewrites)
   - [Routes](#routes)
     - [Scoped Routes](#scoped-routes)
-    - [Prefixed Routes](#prefixed-routes)
-      - [Prefix Orchid Routes](#prefix-orchid-routes)
+  - [Sections](#sections)
+    - [Section Config](#section-config)
+    - [Section Routes](#section-routes)
+    - [Section Links](#section-links)
+    - [Section-compatible Orchid Code](#section-compatible-orchid-code)
   - [Scripts](#scripts)
   - [Stylesheets / Bootstrap](#stylesheets--bootstrap)
   - [(Re)start](#restart)
@@ -30,7 +33,6 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
   - [Stylesheet Imports](#stylesheet-imports)
   - [Conditional Assets](#conditional-assets)
 - [Links](#links)
-  - [Prefixed Paths](#prefixed-paths)
 - [License](#license)
 
 ## Installation
@@ -328,81 +330,143 @@ Orchid::Routing.draw(routes: ["home", "item"])
 
 #### Scoped Routes
 Using Rails's route scoping does not work if wrapped around the Orchid route
-drawing due to the `draw` method calling Orchid's route definitions with no
-scope at the root of the app. To scope the routes that Orchid draws, an
-additional keyword parameter `scope` must be passed to the `draw` method with
-the same string value passed to the `scope` method, e.g.
+drawing. To scope the routes that Orchid draws, an additional keyword parameter
+`scope` must be passed to the `draw` method with the same string value that
+would be passed to the Rails `scope` method, e.g.
 
 ```ruby
-# Doesn't scope Orchid routes
-scope '/section' do
+# Fails to scope Orchid routes
+scope '/orchid-sub-uri' do
   # Other route definitions
   …
   Orchid::Routing.draw
 end
 
-# Does scope Orchid routes
-scope '/section' do
+# Successfully scopes Orchid routes
+scope '/orchid-sub-uri' do
   # Other route definitions
   …
-  Orchid::Routing.draw(scope: '/section')
+  Orchid::Routing.draw(scope: '/orchid-sub-uri')
 end
 ```
 
-The `Orchid::Routing.draw` call can be outside the scope block, but it will
-probably be easier to follow to keep it alongside any other scoped routes.
+The `Orchid::Routing.draw(scope: …)` call can be outside a Rails `scope` block,
+but it will likely be easier to follow to keep it alongside other scoped routes.
 
-#### Prefixed Routes
-To assist different sections of an app in utilizing the same Orchid logic and
-templates for different purposes such as when an app uses multiple paths to
-access different groups of items from the API, the routes drawn by Orchid may
-be given different path names via prefixes. The Orchid routes that use the Items
-controller have all been augmented to optionally utilize use a prefix and the
-corresponding views will render links using the prefixed path name helpers.
+### Sections
+Orchid supports different "sections" of an app utilizing the same Orchid logic
+and templates for different purposes. This is primarily for an app to use
+separate paths to access different groups of items from the API.
 
-For example, some items may be linked to with the primary `item_path` helper and
-others with a prefixed name like `section_item_path`. The separate path
-helpers alone could be accomplished with an additional route definition, but
-would still require duplicating templates to set path helper use within
-templates to render the appropriate links between pages in that section. Here is
-an example of how to set both item routes:
+#### Section Config
+Each section uses its own API and facet configuration. Section configuration is
+defined in the main app in a YAML file with the same name as the section inside
+`config/sections/`. For a section named `letters`, the file would be
+`config/sections/letters.yml`. The file must contain the keys `api_options:` and
+`facets:`.
+
+The API options here match the [API config](#api) that can be applied app-wide.
+A field filter for category or subcategory is the most likely filter to be set
+for a section.
+
+The facets are a list of API fields as keys for each language. Inside that are
+each field's text label and whether to display it in the search UI or not (in
+addition to displaying it in the browse pages).
+
+```yaml
+default: &default
+
+  api_options:
+    # only browse and search letters
+    f:
+      - subcategory|Letters
+    …
+
+  facets:
+    en:
+      api_field_name:
+        label: Text label
+        display: true
+      api_field_2:
+        label: Other text label
+        display: false
+    …
+
+test:
+  <<: *default
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+```
+
+#### Section Routes
+Orchid keeps the sections independent by drawing routes with their names
+prefixed with the section name, e.g. `letters_item_path`. The Items controllers
+routes have all been augmented to utilize these prefixes. The corresponding
+templates will render links using the prefixed path name helpers so the link
+URLs stay within the section.
+
+Section routes will automatically be scoped to a sub-URI with the section name
+if no scope name is passed. If `section: "foo"`, scope will be set to `"/foo"`.
 
 ```ruby
-# Sub-section routes
-scope '/section' do
+# Section routes
+scope '/letters' do
   # Other route definitions
   …
-  # Only draw specific prefix-compatible Items routes
-  Orchid::Routing.draw(prefix: 'letters',
-    routes: ["browse", "browse_facet", "search"], scope: '/writings/letters')
+  # Only draw section-compatible Items controller routes
+  # No scope passed, so automatically uses "/letters"
+  Orchid::Routing.draw(section: "letters",
+    routes: ["browse", "browse_facet", "item", "search"])
 end
 
-# Site-wide routes
+# Site-wide non-section routes
 Orchid::Routing.draw
 ```
 
-Prefixed path helpers may safely be called individually in main app templates
-used by only one route. But see [Prefixed Paths](#prefixed-paths) if you would
-like to add or modify links within templates that will be used by multiple
-routes using different prefixes.
+#### Section Links
+If adding or modifying links within templates used by more than one section, the
+application helper `prefix_path` has been added to Orchid to simplify calling
+the appropriate path helper. It takes the place of where the path helper would
+normally be used. The path helper's name as a string is the first parameter and
+all following parameters are the same parameters to be sent to the path helper.
 
-##### Prefix Orchid Routes
-To make Orchid routes compatible with prefixing, the `prefix` parameter must be
-set at the beginning of the `proc` for the route definition. This `prefix`
-parameter will be the value set in the main app with `prefix`. Then if a
-prefix is present it needs an underscore appended. The route name must now be
-written with the prefix value prepended. Lastly, the prefix needs to
+```html
+<!-- Regular path helper use -->
+<%= link_to item_path("ABC"), html_options %>
+
+<!-- Section-compatible prefixed path use -->
+<%= link_to prefix_path("item_path", "ABC"), html_options %>
+```
+
+#### Section-compatible Orchid Code
+To make Orchid routes compatible with sections, the `section` parameter must be
+set at the beginning of the `proc` for the route definition. This `section`
+parameter will be the section name set in the main app routes file. Then if a
+section is present it needs an underscore appended. The route name must now be
+written with the section name prepended. Lastly, the section name needs to
 be available to the controllers and actions called by the route. This is done by
-setting the prefix as a default parameter named `section`. The resulting
-prefix-compatible Orchid route looks like this:
+setting the name as a default parameter named `section`. The resulting
+section-compatible Orchid route looks like this:
 
 ```ruby
-{ name: 'item', definition: proc { |prefix|
-  prefix += "_" if prefix.present?
-  get 'item/:id', to: 'items#show', as: "#{prefix}item",
-    constraints: { id: with_period }, defaults: { section: prefix }
+{ name: 'item', definition: proc { |section|
+  section += "_" if section.present?
+  get 'item/:id', to: 'items#show', as: "#{section}item",
+    constraints: { id: with_period }, defaults: { section: section }
 }},
 ```
+
+Orchid's views and partials are made section-compatible by calling them with
+the `render_overridable` method rather than `render`. The exact same parameters
+one would use with `render` are available. This replacement method checks for
+section-specific template overrides in the main app's `app/views/(secton name)/`
+directory before falling back to using the Orchid templates. This allows for
+granular overrides of views and partials from the main app as needed without
+needing to copy controller methods etc from Orchid.
 
 ### Scripts
 One should normally not need to edit `app/assets/application.js`.
@@ -573,6 +637,7 @@ Rails.application.config.assets.precompile += %w(
   section_b.css
   section_b.js
 )
+```
 
 ## Links
 We will ignore [resourceful
@@ -642,21 +707,6 @@ In block form, the links are written:
 
 See [more examples in the Rails API link_to
 documentation](https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to-label-Examples).
-
-### Prefixed Paths
-If adding or modifying links within templates used by more than one route, the
-application helper `prefix_path` has been added to Orchid to simplify calling
-the appropriate path helper. It takes the place of where the path helper would
-normally be used. The path helper's name as a string is the first parameter and
-all following parameters are the parameters to be sent to the path helper.
-
-```html
-<!-- Regular path helper use -->
-<%= link_to item_path("ABC"), html_options %>
-
-<!-- Prefixed path use -->
-<%= link_to prefix_path("item_path", "ABC"), html_options %>
-```
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
