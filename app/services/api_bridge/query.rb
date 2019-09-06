@@ -119,7 +119,7 @@ module ApiBridge
           # instead, if an existing app filter is requested,
           # take only the request, and if users require the app
           # settings applied as well, they will need to specify them
-          # see test "prepare_options facet[]" for examples
+          # see test "prepare_options f[]" for examples
 
           req_f_fields = req.map { |r| r.split("|").first }
           app_filtered = app.reject do |a|
