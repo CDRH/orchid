@@ -78,14 +78,24 @@ class SetupGenerator < Rails::Generators::Base
     end
 
     # locales customization
-    answer = prompt_for_value("Project Name (Header <h1>)", "Sample Template")
+    answer = prompt_for_value("Project Name (Site header title)", "Sample Template")
     config_set("locales/#{lang_default}", "project_name", answer)
 
     answer = prompt_for_value("Project Short Name (<title>, <meta application-name>)", "Template")
     config_set("locales/#{lang_default}", "project_shortname", answer)
 
-    answer = prompt_for_value("Project Subtitle (Header <h2>)", "Template Subtitle")
+    answer = prompt_for_value("Project Subtitle (Site header subtitle)", "Template Subtitle")
     config_set("locales/#{lang_default}", "project_subtitle", answer)
+
+    # remove comments from locale file copied from Orchid
+    gsub_file "#{@new_app}/config/locales/#{lang_default}.yml",
+      /^\s*# Below commented to avoid fallback use.+$/, ""
+    gsub_file "#{@new_app}/config/locales/#{lang_default}.yml",
+      /^(\s*)# (project_name.+)$/, "\\1\\2"
+    gsub_file "#{@new_app}/config/locales/#{lang_default}.yml",
+      /^(\s*)# (project_shortname.+)$/, "\\1\\2"
+    gsub_file "#{@new_app}/config/locales/#{lang_default}.yml",
+      /^(\s*)# (project_subtitle.+)$/, "\\1\\2"
 
     # public media settings
     answer = prompt_for_value("Media Server Directory", "sample_template")
