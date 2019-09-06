@@ -427,6 +427,32 @@ end
 Orchid::Routing.draw
 ```
 
+#### Canonical Item Links
+If one uses a section which segregates items but they are still included by the
+non-section Orchid search, items may be accessible from multiple paths.
+This could lead to display problems if sections apply different styles to items,
+and it will be bad for SEO. Using a canonical URL for each item is handled by a
+helper for the Items controller which can be overridden in the main app at
+`app/helpers/items_helper.rb` as follows:
+
+```ruby
+module ItemsHelper
+  include Orchid::ItemsHelper
+
+  def search_item_link(item)
+    title_display = item["title"].present? ?
+      item["title"] : t("search.results.item.no_title", default: "Untitled")
+    path = "#"
+
+    # Logic to determine which path helper to use to define path.
+    # item["category"], item["subcategory"], and item["identifier"] are likely
+    # to be helpful in distinguishing between sections
+
+    link_to title_display, path
+  end
+end
+```
+
 #### Section Links
 If adding or modifying links within templates used by more than one section, the
 application helper `prefix_path` has been added to Orchid to simplify calling
