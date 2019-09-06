@@ -153,7 +153,7 @@ class Orchid::Test < ActiveSupport::TestCase
 
     # set a new filter which is not the same as the app wide filter
     assert_equal(
-      ["collection|letters", "keyword|production", "subcategory|memos"],
+      @f_app + ["subcategory|memos"],
       @api.prepare_options({ "f" => ["subcategory|memos"] })["f"]
     )
 
