@@ -113,8 +113,17 @@ module ApiBridge
       # combine the incoming params with the app default options
       params_hash = params_to_hash(options)
       opts = @app_options.clone.merge(params_hash) { |key, app, req|
-        if app.is_a?(Array) && req.is_a?(Array)
-          app + req
+        if key == "f"
+          # Remove app filter if request contains the same filter.
+          # Otherwise multiples of a filter are AND-ed in the API query
+          # and will likely return no results. To preserve any app filters,
+          # they must be sent along with the request filters.
+
+          req_f_fields = req.map { |r| r.split("|").first }
+          app_filtered = app.reject do |a|
+            req_f_fields.include?(a.split("|").first)
+          end
+          app_filtered + req
         else
           # Default is to override app option with request option
           req
