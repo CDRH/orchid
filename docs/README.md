@@ -20,12 +20,12 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
   - [Redirects and Rewrites](#redirects-and-rewrites)
   - [Routes](#routes)
     - [Scoped Routes](#scoped-routes)
+  - [Scripts](#scripts)
   - [Sections](#sections)
     - [Section Config](#section-config)
     - [Section Routes](#section-routes)
     - [Section Links](#section-links)
     - [Section-compatible Orchid Code](#section-compatible-orchid-code)
-  - [Scripts](#scripts)
   - [Stylesheets / Bootstrap](#stylesheets--bootstrap)
   - [(Re)start](#restart)
 - [Assets](#assets)
@@ -353,6 +353,18 @@ end
 The `Orchid::Routing.draw(scope: …)` call can be outside a Rails `scope` block,
 but it will likely be easier to follow to keep it alongside other scoped routes.
 
+### Scripts
+One should normally not need to edit `app/assets/application.js`.
+
+Add app-wide JavaScript to `app/assets/javascripts/global/(app name).js` or
+other scripts in `app/assets/javascripts/global/`.
+
+Conditional scripting files included via `@ext_js` instance variable, e.g.:<br>
+`@ext_js = %w(leaflet search)`
+
+Conditional inline scripting included via `@inline_js` instance variable, e.g.:<br>
+`@inline_js = ["var power_level = 9000;"]`
+
 ### Sections
 Orchid supports different "sections" of an app utilizing the same Orchid logic
 and templates for different purposes. This is primarily for an app to use
@@ -493,18 +505,6 @@ section-specific template overrides in the main app's `app/views/(secton name)/`
 directory before falling back to using the Orchid templates. This allows for
 granular overrides of views and partials from the main app as needed without
 needing to copy controller methods etc from Orchid.
-
-### Scripts
-One should normally not need to edit `app/assets/application.js`.
-
-Add app-wide JavaScript to `app/assets/javascripts/global/(app name).js` or
-other scripts in `app/assets/javascripts/global/`.
-
-Conditional scripting files included via `@ext_js` instance variable, e.g.:<br>
-`@ext_js = %w(leaflet search)`
-
-Conditional inline scripting included via `@inline_js` instance variable, e.g.:<br>
-`@inline_js = ["var power_level = 9000;"]`
 
 ### Stylesheets / Bootstrap
 One should normally not need to edit `app/assets/application.scss`
