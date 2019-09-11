@@ -371,11 +371,12 @@ and templates for different purposes. This is primarily for an app to use
 separate paths to access different groups of items from the API.
 
 #### Section Config
-Each section uses its own API and facet configuration. Section configuration is
-defined in the main app in a YAML file with the same name as the section inside
-`config/sections/`. For a section named `letters`, the file would be
-`config/sections/letters.yml`. The file must contain the keys `api_options:` and
-`facets:`.
+Section configuration is defined in the main app. Section names are listed in
+`config/public.yml` under the `app_options:` and `sections:` keys. Each section
+uses its own API and facet configuration. This section configuration is in a
+YAML file with the same name as the section inside `config/sections/`. For a
+section named `letters`, the file would be `config/sections/letters.yml`. This
+config file must contain the keys `api_options:` and `facets:`.
 
 The API options here match the [API config](#api) that can be applied app-wide.
 A field filter for category or subcategory is the most likely filter to be set
