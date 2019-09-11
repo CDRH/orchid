@@ -421,6 +421,11 @@ routes have all been augmented to utilize these prefixes. The corresponding
 templates will render links using the prefixed path name helpers so the link
 URLs stay within the section.
 
+Note that navigation links in the site header are not integrated with section
+pages. The Browse and Search links go to the non-section pages regardless of
+whether the current page is from a section route or not. Section-specific
+navigation links must be added manually.
+
 Section routes will automatically be scoped to a sub-URI with the section name
 if no scope name is passed. If `section: "foo"`, scope will be set to `"/foo"`.
 
