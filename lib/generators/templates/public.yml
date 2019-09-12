@@ -64,36 +64,47 @@ default: &default
     en:
       collection:
         label: Collection
-        display: true
+        flags:
+          - search_filter
       category:
         label: Category
-        display: true
+        flags:
+          - search_filter
       date.year:
         label: Year
-        display: true
+        flags:
+          - search_filter
       person.name:
         label: People
-        display: true
+        flags:
+          - search_filter
       languages:
         label: Language
-        display: true
+        flags:
+          - search_filter
       subcategory:
         label: Subcategory
-        display: true
+        flags:
+          - search_filter
       creator.name:
         label: Creator
-        display: true
+        flags:
+          - search_filter
       format:
         label: Format
-        display: true
+        flags:
+          - search_filter
       places:
         label: Places
-        display: true
+        flags:
+          - search_filter
 # Add fields for other languages with their language code
 #    es:
 #      category:
-#        label: Categoria
-#        display: true
+#        label: Categoría
+#        flags:
+#          - search_filter
+#          - translate
 
 test:
   <<: *default

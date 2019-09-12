@@ -183,19 +183,93 @@ end
 You can also override an entire controller by simply placing a file with the controller's name in the controllers directory.  For example, `app/controllers/general_controller.rb` would take the place of the Orchid version of this file.  *This approach is not recommended.*
 
 ### Facets
-You may also want to peruse the `app/models/facets.rb` file and alter it for specific fields which you would prefer.  If your app supports multiple languages, you will need to make sure that the facets are organized by language, for example:
+Facets are API fields used to index items in the "Browse" pages. For each
+language, facets' text labels and options may be redefined and each facet may
+also optionally:
 
-```
-{
-  "en": {
-    ...facets...
-  },
-  "es": {
-    ...facets...
-  }
-}
+- Function as a search filter
+- Have its values from the API translated
+
+Facet configuration is defined in `config/public.yml` for each language as:
+```yaml
+…
+  facets:
+    [language]:
+      [api_field]:
+        label: [display_text]
+        # Optional features
+        flags:
+          - search_filter
+          - translate
+…
 ```
 
+- `language` - Language code matching the code(s) set in `config/public.yml`
+- `api_field` - Field name from the API. Field names may be nested (e.g.
+  `creator.name`)
+- `display_text` - Text displayed for the facet label for this language
+
+The `flags:` key and its list of contained flag names may be omitted. A flag's
+presence in the config file enables changes in facet use and behavior as
+follows:
+
+`search_filter` - Enables use of facets as search filters on search pages.
+
+`translate` - Enables translation of the facet values in addition to the facet's
+label. These translations may be defined inside any YAML file in
+`config/locales/` with the following format for each language:
+
+```yaml
+[language]:
+  facet_value:
+    [api_field]:
+      [field_value]: [translation]
+```
+
+- `language` - Same as above
+- `api_field` - Same as above except nested field names must be written with
+  underscores replacing periods
+    - `field_value` - The text value returned by the API with underscores
+    replacing periods, commas, and spaces
+    - `translation` - The literal translated text for this particular language
+
+As an example, imagine we have a `source` API field we don't want included in
+search filters or translated, and a `category.en` API field we'd like included
+in search filters as well having its label text and values translated for
+Spanish. Our facets configuration would look like:
+
+```yaml
+…
+  facets:
+    en:
+      category.en:
+        label: Category
+        flags:
+          - search_filter
+      source:
+        label: Source
+    es:
+      category.en:
+        label: Categoría
+        flags:
+          - search_filter
+          - translate
+…
+```
+
+If our category values are `Planes, Tranes, and Automobiles`, `Three Amigos`,
+`The Out-of-Towners`, and `Roxanne` we could define our translations as
+`config/locales/category_es.yml`:
+
+```yaml
+es:
+  facet_value:
+    category_en:
+      Planes__Tranes__and_Automobiles: Aviones, Trenes, y Automóviles
+      Three_Amigos: Tres Amigos
+      The_Out-of-Towners: Los Fuera de las Ciudades
+      Roxanne: Roxanne
+```
 
 ### Favicon
 Replace the image at `app/assets/images/favicon.png` to change your app's

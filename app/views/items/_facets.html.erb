@@ -27,10 +27,10 @@
           <ul class="list-unstyled">
             <% facet_res.each do |key, value| %>
               <% selected = facet_selected?(facet_name, key) %>
-              <%# value_label translates language if necessary, create_label
-                  puts default label if empty %>
-              <% label = create_label value_label(facet_name, key),
-                  t("search.filters.no_label", default: "No Label") %>
+              <%# value_label translates language if necessary,
+                  create_label puts default label if empty %>
+              <% label = create_label(value_label(facet_name, key),
+                  t("search.filters.no_label", default: "No Label")) %>
 
               <!-- list item -->
               <% if !selected %>

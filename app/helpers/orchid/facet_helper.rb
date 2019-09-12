@@ -71,20 +71,22 @@ module Orchid::FacetHelper
   end
 
   def should_display? facet, info
-    return facet && info["display"] && facet.length > 0
+    return facet.present? && info["flags"] \
+      && info["flags"].include?("search_filter")
   end
 
   # the particular value of, for example, the "format" field may need
   # to be displayed in another language based on the app settings
-  # so if "translate" is true on a field in the Facets configuration, then
-  # check for translations via locale files
+  # so if the "translate" flag is present for a field in facet configuration,
+  # then check for translations via locale files
   # yml values need to be the exact field name at
   #   facet_value.{field_name}.{value_name}
   #   fields / values like person.role, "Postal Card" are stored
   # in locales yml as person_role, Postal_Card
   def value_label field, value
     info = @page_facets[field]
-    if value.present? && info && info["translate"]
+    if value.present? && info && info["flags"] \
+      && info["flags"].include?("translate")
       field_name = field.gsub(".", "_")
       # if this is a list of values, we need to return a list as well
       subs = /[\., ]/
