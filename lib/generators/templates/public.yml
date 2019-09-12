@@ -28,10 +28,10 @@ default: &default
     #   - config/redirects.yml
 
     # SECTIONS
-    # List of yaml files named to match route prefixes
-    # Yaml file contains api_options values applied section-wide
+    # List of section names corresponding to YAML files in config/sections/
+    # YAML file contains api_options and facets values applied section-wide
     # sections:
-    #   - config/sections/section.yml
+    #   - section_name
 
   api_options:
     # example of default filter for all queries
@@ -59,6 +59,41 @@ default: &default
       - 2100
       - 12
       - 31
+
+  facets:
+    en:
+      collection:
+        label: Collection
+        display: true
+      category:
+        label: Category
+        display: true
+      date.year:
+        label: Year
+        display: true
+      person.name:
+        label: People
+        display: true
+      languages:
+        label: Language
+        display: true
+      subcategory:
+        label: Subcategory
+        display: true
+      creator.name:
+        label: Creator
+        display: true
+      format:
+        label: Format
+        display: true
+      places:
+        label: Places
+        display: true
+# Add fields for other languages with their language code
+#    es:
+#      category:
+#        label: Categoria
+#        display: true
 
 test:
   <<: *default
