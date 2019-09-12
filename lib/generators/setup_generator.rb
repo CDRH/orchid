@@ -2,17 +2,16 @@ class SetupGenerator < Rails::Generators::Base
 
   desc <<-EOS
     This generator prepares applications for API integration:
-      1. Generates config files
-      2. Generates facets file for customization
-      3. Generates favicon and footer_logo images
-      4. Disables turbolinks in app's Gemfile
-      5. Generates .gitignore file
-      6. Generates locales en file for customization
-      7. Removes app's application controller and layout to use Orchid's
-      8. Removes app's application.js; generates new one, "global" directory,
-         and app-named script
-      9. Generates bootstrap variable file; removes app's application.css;
-         generates new Sass one, "global" directory, and app-named stylesheet
+      - Generates config files
+      - Generates favicon and footer_logo images
+      - Disables turbolinks in app's Gemfile
+      - Generates .gitignore file
+      - Generates locales en file for customization
+      - Removes app's application controller and layout to use Orchid's
+      - Removes app's application.js; generates new one, "global" directory,
+        and app-named script
+      - Generates bootstrap variable file; removes app's application.css;
+        generates new Sass one, "global" directory, and app-named stylesheet
   EOS
 
   def setup_files
@@ -25,7 +24,6 @@ class SetupGenerator < Rails::Generators::Base
     msgs << copy_initializer
     msgs << copy_configs_and_locales
     msgs << copy_remaining_templates
-    msgs << facets
     msgs << favicon
     msgs << footer_logo
     msgs << gems
@@ -143,12 +141,6 @@ Redirect middleware configuration example file copied to
   config/redirects.example.yml
 Section configuration example file copied to config/sections/section.example.yml
     MSG
-  end
-
-  def facets
-    FileUtils.cp("#{@this_app}/app/models/facets.rb", "#{@new_app}/app/models/facets.rb")
-
-    return "Orchid facets copied to app/models/facets.rb"
   end
 
   def favicon

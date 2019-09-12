@@ -11,23 +11,6 @@ class ApplicationController < ActionController::Base
     params["locale"] ? { locale: I18n.locale } : {}
   end
 
-  if API_PATH
-    $api = ApiBridge::Query.new(API_PATH, Facets.facet_list, API_OPTS)
-    logger.info("Connecting to API at #{API_PATH}")
-  else
-    raise "No API path found for project, please make sure the config file is correctly filled out"
-  end
-
-  # Section API objects
-  if defined? SECTIONS
-    $api_sections = {}
-    SECTIONS.each do |section, config|
-      $api_sections[section] = ApiBridge::Query.new(API_PATH,
-        Facets.section_list(section), config["api_options"])
-      logger.info("Connecting to API for section: #{section}")
-    end
-  end
-
   private
 
   # Render section overrides and localized views

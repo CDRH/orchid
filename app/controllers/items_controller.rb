@@ -116,9 +116,8 @@ class ItemsController < ApplicationController
   end
 
   def set_page_facets
-    @page_facets = @section.present? && SECTIONS.present? &&
-      SECTIONS.dig(@section, "facets") ?
-      Facets.section_facets(@section) : Facets.facet_info
+    @page_facets = @section.present? ?
+      Orchid::facets(section: @section) : Orchid::facets
   end
 
 end
