@@ -183,9 +183,10 @@ end
 You can also override an entire controller by simply placing a file with the controller's name in the controllers directory.  For example, `app/controllers/general_controller.rb` would take the place of the Orchid version of this file.  *This approach is not recommended.*
 
 ### Facets
-Facets are API fields used to index items in the "Browse" pages. For each
-language, facets' text labels and options may be redefined and each facet may
-also optionally:
+Facets are API fields used to group items with similar metadata in the "Browse"
+pages, e.g. items with the same value in a `category` field. For each language,
+which fields are used, their order, their text labels, and their options may
+vary. Each facet may also optionally:
 
 - Function as a search filter
 - Have its values from the API translated
@@ -234,37 +235,40 @@ label. These translations may be defined inside any YAML file in
     - `translation` - The literal translated text for this particular language
 
 As an example, imagine we have a `source` API field we don't want included in
-search filters or translated, and a `category.en` API field we'd like included
-in search filters as well having its label text and values translated for
-Spanish. Our facets configuration would look like:
+search filters or translated. We will only show this field in English since it
+won't be translated. Also imagine a `film.title` API field (made up here for
+demonstation purposes) that we'd like included in search filters as well having
+its label text and values translated for Spanish. Our facets configuration would
+look like:
 
 ```yaml
 …
   facets:
     en:
-      category.en:
-        label: Category
+      film.title:
+        label: Film Title
         flags:
           - search_filter
       source:
         label: Source
     es:
-      category.en:
-        label: Categoría
+      film.title:
+        label: Título de la Película
         flags:
           - search_filter
           - translate
+      # Omitting source field; remember languages may vary facet use and order
 …
 ```
 
-If our category values are `Planes, Tranes, and Automobiles`, `Three Amigos`,
-`The Out-of-Towners`, and `Roxanne` we could define our translations as
-`config/locales/category_es.yml`:
+If our title values are `Planes, Tranes, and Automobiles`, `Three Amigos`,
+`The Out-of-Towners`, and `Roxanne` we could define our translations in
+`config/locales/film_title_es.yml` as:
 
 ```yaml
 es:
   facet_value:
-    category_en:
+    film_title:
       Planes__Tranes__and_Automobiles: Aviones, Trenes, y Automóviles
       Three_Amigos: Tres Amigos
       The_Out-of-Towners: Los Fuera de las Ciudades
