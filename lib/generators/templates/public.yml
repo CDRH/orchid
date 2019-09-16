@@ -39,7 +39,7 @@ default: &default
     #   - subcategory|Writings
     # sorting and response number
     sort:
-      - title|asc
+      - title_sort|asc
     rows: 50
     # facet info on search page
     facet_limit: 20
