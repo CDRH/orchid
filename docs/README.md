@@ -500,11 +500,6 @@ routes have all been augmented to utilize these prefixes. The corresponding
 templates will render links using the prefixed path name helpers so the link
 URLs stay within the section.
 
-Note that navigation links in the site header are not integrated with section
-pages. The Browse and Search links go to the non-section pages regardless of
-whether the current page is from a section route or not. Section-specific
-navigation links must be added manually.
-
 Section routes will automatically be scoped to a sub-URI with the section name
 if no scope name is passed. If `section: "foo"`, scope will be set to `"/foo"`.
 
@@ -550,6 +545,21 @@ end
 ```
 
 #### Section Links
+Navigation links in the site header are not integrated with section
+pages. The Browse and Search links go to the non-section pages regardless of
+whether the current page is from a section route or not. Section-specific
+navigation links must be added manually. If you are linking to a section page
+drawn by Orchid paths, you must use the Orchid route name prepended with
+`section_`:
+
+```html
+<!-- basic Orchid path -->
+<%= link_to "Browse All Items", browse_path %>
+
+<!-- section Orchid path -->
+<%= link_to "Browse Letters", letters_browse_path %>
+```
+
 If adding or modifying links within templates used by more than one section, the
 application helper `prefix_path` has been added to Orchid to simplify calling
 the appropriate path helper. It takes the place of where the path helper would
