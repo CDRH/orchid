@@ -592,6 +592,18 @@ section-compatible Orchid route looks like this:
 }},
 ```
 
+You may set the `defaults: { section: section }` code on a block surrounding
+routes to make the `@section` variable available in their action and view.
+For example, multiple routes within a scope with defaults will inherit that
+default. Nested routes may override the defaults if necessary.
+
+```ruby
+scope '/writings/letters', defaults: { section: "letters" } do
+    get '/', to: 'letters#home', as: :letters_home
+    get 'known', to: 'letters#known_letters', as: :letters_known
+end
+```
+
 Orchid's views and partials are made section-compatible by calling them with
 the `render_overridable` method rather than `render`. The exact same parameters
 one would use with `render` are available. This replacement method checks for
