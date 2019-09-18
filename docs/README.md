@@ -502,6 +502,12 @@ URLs stay within the section.
 
 Section routes will automatically be scoped to a sub-URI with the section name
 if no scope name is passed. If `section: "foo"`, scope will be set to `"/foo"`.
+They also set a default `section` parameter which is then used to set the
+`@section` instance variable with the section name in the application
+controller. This is used for logic in rendering templates and links. Then the
+`section` parameter is immediately removed so it does not interfere with
+action and template code dealing with paramaters or come through in query string
+or POST parameters.
 
 ```ruby
 # Section routes
@@ -516,6 +522,20 @@ end
 
 # Site-wide non-section routes
 Orchid::Routing.draw
+```
+
+You'll likely need more routes alongside Orchid's routes for a section. You may
+set the `defaults: { section: section }` code on the `scope` block surrounding
+additional routes to make the `@section` variable available in their actions and
+templates as well. All routes within the `scope` block with `defaults` will
+inherit that default parameter. Routes within the block may override the block's
+`defaults` if necessary.
+
+```ruby
+scope '/writings/letters', defaults: { section: "letters" } do
+  get '/', to: 'letters#home', as: :letters_home
+  get 'known', to: 'letters#known_letters', as: :letters_known
+end
 ```
 
 #### Canonical Item Links
@@ -590,18 +610,6 @@ section-compatible Orchid route looks like this:
   get 'item/:id', to: 'items#show', as: "#{section}item",
     constraints: { id: with_period }, defaults: { section: section }
 }},
-```
-
-You may set the `defaults: { section: section }` code on a block surrounding
-routes to make the `@section` variable available in their action and view.
-For example, multiple routes within a scope with defaults will inherit that
-default. Nested routes may override the defaults if necessary.
-
-```ruby
-scope '/writings/letters', defaults: { section: "letters" } do
-    get '/', to: 'letters#home', as: :letters_home
-    get 'known', to: 'letters#known_letters', as: :letters_known
-end
 ```
 
 Orchid's views and partials are made section-compatible by calling them with
