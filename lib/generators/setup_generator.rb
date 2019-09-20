@@ -50,7 +50,8 @@ class SetupGenerator < Rails::Generators::Base
   end
 
   def config_set(config_type, var_name, value)
-    gsub_file "#{@new_app}/config/#{config_type}.yml", /^(\s*#{var_name}:).+$/, "\\1 #{value}"
+    # expecting spaces, possible comment character (#), and key: value
+    gsub_file "#{@new_app}/config/#{config_type}.yml", /^(\s*(?:#\s*)?#{var_name}:).+$/, "\\1 #{value}"
   end
 
   def copy_configs_and_locales

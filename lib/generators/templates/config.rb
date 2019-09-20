@@ -1,4 +1,4 @@
-# config/initializers/config.rb
+# Orchid Config
 
 PUBLIC = YAML.load_file("#{Rails.root}/config/public.yml")[Rails.env]
 PRIVATE = YAML.load_file("#{Rails.root}/config/private.yml")[Rails.env]
@@ -52,3 +52,6 @@ end
 
 DATE_DISPLAY_FIRST = date_display(DATE_FIRST)
 DATE_DISPLAY_LAST = date_display(DATE_LAST)
+
+
+# App Config

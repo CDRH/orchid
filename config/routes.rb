@@ -13,13 +13,15 @@ module Orchid
         # Home
         { name: 'home', definition: proc { |section|
           section += "_" if section.present?
-          root 'general#index', as: "#{section}home"
+          root 'general#index', as: "#{section}home",
+            defaults: { section: section }
         }},
 
         # General
         { name: 'about', definition: proc { |section|
           section += "_" if section.present?
-          get 'about', to: 'general#about', as: "#{section}about"
+          get 'about', to: 'general#about', as: "#{section}about",
+            defaults: { section: section }
         }},
 
         # Items

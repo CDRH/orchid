@@ -500,13 +500,14 @@ routes have all been augmented to utilize these prefixes. The corresponding
 templates will render links using the prefixed path name helpers so the link
 URLs stay within the section.
 
-Note that navigation links in the site header are not integrated with section
-pages. The Browse and Search links go to the non-section pages regardless of
-whether the current page is from a section route or not. Section-specific
-navigation links must be added manually.
-
 Section routes will automatically be scoped to a sub-URI with the section name
 if no scope name is passed. If `section: "foo"`, scope will be set to `"/foo"`.
+They also set a default `section` parameter which is then used to set the
+`@section` instance variable with the section name in the application
+controller. This is used for logic in rendering templates and links. Then the
+`section` parameter is immediately removed so it does not interfere with
+action and template code dealing with paramaters or come through in query string
+or POST parameters.
 
 ```ruby
 # Section routes
@@ -521,6 +522,20 @@ end
 
 # Site-wide non-section routes
 Orchid::Routing.draw
+```
+
+You'll likely need more routes alongside Orchid's routes for a section. You may
+set the `defaults: { section: section }` code on the `scope` block surrounding
+additional routes to make the `@section` variable available in their actions and
+templates as well. All routes within the `scope` block with `defaults` will
+inherit that default parameter. Routes within the block may override the block's
+`defaults` if necessary.
+
+```ruby
+scope '/writings/letters', defaults: { section: "letters" } do
+  get '/', to: 'letters#home', as: :letters_home
+  get 'known', to: 'letters#known_letters', as: :letters_known
+end
 ```
 
 #### Canonical Item Links
@@ -550,6 +565,21 @@ end
 ```
 
 #### Section Links
+Navigation links in the site header are not integrated with section
+pages. The Browse and Search links go to the non-section pages regardless of
+whether the current page is from a section route or not. Section-specific
+navigation links must be added manually. If you are linking to a section page
+drawn by Orchid paths, you must use the Orchid route name prepended with
+`section_`:
+
+```html
+<!-- basic Orchid path -->
+<%= link_to "Browse All Items", browse_path %>
+
+<!-- section Orchid path -->
+<%= link_to "Browse Letters", letters_browse_path %>
+```
+
 If adding or modifying links within templates used by more than one section, the
 application helper `prefix_path` has been added to Orchid to simplify calling
 the appropriate path helper. It takes the place of where the path helper would
