@@ -10,21 +10,26 @@ module Orchid
       # If multiple languages, constrain locale to non-default language codes
       locales = defined?(APP_OPTS) ? Regexp.new(APP_OPTS["languages"]) : nil
 
+      draw_i18n_routes = proc { |route|
+        if locales.present?
+          # If multiple languages, scope routes for i18n locales
+          scope "(:locale)", constraints: { locale: locales } do
+            # Call routing DSL methods of Orchid route procs in this context
+            instance_exec(&route[:definition])
+          end
+        else
+          # Call routing DSL methods of Orchid route procs in this context
+          instance_exec(&route[:definition])
+        end
+      }
+
       draw_reusable_routes = proc {
         REUSABLE_ROUTES.each do |route|
           # Don't draw routes if not in "routes" allow list or already drawn
           next if (routes.present? && !routes.include?(route[:name])) \
             || drawn_routes.include?(route[:name])
 
-          if locales.present?
-            # If multiple languages, scope routes for i18n locales
-            scope "(:locale)", constraints: { locale: locales } do
-              # Call routing DSL methods of Orchid route procs in this context
-              instance_exec(section, &route[:definition])
-            end
-          else
-            instance_exec(section, &route[:definition])
-          end
+          instance_exec(route, &draw_i18n_routes)
         end
       }
 
@@ -33,7 +38,7 @@ module Orchid
         scope = "/#{section}" if section.present? && scope.blank?
 
         if scope.present?
-          scope scope do
+          scope scope, as: section, defaults: { section: section } do
             instance_eval(&draw_reusable_routes)
           end
         else
@@ -44,13 +49,7 @@ module Orchid
           # Don't draw routes if already drawn
           next if drawn_routes.include?(route[:name])
 
-          if locales.present?
-            scope "(:locale)", constraints: { locale: locales } do
-              instance_exec(&route[:definition])
-            end
-          else
-            instance_exec(&route[:definition])
-          end
+          instance_exec(route, &draw_i18n_routes)
         end # non-reusable route handling
       end # Rails application route drawing block
     end # draw method
