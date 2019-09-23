@@ -6,10 +6,21 @@
 
 module Orchid
   module Routing
-    if !defined? ROUTES
+    if !defined?(ROUTES)
       with_period = /[^\/]+/
 
+      # Routes only drawn once
       ROUTES = [
+        # Errors
+        { name: 'not_found', definition: proc {
+          match '/404', to: 'errors#not_found', via: :all, as: "not_found"
+        }},
+        { name: 'server_error', definition: proc {
+          match '/500', to: 'errors#server_error', via: :all, as: "server_error"
+        }}
+      ]
+
+      REUSABLE_ROUTES = [
         # Home
         { name: 'home', definition: proc { |section|
           section += "_" if section.present?
@@ -45,14 +56,6 @@ module Orchid
           section += "_" if section.present?
           get 'search', to: 'items#index', as: "#{section}search",
             defaults: { section: section }
-        }},
-
-        # Errors
-        { name: 'not_found', definition: proc {
-          match '/404', to: 'errors#not_found', via: :all
-        }},
-        { name: 'server_error', definition: proc {
-          match '/500', to: 'errors#server_error', via: :all
         }}
       ]
     else
