@@ -20,14 +20,14 @@
                 <% end %>
               </li>
             <% end %>
-            <% if item["format"] %>
+            <% if item["format"].present?  %>
               <li>
                 <strong><%= t "search.results.item.format", default: "Format" %></strong>:
                 <% label = value_label("format", item["format"]) %>
                 <span><%= label %></span>
               </li>
             <% end %>
-            <% if item["source"] %>
+            <% if item["source"].present?  %>
               <li>
                 <strong><%= t "search.results.item.source", default: "Source" %></strong>:
                 <span><%= item["source"] %></span>
