@@ -36,9 +36,10 @@ module Orchid
       Rails.application.routes.draw do
         # Set scope to section name if no scope set
         scope = "/#{section}" if section.present? && scope.blank?
+        scope_path = scope
 
-        if scope.present?
-          scope scope, as: section, defaults: { section: section } do
+        if scope_path.present?
+          scope scope_path, as: section, defaults: { section: section } do
             instance_eval(&draw_reusable_routes)
           end
         else
