@@ -25,7 +25,7 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
     - [Section Config](#section-config)
     - [Section Routes](#section-routes)
     - [Section Links](#section-links)
-    - [Section-compatible Orchid Code](#section-compatible-orchid-code)
+    - [Section Templates](#section-templates)
   - [Stylesheets / Bootstrap](#stylesheets--bootstrap)
   - [(Re)start](#restart)
 - [Assets](#assets)
@@ -594,24 +594,7 @@ all following parameters are the same parameters to be sent to the path helper.
 <%= link_to prefix_path("item_path", "ABC"), html_options %>
 ```
 
-#### Section-compatible Orchid Code
-To make Orchid routes compatible with sections, the `section` parameter must be
-set at the beginning of the `proc` for the route definition. This `section`
-parameter will be the section name set in the main app routes file. Then if a
-section is present it needs an underscore appended. The route name must now be
-written with the section name prepended. Lastly, the section name needs to
-be available to the controllers and actions called by the route. This is done by
-setting the name as a default parameter named `section`. The resulting
-section-compatible Orchid route looks like this:
-
-```ruby
-{ name: 'item', definition: proc { |section|
-  section += "_" if section.present?
-  get 'item/:id', to: 'items#show', as: "#{section}item",
-    constraints: { id: with_period }, defaults: { section: section }
-}},
-```
-
+#### Section Templates
 Orchid's views and partials are made section-compatible by calling them with
 the `render_overridable` method rather than `render`. The exact same parameters
 one would use with `render` are available. This replacement method checks for
