@@ -103,3 +103,15 @@
     display: block;
   }
 }
+
+// Search Results
+
+.search_results_highlights {
+  p:before {
+    content: "… ";
+  }
+
+  p:after {
+    content: " …";
+  }
+}
