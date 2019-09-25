@@ -1,8 +1,8 @@
 <% if @res.count > 0 %>
   <% @res.items.each do |item| %>
     <div class="searchResults">
+      <h3><%= search_item_link(item) %></h3>
       <div class="row">
-        <h3><%= search_item_link(item) %></h3>
         <div class="<%= item["highlight"].present? ? "col-md-4" : "col-md-12" %> search_results_info">
           <ul>
             <% if item["date_display"] %>
