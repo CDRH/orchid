@@ -5,7 +5,7 @@
       <div class="row">
         <div class="<%= item["highlight"].present? ? "col-md-4" : "col-md-12" %> search_results_info">
           <ul>
-            <% if item["date_display"] %>
+            <% if item["date_display"].present? %>
               <li>
                 <strong><%= t "search.results.item.date", default: "Date" %></strong>:
                 <span><%= item["date_display"] %></span>
@@ -14,23 +14,42 @@
             <%# creator is a multivalued, nested field %>
             <% if item["creator"].present? %>
               <li>
-                <strong><%= t "search.results.item.creator", default: "Creator(s)" %></strong>:
+                <strong>
+                  <%= t "search.results.item.creator", default: "Creator(s)" %>
+                </strong>:
                 <% item["creator"].each do |c| %>
-                    <span><%= c["name"] %></span>
+                  <span><%= c["name"] %></span>
                 <% end %>
               </li>
             <% end %>
-            <% if item["format"].present?  %>
+            <%# format can be a multivalued or single keyword field %>
+            <% if item["format"].present? %>
               <li>
-                <strong><%= t "search.results.item.format", default: "Format" %></strong>:
-                <% label = value_label("format", item["format"]) %>
-                <span><%= label %></span>
+                <strong>
+                  <%= t "search.results.item.format", default: "Format" %>
+                </strong>:
+                <% if item["format"].is_a? Array %>
+                  <% item["format"].each do |f| %>
+                    <span><%= value_label("format", f) %></span>
+                  <% end %>
+                <% else %>
+                  <span><%= value_label("format", item["format"]) %>
+                <% end %>
               </li>
             <% end %>
-            <% if item["source"].present?  %>
+            <%# source can be a multivalued or single keyword field %>
+            <% if item["source"].present? %>
               <li>
-                <strong><%= t "search.results.item.source", default: "Source" %></strong>:
-                <span><%= item["source"] %></span>
+                <strong>
+                  <%= t "search.results.item.source", default: "Source" %>
+                </strong>:
+                <% if item["source"].is_a? Array %>
+                  <% item["source"].each do |s| %>
+                    <span><%= s %></span>
+                  <% end %>
+                <% else %>
+                  <span><%= item["source"] %></span>
+                <% end %>
               </li>
             <% end %>
           </ul>
