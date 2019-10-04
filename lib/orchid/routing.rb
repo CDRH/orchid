@@ -11,40 +11,40 @@ module Orchid
       locales = defined?(APP_OPTS) && APP_OPTS["languages"].present? ?
                   Regexp.new(APP_OPTS["languages"]) : nil
 
-      draw_i18n_routes = proc { |route|
-        if locales.present?
-          # If multiple languages, scope routes for i18n locales
-          scope "(:locale)", constraints: { locale: locales } do
-            # Call routing DSL methods of Orchid route procs in this context
-            instance_exec(&route[:definition])
-          end
-        else
-          # Call routing DSL methods of Orchid route procs in this context
-          instance_exec(&route[:definition])
-        end
-      }
-
-      draw_reusable_routes = proc {
-        REUSABLE_ROUTES.each do |route|
-          # Don't draw routes if not in "routes" allow list or already drawn
-          next if (routes.present? && !routes.include?(route[:name])) \
-            || drawn_routes.include?(route[:name])
-
-          instance_exec(route, &draw_i18n_routes)
-        end
-      }
-
-      Rails.application.routes.draw do
+      draw_section_routes = proc { |route|
         # Set scope to section name if no scope set
         scope = "/#{section}" if section.present? && scope.blank?
         scope_path = scope
 
         if scope_path.present?
           scope scope_path, as: section, defaults: { section: section } do
-            instance_eval(&draw_reusable_routes)
+            instance_eval(&route[:definition])
           end
         else
-          instance_eval(&draw_reusable_routes)
+          instance_eval(&route[:definition])
+        end
+      }
+
+      draw_i18n_routes = proc { |route|
+        if locales.present?
+          # If multiple languages, scope routes for i18n locales
+          scope "(:locale)", constraints: { locale: locales } do
+            # Call routing DSL methods of Orchid route procs in this context
+            instance_exec(route, &draw_section_routes)
+          end
+        else
+          # Call routing DSL methods of Orchid route procs in this context
+          instance_exec(route, &draw_section_routes)
+        end
+      }
+
+      Rails.application.routes.draw do
+        REUSABLE_ROUTES.each do |route|
+          # Don't draw routes if not in "routes" allow list or already drawn
+          next if (routes.present? && !routes.include?(route[:name])) \
+            || drawn_routes.include?(route[:name])
+
+          instance_exec(route, &draw_i18n_routes)
         end
 
         ROUTES.each do |route|
