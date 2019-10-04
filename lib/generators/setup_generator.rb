@@ -45,13 +45,32 @@ class SetupGenerator < Rails::Generators::Base
 
   private
 
-  def config_replace(config_type, original, new)
-    gsub_file "#{@new_app}/config/#{config_type}.yml", original, new
+  def config_replace(config_type, to_replace, replace_with)
+    gsub_file "#{@new_app}/config/#{config_type}.yml", to_replace, replace_with
   end
 
-  def config_set(config_type, var_name, value)
+  # config_type: path to file from config directory
+  # var_name: the key in the yaml file in question
+  # value: the value assigned to the key, replaces existing values
+  # uncomment: if this key is commented, uncomment it
+  # global: set the value throughout the file
+  #         if false, this will only set the value of the first matching key
+  def config_set(config_type, var_name, value, uncomment: false, global: true)
+    file = "#{@new_app}/config/#{config_type}.yml"
     # expecting spaces, possible comment character (#), and key: value
-    gsub_file "#{@new_app}/config/#{config_type}.yml", /^(\s*(?:#\s*)?#{var_name}:).+$/, "\\1 #{value}"
+    # capture groups
+    #   1: entire string from beginning of the line to the key
+    #   2: spaces before the key, not including a comment character
+    #   3: just the key
+    to_replace = /^((\s*)(?:#\s*)?(#{var_name}:)).*$/
+    # either construct uncomment version of line or leave it as is
+    replace_with = uncomment ? "\\2\\3 #{value}" : "\\1 #{value}"
+    if global
+      gsub_file file, to_replace, replace_with
+    else
+      # only replace first instance
+      sub_file(file, to_replace, replace_with)
+    end
   end
 
   def copy_configs_and_locales
@@ -67,35 +86,42 @@ class SetupGenerator < Rails::Generators::Base
     lang_default = prompt_for_value("Primary Language", "en")
     config_set("public", "language_default", lang_default)
 
-    langs = prompt_for_value("All Languages (separate with a pipe: en|es|de)", "en")
-    config_set("public", "languages", langs)
+    langs = prompt_for_value("All Languages (separate with a pipe: en|es|de)", "")
+    if langs.present?
+      # remove the default
+      langs = langs.split("|")
+      langs.delete(lang_default)
+      langs = langs.join("|")
+      config_set("public", "languages", langs, uncomment: true, global: false)
+    end
 
-    # if the user selects a non english language, copy the locale file there as well
-    langs.split("|").each do |lang|
+    # combine all of the languages into one array
+    all_langs = langs.present? ? langs.strip.split("|") : []
+    all_langs << lang_default
+
+    all_langs.each do |lang|
+      # for each language which is not english, create a locale file
       next if lang == "en"
-      FileUtils.cp("#{@this_app}/config/locales/en.yml", "#{@new_app}/config/locales/#{lang}.yml")
-      gsub_file "#{@new_app}/config/locales/#{lang}.yml", /^en:$/, "#{lang}:"
+      copy_locale(lang)
     end
 
     # locales customization
-    answer = prompt_for_value("Project Name (Site header title)", "Sample Template")
-    config_set("locales/#{lang_default}", "project_name", answer)
+    project_name = prompt_for_value("Project Name (Site header title)", "Sample Template")
+    project_shortname = prompt_for_value("Project Short Name (<title>, <meta application-name>)", "Template")
+    project_subtitle = prompt_for_value("Project Subtitle (Site header subtitle)", "Template Subtitle")
 
-    answer = prompt_for_value("Project Short Name (<title>, <meta application-name>)", "Template")
-    config_set("locales/#{lang_default}", "project_shortname", answer)
+    # if the user selects a non english language, set up a locale file at that language
+    # at this moment, orchid supports multiple languages but does not ship with pre-made translations
+    # users will need to supply their own values for the strings in the file
 
-    answer = prompt_for_value("Project Subtitle (Site header subtitle)", "Template Subtitle")
-    config_set("locales/#{lang_default}", "project_subtitle", answer)
-
-    # remove comments from locale file copied from Orchid
-    gsub_file "#{@new_app}/config/locales/#{lang_default}.yml",
-      /^\s*# Below commented to avoid fallback use.+$/, ""
-    gsub_file "#{@new_app}/config/locales/#{lang_default}.yml",
-      /^(\s*)# (project_name.+)$/, "\\1\\2"
-    gsub_file "#{@new_app}/config/locales/#{lang_default}.yml",
-      /^(\s*)# (project_shortname.+)$/, "\\1\\2"
-    gsub_file "#{@new_app}/config/locales/#{lang_default}.yml",
-      /^(\s*)# (project_subtitle.+)$/, "\\1\\2"
+    all_langs.each do |lang|
+      config_set("locales/#{lang}", "project_name", project_name, uncomment: true)
+      config_set("locales/#{lang}", "project_shortname", project_shortname, uncomment: true)
+      config_set("locales/#{lang}", "project_subtitle", project_subtitle, uncomment: true)
+      # remove unnecessary comment from locale file copied from Orchid
+      gsub_file "#{@new_app}/config/locales/#{lang}.yml",
+        /^\s*# Below commented to avoid fallback use.+$/, ""
+    end
 
     # public media settings
     answer = prompt_for_value("Media Server Directory", "sample_template")
@@ -130,6 +156,11 @@ Updated with initial app customizations
     FileUtils.cp("#{@this_app}/lib/generators/templates/config.rb", "#{@new_app}/config/initializers/config.rb")
 
     return "Initializer to load config values into app copied to config/initializers/config.rb"
+  end
+
+  def copy_locale(lang)
+    FileUtils.cp("#{@this_app}/config/locales/en.yml", "#{@new_app}/config/locales/#{lang}.yml")
+    gsub_file "#{@new_app}/config/locales/#{lang}.yml", /^en:$/, "#{lang}:"
   end
 
   def copy_remaining_templates
@@ -230,6 +261,13 @@ Section configuration example file copied to config/sections/section.example.yml
     FileUtils.touch("#{@new_app}/app/assets/stylesheets/global/#{@new_app_name}.scss")
 
     return "Replaced app's stylesheet assets with Orchid's.\nCreated global/ directory and file with app name for app-wide styling"
+  end
+
+  # this method adapted from example at
+  # https://apidock.com/rails/Rails/Generator/Commands/Base/gsub_file
+  def sub_file(filepath, to_replace, replace_with)
+    content = File.read(filepath).sub(to_replace, replace_with)
+    File.open(filepath, 'wb') { |file| file.write(content) }
   end
 
 end
