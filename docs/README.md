@@ -290,39 +290,50 @@ your app's footer logo.
 Add any other files which should not be version controlled to `.gitignore`.
 
 ### Languages
-By default, Orchid assumes you are developing an English-only application. However, if you wish to add multiple languages or change the default language, first change `config/public.yml`:
+By default, Orchid assumes you are developing an English-only application, but supports the use of multiple langues. To customize your application to use multiple languages, alter the `language_default` and `languages` fields in `config/public.yml`:
 
 ```
 language_default: es
-languages: en|es
+languages: en|cz
 ```
 
-Most of the navigation, buttons, and general wording throughout orchid has been pulled out into `locales/en.yml`.  Copy that file to match the other language(s) your app will support, for example: `locales/es.yml`.  Translate each entry of the yaml file.  You may toggle between languages in the application and view the language differences. **This file must exist for every language your app config specifies and must have the language key at the top of the file.**  Otherwise rails will not be able to find the appropriate language text for your application.
+Most of the navigation, buttons, and general wording throughout orchid has been pulled out into `config/locales/en.yml`.  Copy that file to match the other language(s) your app will support, for example: `config/locales/es.yml`.  Translate each entry of the yaml file. You may toggle between languages in the application and view the language differences. **All translations must start with the language key or rails will not find the appropriate text.**  An example locales file might look like:
+
+```yaml
+# config/locales/en.yml
+en:
+  title: Example Title
+```
+
+The `en` key in the example above is critical to finding the correct string to display when using localization. By default, Orchid starts with an `en.yml` file and any other languages you specified as files with similar names. However, you may add more files to help with organization, just make sure you include the language key before you begin creating localized strings:
+
+```yaml
+# config/locales/explore_en.yml
+en:
+  explore:
+    ...
+
+# config/locales/explore_es.yml
+es:
+  explore:
+    ...
+```
 
 Please check the "Facets" section of this README for more information about how to customize the behavior and labels of the facets by language.
 
-If you need to override a view to accommodate large amounts of content in multiple languages, please first create a directory to hold the specific language variation partials within your views.  The name of the controller and partial in the example should be modified for your application and purpose:
+Though you can add HTML to your locales files, often if you want a view with large amounts of content you may prefer to simply work directly with views rather than with the locales. You may do this by including the language code in your filename.
 
 ```
-# app/views/[controller]
-
-excavation_sites
-        |-- sites_cz.html.erb
-        |-- sites_en.html.erb
-        |-- sites_es.html.erb
-_normal_partial.html.erb
-show.html.erb
-traditions
-        |-- traditions_cz.html.erb
-        |-- traditions_en.html.erb
-        |-- traditions_es.html.erb
+app
+  |-- views
+          |-- explore
+                    |-- mountains.html.erb
+                    |-- mountains.cz.html.erb
+                    |-- mountains.en.html.erb
 ```
+In the above, if the locale were set to Czech with code `cz`, a request for the mountains view would render `mountains.cz.html.erb`. A request for a language without a specific view will render the general file `mountains.html.erb`. This naming convention also applies to partials.
 
-To call the appropriate partial depending on language, include this in a view:
-
-```
-<%= render localized_partial("sites", "[controller]/excavation_sites") %>
-```
+Please refer to the [[Scoped Routes]] documentation for more information about adding more routes to apps which support multiple languages.
 
 ### Redirects and Rewrites
 
@@ -430,6 +441,14 @@ end
 
 The `Orchid::Routing.draw(scope: …)` call can be outside a Rails `scope` block,
 but it will likely be easier to follow to keep it alongside other scoped routes.
+
+If you are adding routes to an app which supports multiple languages, and you would like the routes to be available to both, you will need to set the scope:
+
+```ruby
+scope "(:locale)", locale: locales do
+  get '/about/team', to: 'general#about_team', as: 'about_team'
+end
+```
 
 ### Scripts
 One should normally not need to edit `app/assets/application.js`.
