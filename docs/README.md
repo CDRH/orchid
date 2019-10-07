@@ -290,7 +290,7 @@ your app's footer logo.
 Add any other files which should not be version controlled to `.gitignore`.
 
 ### Languages
-By default, Orchid assumes you are developing an English-only application, but supports the use of multiple langues. To customize your application to use multiple languages, alter the `language_default` and `languages` fields in `config/public.yml`:
+By default, Orchid assumes you are developing an English-only application, but supports the use of multiple languages. To customize your application to use multiple languages, alter the `language_default` and `languages` fields in `config/public.yml`:
 
 ```
 language_default: es

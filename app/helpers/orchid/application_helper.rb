@@ -126,6 +126,9 @@ module Orchid::ApplicationHelper
   # Usage:
   #   render localized_partial("index", "explore/partials")
   #   (would include "explore/partials/_index_en.html.erb" if locale == en)
+  # TODO remove this method when migrating orchid to rails 6
+  deprecate localized_partial:
+    "prefer localized views: https://guides.rubyonrails.org/i18n.html#localized-views"
   def localized_partial(partial_name, prefixes)
     localized = "#{partial_name}_#{locale}"
     if lookup_context.template_exists?(localized, prefixes, true)
