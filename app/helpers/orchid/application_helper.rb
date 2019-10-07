@@ -165,15 +165,13 @@ module Orchid::ApplicationHelper
     end
   end
 
-  # Render section overrides and localized partials
-  # Partial name does not include the locale, underscore, or extensions
+  # Render section override and partials
+  # partial argument does not include the locale, underscore, or extensions
   # Example:
   #   render_overridable("explore/partials", "index")
   #   Looks for in order:
-  #     If @section defined & locale == "es", "@section/_index_es.html.erb"
-  #     If @section defined & no locale, "@section/_index.html.erb"
-  #     If no @section & locale == "es", "explore/partials/_index_es.html.erb"
-  #     If no @section or locale, "explore/partials/_index.html.erb"
+  #     If @section defined -> "@section/_index.html.erb"
+  #     If no @section -> "explore/partials/_index.html.erb"
   #  If no partial found, render an error message with missing partial path
   def render_overridable(path="", partial="", **kwargs)
     # Only one arg will be passed if replacing a simple `render "template"` call
@@ -192,17 +190,10 @@ module Orchid::ApplicationHelper
 
     # True when looking for partials rather than views
     is_partial = true
-    localized = "#{partial}_#{locale}"
-    if @section.present? && lookup_context.template_exists?(localized, @section,
-                                                            is_partial)
-      path = "#{@section}"
-      partial = localized
-    elsif @section.present? && lookup_context.template_exists?(partial,
+    if @section.present? && lookup_context.template_exists?(partial,
                                                                @section,
                                                                is_partial)
       path = "#{@section}"
-    elsif lookup_context.template_exists?(localized, path, is_partial)
-      partial = localized
     elsif !lookup_context.template_exists?(partial, path, is_partial)
       # fallback to informative partial about customization
       path << "/" if path.present?
