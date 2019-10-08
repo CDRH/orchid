@@ -12,14 +12,11 @@
 
 <%# links for alternate language pages %>
 <% if APP_OPTS["languages"].present? %>
-  <% langs = APP_OPTS["languages"].split("|") %>
-  <% langs << APP_OPTS["language_default"] if APP_OPTS["language_default"].present? %>
-  <% langs.each do |lang_code| %>
+  <% APP_OPTS["languages"].split("|").each do |lang_code| %>
     <%# if this is the currently selected language
         then no alternative link is needed for it %>
     <% next if lang_code == I18n.locale.to_s %>
     <% url = url_for locale_link_options(lang_code) %>
     <link rel="alternate" hreflang="<%= lang_code %>" href="<%= url %>" />
   <% end %>
-
 <% end %>

@@ -294,7 +294,7 @@ By default, Orchid assumes you are developing an English-only application, but s
 
 ```
 language_default: es
-languages: en|cz
+languages: en|es|cz
 ```
 
 Most of the navigation, buttons, and general wording throughout orchid has been pulled out into `config/locales/en.yml`.  Copy that file to match the other language(s) your app will support, for example: `config/locales/es.yml`.  Translate each entry of the yaml file. You may toggle between languages in the application and view the language differences. **All translations must start with the language key or rails will not find the appropriate text.**  An example locales file might look like:

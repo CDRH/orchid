@@ -80,20 +80,12 @@ class SetupGenerator < Rails::Generators::Base
     lang_default = prompt_for_value("Primary Language", "en")
     config_set("public", "language_default", lang_default)
 
-    langs = prompt_for_value("All Languages (separate with a pipe: en|es|de)", "")
-    if langs.present?
-      # remove the default
-      langs = langs.split("|")
-      langs.delete(lang_default)
-      langs = langs.join("|")
-      config_set("public", "OTHER_LANGUAGES", langs, uncomment: true)
-    end
+    langs = prompt_for_value("All Languages (separated with a pipe: en|es|cz)",
+                             "en")
+    config_set("public", "ALL_LANGUAGES", langs)
 
-    # combine all of the languages into one array
-    all_langs = langs.present? ? langs.strip.split("|") : []
-    all_langs << lang_default
-
-    all_langs.each do |lang|
+    langs = [] if langs.blank?
+    langs.each do |lang|
       # for each language which is not english, create a locale file
       next if lang == "en"
       copy_locale(lang)

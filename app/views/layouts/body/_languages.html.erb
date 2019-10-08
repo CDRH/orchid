@@ -1,8 +1,6 @@
 <% if APP_OPTS["languages"].present? %>
   <div class="language_link btn-group" role="group" aria-label="language choice">
-    <% langs = [APP_OPTS["language_default"]] +
-      APP_OPTS["languages"].split("|") %>
-    <% langs.each do |lang_code| %>
+    <% APP_OPTS["languages"].split("|").each do |lang_code| %>
       <% active = lang_code == I18n.locale.to_s ?
         "btn btn-primary" : "btn btn-default" %>
       <%# create link to switch languages that keeps current parameters %>
