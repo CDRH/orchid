@@ -53,9 +53,7 @@ class SetupGenerator < Rails::Generators::Base
   # var_name: the key in the yaml file in question
   # value: the value assigned to the key, replaces existing values
   # uncomment: if this key is commented, uncomment it
-  # global: set the value throughout the file
-  #         if false, this will only set the value of the first matching key
-  def config_set(config_type, var_name, value, uncomment: false, global: true)
+  def config_set(config_type, var_name, value, uncomment: false)
     file = "#{@new_app}/config/#{config_type}.yml"
     # expecting spaces, possible comment character (#), and key: value
     # capture groups
@@ -65,12 +63,8 @@ class SetupGenerator < Rails::Generators::Base
     to_replace = /^((\s*)(?:#\s*)?(#{var_name}:)).*$/
     # either construct uncomment version of line or leave it as is
     replace_with = uncomment ? "\\2\\3 #{value}" : "\\1 #{value}"
-    if global
-      gsub_file file, to_replace, replace_with
-    else
-      # only replace first instance
-      sub_file(file, to_replace, replace_with)
-    end
+
+    gsub_file file, to_replace, replace_with
   end
 
   def copy_configs_and_locales
@@ -92,7 +86,7 @@ class SetupGenerator < Rails::Generators::Base
       langs = langs.split("|")
       langs.delete(lang_default)
       langs = langs.join("|")
-      config_set("public", "languages", langs, uncomment: true, global: false)
+      config_set("public", "OTHER_LANGUAGES", langs, uncomment: true)
     end
 
     # combine all of the languages into one array
@@ -261,13 +255,6 @@ Section configuration example file copied to config/sections/section.example.yml
     FileUtils.touch("#{@new_app}/app/assets/stylesheets/global/#{@new_app_name}.scss")
 
     return "Replaced app's stylesheet assets with Orchid's.\nCreated global/ directory and file with app name for app-wide styling"
-  end
-
-  # this method adapted from example at
-  # https://apidock.com/rails/Rails/Generator/Commands/Base/gsub_file
-  def sub_file(filepath, to_replace, replace_with)
-    content = File.read(filepath).sub(to_replace, replace_with)
-    File.open(filepath, 'wb') { |file| file.write(content) }
   end
 
 end
