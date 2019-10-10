@@ -8,8 +8,15 @@ module Orchid
         Rails.application.routes.routes.map { |r| r.name } : []
 
       # If multiple languages, constrain locale to non-default language codes
-      locales = defined?(APP_OPTS) && APP_OPTS["languages"].present? ?
-        Regexp.new(APP_OPTS["languages"]) : nil
+      locales = nil
+      if defined?(APP_OPTS) && APP_OPTS["languages"].present?
+        other_languages = APP_OPTS["languages"].split("|")
+          .reject { |l| l == APP_OPTS["language_default"] }
+
+        if other_languages.present?
+          locales = Regexp.new(other_languages.join("|"))
+        end
+      end
 
       draw_section_routes = proc { |route|
         # Set scope to section name if no scope set
