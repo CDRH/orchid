@@ -18,13 +18,10 @@ module Orchid
         end
       end
 
-      draw_section_routes = proc { |route|
-        # Set scope to section name if no scope set
-        scope = "/#{section}" if section.present? && scope.blank?
-        scope_path = scope
-
-        if scope_path.present?
-          scope scope_path, as: section, defaults: { section: section } do
+      scope_and_draw_route = proc { |route|
+        # Scope route if needed and call its routing DSL proc
+        if route["scope"].present?
+          scope route["scope"], as: section, defaults: { section: section } do
             instance_eval(&route[:definition])
           end
         else
@@ -32,16 +29,14 @@ module Orchid
         end
       }
 
-      draw_i18n_routes = proc { |route|
+      scope_i18n = proc { |route|
+        # If multiple languages, scope routes for i18n locales
         if locales.present?
-          # If multiple languages, scope routes for i18n locales
           scope "(:locale)", constraints: { locale: locales } do
-            # Call routing DSL methods of Orchid route procs in this context
-            instance_exec(route, &draw_section_routes)
+            instance_exec(route, &scope_and_draw_route)
           end
         else
-          # Call routing DSL methods of Orchid route procs in this context
-          instance_exec(route, &draw_section_routes)
+          instance_exec(route, &scope_and_draw_route)
         end
       }
 
@@ -51,14 +46,22 @@ module Orchid
           next if (routes.present? && !routes.include?(route[:name])) \
             || drawn_routes.include?(route[:name])
 
-          instance_exec(route, &draw_i18n_routes)
+          # Set route scope to section name (if no scope kwarg) or scope kwarg
+          route["scope"] = section.present? && scope.blank? ?
+            "/#{section}" : scope
+
+          route["reusable"] = true
+          instance_exec(route, &scope_i18n)
         end
 
         ROUTES.each do |route|
           # Don't draw routes if already drawn
           next if drawn_routes.include?(route[:name])
 
-          instance_exec(route, &draw_i18n_routes)
+          # Do not scope non-reusable routes beyond i18n scoping
+          route["scope"] = ""
+
+          instance_exec(route, &scope_i18n)
         end # non-reusable route handling
       end # Rails application route drawing block
     end # draw method
