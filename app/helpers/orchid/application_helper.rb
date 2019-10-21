@@ -116,15 +116,24 @@ module Orchid::ApplicationHelper
     url = request.fullpath
 
     if lang_code == APP_OPTS["language_default"]
-      regex = /(?:^\/(?:#{locales}))?(\/.*|$)/
+      if config.relative_url_root.present?
+        regex = /^(#{config.relative_url_root})(?:\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1\\2")
+      else
+        regex = /(?:^\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1")
 
-      link_path = url.sub(regex, "\\1")
-
-      # Handle edge case: request is for root of site on non-default locale
-      link_path = "/" if link_path.empty?
+        # Handle edge case: request is for root of site on non-default locale
+        link_path = "/" if link_path.empty?
+      end
     else
-      regex = /(?:^\/(?:#{locales}))?(\/.*|$)/
+      if config.relative_url_root.present?
+        regex = /^(#{config.relative_url_root})(?:\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1/#{lang_code}\\2")
+      else
+        regex = /(?:^\/(?:#{locales}))?(\/.*|$)/
         link_path = url.sub(regex, "/#{lang_code}\\1")
+      end
     end
 
     link_path
