@@ -69,10 +69,10 @@ module Orchid::ApplicationHelper
   end
 
   def copy_params
-    # Remove Rails internal parameters "action" and "controller" from URLs
-    # They are always accessible via params["action"] and params["controller"]
-    return params.to_unsafe_h
-             .reject { |param| param[/^(?:action|controller)$/] }
+    orchid_params = params.to_unsafe_h
+    Orchid::RAILS_INTERNAL_PARAMS.each { |p| orchid_params.delete(p) }
+
+    orchid_params
   end
 
   def clear_search_text
@@ -110,13 +110,33 @@ module Orchid::ApplicationHelper
     I18n.locale
   end
 
-  def locale_link_options(lang_code)
-    # don't use copy_params because we still want the action and controller
-    opts = params.to_unsafe_h
-    # if the requested language is the default, then it needs to be blank
-    # but otherwise, fill in locale with the requested language
-    opts["locale"] = lang_code == APP_OPTS["language_default"] ? nil : lang_code
-    opts
+  def locale_link(lang_code)
+    locales = APP_OPTS["languages"].split("|")
+      .reject { |l| l == APP_OPTS["language_default"] }.join("|")
+    url = request.fullpath
+
+    if lang_code == APP_OPTS["language_default"]
+      if config.relative_url_root.present?
+        regex = /^(#{config.relative_url_root})(?:\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1\\2")
+      else
+        regex = /(?:^\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1")
+
+        # Handle edge case: request is for root of site on non-default locale
+        link_path = "/" if link_path.empty?
+      end
+    else
+      if config.relative_url_root.present?
+        regex = /^(#{config.relative_url_root})(?:\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1/#{lang_code}\\2")
+      else
+        regex = /(?:^\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "/#{lang_code}\\1")
+      end
+    end
+
+    link_path
   end
 
   # partial_name does not include the locale, underscore, or extensions

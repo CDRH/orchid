@@ -5,6 +5,13 @@ require "orchid/version"
 module Orchid
   module_function
 
+  # Non-configurable constants to be accessible Orchid-wide:
+
+  # List of internal Rails params we want to remove when manipulating parameters
+  # for generating search facet/filter links and sending requests to the API.
+  # They remain accessible via Rails's params[…] object
+  RAILS_INTERNAL_PARAMS = %w[action commit controller locale utf8]
+
   def facets(section: nil)
     facets = []
 
