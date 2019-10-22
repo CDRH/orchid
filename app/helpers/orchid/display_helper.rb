@@ -9,8 +9,7 @@ module Orchid::DisplayHelper
     data = res[search_ele]
     if data.present?
       html = "<li><strong>#{label}:</strong> "
-      data = data.class == Array ? data : [data]
-      dataArray = data.map do |item|
+      dataArray = Array(data).map do |item|
         if link
           search_params = { "f" => ["#{search_ele}|#{item}"] }
           item_label = value_label(search_ele, item)
