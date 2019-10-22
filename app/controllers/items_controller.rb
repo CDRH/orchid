@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_items_api
-  before_action :set_page_facets, only: [:browse, :browse_facet, :index]
+  before_action :set_page_facets, only: [:browse, :browse_facet, :index, :show]
 
   def browse
     @title = t "browse.title"

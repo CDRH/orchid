@@ -4,6 +4,10 @@
 
 (Future release)
 
+`metadata` method in DisplayHelper altered so final argument is now
+a keyword argument, `link` which defaults to true. Previously, this
+was a non-keyword argument.
+
 Provides basic support for IIIF image URLs in views with the helper `iiif(partial_image_path, size: "!150,150")`
 
 __config/private.yml__
