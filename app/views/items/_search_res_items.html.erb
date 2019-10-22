@@ -7,49 +7,25 @@
           <ul>
             <% if item["date_display"].present? %>
               <li>
-                <strong><%= t "search.results.item.date", default: "Date" %></strong>:
-                <span><%= item["date_display"] %></span>
+                <%= metadata(item, t("search.results.item.date", default: "Date"), "date_display", link: false) %>
               </li>
             <% end %>
             <%# creator is a multivalued, nested field %>
             <% if item["creator"].present? %>
               <li>
-                <strong>
-                  <%= t "search.results.item.creator", default: "Creator(s)" %>
-                </strong>:
-                <% item["creator"].each do |c| %>
-                  <span><%= c["name"] %></span>
-                <% end %>
+                <%= metadata(item, t("search.results.item.creator", default: "Creator"), "creator.name", link: false) %>
               </li>
             <% end %>
             <%# format can be a multivalued or single keyword field %>
             <% if item["format"].present? %>
               <li>
-                <strong>
-                  <%= t "search.results.item.format", default: "Format" %>
-                </strong>:
-                <% if item["format"].is_a? Array %>
-                  <% item["format"].each do |f| %>
-                    <span><%= value_label("format", f) %></span>
-                  <% end %>
-                <% else %>
-                  <span><%= value_label("format", item["format"]) %>
-                <% end %>
+                <%= metadata(item, t("search.results.item.format", default: "Format"), "format", link: false) %>
               </li>
             <% end %>
             <%# source can be a multivalued or single keyword field %>
             <% if item["source"].present? %>
               <li>
-                <strong>
-                  <%= t "search.results.item.source", default: "Source" %>
-                </strong>:
-                <% if item["source"].is_a? Array %>
-                  <% item["source"].each do |s| %>
-                    <span><%= s %></span>
-                  <% end %>
-                <% else %>
-                  <span><%= item["source"] %></span>
-                <% end %>
+                <%= metadata(item, t("search.results.item.source", default: "Source"), "source", link: false) %>
               </li>
             <% end %>
           </ul>
