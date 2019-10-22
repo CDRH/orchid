@@ -69,10 +69,10 @@ module Orchid::ApplicationHelper
   end
 
   def copy_params
-    # Remove Rails internal parameters "action" and "controller" from URLs
-    # They are always accessible via params["action"] and params["controller"]
-    return params.to_unsafe_h
-             .reject { |param| param[/^(?:action|controller)$/] }
+    orchid_params = params.to_unsafe_h
+    Orchid::RAILS_INTERNAL_PARAMS.each { |p| orchid_params.delete(p) }
+
+    orchid_params
   end
 
   def clear_search_text
