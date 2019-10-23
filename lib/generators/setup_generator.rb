@@ -96,9 +96,10 @@ class SetupGenerator < Rails::Generators::Base
     project_shortname = prompt_for_value("Project Short Name (<title>, <meta application-name>)", "Template")
     project_subtitle = prompt_for_value("Project Subtitle (Site header subtitle)", "Template Subtitle")
 
-    # if the user selects a non english language, set up a locale file at that language
-    # at this moment, orchid supports multiple languages but does not ship with pre-made translations
-    # users will need to supply their own values for the strings in the file
+    # If the user selects a non-English language, set up a locale file.
+    # At this moment, Orchid supports multiple languages but does not ship with
+    # pre-made translations. Users will need to supply their own values for the
+    # strings in the file.
 
     all_langs.each do |lang|
       config_set("locales/#{lang}", "project_name", project_name, uncomment: true)
