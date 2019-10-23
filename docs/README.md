@@ -1,6 +1,8 @@
 # Orchid
 
-Orchid is a generator which can be used to create a new CDRH API template site. The new site can either connect to the entire API's contents or filter by "type," meaning that the new site can be used for a specific collection.
+Orchid is a generator which can be used to create a new CDRH API template site.
+The new site can either connect to the entire API's contents or filter by
+"type," meaning that the new site can be used for a specific collection.
 
 ## Contents
 
@@ -30,7 +32,8 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
   - [Stylesheets / Bootstrap](#stylesheets--bootstrap)
   - [(Re)start](#restart)
 - [Assets](#assets)
-  - [Javascript Inclusions and Asset Declarations](#javascript-inclusions-and-asset-declarations)
+  - [Javascript Inclusions and Asset
+    Declarations](#javascript-inclusions-and-asset-declarations)
   - [Stylesheet Imports](#stylesheet-imports)
   - [Conditional Assets](#conditional-assets)
 - [Links](#links)
@@ -70,13 +73,16 @@ echo '(app name)' > (app name)/.ruby-gemset
 ```
 
 ### All Installs
-If you are using a local (development) version of Orchid, add the following line to your Gemfile:
+If you are using a local (development) version of Orchid, add the following line
+to your Gemfile:
 
 ```ruby
 gem 'orchid', path: '/absolute/path/to/orchid'
 ```
 
-Otherwise, grab a version from the CDRH's GitHub. The `tag:` is optional but recommended, so that your site's functionality does not break unexpectedly when updating
+Otherwise, grab a version from the CDRH's GitHub. The `tag:` is optional but
+recommended, so that your site's functionality does not break unexpectedly when
+updating
 
 ```ruby
 gem 'orchid', git: 'https://github.com/CDRH/orchid'
@@ -92,7 +98,9 @@ bundle install
 
 
 ## Usage
-Once Orchid is installed successfully, run the generator to prepare your new Rails app. Run this with a `--help` to see which app files will be changed before you begin.
+Once Orchid is installed successfully, run the generator to prepare your new
+Rails app. Run this with a `--help` to see which app files will be changed
+before you begin.
 
 ```bash
 rails g(enerate) setup
@@ -104,23 +112,31 @@ The script will ask you for some initial configuration values.
 
 
 ## Configuration
-Most app configuration is located in `config/public.yml` and `config/private.yml`. If you are updating your version of Orchid, you may already have existing config files, so you will want to compare them against the orchid config template files to see if any changes need to be made.
+Most app configuration is located in `config/public.yml` and
+`config/private.yml`. If you are updating your version of Orchid, you may
+already have existing config files, so you will want to compare them against the
+orchid config template files to see if any changes need to be made.
 
 ### API
-The API path may be any endpoint in the API to which `/items` can be appended to receive a list of items. The path is set in `config/private.yml`. This should look like one of the following:
+The API path may be any endpoint in the API to which `/items` can be appended to
+receive a list of items. The path is set in `config/private.yml`. This should
+look like one of the following:
 
 ```yaml
 api_path: https://api_dev_path.unl.edu
 api_path: https://api_dev_path.unl.edu/collection/collection_name
 ```
 
-There are more variables related to API search results not set when running the generator script. You may change the following in `config/public.yml`:
+There are more variables related to API search results not set when running the
+generator script. You may change the following in `config/public.yml`:
 - The number of search results which come back by default
 - The type of sort which will be used for browsing
 - Facet list sizes and sorting
 - The earliest and latest dates of the app's documents
 
-All of these settings may be overridden in specific requests later as well. Please refer to https://github.com/CDRH/api for more information about the options.
+All of these settings may be overridden in specific requests later as well.
+Please refer to https://github.com/CDRH/api for more information about the
+options.
 
 ### Canonical Search Item Paths
 One may write their app to show items at a variety of paths, to group them
@@ -167,9 +183,13 @@ end
 ```
 
 ### Controllers and Actions
-It is possible to override the behavior of specific actions within controllers. To add or override a controller action, first create a file in the controllers directory with a name ending in `_override.rb`. For example, `app/controllers/general_override.rb`.
+It is possible to override the behavior of specific actions within controllers.
+To add or override a controller action, first create a file in the controllers
+directory with a name ending in `_override.rb`. For example,
+`app/controllers/general_override.rb`.
 
-Then, you will need a line at the top that indicates which controller you are working on.
+Then, you will need a line at the top that indicates which controller you are
+working on.
 
 ```
 GeneralController.class_eval do
@@ -181,7 +201,10 @@ GeneralController.class_eval do
 end
 ```
 
-You can also override an entire controller by simply placing a file with the controller's name in the controllers directory. For example, `app/controllers/general_controller.rb` would take the place of the Orchid version of this file. *This approach is not recommended.*
+You can also override an entire controller by simply placing a file with the
+controller's name in the controllers directory. For example,
+`app/controllers/general_controller.rb` would take the place of the Orchid
+version of this file. *This approach is not recommended.*
 
 ### Facets
 Facets are API fields used to group items with similar metadata in the "Browse"
@@ -291,11 +314,18 @@ your app's footer logo.
 Add any other files which should not be version controlled to `.gitignore`.
 
 ### Languages
-By default, Orchid assumes you are developing an English-only application, but supports the use of multiple languages. The setup generator called with `rails g(enerate) setup` will prompt for your default language and list of all languages.
+By default, Orchid assumes you are developing an English-only application, but
+supports the use of multiple languages. The setup generator called with `rails
+g(enerate) setup` will prompt for your default language and list of all
+languages.
 
-Most of the navigation, buttons, and general wording throughout Orchid has been pulled out into strings in `config/locales/en.yml`. Translate each entry of the YAML file. You may toggle between languages in the application and view the language differences.
+Most of the navigation, buttons, and general wording throughout Orchid has been
+pulled out into strings in `config/locales/en.yml`. Translate each entry of the
+YAML file. You may toggle between languages in the application and view the
+language differences.
 
-**All translations must start with the language key or Rails will not find the appropriate text.**  An example locales file might look like:
+**All translations must start with the language key or Rails will not find the
+appropriate text.** An example locales file might look like:
 
 ```yaml
 # config/locales/en.yml
@@ -303,7 +333,11 @@ en:
   title: Example Title
 ```
 
-The `en` key in the example above is critical to finding the correct string to display. By default, Orchid starts with an `en.yml` file and any other languages you specified as files with similar names during setup. However, you may add more files to help with organization. Just make sure you include the language key before you begin creating translated strings:
+The `en` key in the example above is critical to finding the correct string to
+display. By default, Orchid starts with an `en.yml` file and any other languages
+you specified as files with similar names during setup. However, you may add
+more files to help with organization. Just make sure you include the language
+key before you begin creating translated strings:
 
 ```yaml
 # config/locales/explore_en.yml
@@ -317,9 +351,13 @@ es:
     ...
 ```
 
-Please check the "Facets" section of this README for more information about how to customize the behavior and labels of the facets by language.
+Please check the "Facets" section of this README for more information about how
+to customize the behavior and labels of the facets by language.
 
-Though you can add HTML to your locales files, often if you want a view with large amounts of content you may prefer to simply work directly with views rather than with the locales. You may do this by including the language code in your filename.
+Though you can add HTML to your locales files, often if you want a view with
+large amounts of content you may prefer to simply work directly with views
+rather than with the locales. You may do this by including the language code in
+your filename.
 
 ```
 app
@@ -330,9 +368,13 @@ app
                     |-- mountains.en.html.erb
 ```
 
-In the above, if the locale were set to Czech with code `cz`, a request for the mountains view would render `mountains.cz.html.erb`. A request for a language without a specific view will render the general file `mountains.html.erb`. This naming convention also applies to partials.
+In the above, if the locale were set to Czech with code `cz`, a request for the
+mountains view would render `mountains.cz.html.erb`. A request for a language
+without a specific view will render the general file `mountains.html.erb`. This
+naming convention also applies to partials.
 
-Please refer to the [[Scoped Routes]] documentation for more information about adding more routes to apps which support multiple languages.
+Please refer to the [[Scoped Routes]] documentation for more information about
+adding more routes to apps which support multiple languages.
 
 #### Modify Languages
 To customize your application's use of multiple languages at a later date, alter
@@ -455,7 +497,8 @@ end
 The `Orchid::Routing.draw(scope: …)` call can be outside a Rails `scope` block,
 but it will likely be easier to follow to keep it alongside other scoped routes.
 
-If you are adding routes to an app which supports multiple languages, and you would like the routes to be available to both, you will need to set the scope:
+If you are adding routes to an app which supports multiple languages, and you
+would like the routes to be available to both, you will need to set the scope:
 
 ```ruby
 scope "(:locale)", locale: locales do
@@ -646,7 +689,8 @@ or other stylesheets in `app/assets/stylesheets/global/`
 Conditional stylesheets are included via `@ext_css` instance variable, e.g.:<br>
 `@ext_css = %w(leaflet stamen)`
 
-Conditional inline styling are included via `@inline_css` instance variable, e.g.:<br>
+Conditional inline styling are included via `@inline_css` instance variable,
+e.g.:<br>
 `@inline_css = [".cats .hidden {display: none;}"]`
 
 ### (Re)start
@@ -864,4 +908,5 @@ See [more examples in the Rails API link_to
 documentation](https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to-label-Examples).
 
 ## License
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT
+License](http://opensource.org/licenses/MIT).
