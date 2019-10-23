@@ -11,7 +11,7 @@ module Orchid::DisplayHelper
     data = metadata_get_field_values(res, api_field)
 
     if data.present?
-      html = metadata_label(label, data.length)
+      html = metadata_label(label, length: data.length)
 
       # iterate through the field values
       dataArray = data.map do |item|
@@ -48,10 +48,10 @@ module Orchid::DisplayHelper
   end
 
   # metadata label has been separated to allow apps to override included HTML
-  #   length is not currently used but is predicted to be used, or could
-  #   be used by overriding applications if desired
-  def metadata_label(label, length)
-    # TODO potentially add pluralization by locale
+  #   length intended to be used for pluralization,
+  #   or could be used by overriding applications if desired
+  def metadata_label(label, length: nil)
+    # TODO add pluralization that uses locale
     "<strong>#{label}:</strong> "
   end
 
