@@ -1,8 +1,8 @@
 # Orchid
 
 Orchid is a generator which can be used to create a new CDRH API template site.
-The new site can either connect to the entire API's contents or filter by
-"type," meaning that the new site can be used for a specific collection.
+The new site can either connect to the endpoint for the entire API's contents,
+or point to an endpoint that only searches a specific collection's contents.
 
 ## Contents
 
