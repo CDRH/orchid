@@ -1,6 +1,6 @@
 # Orchid
 
-Orchid is a generator which can be used to create a new CDRH API template site.  The new site can either connect to the entire API's contents or filter by "type," meaning that the new site can be used for a specific collection.
+Orchid is a generator which can be used to create a new CDRH API template site. The new site can either connect to the entire API's contents or filter by "type," meaning that the new site can be used for a specific collection.
 
 ## Contents
 
@@ -37,7 +37,7 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
 - [License](#license)
 
 ## Installation
-If you have ruby and Rails installed already, create the Rails app:<br>
+If you have Ruby and Rails installed already, create the Rails app:<br>
 `rails new (app name)`
 
 Skip to [All Installs](#all-installs)
@@ -48,12 +48,12 @@ There are a few additional steps when using RVM
 cd /var/local/www/rails
 rvm list
 
-# If ruby is not installed
+# If Ruby is not installed
 rvm install ruby
 rvm use ruby(-x.x.x)
 rvm @global do gem install bundler
 
-# If one skipped the above steps, switch to desired ruby
+# If one skipped the above steps, switch to desired Ruby
 rvm use ruby(-x.x.x)
 rvm gemset create (app name)
 rvm gemset use (app name)
@@ -61,10 +61,10 @@ rvm gemset use (app name)
 # Install Rails (--no-ri to skip docs)
 gem install rails --no-ri
 
-# Create the rails app
+# Create the Rails app
 rails new (app name)
 
-# Set RVM ruby version and gemset
+# Set RVM Ruby version and gemset
 echo 'ruby(-x.x.x)' > (app name)/.ruby-version
 echo '(app name)' > (app name)/.ruby-gemset
 ```
@@ -76,7 +76,7 @@ If you are using a local (development) version of Orchid, add the following line
 gem 'orchid', path: '/absolute/path/to/orchid'
 ```
 
-Otherwise, grab a version from the CDRH's github.  The `tag:` is optional but recommended, so that your site's functionality does not break unexpectedly when updating
+Otherwise, grab a version from the CDRH's GitHub. The `tag:` is optional but recommended, so that your site's functionality does not break unexpectedly when updating
 
 ```ruby
 gem 'orchid', git: 'https://github.com/CDRH/orchid'
@@ -92,7 +92,7 @@ bundle install
 
 
 ## Usage
-Once Orchid is installed successfully, run the generator to prepare your new rails app. Run this with a `--help` to see which app files will be changed before you begin.
+Once Orchid is installed successfully, run the generator to prepare your new Rails app. Run this with a `--help` to see which app files will be changed before you begin.
 
 ```bash
 rails g(enerate) setup
@@ -104,10 +104,10 @@ The script will ask you for some initial configuration values.
 
 
 ## Configuration
-Most app configuration is located in `config/public.yml` and `config/private.yml`.  If you are updating your version of Orchid, you may already have existing config files, so you will want to compare them against the orchid config template files to see if any changes need to be made.
+Most app configuration is located in `config/public.yml` and `config/private.yml`. If you are updating your version of Orchid, you may already have existing config files, so you will want to compare them against the orchid config template files to see if any changes need to be made.
 
 ### API
-The API path may be any endpoint in the API to which `/items` can be appended to receive a list of items.  The path is set in `config/private.yml`.  This should look like one of the following:
+The API path may be any endpoint in the API to which `/items` can be appended to receive a list of items. The path is set in `config/private.yml`. This should look like one of the following:
 
 ```yaml
 api_path: https://api_dev_path.unl.edu
@@ -120,7 +120,7 @@ There are more variables related to API search results not set when running the 
 - Facet list sizes and sorting
 - The earliest and latest dates of the app's documents
 
-All of these settings may be overridden in specific requests later as well.  Please refer to https://github.com/CDRH/api for more information about the options.
+All of these settings may be overridden in specific requests later as well. Please refer to https://github.com/CDRH/api for more information about the options.
 
 ### Canonical Search Item Paths
 One may write their app to show items at a variety of paths, to group them
@@ -167,7 +167,7 @@ end
 ```
 
 ### Controllers and Actions
-It is possible to override the behavior of specific actions within controllers.  To add or override a controller action, first create a file in the controllers directory with a name ending in `_override.rb`.  For example, `app/controllers/general_override.rb`.
+It is possible to override the behavior of specific actions within controllers. To add or override a controller action, first create a file in the controllers directory with a name ending in `_override.rb`. For example, `app/controllers/general_override.rb`.
 
 Then, you will need a line at the top that indicates which controller you are working on.
 
@@ -181,7 +181,7 @@ GeneralController.class_eval do
 end
 ```
 
-You can also override an entire controller by simply placing a file with the controller's name in the controllers directory.  For example, `app/controllers/general_controller.rb` would take the place of the Orchid version of this file.  *This approach is not recommended.*
+You can also override an entire controller by simply placing a file with the controller's name in the controllers directory. For example, `app/controllers/general_controller.rb` would take the place of the Orchid version of this file. *This approach is not recommended.*
 
 ### Facets
 Facets are API fields used to group items with similar metadata in the "Browse"
@@ -295,7 +295,7 @@ By default, Orchid assumes you are developing an English-only application, but s
 
 Most of the navigation, buttons, and general wording throughout Orchid has been pulled out into strings in `config/locales/en.yml`. Translate each entry of the YAML file. You may toggle between languages in the application and view the language differences.
 
-**All translations must start with the language key or rails will not find the appropriate text.**  An example locales file might look like:
+**All translations must start with the language key or Rails will not find the appropriate text.**  An example locales file might look like:
 
 ```yaml
 # config/locales/en.yml
