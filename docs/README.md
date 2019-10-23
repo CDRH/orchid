@@ -54,21 +54,19 @@ rvm list
 # If Ruby is not installed
 rvm install ruby
 rvm use ruby(-x.x.x)
-rvm @global do gem install bundler
 
 # If one skipped the above steps, switch to desired Ruby
 rvm use ruby(-x.x.x)
 rvm gemset create (app name)
 rvm gemset use (app name)
 
-# Install Rails (--no-ri to skip docs)
-gem install rails --no-ri
+# Install Rails (-N to skip docs, -v to specify version)
+gem install rails -N [-v #.#.#]
 
 # Create the Rails app
 rails new (app name)
 
-# Set RVM Ruby version and gemset
-echo 'ruby(-x.x.x)' > (app name)/.ruby-version
+# Set RVM Ruby gemset
 echo '(app name)' > (app name)/.ruby-gemset
 ```
 

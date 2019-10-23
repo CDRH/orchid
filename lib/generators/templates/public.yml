@@ -40,7 +40,7 @@ default: &default
     # sorting and response number
     sort:
       - title_sort|asc
-    rows: 50
+    num: 50
     # facet info on search page
     facet_limit: 20
     facet_sort: count|desc
