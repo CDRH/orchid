@@ -16,8 +16,12 @@ __config/private.yml__
 
 __config/public.yml__
 
-`app_options.media_server_dir` is the name of the project's directory following the IIIF server path
-`app_options.thumbnail_size` is the width and height of the image. Use "!" to preserve the ratio. Ex: "!200,200"
+- `app_options.media_server_dir` is the name of the project's directory
+  following the IIIF server path
+- `app_options.thumbnail_size` is the width and height of the image. Use "!" to
+  preserve the ratio. Ex: "!200,200"
+- `app_options.languages` must now delimit all languages used in the app, rather
+  than only non-default languages
 
 __config/initializers/config.rb__
 

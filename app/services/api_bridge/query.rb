@@ -129,8 +129,8 @@ module ApiBridge
           req
         end
       }
-      # remove rails specific parameters and reassign "rows"
-      %w[action commit controller utf8].each { |p| opts.delete(p) }
+      # remove rails internal parameters and reassign "rows" to "num"
+      Orchid::RAILS_INTERNAL_PARAMS.each { |p| opts.delete(p) }
       opts = remove_rows(opts)
       # remove page and replace with start
       opts = calc_start(opts)

@@ -13,14 +13,12 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # Render section overrides and localized views
+  # Render section overrides
   # View name does not include the locale or extensions
   # Example:
   #   render_overridable("explore/pages", "index")
   #   Looks for in order:
-  #     If @section defined & locale == "es", "@section/index_es.html.erb"
   #     If @section defined & no locale, "@section/index.html.erb"
-  #     If no @section & locale == "es", "explore/pages/index_es.html.erb"
   #     If no @section or locale, "explore/pages/index.html.erb"
   #  If no view found, render an error message with missing view path
   def render_overridable(path="", view="", **kwargs)
@@ -40,18 +38,11 @@ class ApplicationController < ActionController::Base
 
     # False when looking for views rather than partials
     is_partial = false
-    localized = "#{view}_#{locale}"
 
-    if @section.present? && lookup_context.template_exists?(localized, @section,
-                                                            is_partial)
-      path = "#{@section}"
-      view = localized
-    elsif @section.present? && lookup_context.template_exists?(view,
+    if @section.present? && lookup_context.template_exists?(view,
                                                                @section,
                                                                is_partial)
       path = "#{@section}"
-    elsif lookup_context.template_exists?(localized, path, is_partial)
-      view = localized
     elsif !lookup_context.template_exists?(view, path, is_partial)
       # Log error and display 404 view if view is missing
       path << "/" if path.present?

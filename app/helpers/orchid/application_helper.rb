@@ -69,10 +69,10 @@ module Orchid::ApplicationHelper
   end
 
   def copy_params
-    # Remove Rails internal parameters "action" and "controller" from URLs
-    # They are always accessible via params["action"] and params["controller"]
-    return params.to_unsafe_h
-             .reject { |param| param[/^(?:action|controller)$/] }
+    orchid_params = params.to_unsafe_h
+    Orchid::RAILS_INTERNAL_PARAMS.each { |p| orchid_params.delete(p) }
+
+    orchid_params
   end
 
   def clear_search_text
@@ -110,13 +110,33 @@ module Orchid::ApplicationHelper
     I18n.locale
   end
 
-  def locale_link_options(lang_code)
-    # don't use copy_params because we still want the action and controller
-    opts = params.to_unsafe_h
-    # if the requested language is the default, then it needs to be blank
-    # but otherwise, fill in locale with the requested language
-    opts["locale"] = lang_code == APP_OPTS["language_default"] ? nil : lang_code
-    opts
+  def locale_link(lang_code)
+    locales = APP_OPTS["languages"].split("|")
+      .reject { |l| l == APP_OPTS["language_default"] }.join("|")
+    url = request.fullpath
+
+    if lang_code == APP_OPTS["language_default"]
+      if config.relative_url_root.present?
+        regex = /^(#{config.relative_url_root})(?:\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1\\2")
+      else
+        regex = /(?:^\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1")
+
+        # Handle edge case: request is for root of site on non-default locale
+        link_path = "/" if link_path.empty?
+      end
+    else
+      if config.relative_url_root.present?
+        regex = /^(#{config.relative_url_root})(?:\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1/#{lang_code}\\2")
+      else
+        regex = /(?:^\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "/#{lang_code}\\1")
+      end
+    end
+
+    link_path
   end
 
   # partial_name does not include the locale, underscore, or extensions
@@ -126,6 +146,9 @@ module Orchid::ApplicationHelper
   # Usage:
   #   render localized_partial("index", "explore/partials")
   #   (would include "explore/partials/_index_en.html.erb" if locale == en)
+  # TODO remove this method when migrating orchid to rails 6
+  deprecate localized_partial:
+    "prefer localized views: https://guides.rubyonrails.org/i18n.html#localized-views"
   def localized_partial(partial_name, prefixes)
     localized = "#{partial_name}_#{locale}"
     if lookup_context.template_exists?(localized, prefixes, true)
@@ -162,15 +185,13 @@ module Orchid::ApplicationHelper
     end
   end
 
-  # Render section overrides and localized partials
-  # Partial name does not include the locale, underscore, or extensions
+  # Render section override and partials
+  # partial argument does not include the locale, underscore, or extensions
   # Example:
   #   render_overridable("explore/partials", "index")
   #   Looks for in order:
-  #     If @section defined & locale == "es", "@section/_index_es.html.erb"
-  #     If @section defined & no locale, "@section/_index.html.erb"
-  #     If no @section & locale == "es", "explore/partials/_index_es.html.erb"
-  #     If no @section or locale, "explore/partials/_index.html.erb"
+  #     If @section defined -> "@section/_index.html.erb"
+  #     If no @section -> "explore/partials/_index.html.erb"
   #  If no partial found, render an error message with missing partial path
   def render_overridable(path="", partial="", **kwargs)
     # Only one arg will be passed if replacing a simple `render "template"` call
@@ -189,17 +210,10 @@ module Orchid::ApplicationHelper
 
     # True when looking for partials rather than views
     is_partial = true
-    localized = "#{partial}_#{locale}"
-    if @section.present? && lookup_context.template_exists?(localized, @section,
-                                                            is_partial)
-      path = "#{@section}"
-      partial = localized
-    elsif @section.present? && lookup_context.template_exists?(partial,
+    if @section.present? && lookup_context.template_exists?(partial,
                                                                @section,
                                                                is_partial)
       path = "#{@section}"
-    elsif lookup_context.template_exists?(localized, path, is_partial)
-      partial = localized
     elsif !lookup_context.template_exists?(partial, path, is_partial)
       # fallback to informative partial about customization
       path << "/" if path.present?

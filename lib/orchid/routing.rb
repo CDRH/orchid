@@ -8,20 +8,15 @@ module Orchid
         Rails.application.routes.routes.map { |r| r.name } : []
 
       # If multiple languages, constrain locale to non-default language codes
-      locales = defined?(APP_OPTS) ? Regexp.new(APP_OPTS["languages"]) : nil
+      locales = nil
+      if defined?(APP_OPTS) && APP_OPTS["languages"].present?
+        other_languages = APP_OPTS["languages"].split("|")
+          .reject { |l| l == APP_OPTS["language_default"] }
 
-      draw_i18n_routes = proc { |route|
-        if locales.present?
-          # If multiple languages, scope routes for i18n locales
-          scope "(:locale)", constraints: { locale: locales } do
-            # Call routing DSL methods of Orchid route procs in this context
-            instance_exec(&route[:definition])
-          end
-        else
-          # Call routing DSL methods of Orchid route procs in this context
-          instance_exec(&route[:definition])
+        if other_languages.present?
+          locales = Regexp.new(other_languages.join("|"))
         end
-      }
+      end
 
       draw_reusable_routes = proc {
         REUSABLE_ROUTES.each do |route|
@@ -29,15 +24,20 @@ module Orchid
           next if (routes.present? && !routes.include?(route[:name])) \
             || drawn_routes.include?(route[:name])
 
-          instance_exec(route, &draw_i18n_routes)
+          instance_eval(&route[:definition])
         end
       }
 
-      Rails.application.routes.draw do
-        # Set scope to section name if no scope set
-        scope = "/#{section}" if section.present? && scope.blank?
-        scope_path = scope
+      i18n_scope = proc {
+        ROUTES.each do |route|
+          # Don't draw routes if already drawn
+          next if drawn_routes.include?(route[:name])
 
+          instance_eval(&route[:definition])
+        end
+
+        # Reusable routes may be scoped by section name or custom scope path
+        scope_path = section.present? && scope.blank? ? "/#{section}" : scope
         if scope_path.present?
           scope scope_path, as: section, defaults: { section: section } do
             instance_eval(&draw_reusable_routes)
@@ -45,13 +45,17 @@ module Orchid
         else
           instance_eval(&draw_reusable_routes)
         end
+      }
 
-        ROUTES.each do |route|
-          # Don't draw routes if already drawn
-          next if drawn_routes.include?(route[:name])
-
-          instance_exec(route, &draw_i18n_routes)
-        end # non-reusable route handling
+      Rails.application.routes.draw do
+        # If multiple languages, scope routes for i18n locales
+        if locales.present?
+          scope "(:locale)", constraints: { locale: locales } do
+            instance_eval(&i18n_scope)
+          end
+        else
+          instance_eval(&i18n_scope)
+        end
       end # Rails application route drawing block
     end # draw method
   end
