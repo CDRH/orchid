@@ -17,6 +17,7 @@ Orchid is a generator which can be used to create a new CDRH API template site. 
   - [Footer Logo](#footer-logo)
   - [Gitignore](#gitignore)
   - [Languages](#languages)
+    - [Modify Languages](#modify-languages)
   - [Redirects and Rewrites](#redirects-and-rewrites)
   - [Routes](#routes)
     - [Scoped Routes](#scoped-routes)
@@ -290,14 +291,11 @@ your app's footer logo.
 Add any other files which should not be version controlled to `.gitignore`.
 
 ### Languages
-By default, Orchid assumes you are developing an English-only application, but supports the use of multiple languages. To customize your application to use multiple languages, alter the `language_default` and `languages` fields in `config/public.yml`:
+By default, Orchid assumes you are developing an English-only application, but supports the use of multiple languages. The setup generator called with `rails g(enerate) setup` will prompt for your default language and list of all languages.
 
-```
-language_default: es
-languages: en|es|cz
-```
+Most of the navigation, buttons, and general wording throughout Orchid has been pulled out into strings in `config/locales/en.yml`. Translate each entry of the YAML file. You may toggle between languages in the application and view the language differences.
 
-Most of the navigation, buttons, and general wording throughout orchid has been pulled out into `config/locales/en.yml`.  Copy that file to match the other language(s) your app will support, for example: `config/locales/es.yml`.  Translate each entry of the yaml file. You may toggle between languages in the application and view the language differences. **All translations must start with the language key or rails will not find the appropriate text.**  An example locales file might look like:
+**All translations must start with the language key or rails will not find the appropriate text.**  An example locales file might look like:
 
 ```yaml
 # config/locales/en.yml
@@ -305,7 +303,7 @@ en:
   title: Example Title
 ```
 
-The `en` key in the example above is critical to finding the correct string to display when using localization. By default, Orchid starts with an `en.yml` file and any other languages you specified as files with similar names. However, you may add more files to help with organization, just make sure you include the language key before you begin creating localized strings:
+The `en` key in the example above is critical to finding the correct string to display. By default, Orchid starts with an `en.yml` file and any other languages you specified as files with similar names during setup. However, you may add more files to help with organization. Just make sure you include the language key before you begin creating translated strings:
 
 ```yaml
 # config/locales/explore_en.yml
@@ -331,9 +329,24 @@ app
                     |-- mountains.cz.html.erb
                     |-- mountains.en.html.erb
 ```
+
 In the above, if the locale were set to Czech with code `cz`, a request for the mountains view would render `mountains.cz.html.erb`. A request for a language without a specific view will render the general file `mountains.html.erb`. This naming convention also applies to partials.
 
 Please refer to the [[Scoped Routes]] documentation for more information about adding more routes to apps which support multiple languages.
+
+#### Modify Languages
+To customize your application's use of multiple languages at a later date, alter
+the `language_default` and `languages` values in `config/public.yml` to change
+which languages are used:
+
+```
+language_default: es
+languages: en|es|cz
+```
+
+If adding a new language, copy existing files in `config/locales/` from one
+language to new files for the language being added, for example `de.yml` for
+German, and translate their contents to the new language.
 
 ### Redirects and Rewrites
 
