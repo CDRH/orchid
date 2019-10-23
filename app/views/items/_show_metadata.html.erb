@@ -9,43 +9,43 @@
     <% if @res["date_display"].present? %>
       <li>
         <%= metadata(@res, t("item.metadata.date", default: "Date"),
-            "date_display") %>
+                     "date_display") %>
       </li>
     <% end %>
     <% if @res["creator"].present? %>
       <li>
         <%= metadata(@res, t("item.metadata.creators", default: "Author(s)"),
-            "creator.name") %>
+                     "creator.name") %>
       </li>
     <% end %>
     <% if @res["format"].present? %>
       <li>
         <%= metadata(@res, t("item.metadata.format", default: "Format"),
-            "format") %>
+                     "format") %>
       </li>
     <% end %>
     <% if @res["category"].present? %>
       <li>
         <%= metadata(@res, t("item.metadata.category", default: "Category"),
-            "category") %>
+                     "category") %>
       </li>
     <% end %>
     <% if @res["subcategory"].present? %>
       <li>
-        <%= metadata(@res, t("item.metadata.subcategory", default: "Subcategory"),
-            "subcategory") %>
+        <%= metadata(@res, t("item.metadata.subcategory",
+                     default: "Subcategory"), "subcategory") %>
       </li>
     <% end %>
     <% if @res["works"].present? %>
       <li>
         <%= metadata(@res, t("item.metadata.works", default: "Works"),
-            "works") %>
+                     "works") %>
       </li>
     <% end %>
     <% if @res["places"].present? %>
       <li>
         <%= metadata(@res, t("item.metadata.places", default: "Place(s)"),
-            "places") %>
+                     "places") %>
       </li>
     <% end %>
     <%# When copying this template into projects, consider adding rel tag to the source link

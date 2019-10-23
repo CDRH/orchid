@@ -7,25 +7,29 @@
           <ul>
             <% if item["date_display"].present? %>
               <li>
-                <%= metadata(item, t("search.results.item.date", default: "Date"), "date_display", link: false) %>
+                <%= metadata(item, t("search.results.item.date",
+                  default: "Date"), "date_display", link: false) %>
               </li>
             <% end %>
             <%# creator is a multivalued, nested field %>
             <% if item["creator"].present? %>
               <li>
-                <%= metadata(item, t("search.results.item.creator", default: "Creator"), "creator.name", link: false) %>
+                <%= metadata(item, t("search.results.item.creator",
+                  default: "Creator"), "creator.name", link: false) %>
               </li>
             <% end %>
             <%# format can be a multivalued or single keyword field %>
             <% if item["format"].present? %>
               <li>
-                <%= metadata(item, t("search.results.item.format", default: "Format"), "format", link: false) %>
+                <%= metadata(item, t("search.results.item.format",
+                  default: "Format"), "format", link: false) %>
               </li>
             <% end %>
             <%# source can be a multivalued or single keyword field %>
             <% if item["source"].present? %>
               <li>
-                <%= metadata(item, t("search.results.item.source", default: "Source"), "source", link: false) %>
+                <%= metadata(item, t("search.results.item.source",
+                  default: "Source"), "source", link: false) %>
               </li>
             <% end %>
           </ul>
