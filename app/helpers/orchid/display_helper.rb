@@ -17,7 +17,7 @@ module Orchid::DisplayHelper
       dataArray = data.map do |item|
         link ? metadata_create_field_link(api_field, item) : item
       end
-      html += dataArray
+      html << dataArray
                 .map { |i| "<span>#{i}</span>" }
                 .join(separator)
 
