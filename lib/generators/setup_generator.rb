@@ -33,14 +33,13 @@ class SetupGenerator < Rails::Generators::Base
     msgs << remove_files
     msgs << scripts
     msgs << stylesheet
-    msgs << "For further app configuration, read more at https://github.com/CDRH/orchid#configuration"
+    msgs << "For further app configuration, read more at https://github.com/CDRH/orchid/tree/master/docs#configuration"
 
     Bundler.with_clean_env do
       run "bundle install"
     end
 
     puts msgs.compact.join("\n\n")
-
   end
 
   private
