@@ -6,7 +6,7 @@ module Orchid::DateHelper
     new_params.delete("date_to")
     # Remove page to return to first page of reorganized results
     new_params.delete("page")
-    return new_params
+    new_params
   end
 
   # TODO could abstract this into a CDRH gem
@@ -16,7 +16,7 @@ module Orchid::DateHelper
     m = default_date[1] if m.blank?
     d = default_date[2] if d.blank?
 
-    return "#{y}-#{m}-#{d}"
+    "#{y}-#{m}-#{d}"
   end
 
   def date_present? date
@@ -35,7 +35,7 @@ module Orchid::DateHelper
     end
     options.delete("date_from")
     options.delete("date_to")
-    return [options, from, to]
+    [options, from, to]
   end
 
   def date_format(date)
@@ -62,7 +62,7 @@ module Orchid::DateHelper
   # TODO could abstract this into a CDRH gem
   # if a date is blank, use the other date in its place
   def date_overwrite(original, overwrite)
-    return date_present?(original) ? original : overwrite
+    date_present?(original) ? original : overwrite
   end
 
   def date_selection?(from, to)
@@ -71,13 +71,13 @@ module Orchid::DateHelper
         return true
       end
     end
-    return false
+    false
   end
 
   # unlikely candidate to be abstracted into a gem because it
   # operates directly on the params object
   def date_set(date_from, date_to)
-    # if the first parameter is empty, then default to using the second date instead
+    # if the first parameter is empty, default to using second date instead
     date_from = date_overwrite(date_from, date_to)
     date_to = date_overwrite(date_to, date_from)
 
@@ -93,7 +93,7 @@ module Orchid::DateHelper
     params[:date_from] = date_from.split("-")
     params[:date_to] = date_to.split("-")
 
-    return [date_from, date_to]
+    [date_from, date_to]
   end
 
 end
