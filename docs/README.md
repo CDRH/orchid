@@ -1,8 +1,13 @@
 # Orchid
 
-Orchid is a generator which can be used to create a new CDRH API template site.
-The new site can either connect to the endpoint for the entire API's contents,
-or point to an endpoint that only searches a specific collection's contents.
+Orchid is a multi-lingual Rails engine which handles common functionality across
+Rails apps which rely on the CDRH API. It includes a generator for configuring
+new Rails apps, which can primarily connect to the endpoint for the entire API's
+contents, or connect to an endpoint that only searches a specific collection's
+contents. Apps can also configure additional "sections" which use independent
+API configurations and search filtering UI, as well as the ability to granularly
+overrides templates without the need to copy or create additional Rails
+controllers.
 
 ## Contents
 
@@ -696,6 +701,9 @@ After customization, one must (re)start the Rails app.
 
 
 ## Assets
+Orchid is compatibile with both Sprockets 3.x and Sprockets 4.x. Adding
+additional global or conditional assets behaves the same for both versions.
+
 The asset pipeline has been configured to facilitate adding assets without
 the need to update the asset precompilation list or copy/merge files when
 changes are made to Orchid's assets.
@@ -786,7 +794,7 @@ To load assets on all pages rendered by a controller, use a [before
 filter](https://guides.rubyonrails.org/action_controller_overview.html#filters)
 to call the `add_assets` helper:
 ```ruby
-class SectionController < ApplicationController
+class OTHERController < ApplicationController
   before_action :append_assets
 …
   private
