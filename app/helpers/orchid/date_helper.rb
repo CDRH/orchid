@@ -16,10 +16,6 @@ module Orchid::DateHelper
     m = default_date[1] if m.blank?
     d = default_date[2] if d.blank?
 
-    # pad month and day with zeros (1 => 01)
-    m = m.rjust(2, "0")
-    d = d.rjust(2, "0")
-
     return "#{y}-#{m}-#{d}"
   end
 
@@ -40,6 +36,27 @@ module Orchid::DateHelper
     options.delete("date_from")
     options.delete("date_to")
     return [options, from, to]
+  end
+
+  def date_format(date)
+    y, m, d = date.split("-")
+
+    # Fix numbers out of range
+    y = 1 if y.to_i < 1
+    y = Time.now.year if y.to_i > Time.now.year
+
+    m = 1 if m.to_i < 1
+    m = 12 if m.to_i > 12
+
+    d = 1 if d.to_i < 1
+    d = 31 if d.to_i > 31
+
+    # pad with zeros (1 => 01)
+    y = y.to_s.rjust(4, "0")
+    m = m.to_s.rjust(2, "0")
+    d = d.to_s.rjust(2, "0")
+
+    "#{y}-#{m}-#{d}"
   end
 
   # TODO could abstract this into a CDRH gem
@@ -68,6 +85,9 @@ module Orchid::DateHelper
     # and first/last day of year to cover missing year, month, and day
     date_from = date_default(date_from, [DATE_FIRST[0], "01", "01"])
     date_to = date_default(date_to, [DATE_LAST[0], "12", "31"])
+
+    date_from = date_format(date_from)
+    date_to = date_format(date_to)
 
     # Set parameters so form populated with calculated dates
     params[:date_from] = date_from.split("-")
