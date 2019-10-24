@@ -85,7 +85,7 @@ class SetupGenerator < Rails::Generators::Base
     config_set("public", "ALL_LANGUAGES", langs)
 
     langs = [] if langs.blank?
-    langs.each do |lang|
+    Array(langs).each do |lang|
       # for each language which is not english, create a locale file
       next if lang == "en"
       copy_locale(lang)
@@ -101,7 +101,7 @@ class SetupGenerator < Rails::Generators::Base
     # pre-made translations. Users will need to supply their own values for the
     # strings in the file.
 
-    all_langs.each do |lang|
+    Array(langs).each do |lang|
       config_set("locales/#{lang}", "project_name", project_name, uncomment: true)
       config_set("locales/#{lang}", "project_shortname", project_shortname, uncomment: true)
       config_set("locales/#{lang}", "project_subtitle", project_subtitle, uncomment: true)
