@@ -790,18 +790,18 @@ syntax above or in the view template without the `helpers.` syntax:
 <% @ext_css = add_assets(@ext_css, %w(sheet1 sheet2)) %>
 ```
 
-To load assets on all pages rendered by a controller, use a [before
+To load assets on all pages in a group rendered by a controller, use a [before
 filter](https://guides.rubyonrails.org/action_controller_overview.html#filters)
 to call the `add_assets` helper:
 ```ruby
-class OTHERController < ApplicationController
+class GroupController < ApplicationController
   before_action :append_assets
 …
   private
 
   def append_assets
-    @ext_css = helpers.add_assets(@ext_css, "section")
-    @ext_js = helpers.add_assets(@ext_js, "section")
+    @ext_css = helpers.add_assets(@ext_css, "group")
+    @ext_js = helpers.add_assets(@ext_js, "group")
   end
 end
 ```
@@ -812,13 +812,13 @@ within the controller too:
   before_action :append_assets, only: [:action1, :action3]
 ```
 
-If a section's pages are rendered by more than one controller, one may add a
+If a group's pages are rendered by more than one controller, one may add a
 check in the application controller or action used by multiple pages to add
 assets if the request path matches:
 ```ruby
-if request.path[/^\/section\//]
-  @ext_css = helpers.add_assets(@ext_css, "section")
-  @ext_js = helpers.add_assets(@ext_js, "section")
+if request.path[/^\/group\//]
+  @ext_css = helpers.add_assets(@ext_css, "group")
+  @ext_js = helpers.add_assets(@ext_js, "group")
 end
 ```
 
@@ -831,16 +831,16 @@ will be named rather than the source file, so if one's asset file is
 The additions to the precompile list may be broken up for organization e.g.:
 
 ```ruby
-# Section A
+# Group A
 Rails.application.config.assets.precompile += %w(
-  section_a.css
-  section_a.js
+  group_a.css
+  group_a.js
 )
 
-# Section B
+# Group B
 Rails.application.config.assets.precompile += %w(
-  section_b.css
-  section_b.js
+  group_b.css
+  group_b.js
 )
 ```
 
