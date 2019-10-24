@@ -11,7 +11,7 @@
   </div>
   <div class="panel-body collapse <%= class_in %>" id="dates">
     <%= form_tag prefix_path("search_path"), method: "get" do %>
-      <!-- date from -->
+      <%# date from %>
       <div class="form-group form-inline">
         <% dfrom = params["date_from"] ? params["date_from"] : [] %>
         <div class="clearfix">
@@ -28,23 +28,35 @@
         </div>
 
         <%= text_field_tag "date_from[]", dfrom[0], id: "date_from",
-            class: "form-control input-sm", placeholder: DATE_FIRST[0], maxlength: "4", size: "4", aria_label: t("search.dates.from_year", default: "From Year"), title: "From Year" %>
+          class: "form-control input-sm", placeholder: DATE_FIRST[0],
+          maxlength: 4, size: 4, title: "From Year",
+          aria_label: t("search.dates.from_year", default: "From Year") %>
         <%= text_field_tag "date_from[]", dfrom[1],
-            class: "form-control input-sm", placeholder: DATE_FIRST[1], maxlength: "2", size: "2", aria_label: t("search.dates.from_month", default: "From Month"), title: "From Month" %>
+          class: "form-control input-sm", placeholder: DATE_FIRST[1],
+          maxlength: 2, size: 2, title: "From Month",
+          aria_label: t("search.dates.from_month", default: "From Month") %>
         <%= text_field_tag "date_from[]", dfrom[2],
-            class: "form-control input-sm", placeholder: DATE_FIRST[2], maxlength: "2", size: "2", aria_label: t("search.dates.from_day", default: "From Day"), title: "From Day" %>
+          class: "form-control input-sm", placeholder: DATE_FIRST[2],
+          maxlength: 2, size: 2, title: "From Day",
+          aria_label: t("search.dates.from_day", default: "From Day") %>
       </div>
 
-      <!-- date to -->
+      <%# date to %>
       <div class="form-group form-inline">
         <% dto = params["date_to"] ? params["date_to"] : [] %>
         <%= label_tag "date_to", t("search.dates.date_to_label", default: "Date To") %><br/>
         <%= text_field_tag "date_to[]", dto[0], id: "date_to",
-            class: "form-control input-sm", placeholder: DATE_LAST[0], maxlength: "4", size: "4", aria_label: t("search.dates.to_year", default: "To Year"), title: "To Year" %>
+          class: "form-control input-sm", placeholder: DATE_LAST[0],
+          maxlength: 4, size: 4, title: "To Year",
+          aria_label: t("search.dates.to_year", default: "To Year") %>
         <%= text_field_tag "date_to[]", dto[1],
-            class: "form-control input-sm", placeholder: DATE_LAST[1], maxlength: "2", size: "2", aria_label: t("search.dates.to_month", default: "To Month"), title: "To Month" %>
+          class: "form-control input-sm", placeholder: DATE_LAST[1],
+          maxlength: 2, size: 2, title: "To Month",
+          aria_label: t("search.dates.to_month", default: "To Month") %>
         <%= text_field_tag "date_to[]", dto[2],
-            class: "form-control input-sm", placeholder: DATE_LAST[2], maxlength: "2", size: "2", aria_label: t("search.dates.to_day", default: "To Day"), title: "To Day" %>
+          class: "form-control input-sm", placeholder: DATE_LAST[2],
+          maxlength: 2, size: 2, title: "To Day",
+          aria_label: t("search.dates.to_day", default: "To Day") %>
       </div>
       <%= render_overridable("hidden_fields") %>
       <%= hidden_field_tag(:q, params["q"]) %>
