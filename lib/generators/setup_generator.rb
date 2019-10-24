@@ -130,11 +130,11 @@ class SetupGenerator < Rails::Generators::Base
     answer = prompt_for_value("Production IIIF Path", "https://cdrhmedia.unl.edu/iiif/2")
     config_replace("private", "iiif_path: https://cdrhmedia.unl.edu/iiif/2", "iiif_path: #{answer}")
 
-    <<-HEREDOC
+    <<-MSG.chomp
 Configuration files copied to config/private.example.yml, config/private.yml, and config/public.yml.
 Locale files copied to config/locales
 Updated with initial app customizations
-    HEREDOC
+    MSG
   end
 
   def copy_initializer
@@ -142,7 +142,7 @@ Updated with initial app customizations
     # http://guides.rubyonrails.org/generators.html#initializer
     FileUtils.cp("#{@this_app}/lib/generators/templates/config.rb", "#{@new_app}/config/initializers/config.rb")
 
-    return "Initializer to load config values into app copied to config/initializers/config.rb"
+    "Initializer to load config values into app copied to config/initializers/config.rb"
   end
 
   def copy_locale(lang)
@@ -155,7 +155,7 @@ Updated with initial app customizations
     FileUtils.mkdir("#{@new_app}/config/sections/")
     FileUtils.cp("#{@this_app}/lib/generators/templates/section.yml", "#{@new_app}/config/sections/section.example.yml")
 
-    <<-MSG
+    <<-MSG.chomp
 Redirect middleware configuration example file copied to
   config/redirects.example.yml
 Section configuration example file copied to config/sections/section.example.yml
@@ -165,14 +165,14 @@ Section configuration example file copied to config/sections/section.example.yml
   def favicon
     FileUtils.cp("#{@this_app}/app/assets/images/favicon.png", "#{@new_app}/app/assets/images/favicon.png")
 
-    return "Favicon copied to app/assets/images/favicon.png"
+    "Favicon copied to app/assets/images/favicon.png"
   end
 
   def footer_logo
     logo_image = "footer_logo.png"
     FileUtils.cp("#{@this_app}/app/assets/images/#{logo_image}", "#{@new_app}/app/assets/images/#{logo_image}")
 
-    return "Footer logo placeholder copied to app/assets/images/#{logo_image}"
+    "Footer logo placeholder copied to app/assets/images/#{logo_image}"
   end
 
   def gems
@@ -207,7 +207,7 @@ Gems:
   def gitignore
     FileUtils.cp("#{@this_app}/lib/generators/templates/.gitignore", "#{@new_app}/.gitignore")
 
-    return "Orchid .gitignore file copied to app's root directory"
+    "Orchid .gitignore file copied to app's root directory"
   end
 
   def handle_exceptions
@@ -216,28 +216,28 @@ Gems:
     config.exceptions_app = self.routes
     EOS
     end
-    return "Added exceptions handling into application.rb"
+    "Added exception handling via templates into application.rb"
   end
 
   def helpers
     FileUtils.rm("#{@new_app}/app/helpers/application_helper.rb")
     FileUtils.cp(Dir.glob("#{@this_app}/app/helpers/*_helper.rb"), "#{@new_app}/app/helpers/")
 
-    return "Copied extendable helper files which include Orchid's to app"
+    "Copied extendable helper files which include Orchid's to app"
   end
 
   def prompt_for_value(message, default)
     puts "\n#{message}\n[#{default}]: "
     value = gets.chomp
 
-    return value.empty? ? default : value
+    value.empty? ? default : value
   end
 
   def remove_files
     FileUtils.rm("#{@new_app}/app/controllers/application_controller.rb")
     FileUtils.rm("#{@new_app}/app/views/layouts/application.html.erb")
 
-    return "Removed app's application controller and layout so it uses Orchid's"
+    "Removed app's application controller and layout so it uses Orchid's"
   end
 
   def scripts
@@ -255,7 +255,7 @@ Gems:
     FileUtils.mkdir("#{@new_app}/app/assets/javascripts/global")
     FileUtils.touch("#{@new_app}/app/assets/javascripts/global/#{@new_app_name}.js")
 
-    return "Replaced app's JavaScript assets with Orchid's.\nCreated global/ directory and file with app name for app-wide JavaScript"
+    "Replaced app's JavaScript assets with Orchid's.\nCreated global/ directory and file with app name for app-wide JavaScript"
   end
 
   def stylesheet
@@ -270,7 +270,7 @@ Gems:
     FileUtils.mkdir("#{@new_app}/app/assets/stylesheets/global/")
     FileUtils.touch("#{@new_app}/app/assets/stylesheets/global/#{@new_app_name}.scss")
 
-    return "Replaced app's stylesheet assets with Orchid's.\nCreated global/ directory and file with app name for app-wide styling"
+    "Replaced app's stylesheet assets with Orchid's.\nCreated global/ directory and file with app name for app-wide styling"
   end
 
 end
