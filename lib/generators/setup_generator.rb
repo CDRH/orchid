@@ -176,13 +176,25 @@ Section configuration example file copied to config/sections/section.example.yml
   end
 
   def gems
-    gem 'bootstrap-sass', '~> 3.3.6'
-    gem 'jquery-rails', '~> 4.3'
+    # Replace sass-rails with sassc-rails
+    gsub_file "#{@new_app}/Gemfile", /^(gem 'sass-rails'.*)$/,
+      "gem 'sassc-rails', '~> 2.1'"
 
     # Remove turbolinks gem
     gsub_file "#{@new_app}/Gemfile", /^(gem 'turbolinks'.*)$/, "#\\1"
 
-    return "Gems: Turbolinks removed"
+    # Replace chromedriver-helper with webdrivers
+    gsub_file "#{@new_app}/Gemfile",
+      /chromedriver to run system tests with Chrome/,
+      "web drivers to run system tests with browsers"
+    gsub_file "#{@new_app}/Gemfile", /^(gem 'chromedriver-helper'.*)$/,
+      "gem 'webdrivers'"
+
+    # Add Bootstrap and jQuery gems
+    gem 'bootstrap-sass', '~> 3.4.1'
+    gem 'jquery-rails', '~> 4.3'
+
+    return "Gems: Turbolinks removed; 'sass-rails' replaced with 'sassc-rails'; 'chromedriver-helper' replaced with 'webdrivers'"
   end
 
   def gitignore

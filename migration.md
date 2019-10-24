@@ -31,6 +31,13 @@ __app/assets/config/manifest.js__
 
 Copy `app/assets/config/manifest.js` to same path in existing apps
 
+__Gemfile__
+
+Ensure that all Gemfile updates from the generator have been added:
+
+- `gem 'sass-rails' …` replaced with `gem 'sassc-rails', '~> 2.1'`
+- `gem 'chromedriver-helper'` replaced with `gem 'webdrivers'`
+- `gem 'bootstrap-sass'` has version constraint `'~> 3.4.1'`
 
 ## 2.0.0 to 2.1.0
 
