@@ -28,7 +28,7 @@ class SetupGenerator < Rails::Generators::Base
     msgs << footer_logo
     msgs << gems
     msgs << gitignore
-    msgs << handle_exceptions
+    msgs << handle_exceptions_with_templates
     msgs << helpers
     msgs << remove_files
     msgs << scripts
@@ -210,9 +210,9 @@ Gems:
     "Orchid .gitignore file copied to app's root directory"
   end
 
-  def handle_exceptions
-    inject_into_file "#{@new_app}/config/application.rb", after: "config.load_defaults 5.1\n" do <<-EOS
-    # Enable custom error pages
+  def handle_exceptions_with_templates
+    inject_into_file "#{@new_app}/config/application.rb", after: "config.load_defaults 5.2\n" do <<-EOS
+    # Enable templates for error pages rather than static HTML files
     config.exceptions_app = self.routes
     EOS
     end
