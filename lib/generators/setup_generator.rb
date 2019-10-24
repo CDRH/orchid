@@ -4,7 +4,7 @@ class SetupGenerator < Rails::Generators::Base
     This generator prepares applications for API integration:
       - Generates config files
       - Generates favicon and footer_logo images
-      - Disables turbolinks in app's Gemfile
+      - Updates Gemfile to add dependencies, remove unwanted, replace unsupported gems
       - Generates .gitignore file
       - Generates locales en file for customization
       - Removes app's application controller and layout to use Orchid's
@@ -194,7 +194,14 @@ Section configuration example file copied to config/sections/section.example.yml
     gem 'bootstrap-sass', '~> 3.4.1'
     gem 'jquery-rails', '~> 4.3'
 
-    return "Gems: Turbolinks removed; 'sass-rails' replaced with 'sassc-rails'; 'chromedriver-helper' replaced with 'webdrivers'"
+    <<-MSG.chomp
+Gems:
+  sass-rails replaced with sassc-rails
+  turbolinks removed
+  chromedriver-helper replaced with webdrivers
+  bootstrap-sass added
+  jquery-rails added
+    MSG
   end
 
   def gitignore
