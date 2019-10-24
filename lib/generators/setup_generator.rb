@@ -225,6 +225,10 @@ Section configuration example file copied to config/sections/section.example.yml
     # Remove default JavaScript assets to be replaced from Orchid
     FileUtils.rm_rf("#{@new_app}/app/assets/javascripts/.", secure: true)
 
+    # Copy modified manifest.js for Sprockets 3.x compatibility
+    # and to include Orchid's manifest in main app
+    FileUtils.cp("#{@this_app}/app/assets/config/manifest.js", "#{@new_app}/app/assets/config/manifest.js")
+
     # Copy new application.js which includes Orchid and app-specific JavaScript
     FileUtils.cp("#{@this_app}/app/assets/javascripts/application.js", "#{@new_app}/app/assets/javascripts/application.js")
 

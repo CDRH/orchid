@@ -27,6 +27,10 @@ __config/initializers/config.rb__
 
 Add `IIIF_PATH = PRIVATE["iiif_path"]` to this file to make `IIIF_PATH` accessible to application
 
+__app/assets/config/manifest.js__
+
+Copy `app/assets/config/manifest.js` to same path in existing apps
+
 
 ## 2.0.0 to 2.1.0
 
