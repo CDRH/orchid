@@ -219,9 +219,6 @@ module Orchid::ApplicationHelper
       lookup_context.template_exists?(partial, "#{@section}/#{path[0]}",
                                       is_partial)
       path = "#{@section}/#{path[0]}"
-    elsif @section.present? && path.blank? &&
-      lookup_context.template_exists?(partial, @section, is_partial)
-      path = "#{@section}"
     elsif !lookup_context.template_exists?(partial, path, is_partial)
       # fallback to informative partial about customization
       path << "/" if path.present?
