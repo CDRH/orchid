@@ -6,7 +6,7 @@ module Orchid::DateHelper
     new_params.delete("date_to")
     # Remove page to return to first page of reorganized results
     new_params.delete("page")
-    return new_params
+    new_params
   end
 
   # TODO could abstract this into a CDRH gem
@@ -16,11 +16,7 @@ module Orchid::DateHelper
     m = default_date[1] if m.blank?
     d = default_date[2] if d.blank?
 
-    # pad month and day with zeros (1 => 01)
-    m = m.rjust(2, "0")
-    d = d.rjust(2, "0")
-
-    return "#{y}-#{m}-#{d}"
+    "#{y}-#{m}-#{d}"
   end
 
   def date_present? date
@@ -39,13 +35,33 @@ module Orchid::DateHelper
     end
     options.delete("date_from")
     options.delete("date_to")
-    return [options, from, to]
+    [options, from, to]
+  end
+
+  def date_format(date, default_year: DATE_FIRST[0].to_i)
+    y, m, d = date.split("-").map { |num_string| num_string.to_i }
+
+    # Fix numbers out of range
+    y = default_year if y < DATE_FIRST[0].to_i || y > DATE_LAST[1].to_i
+
+    m = 1 if m < 1
+    m = 12 if m > 12
+
+    d = 1 if d < 1
+    d = 31 if d > 31
+
+    # pad with zeros (1 => 01)
+    y = y.to_s.rjust(4, "0")
+    m = m.to_s.rjust(2, "0")
+    d = d.to_s.rjust(2, "0")
+
+    "#{y}-#{m}-#{d}"
   end
 
   # TODO could abstract this into a CDRH gem
   # if a date is blank, use the other date in its place
   def date_overwrite(original, overwrite)
-    return date_present?(original) ? original : overwrite
+    date_present?(original) ? original : overwrite
   end
 
   def date_selection?(from, to)
@@ -54,13 +70,13 @@ module Orchid::DateHelper
         return true
       end
     end
-    return false
+    false
   end
 
   # unlikely candidate to be abstracted into a gem because it
   # operates directly on the params object
   def date_set(date_from, date_to)
-    # if the first parameter is empty, then default to using the second date instead
+    # if the first parameter is empty, default to using second date instead
     date_from = date_overwrite(date_from, date_to)
     date_to = date_overwrite(date_to, date_from)
 
@@ -69,11 +85,14 @@ module Orchid::DateHelper
     date_from = date_default(date_from, [DATE_FIRST[0], "01", "01"])
     date_to = date_default(date_to, [DATE_LAST[0], "12", "31"])
 
+    date_from = date_format(date_from, default_year: DATE_FIRST[0].to_i)
+    date_to = date_format(date_to, default_year: DATE_LAST[0].to_i)
+
     # Set parameters so form populated with calculated dates
     params[:date_from] = date_from.split("-")
     params[:date_to] = date_to.split("-")
 
-    return [date_from, date_to]
+    [date_from, date_to]
   end
 
 end
