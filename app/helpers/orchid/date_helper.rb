@@ -38,18 +38,17 @@ module Orchid::DateHelper
     [options, from, to]
   end
 
-  def date_format(date)
-    y, m, d = date.split("-")
+  def date_format(date, default_year: DATE_FIRST[0].to_i)
+    y, m, d = date.split("-").map { |num_string| num_string.to_i }
 
     # Fix numbers out of range
-    y = 1 if y.to_i < 1
-    y = Time.now.year if y.to_i > Time.now.year
+    y = default_year if y < DATE_FIRST[0].to_i || y > DATE_LAST[1].to_i
 
-    m = 1 if m.to_i < 1
-    m = 12 if m.to_i > 12
+    m = 1 if m < 1
+    m = 12 if m > 12
 
-    d = 1 if d.to_i < 1
-    d = 31 if d.to_i > 31
+    d = 1 if d < 1
+    d = 31 if d > 31
 
     # pad with zeros (1 => 01)
     y = y.to_s.rjust(4, "0")
@@ -86,8 +85,8 @@ module Orchid::DateHelper
     date_from = date_default(date_from, [DATE_FIRST[0], "01", "01"])
     date_to = date_default(date_to, [DATE_LAST[0], "12", "31"])
 
-    date_from = date_format(date_from)
-    date_to = date_format(date_to)
+    date_from = date_format(date_from, default_year: DATE_FIRST[0].to_i)
+    date_to = date_format(date_to, default_year: DATE_LAST[0].to_i)
 
     # Set parameters so form populated with calculated dates
     params[:date_from] = date_from.split("-")
