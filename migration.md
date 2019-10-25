@@ -1,8 +1,10 @@
-# Migration
+# Migration Instructions
 
-## 2.1.0 to ?
+## Unreleased
 
-(Future release)
+…
+
+## 2.1.0 to 3.0.0
 
 `metadata` method in DisplayHelper altered so final argument is now
 a keyword argument, `link` which defaults to true. Previously, this
