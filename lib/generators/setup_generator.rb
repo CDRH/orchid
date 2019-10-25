@@ -97,13 +97,13 @@ class SetupGenerator < Rails::Generators::Base
     end
 
     # locales customization
-    project_name = prompt_for_value("Project Name (Site header title)",
+    project_name = prompt_for_value("Project Name (Site name in header)",
                                     "Sample Template")
     project_shortname =
       prompt_for_value("Project Short Name (<title>, <meta application-name>)",
                        "Template")
     project_subtitle =
-      prompt_for_value("Project Subtitle (Site header subtitle)",
+      prompt_for_value("Project Subtitle (Site subtitle in header)",
                        "Template Subtitle")
 
     # If the user selects a non-English language, set up a locale file.
@@ -124,7 +124,8 @@ class SetupGenerator < Rails::Generators::Base
     end
 
     # public media settings
-    answer = prompt_for_value("Media Server Directory", "sample_template")
+    answer = prompt_for_value("Media Server Collection Directory",
+                              "collection_name")
     config_set("public", "media_server_dir", answer)
 
     answer = prompt_for_value("Thumbnail Size (default: !200,200)", "!200,200")
@@ -248,7 +249,7 @@ Gems:
     config.exceptions_app = self.routes
       EOS
     end
-    "Added exception handling via templates into application.rb"
+    "Added exception handling via templates into config/application.rb"
   end
 
   def helpers
