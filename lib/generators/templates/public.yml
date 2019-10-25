@@ -14,8 +14,8 @@ default: &default
 
     # IMAGES
 
-    # name of the appropriate directory in media server filesystem (project name)
-    media_server_dir: project_name
+    # collection directory name in media server data directory
+    media_server_dir: collection_name
     # thumbnail size, ! means not to alter ratio, then max-width, max-height
     # IIIF size syntax reference: https://iiif.io/api/image/2.1/#size
     thumbnail_size: "!200,200"

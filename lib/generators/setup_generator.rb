@@ -4,7 +4,8 @@ class SetupGenerator < Rails::Generators::Base
     This generator prepares applications for API integration:
       - Generates config files
       - Generates favicon and footer_logo images
-      - Disables turbolinks in app's Gemfile
+      - Updates Gemfile to add dependencies, remove unwanted, replace
+        unsupported gems
       - Generates .gitignore file
       - Generates locales en file for customization
       - Removes app's application controller and layout to use Orchid's
@@ -28,19 +29,19 @@ class SetupGenerator < Rails::Generators::Base
     msgs << footer_logo
     msgs << gems
     msgs << gitignore
-    msgs << handle_exceptions
+    msgs << handle_exceptions_with_templates
     msgs << helpers
     msgs << remove_files
     msgs << scripts
     msgs << stylesheet
-    msgs << "For further app configuration, read more at https://github.com/CDRH/orchid#configuration"
+    msgs << "For further app configuration, read more at"
+    msgs << " https://github.com/CDRH/orchid/tree/master/docs#configuration"
 
     Bundler.with_clean_env do
       run "bundle install"
     end
 
     puts msgs.compact.join("\n\n")
-
   end
 
   private
@@ -69,11 +70,15 @@ class SetupGenerator < Rails::Generators::Base
 
   def copy_configs_and_locales
     # config files
-    FileUtils.cp("#{@this_app}/lib/generators/templates/private.yml", "#{@new_app}/config/private.example.yml")
-    FileUtils.cp("#{@this_app}/lib/generators/templates/private.yml", "#{@new_app}/config/private.yml")
-    FileUtils.cp("#{@this_app}/lib/generators/templates/public.yml", "#{@new_app}/config/public.yml")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/private.yml",
+                 "#{@new_app}/config/private.example.yml")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/private.yml",
+                 "#{@new_app}/config/private.yml")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/public.yml",
+                 "#{@new_app}/config/public.yml")
     # en locale file is always copied by default
-    FileUtils.cp("#{@this_app}/config/locales/en.yml", "#{@new_app}/config/locales/en.yml")
+    FileUtils.cp("#{@this_app}/config/locales/en.yml",
+                 "#{@new_app}/config/locales/en.yml")
 
     puts "Please enter the following for initial app customization"
 
@@ -85,33 +90,42 @@ class SetupGenerator < Rails::Generators::Base
     config_set("public", "ALL_LANGUAGES", langs)
 
     langs = [] if langs.blank?
-    langs.each do |lang|
+    Array(langs).each do |lang|
       # for each language which is not english, create a locale file
       next if lang == "en"
       copy_locale(lang)
     end
 
     # locales customization
-    project_name = prompt_for_value("Project Name (Site header title)", "Sample Template")
-    project_shortname = prompt_for_value("Project Short Name (<title>, <meta application-name>)", "Template")
-    project_subtitle = prompt_for_value("Project Subtitle (Site header subtitle)", "Template Subtitle")
+    project_name = prompt_for_value("Project Name (Site name in header)",
+                                    "Sample Template")
+    project_shortname =
+      prompt_for_value("Project Short Name (<title>, <meta application-name>)",
+                       "Template")
+    project_subtitle =
+      prompt_for_value("Project Subtitle (Site subtitle in header)",
+                       "Template Subtitle")
 
     # If the user selects a non-English language, set up a locale file.
     # At this moment, Orchid supports multiple languages but does not ship with
     # pre-made translations. Users will need to supply their own values for the
     # strings in the file.
 
-    all_langs.each do |lang|
-      config_set("locales/#{lang}", "project_name", project_name, uncomment: true)
-      config_set("locales/#{lang}", "project_shortname", project_shortname, uncomment: true)
-      config_set("locales/#{lang}", "project_subtitle", project_subtitle, uncomment: true)
+    Array(langs).each do |lang|
+      config_set("locales/#{lang}", "project_name", project_name,
+                 uncomment: true)
+      config_set("locales/#{lang}", "project_shortname", project_shortname,
+                 uncomment: true)
+      config_set("locales/#{lang}", "project_subtitle", project_subtitle,
+                 uncomment: true)
       # remove unnecessary comment from locale file copied from Orchid
       gsub_file "#{@new_app}/config/locales/#{lang}.yml",
         /^\s*# Below commented to avoid fallback use.+$/, ""
     end
 
     # public media settings
-    answer = prompt_for_value("Media Server Directory", "sample_template")
+    answer = prompt_for_value("Media Server Collection Directory",
+                              "collection_name")
     config_set("public", "media_server_dir", answer)
 
     answer = prompt_for_value("Thumbnail Size (default: !200,200)", "!200,200")
@@ -119,43 +133,58 @@ class SetupGenerator < Rails::Generators::Base
 
     # private config customization
     answer = prompt_for_value("Dev API Path", "https://cdrhdev1.unl.edu/api/v1")
-    config_replace("private", "api_path: https://cdrhdev1.unl.edu/api/v1", "api_path: #{answer}")
+    config_replace("private", "api_path: https://cdrhdev1.unl.edu/api/v1",
+                   "api_path: #{answer}")
 
-    answer = prompt_for_value("Production API Path", "https://cdrhapi.unl.edu/v1")
-    config_replace("private", "api_path: https://cdrhapi.unl.edu/v1", "api_path: #{answer}")
+    answer = prompt_for_value("Production API Path",
+                              "https://cdrhapi.unl.edu/v1")
+    config_replace("private", "api_path: https://cdrhapi.unl.edu/v1",
+                   "api_path: #{answer}")
 
-    answer = prompt_for_value("Dev IIIF Path", "https://cdrhdev1.unl.edu/iiif/2")
-    config_replace("private", "iiif_path: https://cdrhdev1.unl.edu/iiif/2", "iiif_path: #{answer}")
+    answer = prompt_for_value("Dev IIIF Path",
+                              "https://cdrhdev1.unl.edu/iiif/2")
+    config_replace("private", "iiif_path: https://cdrhdev1.unl.edu/iiif/2",
+                   "iiif_path: #{answer}")
 
-    answer = prompt_for_value("Production IIIF Path", "https://cdrhmedia.unl.edu/iiif/2")
-    config_replace("private", "iiif_path: https://cdrhmedia.unl.edu/iiif/2", "iiif_path: #{answer}")
+    answer = prompt_for_value("Production IIIF Path",
+                              "https://cdrhmedia.unl.edu/iiif/2")
+    config_replace("private", "iiif_path: https://cdrhmedia.unl.edu/iiif/2",
+                   "iiif_path: #{answer}")
 
-    <<-HEREDOC
-Configuration files copied to config/private.example.yml, config/private.yml, and config/public.yml.
-Locale files copied to config/locales
-Updated with initial app customizations
-    HEREDOC
+    <<-MSG.chomp
+Configuration files copied to config/private.example.yml, config/private.yml,
+  and config/public.yml.
+Locale files copied to config/locales.
+Updated with initial app customizations.
+    MSG
   end
 
   def copy_initializer
     # NOTE: This could be done with the "initializer" method instead
     # http://guides.rubyonrails.org/generators.html#initializer
-    FileUtils.cp("#{@this_app}/lib/generators/templates/config.rb", "#{@new_app}/config/initializers/config.rb")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/config.rb",
+                 "#{@new_app}/config/initializers/config.rb")
 
-    return "Initializer to load config values into app copied to config/initializers/config.rb"
+    <<-MSG.chomp
+Initializer to load config values into app copied to
+config/initializers/config.rb
+    MSG
   end
 
   def copy_locale(lang)
-    FileUtils.cp("#{@this_app}/config/locales/en.yml", "#{@new_app}/config/locales/#{lang}.yml")
+    FileUtils.cp("#{@this_app}/config/locales/en.yml",
+                 "#{@new_app}/config/locales/#{lang}.yml")
     gsub_file "#{@new_app}/config/locales/#{lang}.yml", /^en:$/, "#{lang}:"
   end
 
   def copy_remaining_templates
-    FileUtils.cp("#{@this_app}/lib/generators/templates/redirects.yml", "#{@new_app}/config/redirects.example.yml")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/redirects.yml",
+                 "#{@new_app}/config/redirects.example.yml")
     FileUtils.mkdir("#{@new_app}/config/sections/")
-    FileUtils.cp("#{@this_app}/lib/generators/templates/section.yml", "#{@new_app}/config/sections/section.example.yml")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/section.yml",
+                 "#{@new_app}/config/sections/section.example.yml")
 
-    <<-MSG
+    <<-MSG.chomp
 Redirect middleware configuration example file copied to
   config/redirects.example.yml
 Section configuration example file copied to config/sections/section.example.yml
@@ -163,62 +192,86 @@ Section configuration example file copied to config/sections/section.example.yml
   end
 
   def favicon
-    FileUtils.cp("#{@this_app}/app/assets/images/favicon.png", "#{@new_app}/app/assets/images/favicon.png")
+    FileUtils.cp("#{@this_app}/app/assets/images/favicon.png",
+                 "#{@new_app}/app/assets/images/favicon.png")
 
-    return "Favicon copied to app/assets/images/favicon.png"
+    "Favicon copied to app/assets/images/favicon.png"
   end
 
   def footer_logo
     logo_image = "footer_logo.png"
-    FileUtils.cp("#{@this_app}/app/assets/images/#{logo_image}", "#{@new_app}/app/assets/images/#{logo_image}")
+    FileUtils.cp("#{@this_app}/app/assets/images/#{logo_image}",
+                 "#{@new_app}/app/assets/images/#{logo_image}")
 
-    return "Footer logo placeholder copied to app/assets/images/#{logo_image}"
+    "Footer logo placeholder copied to app/assets/images/#{logo_image}"
   end
 
   def gems
-    gem 'bootstrap-sass', '~> 3.3.6'
-    gem 'jquery-rails', '~> 4.3'
+    # Replace sass-rails with sassc-rails
+    gsub_file "#{@new_app}/Gemfile", /^(gem 'sass-rails'.*)$/,
+      "gem 'sassc-rails', '~> 2.1'"
 
     # Remove turbolinks gem
     gsub_file "#{@new_app}/Gemfile", /^(gem 'turbolinks'.*)$/, "#\\1"
 
-    return "Gems: Turbolinks removed"
+    # Replace chromedriver-helper with webdrivers
+    gsub_file "#{@new_app}/Gemfile",
+      /chromedriver to run system tests with Chrome/,
+      "web drivers to run system tests with browsers"
+    gsub_file "#{@new_app}/Gemfile", /^(gem 'chromedriver-helper'.*)$/,
+      "gem 'webdrivers'"
+
+    # Add Bootstrap and jQuery gems
+    gem 'bootstrap-sass', '~> 3.4.1'
+    gem 'jquery-rails', '~> 4.3'
+
+    <<-MSG.chomp
+Gems:
+  sass-rails replaced with sassc-rails
+  turbolinks removed
+  chromedriver-helper replaced with webdrivers
+  bootstrap-sass added
+  jquery-rails added
+    MSG
   end
 
   def gitignore
-    FileUtils.cp("#{@this_app}/lib/generators/templates/.gitignore", "#{@new_app}/.gitignore")
+    FileUtils.cp("#{@this_app}/lib/generators/templates/.gitignore",
+                 "#{@new_app}/.gitignore")
 
-    return "Orchid .gitignore file copied to app's root directory"
+    "Orchid .gitignore file copied to app's root directory"
   end
 
-  def handle_exceptions
-    inject_into_file "#{@new_app}/config/application.rb", after: "config.load_defaults 5.1\n" do <<-EOS
-    # Enable custom error pages
+  def handle_exceptions_with_templates
+    inject_into_file "#{@new_app}/config/application.rb",
+      after: "config.load_defaults 5.2\n" do <<-EOS
+    # Enable templates for error pages rather than static HTML files
     config.exceptions_app = self.routes
-    EOS
+      EOS
     end
-    return "Added exceptions handling into application.rb"
+    "Added exception handling via templates into config/application.rb"
   end
 
   def helpers
     FileUtils.rm("#{@new_app}/app/helpers/application_helper.rb")
-    FileUtils.cp(Dir.glob("#{@this_app}/app/helpers/*_helper.rb"), "#{@new_app}/app/helpers/")
+    FileUtils.cp(Dir.glob("#{@this_app}/app/helpers/*_helper.rb"),
+                 "#{@new_app}/app/helpers/")
 
-    return "Copied extendable helper files which include Orchid's to app"
+    "Copied extendable helper files which include Orchid's to app"
   end
 
   def prompt_for_value(message, default)
     puts "\n#{message}\n[#{default}]: "
     value = gets.chomp
 
-    return value.empty? ? default : value
+    value.empty? ? default : value
   end
 
   def remove_files
     FileUtils.rm("#{@new_app}/app/controllers/application_controller.rb")
     FileUtils.rm("#{@new_app}/app/views/layouts/application.html.erb")
 
-    return "Removed app's application controller and layout so it uses Orchid's"
+    "Removed app's application controller and layout so it uses Orchid's"
   end
 
   def scripts
@@ -227,31 +280,42 @@ Section configuration example file copied to config/sections/section.example.yml
 
     # Copy modified manifest.js for Sprockets 3.x compatibility
     # and to include Orchid's manifest in main app
-    FileUtils.cp("#{@this_app}/app/assets/config/manifest.js", "#{@new_app}/app/assets/config/manifest.js")
+    FileUtils.cp("#{@this_app}/app/assets/config/manifest.js",
+                 "#{@new_app}/app/assets/config/manifest.js")
 
     # Copy new application.js which includes Orchid and app-specific JavaScript
-    FileUtils.cp("#{@this_app}/app/assets/javascripts/application.js", "#{@new_app}/app/assets/javascripts/application.js")
+    FileUtils.cp("#{@this_app}/app/assets/javascripts/application.js",
+                 "#{@new_app}/app/assets/javascripts/application.js")
 
     # Create global JS dir & touch app-named file for app-wide scripting
     FileUtils.mkdir("#{@new_app}/app/assets/javascripts/global")
     FileUtils.touch("#{@new_app}/app/assets/javascripts/global/#{@new_app_name}.js")
 
-    return "Replaced app's JavaScript assets with Orchid's.\nCreated global/ directory and file with app name for app-wide JavaScript"
+    <<-MSG.chomp
+Replaced app's Sprockets 4 manifest with Orchid's 3.x-compatible manifest.
+Replaced app's JavaScript assets with Orchid's.
+Created global/ directory and file with app name for app-wide JavaScript.
+    MSG
   end
 
   def stylesheet
     # Bootstrap variable overrides
-    FileUtils.cp("#{@this_app}/app/assets/stylesheets/bootstrap-variables.scss", "#{@new_app}/app/assets/stylesheets/bootstrap-variables.scss")
+    FileUtils.cp("#{@this_app}/app/assets/stylesheets/bootstrap-variables.scss",
+                 "#{@new_app}/app/assets/stylesheets/bootstrap-variables.scss")
 
     # Main app application.scss needed for relative app-specific global/* import
     FileUtils.rm("#{@new_app}/app/assets/stylesheets/application.css")
-    FileUtils.cp("#{@this_app}/app/assets/stylesheets/application.scss", "#{@new_app}/app/assets/stylesheets/application.scss")
+    FileUtils.cp("#{@this_app}/app/assets/stylesheets/application.scss",
+                 "#{@new_app}/app/assets/stylesheets/application.scss")
 
     # Create global stylesheets dir & touch app-named file for app-wide styles
     FileUtils.mkdir("#{@new_app}/app/assets/stylesheets/global/")
     FileUtils.touch("#{@new_app}/app/assets/stylesheets/global/#{@new_app_name}.scss")
 
-    return "Replaced app's stylesheet assets with Orchid's.\nCreated global/ directory and file with app name for app-wide styling"
+    <<-MSG.chomp
+Replaced app's stylesheet assets with Orchid's.
+Created global/ directory and file with app name for app-wide styling.
+    MSG
   end
 
 end

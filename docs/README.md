@@ -1,8 +1,13 @@
 # Orchid
 
-Orchid is a generator which can be used to create a new CDRH API template site.
-The new site can either connect to the endpoint for the entire API's contents,
-or point to an endpoint that only searches a specific collection's contents.
+Orchid is a multi-lingual Rails engine which handles common functionality across
+Rails apps which rely on the CDRH API. It includes a generator for configuring
+new Rails apps, which can primarily connect to the endpoint for the entire API's
+contents, or connect to an endpoint that only searches a specific collection's
+contents. Apps can also configure additional "sections" which use independent
+API configurations and search filtering UI, as well as the ability to granularly
+overrides templates without the need to copy or create additional Rails
+controllers.
 
 ## Contents
 
@@ -696,6 +701,9 @@ After customization, one must (re)start the Rails app.
 
 
 ## Assets
+Orchid is compatibile with both Sprockets 3.x and Sprockets 4.x. Adding
+additional global or conditional assets behaves the same for both versions.
+
 The asset pipeline has been configured to facilitate adding assets without
 the need to update the asset precompilation list or copy/merge files when
 changes are made to Orchid's assets.
@@ -782,18 +790,18 @@ syntax above or in the view template without the `helpers.` syntax:
 <% @ext_css = add_assets(@ext_css, %w(sheet1 sheet2)) %>
 ```
 
-To load assets on all pages rendered by a controller, use a [before
+To load assets on all pages in a group rendered by a controller, use a [before
 filter](https://guides.rubyonrails.org/action_controller_overview.html#filters)
 to call the `add_assets` helper:
 ```ruby
-class SectionController < ApplicationController
+class GroupController < ApplicationController
   before_action :append_assets
 …
   private
 
   def append_assets
-    @ext_css = helpers.add_assets(@ext_css, "section")
-    @ext_js = helpers.add_assets(@ext_js, "section")
+    @ext_css = helpers.add_assets(@ext_css, "group")
+    @ext_js = helpers.add_assets(@ext_js, "group")
   end
 end
 ```
@@ -804,13 +812,13 @@ within the controller too:
   before_action :append_assets, only: [:action1, :action3]
 ```
 
-If a section's pages are rendered by more than one controller, one may add a
+If a group's pages are rendered by more than one controller, one may add a
 check in the application controller or action used by multiple pages to add
 assets if the request path matches:
 ```ruby
-if request.path[/^\/section\//]
-  @ext_css = helpers.add_assets(@ext_css, "section")
-  @ext_js = helpers.add_assets(@ext_js, "section")
+if request.path[/^\/group\//]
+  @ext_css = helpers.add_assets(@ext_css, "group")
+  @ext_js = helpers.add_assets(@ext_js, "group")
 end
 ```
 
@@ -823,16 +831,16 @@ will be named rather than the source file, so if one's asset file is
 The additions to the precompile list may be broken up for organization e.g.:
 
 ```ruby
-# Section A
+# Group A
 Rails.application.config.assets.precompile += %w(
-  section_a.css
-  section_a.js
+  group_a.css
+  group_a.js
 )
 
-# Section B
+# Group B
 Rails.application.config.assets.precompile += %w(
-  section_b.css
-  section_b.js
+  group_b.css
+  group_b.js
 )
 ```
 
