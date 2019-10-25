@@ -1,4 +1,45 @@
-# Migration
+# Migration Instructions
+
+## Unreleased
+
+…
+
+## 2.1.0 to 3.0.0
+
+`metadata` method in DisplayHelper altered so final argument is now
+a keyword argument, `link` which defaults to true. Previously, this
+was a non-keyword argument.
+
+Provides basic support for IIIF image URLs in views with the helper `iiif(partial_image_path, size: "!150,150")`
+
+__config/private.yml__
+
+`iiif_path` must be added, see example in orchid's `private.yml` template
+
+__config/public.yml__
+
+- `app_options.media_server_dir` is the name of the project's directory
+  following the IIIF server path
+- `app_options.thumbnail_size` is the width and height of the image. Use "!" to
+  preserve the ratio. Ex: "!200,200"
+- `app_options.languages` must now delimit all languages used in the app, rather
+  than only non-default languages
+
+__config/initializers/config.rb__
+
+Add `IIIF_PATH = PRIVATE["iiif_path"]` to this file to make `IIIF_PATH` accessible to application
+
+__app/assets/config/manifest.js__
+
+Copy `app/assets/config/manifest.js` to same path in existing apps
+
+__Gemfile__
+
+Ensure that all Gemfile updates from the generator have been added:
+
+- `gem 'sass-rails' …` replaced with `gem 'sassc-rails', '~> 2.1'`
+- `gem 'chromedriver-helper'` replaced with `gem 'webdrivers'`
+- `gem 'bootstrap-sass'` has version constraint `'~> 3.4.1'`
 
 ## 2.0.0 to 2.1.0
 

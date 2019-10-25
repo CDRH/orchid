@@ -1,49 +1,51 @@
 <% if @res.count > 0 %>
   <% @res.items.each do |item| %>
-    <div class="searchResults">
+    <div class="searchResults buffer-bottom-sm">
+      <h3><%= search_item_link(item) %></h3>
       <div class="row">
-        <div class="col-md-12 search_results_info">
-          <% title_display = item["title"].present? ? item["title"] : t("search.results.item.no_title", default: "Untitled") %>
-          <%= link_to title_display, item_path(id: item["identifier"]) %>
+        <div class="<%= item["highlight"].present? ? "col-md-4" : "col-md-12" %> search_results_info">
           <ul>
-            <% if item["date_display"] %>
+            <% if item["date_display"].present? %>
               <li>
-                <strong><%= t "search.results.item.date", default: "Date" %></strong>:
-                <%= link_to item["date_display"], search_path({ "f[]" => "date|#{item['date']}" }) %>
+                <%= metadata(item, t("search.results.item.date",
+                  default: "Date"), "date_display", link: false) %>
               </li>
             <% end %>
-            <% if item["creator"] %>
+            <%# creator is a multivalued, nested field %>
+            <% if item["creator"].present? %>
               <li>
-                <strong><%= t "search.results.item.creator", default: "Creator(s)" %></strong>:
-                <% item["creator"].each do |c| %>
-                  <%= link_to c["name"], search_path({ "f[]" => "creator.name|#{c['name']}" }) %>
-                <% end %>
+                <%= metadata(item, t("search.results.item.creator",
+                  default: "Creator"), "creator.name", link: false) %>
               </li>
             <% end %>
-            <% if item["format"] %>
+            <%# format can be a multivalued or single keyword field %>
+            <% if item["format"].present? %>
               <li>
-                <strong><%= t "search.results.item.format", default: "Format" %></strong>:
-                <%= link_to item["format"], search_path({ "f[]" => "format|#{item['format']}" }) %>
+                <%= metadata(item, t("search.results.item.format",
+                  default: "Format"), "format", link: false) %>
               </li>
             <% end %>
-            <% if item["source"] %>
+            <%# source can be a multivalued or single keyword field %>
+            <% if item["source"].present? %>
               <li>
-                <strong><%= t "search.results.item.source", default: "Source" %></strong>:
-                <%= link_to item["source"], search_path({ "f[]" => "source|#{item['source']}" }) %>
+                <%= metadata(item, t("search.results.item.source",
+                  default: "Source"), "source", link: false) %>
               </li>
             <% end %>
           </ul>
         </div>
-        <div class="col-md-8 search_results_text">
-          <% item["highlight"].each do |key, hls| %>
-            <div class="search_results_highlights well">
-              <strong><%= key.titleize %>:</strong>
-              <% hls.each do |hl| %>
-                <p><%= hl.html_safe %></p>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
+        <% if item["highlight"].present? %>
+          <div class="col-md-8 search_results_text">
+            <% item["highlight"].each do |key, hls| %>
+              <div class="search_results_highlights well">
+                <strong><%= key.titleize %>:</strong>
+                <% hls.each do |hl| %>
+                  <p><%= hl.html_safe %></p>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>

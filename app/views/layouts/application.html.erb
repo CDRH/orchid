@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>" <%= site_section %>>
-  <%= render "layouts/head/head" %>
+  <%= render_overridable("layouts/head", "head") %>
   <body class="<%= "language_#{I18n.locale}" %>">
+    <a href="#main-content" class="sr-only sr-only-focusable">
+      Skip to main content
+    </a>
     <div id="body-wrapper">
-      <%= render "layouts/body/header" %>
-      <%= render "layouts/body/contents" %>
-      <%= render "layouts/body/footer" %>
+      <%= render_overridable("layouts/body", "header") %>
+      <%= render_overridable("layouts/body", "contents") %>
+      <%= render_overridable("layouts/body", "footer") %>
     </div>
   </body>
 </html>

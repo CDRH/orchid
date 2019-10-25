@@ -9,7 +9,9 @@
         <div class="input-group-btn"
              aria-label="<%= t "search.clear_text", default: "Clear Search Text" %>"
              title="<%= t "search.clear_text", default: "Clear Search Text" %>">
-          <%= link_to clear_search_text, class: "btn btn-default btn-sm", role: "button" do %>
+          <%= link_to prefix_path("search_path", clear_search_text),
+                      class: "btn btn-default btn-sm", rel: "nofollow",
+                      role: "button" do %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           <% end %>
         </div>
@@ -28,7 +30,9 @@
         <div class="input-group-btn"
              title="<%= t "search.dates.clear_filter", default: "Clear Date Filter" %>"
              aria-label="<%= t "search.dates.clear_filter", default: "Clear Date Filter" %>">
-          <%= link_to search_path(clear_dates_params), class: "btn btn-default btn-sm", role: "button" do %>
+          <%= link_to prefix_path("search_path", clear_dates_params),
+            class: "btn btn-default btn-sm", rel: "nofollow",
+            role: "button" do %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           <% end %>
         </div>
@@ -40,18 +44,20 @@
   <% if params["f"].present? %>
     <% params["f"].each do |f| %>
       <% type, facet = f.split("|") %>
-      <% info = Facets.facet_info[type] %>
+      <% info = @page_facets[type] %>
       <% label = info ? info["label"] : type.titleize %>
 
       <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
         <div class="input-group">
           <div class="input-group-addon" title="<%= t "search.filters.summary_box", specific_filter: label, default: "#{label} Filter" %>">
-            <%= label %> : <%= facet %>
+            <%= label %> : <%= value_label(type, facet) %>
           </div>
           <div class="input-group-btn"
                title="<%= t("search.filters.clear", label: label, default: "Clear #{label} Filter") %>"
                aria-label="<%= t("search.filters.clear", label: label, default: "Clear #{label} Filter") %>">
-            <%= link_to search_path(remove_facet(type, facet)), class: "btn btn-default btn-sm", role: "button" do %>
+            <%= link_to prefix_path("search_path", remove_facet(type, facet)),
+              class: "btn btn-default btn-sm", rel: "nofollow",
+              role: "button" do %>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             <% end %>
           </div>

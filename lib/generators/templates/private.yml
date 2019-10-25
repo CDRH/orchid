@@ -2,6 +2,8 @@ default: &default
   # If app should only be using a specific collection,
   # append "/collection/(collection_name)" to path
   api_path: https://cdrhdev1.unl.edu/api/v1
+  # path to iiif server, NOT including the project directory
+  iiif_path: https://cdrhmedia.unl.edu/iiif/2
 
 test:
   <<: *default
@@ -9,7 +11,9 @@ test:
 development:
   <<: *default
   api_path: https://cdrhdev1.unl.edu/api/v1
+  iiif_path: https://cdrhdev1.unl.edu/iiif/2
 
 production:
   <<: *default
   api_path: https://cdrhapi.unl.edu/v1
+  iiif_path: https://cdrhmedia.unl.edu/iiif/2

@@ -56,11 +56,23 @@ module Orchid::ApplicationHelper
     end
   end
 
+  def add_assets(asset_array, *assets)
+    assets.each do |asset|
+      if asset.is_a?(Array)
+        asset_array = Array(asset_array) + asset
+      else
+        asset_array = Array(asset_array) << asset
+      end
+    end
+
+    asset_array
+  end
+
   def copy_params
-    # Remove Rails internal parameters "action" and "controller" from URLs
-    # They are always accessible via params["action"] and params["controller"]
-    return params.to_unsafe_h
-             .reject { |param| param[/^(?:action|controller)$/] }
+    orchid_params = params.to_unsafe_h
+    Orchid::RAILS_INTERNAL_PARAMS.each { |p| orchid_params.delete(p) }
+
+    orchid_params
   end
 
   def clear_search_text
@@ -75,10 +87,68 @@ module Orchid::ApplicationHelper
     return new_params
   end
 
+  # image is path relative to iiif server + project of image
+  #   "documents/doc.0001.jpg" or "doc.1887.82.jpg"
+  # Parameter syntax reference:
+  # https://iiif.io/api/image/2.1/#image-request-parameters
+  def iiif(image,
+           region: "full",
+           size: APP_OPTS["thumbnail_size"],
+           rotation: 0,
+           quality: "default",
+           format: "jpg")
+    server = IIIF_PATH
+    project = APP_OPTS["media_server_dir"]
+    # use %2F for image specific path, / for iiif server path
+    image_esc = image.gsub("/", "%2F")
+    iiif_opts = "#{region}/#{size}/#{rotation}/#{quality}.#{format}"
+
+    "#{server}/#{project}%2F#{image_esc}/#{iiif_opts}"
+  end
+
   def locale
     I18n.locale
   end
 
+  def locale_link(lang_code)
+    locales = APP_OPTS["languages"].split("|")
+      .reject { |l| l == APP_OPTS["language_default"] }.join("|")
+    url = request.fullpath
+
+    if lang_code == APP_OPTS["language_default"]
+      if config.relative_url_root.present?
+        regex = /^(#{config.relative_url_root})(?:\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1\\2")
+      else
+        regex = /(?:^\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1")
+
+        # Handle edge case: request is for root of site on non-default locale
+        link_path = "/" if link_path.empty?
+      end
+    else
+      if config.relative_url_root.present?
+        regex = /^(#{config.relative_url_root})(?:\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "\\1/#{lang_code}\\2")
+      else
+        regex = /(?:^\/(?:#{locales}))?(\/.*|$)/
+        link_path = url.sub(regex, "/#{lang_code}\\1")
+      end
+    end
+
+    link_path
+  end
+
+  # partial_name does not include the locale, underscore, or extensions
+  #   (ex: index, not _index_en.html.erb)
+  # prefixes refers to the path to reach the partial in question
+  #
+  # Usage:
+  #   render localized_partial("index", "explore/partials")
+  #   (would include "explore/partials/_index_en.html.erb" if locale == en)
+  # TODO remove this method when migrating orchid to rails 6
+  deprecate localized_partial:
+    "prefer localized views: https://guides.rubyonrails.org/i18n.html#localized-views"
   def localized_partial(partial_name, prefixes)
     localized = "#{partial_name}_#{locale}"
     if lookup_context.template_exists?(localized, prefixes, true)
@@ -88,6 +158,74 @@ module Orchid::ApplicationHelper
       @missing_partial = "#{prefixes}/#{localized}"
       "errors/missing_partial"
     end
+  end
+
+  def prefix_path(path, *args, **kwargs)
+    # Hash with rocket syntax `"f" => ["...|..."]` comes through in args here,
+    # so merge into kwargs and empty args
+    if args.length == 1 && args[0].is_a?(Hash)
+      kwargs = kwargs.merge(args[0])
+      args = []
+    end
+
+    path_helper = @section.present? ? "#{@section}_#{path}" : path
+
+    if args.empty?
+      if kwargs.empty?
+        send(path_helper)
+      else
+        send(path_helper, kwargs)
+      end
+    else
+      if kwargs.empty?
+        send(path_helper, args)
+      else
+        send(path_helper, args, kwargs)
+      end
+    end
+  end
+
+  # Render section override and partials
+  # partial argument does not include the locale, underscore, or extensions
+  # Example:
+  #   render_overridable("explore/partials", "index")
+  #   Looks for in order:
+  #     If @section defined -> "@section/_index.html.erb"
+  #     If no @section -> "explore/partials/_index.html.erb"
+  #  If no partial found, render an error message with missing partial path
+  def render_overridable(path="", partial="", **kwargs)
+    # Only one arg will be passed if replacing a simple `render "template"` call
+    # In that case, set partial to arg value assigned to path and empty path
+    if partial == ""
+      partial = path
+      # template_exists? still needs a path to search; lookup_context.prefixes
+      # is what render code uses when only one arg, so assign it to path here
+      path = lookup_context.prefixes
+    end
+
+    # If partial still empty (no args), use controller action as template name
+    if partial == ""
+      partial = params[:action]
+    end
+
+    # True when looking for partials rather than views
+    is_partial = true
+    if @section.present? && lookup_context.template_exists?(partial,
+      "#{@section}/#{path}", is_partial)
+      path = "#{@section}/#{path}"
+    elsif !lookup_context.template_exists?(partial, path, is_partial)
+      # fallback to informative partial about customization
+      path << "/" if path.present?
+      @missing_partial = "#{path}#{partial}"
+      return render "errors/missing_partial", kwargs
+    end
+
+    # Revert earlier assignment of lookup_context.prefixes so render args are
+    # same as simple call `render "template"` being overridden
+    path = "" if path == lookup_context.prefixes
+
+    path << "/" if path.present?
+    render "#{path}#{partial}", kwargs
   end
 
   def site_section

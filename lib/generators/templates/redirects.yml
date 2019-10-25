@@ -1,0 +1,43 @@
+# List of path strings and regular expressions to redirect or rewrite
+# Enable by adding the path to this file in config/public.yml "redirect_files"
+
+# Simple redirect from an exact path match
+-
+  method:     r301
+  from:       /index.nf.html
+  to:         /writings/nonfiction
+
+# Redirect from paths matching regular expression, re-using substring
+-
+  # /ss016.html -> /writings/shortfiction/ss016
+  method:     r301
+  from:       !ruby/regexp /^\/(ss\d{3}).html$/
+  to:         /writings/shortfiction/$1
+
+# Rewrite with no_qs option to drop the query string from the desired URL `to`
+-
+  method:     rewrite
+  from:       !ruby/regexp /^\/(?:php\/xslt\.php|read\/)\?&?_xmlsrc=(?:http:\/\/lewisandclarkjournals\.unl\.edu\/files\/xml\/)?(.+?)?(?:&_xslsrc=(?:http:\/\/lewisandclarkjournals\.unl\.edu\/)?LCstyles\.xsl)?$/
+  to:         /item/$1
+  options:
+    drop_qs:  1
+
+# Redirect with 308 from path only if POST request and no legacy query param
+-
+  method:     r308
+  from:       /save
+  to:         /create
+  options:
+    method:   POST
+    not:      !ruby/regexp /^\/save(?|.+&)legacy/
+
+# Redirect only if additional options scheme and host match
+-
+  method:     r301
+  from:       /
+  to:         /about/redesign
+  options:
+    scheme:   http
+    host:     legacy-domain.com
+    drop_qs:  1
+

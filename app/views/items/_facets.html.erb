@@ -2,7 +2,7 @@
     and match them with the incoming solr facet results %>
 <%# TODO refactor the top portion of this %>
 <% if facets %>
-  <% Facets.facet_info.each do |facet_name, info| %>
+  <% @page_facets.each do |facet_name, info| %>
     <% if should_display?(facets[facet_name], info) %>
       <% facet_res = facets[facet_name] %>
       <% data_safe_name = facet_name.parameterize  %>
@@ -27,19 +27,24 @@
           <ul class="list-unstyled">
             <% facet_res.each do |key, value| %>
               <% selected = facet_selected?(facet_name, key) %>
-              <% label = create_label key, t("search.filters.no_label", default: "No Label") %>
+              <%# value_label translates language if necessary,
+                  create_label puts default label if empty %>
+              <% label = create_label(value_label(facet_name, key),
+                  t("search.filters.no_label", default: "No Label")) %>
 
               <!-- list item -->
               <% if !selected %>
                 <li>
-                  <%= link_to label, search_path(facet_link(facet_name, key)) %>
+                  <%= link_to label, prefix_path("search_path",
+                    facet_link(facet_name, key)), rel: "nofollow" %>
                   <span class="badge"><%= value %></span>
                 </li>
               <% else %>
                 <li class="selected">
-                  <span><%= key %></span>
+                  <span><%= label %></span>
                   <span class="badge"><%= value %></span>
-                  <%= link_to search_path(remove_facet(facet_name, key)) do %>
+                  <%= link_to prefix_path("search_path",
+                    remove_facet(facet_name, key)), rel: "nofollow" do %>
                     <button class="btn btn-default btn-xs"
                             title="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>"
                             aria-label="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>">
@@ -51,7 +56,10 @@
             <% end %>
           </ul>
 
-          <%= link_to t("search.filters.see_more", default: "See more"), browse_facet_path(facet: facet_name.parameterize(separator: ".")), class: "btn btn-info btn-xs" %>
+          <%= link_to t("search.filters.see_more", default: "See more"),
+            prefix_path("browse_facet_path",
+            facet: facet_name.parameterize(separator: ".")),
+            class: "btn btn-info btn-xs", rel: "nofollow" %>
         </div> <!-- /panel-body -->
 
       </div> <!-- /panel panel-default -->

@@ -1,12 +1,37 @@
 default: &default
 
   app_options:
-    version: 0.1.0
+    # the version of this rails application
+    version: 0.0.1
+
+    # LANGUAGE
+
     # defaults to "en" (english) if no default language set
     language_default: en
-    # defaults to "en" if nothing passed in, pipe delineated values (en|es|de)
-    languages: en
+    # pipe delineated codes for all languages, e.g. "en|es|cz"
+    ALL_LANGUAGES: en
     # for application title settings, please alter the files in config/locales
+
+    # IMAGES
+
+    # collection directory name in media server data directory
+    media_server_dir: collection_name
+    # thumbnail size, ! means not to alter ratio, then max-width, max-height
+    # IIIF size syntax reference: https://iiif.io/api/image/2.1/#size
+    thumbnail_size: "!200,200"
+
+    # REDIRECTS / REWRITES
+
+    # accepts an array of yaml file locations, loaded in the order they appear below
+    # see config/redirects.example.yml for more information
+    # redirect_files:
+    #   - config/redirects.yml
+
+    # SECTIONS
+    # List of section names corresponding to YAML files in config/sections/
+    # YAML file contains api_options and facets values applied section-wide
+    # sections:
+    #   - section_name
 
   api_options:
     # example of default filter for all queries
@@ -14,8 +39,8 @@ default: &default
     #   - subcategory|Writings
     # sorting and response number
     sort:
-      - title|asc
-    rows: 50
+      - title_sort|asc
+    num: 50
     # facet info on search page
     facet_limit: 20
     facet_sort: count|desc
@@ -34,6 +59,52 @@ default: &default
       - 2100
       - 12
       - 31
+
+  facets:
+    en:
+      collection:
+        label: Collection
+        flags:
+          - search_filter
+      category:
+        label: Category
+        flags:
+          - search_filter
+      date.year:
+        label: Year
+        flags:
+          - search_filter
+      person.name:
+        label: People
+        flags:
+          - search_filter
+      languages:
+        label: Language
+        flags:
+          - search_filter
+      subcategory:
+        label: Subcategory
+        flags:
+          - search_filter
+      creator.name:
+        label: Creator
+        flags:
+          - search_filter
+      format:
+        label: Format
+        flags:
+          - search_filter
+      places:
+        label: Places
+        flags:
+          - search_filter
+# Add fields for other languages with their language code
+#    es:
+#      category:
+#        label: Categoría
+#        flags:
+#          - search_filter
+#          - translate
 
 test:
   <<: *default

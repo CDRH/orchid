@@ -1,0 +1,73 @@
+default: &default
+
+  api_options:
+    # only return section items by default
+    f:
+      - subcategory|section
+    # sorting and response number
+    sort:
+      - date|asc
+    num: 50
+    # facet info on search page
+    facet_limit: 20
+    facet_sort: count|desc
+    # facet info on browse page
+    browse_sort: term|asc
+    # highlighting
+    hl_num: 5
+
+  facets:
+    en:
+      collection:
+        label: Collection
+        flags:
+          - search_filter
+      category:
+        label: Category
+        flags:
+          - search_filter
+      date.year:
+        label: Year
+        flags:
+          - search_filter
+      person.name:
+        label: People
+        flags:
+          - search_filter
+      languages:
+        label: Language
+        flags:
+          - search_filter
+      subcategory:
+        label: Subcategory
+        flags:
+          - search_filter
+      creator.name:
+        label: Creator
+        flags:
+          - search_filter
+      format:
+        label: Format
+        flags:
+          - search_filter
+      places:
+        label: Places
+        flags:
+          - search_filter
+# Add fields for other languages with their language code
+#    es:
+#      category:
+#        label: Categoría
+#        flags:
+#          - search_filter
+#          - translate
+
+test:
+  <<: *default
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+
