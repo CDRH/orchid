@@ -39,9 +39,14 @@ class ApplicationController < ActionController::Base
     # False when looking for views rather than partials
     is_partial = false
 
-    if @section.present? && lookup_context.template_exists?(view,
-      "#{@section}/#{path}", is_partial)
+    if @section.present? && path.is_a?(String) &&
+      lookup_context.template_exists?(view, "#{@section}/#{path}",
+                                      is_partial)
       path = "#{@section}/#{path}"
+    elsif @section.present? && path.is_a?(Array) &&
+      lookup_context.template_exists?(view, "#{@section}/#{path[0]}",
+                                      is_partial)
+      path = "#{@section}/#{path[0]}"
     elsif !lookup_context.template_exists?(view, path, is_partial)
       # Log error and display 404 view if view is missing
       path << "/" if path.present?
