@@ -42,7 +42,7 @@ module Orchid::DateHelper
     y, m, d = date.split("-").map { |num_string| num_string.to_i }
 
     # Fix numbers out of range
-    y = default_year if y < DATE_FIRST[0].to_i || y > DATE_LAST[1].to_i
+    y = default_year if y < DATE_FIRST[0].to_i || y > DATE_LAST[0].to_i
 
     m = 1 if m < 1
     m = 12 if m > 12
