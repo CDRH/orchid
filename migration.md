@@ -4,6 +4,10 @@
 
 …
 
+## 3.0.0 to 3.0.1
+
+Fixes bug with date search and incorrect locale path
+
 ## 2.1.0 to 3.0.0
 
 `metadata` method in DisplayHelper altered so final argument is now
