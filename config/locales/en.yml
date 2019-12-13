@@ -7,7 +7,6 @@
 #   Ex:  # CDRH - explanation of label
 
 en:
-
   #################
   # GENERAL PAGES #
   #################
@@ -34,19 +33,34 @@ en:
     # it's recommended that you override it in your config/locales files. If your about
     # page is more involved, please override the about.html.erb template entirely
     contents_html: |-
-      <p>To edit the contents of this page, please open config/locales/en.yml and alter "contents_html",
+      <p>To edit the contents of this page, please open config/locales/en.yml
+      and alter "contents_html",
       or override about.html.erb in your local application.</p>
       <p>And now, a few words from Star Trek:</p>
-      <p>Damage report! Now we know what they mean by 'advanced' tactical training. Is it my imagination, or have tempers become a little frayed on the ship lately?
-      You did exactly what you had to do. You considered all your options, you tried every alternative and then you made the hard choice.
-      In all trust, there is the possibility for betrayal. Earl Grey tea, watercress sandwiches... and Bularian canapés? Are you up for promotion?
-      Wait a minute - you've been declared dead. You can't give orders around here. Some days you get the bear, and some days the bear gets you.
-      Maybe if we felt any human loss as keenly as we feel one of those close to us, human history would be far less bloody.</p>
-      <p>The Enterprise computer system is controlled by three primary main processor cores, cross-linked with a redundant melacortz ramistat, fourteen kiloquad interface modules.
-      Well, that's certainly good to know. Well, I'll say this for him - he's sure of himself. Maybe we better talk out here; the observation lounge has turned into a swamp.
-      A lot of things can change in twelve years, Admiral. Computer, belay that order. Congratulations - you just destroyed the Enterprise.
-      Ensign Babyface! Did you come here for something in particular or just general Riker-bashing? Fear is the true enemy, the only enemy.
-      I will obey your orders. I will serve this ship as First Officer. And in an attack against the Enterprise, I will die with this crew. But I will not break my oath of loyalty to Starfleet.</p>
+      <p>Damage report! Now we know what they mean by 'advanced' tactical
+      training. Is it my imagination, or have tempers become a little frayed on
+      the ship lately?
+      You did exactly what you had to do. You considered all your options, you
+      tried every alternative and then you made the hard choice.
+      In all trust, there is the possibility for betrayal. Earl Grey tea,
+      watercress sandwiches... and Bularian canapés? Are you up for promotion?
+      Wait a minute - you've been declared dead. You can't give orders around
+      here. Some days you get the bear, and some days the bear gets you.
+      Maybe if we felt any human loss as keenly as we feel one of those close
+      to us, human history would be far less bloody.</p>
+      <p>The Enterprise computer system is controlled by three primary main
+      processor cores, cross-linked with a redundant melacortz ramistat,
+      fourteen kiloquad interface modules.
+      Well, that's certainly good to know. Well, I'll say this for him - he's
+      sure of himself. Maybe we better talk out here; the observation lounge
+      has turned into a swamp.
+      A lot of things can change in twelve years, Admiral. Computer, belay that
+      order. Congratulations - you just destroyed the Enterprise.
+      Ensign Babyface! Did you come here for something in particular or just
+      general Riker-bashing? Fear is the true enemy, the only enemy.
+      I will obey your orders. I will serve this ship as First Officer. And in
+      an attack against the Enterprise, I will die with this crew. But I will
+      not break my oath of loyalty to Starfleet.</p>
 
   ##########
   # BROWSE #
@@ -161,15 +175,34 @@ en:
       html: |-
         <h2 class="sr-only">Search Help</h2>
         <h3>Basic Search</h3>
-        <p>Simply enter the word you wish to find and the search engine will search for every instance of the word in the journals. For example: Fight. All instances of the use of the word fight will show up on the results page.</p>
+        <p>Simply enter the word you wish to find and the search engine will
+        search for every instance of the word in the journals. For example:
+        Fight. All instances of the use of the word fight will show up on the
+        results page.</p>
         <h3>Wildcard Searches</h3>
-        <p>Using an asterisk (*) will increase the odds of finding the results you are seeking. For example: Fight*. The search results will display every instance of fight, fights, fighting, etc. More than one wildcard may be used. For example: *ricar*. This search will return most references to the Aricara tribe, including Ricara, Ricares, Aricaris, Ricaries, Ricaree, Ricareis, and Ricarra. Using a question mark (?) instead of an asterisk (*) will allow you to search for a single character. For example, r?n will find all instances of ran and run, but will not find rain or ruin.</p>
+        <p>Using an asterisk (*) will increase the odds of finding the results
+        you are seeking. For example: Fight*. The search results will display
+        every instance of fight, fights, fighting, etc. More than one wildcard
+        may be used. For example: *ricar*. This search will return most
+        references to the Aricara tribe, including Ricara, Ricares, Aricaris,
+        Ricaries, Ricaree, Ricareis, and Ricarra. Using a question mark (?)
+        instead of an asterisk (*) will allow you to search for a single
+        character. For example, r?n will find all instances of ran and run, but
+        will not find rain or ruin.</p>
         <h3>Capitalization</h3>
-        <p>Searches are not case sensitive. For example: george will come up with the same results as George.</p>
+        <p>Searches are not case sensitive. For example: george will come up
+        with the same results as George.</p>
         <h3>Phrase Search</h3>
-        <p>Searching for a specific phrase may help narrow down the results. Rather long phrases are no problem. For example: "This white pudding we all esteem".</p>
+        <p>Searching for a specific phrase may help narrow down the results.
+        Rather long phrases are no problem. For example: "This white pudding we
+        all esteem".</p>
         <h3>Subsequent Searches</h3>
-        <p>Because of the creative spellings used by the journalists, it may be necessary to try your search multiple times. For example: P?ro*. This search brings up numerous variant spellings of the French word pirogue, "a large dugout canoe or open boat." Searching for P?*r*og?* will bring up other variant spellings. Searching for canoe or boat also may be helpful.</p>
+        <p>Because of the creative spellings used by the journalists, it may be
+        necessary to try your search multiple times. For example: P?ro*. This
+        search brings up numerous variant spellings of the French word pirogue,
+        "a large dugout canoe or open boat." Searching for P?*r*og?* will bring
+        up other variant spellings. Searching for canoe or boat also may be
+        helpful.</p>
     filters:
       # clearing filters (not the text search)
       clear_all: Clear Filters
