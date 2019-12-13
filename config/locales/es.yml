@@ -1,0 +1,283 @@
+# It is recommended, when adding entirely new fields to this file, to mark in the comment
+# that they are a custom field. This will help you upgrade the file when migrating to
+# new versions of orchid
+#   Ex:  # CDRH - explanation of label
+
+es:
+  #################
+  # GENERAL PAGES #
+  #################
+  general:
+    # footer content with link to CDRH site
+    cdrh_link_html: |-
+      Creado por el <a href="https://cdrh.unl.edu">Centro de Investigación
+      Digital en las Humanidades</a>.
+    # close a popup window
+    close: Cerrar
+    # Below commented to avoid fallback use from a project site omitting them
+    # Header title
+    # project_name: Sample Template
+    # <title>, meta application-name
+    # project_shortname: Sample
+    # Header subtitle
+    # project_subtitle: Template Subtitle
+
+  #########
+  # ABOUT #
+  #########
+  about:
+    # page title
+    title: ¿Quiénes somos?
+    # placeholder "riker ipsum" for about page. If about page has few contents,
+    # it's recommended that you override it in your config/locales files. If your about
+    # page is more involved, please override the about.html.erb template entirely
+    contents_html: |-
+      <p>To edit the contents of this page, please open config/locales/en.yml
+      and alter "contents_html",
+      or override about.html.erb in your local application.</p>
+      <p>And now, a few words from Star Trek:</p>
+      <p>Damage report! Now we know what they mean by 'advanced' tactical
+      training. Is it my imagination, or have tempers become a little frayed on
+      the ship lately?
+      You did exactly what you had to do. You considered all your options, you
+      tried every alternative and then you made the hard choice.
+      In all trust, there is the possibility for betrayal. Earl Grey tea,
+      watercress sandwiches... and Bularian canapés? Are you up for promotion?
+      Wait a minute - you've been declared dead. You can't give orders around
+      here. Some days you get the bear, and some days the bear gets you.
+      Maybe if we felt any human loss as keenly as we feel one of those close
+      to us, human history would be far less bloody.</p>
+      <p>The Enterprise computer system is controlled by three primary main
+      processor cores, cross-linked with a redundant melacortz ramistat,
+      fourteen kiloquad interface modules.
+      Well, that's certainly good to know. Well, I'll say this for him - he's
+      sure of himself. Maybe we better talk out here; the observation lounge
+      has turned into a swamp.
+      A lot of things can change in twelve years, Admiral. Computer, belay that
+      order. Congratulations - you just destroyed the Enterprise.
+      Ensign Babyface! Did you come here for something in particular or just
+      general Riker-bashing? Fear is the true enemy, the only enemy.
+      I will obey your orders. I will serve this ship as First Officer. And in
+      an attack against the Enterprise, I will die with this crew. But I will
+      not break my oath of loyalty to Starfleet.</p>
+
+  ##########
+  # BROWSE #
+  ##########
+  browse:
+    # link to search all items
+    all_link: Todos los objetos de la colección
+    # label for browsing filters
+    browse_type: Buscar por
+    # how to display specific filters which have no label
+    no_label: Sin Etiqueta
+    # label for browsing sort (sort by: alphabetical descending)
+    sort_by: Clasificar
+    # page title
+    title: Echa un vistazo
+
+  ##########
+  # ERRORS #
+  ##########
+  errors:
+    # general consolation message to the user on an error
+    apology: Le pedimos disculpas por la inconveniencia, ocurrió un error.
+    # browse page specific message when selected facet cannot be viewed
+    browse: "No existe ese filtro: %{facet}"
+    # page not found (404) explanation
+    not_found: La página a la que usted está intentando acceder no existe. (404)
+    # server error (500) explanation
+    server_error: Error del servidor. (500)
+
+  #############
+  # HOME PAGE #
+  #############
+  home:
+    # greeting to the user
+    greeting: Bienvenidos
+    # page title
+    title: Inicio
+
+  #############
+  # ITEM VIEW #
+  #############
+  item:
+    # a box of information shown about each item separate from the text and images
+    metadata:
+      # category of the item, such as "Writings"
+      category: Categoría
+      # the creator or creators of this item
+      creators: Autor(es)
+      # the date of this item as it was originally recorded ("display date")
+      date: Fecha
+      # the format of the item, such as "envelope," "photograph," "postcard"
+      format: Formato
+      # locations referenced by this item
+      places: Lugar(es)
+      # subcategory of the item, such as "Letters"
+      subcategory: Tipo
+      # description of the title of the item
+      title: Titulo
+      # any works (often literary) referenced by this item, such as "O Pioneers!"
+      works: Obras
+    # description of missing item error
+    no_item: "No se ha encontrado ningún objeto %{id}!"
+    # title for error when item not found
+    not_found: No se han encontrado objetos bajo estos criterios
+
+  ########################
+  # SEARCH AND FILTERING #
+  ########################
+  search:
+    # title text that appears when no search / filters have been applied
+    all_items: Todos los objetos
+    # clearing all search / filters
+    clear_all: Limpiar criterios de búsqueda
+    # clearing only the text search field
+    clear_text: Limpiar búsqueda
+    dates:
+      # clearing the date filter
+      clear_filter: Borrar filtro Fecha
+      # the word "date" singular
+      date: Fecha
+      # label for earliest date in range
+      date_from_label: Fecha (de)
+      # label for latest date in range
+      date_to_label: Fecha (hasta)
+      # earliest date in range day
+      from_day: A partir del día
+      # earliest date in range month
+      from_month: A partir del mes
+      # earliest date in range year
+      from_year: A partir del año
+      # date filter help label
+      help: Ayuda del filtro Fecha
+      # divider between a range of dates, such as "2012 to 2014"
+      range_divider: hasta
+      # hidden label marking section for date search
+      selection: Selección de Fecha
+      # hidden label for date filter dropdown
+      show_filters: Mostrar Filtros de Fecha
+      # label for applying the selected date filters
+      submit: Usar estos filtros
+      # latest date in range day
+      to_day: Hasta el día
+      # latest date in range month
+      to_month: Hasta el mes
+      # latest date in range year
+      to_year: Hasta el año
+    help:
+      # section title
+      title: Ayuda
+      # search help html, this may need to be recreated per language
+      # instead of translated literally due to differences with stemming and grammar
+      html: |-
+        
+        <h4>Búsqueda básica</h4>
+        <p>Es posible insertar la palabra que se desee encontrar y el sistema
+        buscará cada una de las veces que parezca la colección. Por ejemplo:
+        Trabajo. Todas las veces que la palabra trabajo aparezca en los
+        materiales se mostrará en los resultados de la búsqueda.</p>
+        <h4>Búsqueda especial (lematización)</h4>
+        <p>Al utilizar un asterisco (*) usted aumenta las probabilidades de
+        encontrar el resultado que busca. Por ejemplo: Trabajo. Los resultados
+        de esta búsqueda incluirán palabras como trabajo, trabajos, trabajando,
+        etc. También puede utilizar más de un elemento de búsqueda especial.
+        Por ejemplo: *era*. Al buscar así, encontrará palabras como hera,
+        Heráclito, eran, serán, etc. Al usar el signo de interrogación (?) en
+        lugar del asterisco (*), podrá buscar a partir de una sola letra. Por
+        ejemplo, e?a le permitirá encontrar las formas eta y esa, pero no esta
+        ni ella.</p>
+        <h4>Uso de mayúsculas</h4>
+        <p>El sistema no toma en cuenta las mayúsculas. Por ejemplo: Escribir
+        pedro y Pedro le dará los mismos resultados</p>
+        <h4>Búsqueda por frase</h4>
+        <p>Buscar por frase limita el número de resultados. No importa la
+        extensión de la frase. Por ejemplo: "Todos los ciudadanos deben tener
+        iguales derechos ante la ley".</p>
+        <h4>Búsquedas subsecuentes</h4>
+        <p>La multiplicidad de formas en las que puede estar escrita una
+        palabra hace posible que a veces usted necesite repetir su búsqueda.
+        Por ejemplo: para algunas palabras, es posible que se necesite realizar
+        una búsqueda varias veces. Por ejemplo: *erb?. Los resultados de esta
+        búsqueda incluirían las formas yerba e ierba. Al buscar por ?*erb?,
+        aparecería el resultado hierba.</p>
+    filters:
+      # clearing filters (not the text search)
+      clear_all: Borrar Filtros
+      # label above the filters
+      filter_by: Filtrar por
+      # display when a specific filter option is an empty string
+      no_label: Sin etiqueta
+      # link text to view all the possible filter options
+      see_more: Más opciones
+      # hidden label to expand a filter category
+      show: "Mostrar los filtros de %{label}" 
+      # hidden label for filter summary boxes
+      summary_box: "Filtro %{specific_filter}"
+    # placeholder for the text search field
+    placeholder: Buscar...
+    results:
+      # how to display number of results when no search / filters have been applied
+      # and therefore user is browsing all items
+      general:
+        zero: No se han encontrado resultados para su búsqueda
+        one: 1 resultado
+        other: "%{count} resultados"
+      # labels for individual item descriptions in results
+      item:
+        # category of the item
+        category: Categoría
+        # creators of the item
+        creator: Autor(es)
+        # the date of the item used for search results
+        date: Fecha
+        # the format of the item
+        format: Formato
+        # label to display if the item itself has no title
+        no_title: Sin Título
+        # the source of the item, such as the repository
+        source: Fuente
+      # how to display number of results when a search / filter have been applied
+      # and therefore the user is browsing a subset of items
+      query:
+        zero: No se han encontrado objetos para su búsqueda
+        one: 1 objeto
+        other: "%{count} objetos"
+      # summary box of selected search / filters
+      summary:
+        query: Buscar
+    # title text that appears when search / filters have been applied
+    search_results: Resultados
+    # hidden label for the text search input
+    search_text: Buscar Texto
+    sort:
+      # alphabetically ascending sort
+      alpha_asc: "Por orden alfabético (A-Z)"
+      # alphabetically descending sort
+      alpha_desc: "Por orden alfabético (Z-A)"
+      # sort by fewest to most items
+      count_asc: "Por cantidad (menos objetos)"
+      # sort by most to fewest items
+      count_desc: "Por cantidad (más objetos)"
+      # creator ascending sort
+      creator_asc: "Creador (A-Z)"
+      # creator descending sort
+      creator_desc: "Creador (Z-A)"
+      # date ascending sort
+      date_asc: "Fecha (del más antiguo al más reciente)"
+      # date descending sort
+      date_desc: "Fecha (del más reciente al más antiguo)"
+      # title ascending sort
+      title_asc: "Título (A-Z)"
+      # title descending sort
+      title_desc: "Título (Z-A)"
+      # relevancy (descending), how likely the search results are to be valuable
+      relevancy: "Relevancia"
+      # label for sorting
+    # label for applying text search options ("Go!", "Search", etc)
+    submit: Buscar
+    # page title
+    title: Búsqueda
+    # browse items without applying any search / filters
+    view_all: Ver todos los objetos de la colección
