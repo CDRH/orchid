@@ -1,6 +1,6 @@
 module Orchid::PaginationHelper
 
-  def paginator total_pages, display_range=3
+  def paginator total_pages, display_range=2
     new_params = copy_params
     total = total_pages.to_i
     if total > 1

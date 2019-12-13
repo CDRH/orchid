@@ -9,6 +9,7 @@
 
 <nav>
   <ul class="pagination">
+
     <%# previous button %>
     <% if current == 1 %>
       <li class="disabled">
@@ -29,7 +30,8 @@
         <%= link_to "1", prefix_path("search_path", to_page(1, opts)),
                     rel: "nofollow", "aria-label": "First Page" %>
       </li>
-      <% if pages_prior.min != range-1 && current != range-1 %>
+      <%# don't display dots between 1 and 2 %>
+      <% if pages_prior.min > 2 %>
         <li class="disabled"><span aria-label="Jump in interval">…</span></li>
       <% end %>
     <% end %>
@@ -55,16 +57,13 @@
       </li>
     <% end %>
 
-    <%# add the last page if you're not on it, add dots if necessary %>
+    <%# add dots if necessary %>
     <% if current != total %>
       <% if pages_next.max != total-1 && current != total-1 %>
         <li class="disabled"><span aria-label="Jump in interval">…</span></li>
       <% end %>
-      <li>
-        <%= link_to total.to_s,
-                    prefix_path("search_path", to_page(total, opts)),
-                    rel: "nofollow", "aria-label": "Last Page (#{total})" %>
-      </li>
+      <%# do not display the last page to prevent users from jumping
+          to the end of tens of thousands of pages of results, potentially %>
     <% end %>
 
     <%# next button %>
