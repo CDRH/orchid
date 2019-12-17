@@ -1,20 +1,19 @@
-# If adding a new language, copy this file, change the "en" code to the new language
-# and translate the text of the fields
-#
 # It is recommended, when adding entirely new fields to this file, to mark in the comment
 # that they are a custom field. This will help you upgrade the file when migrating to
 # new versions of orchid
 #   Ex:  # CDRH - explanation of label
 
-en:
+es:
   #################
   # GENERAL PAGES #
   #################
   general:
     # footer content with link to CDRH site
-    cdrh_link_html: Created by the <a href="https://cdrh.unl.edu">Center for Digital Research in the Humanities</a>.
+    cdrh_link_html: |-
+      Creado por el <a href="https://cdrh.unl.edu">Centro de Investigación
+      Digital en las Humanidades</a>.
     # close a popup window
-    close: Close
+    close: Cerrar
     # Below commented to avoid fallback use from a project site omitting them
     # Header title
     # project_name: Sample Template
@@ -28,7 +27,7 @@ en:
   #########
   about:
     # page title
-    title: About
+    title: ¿Quiénes somos?
     # placeholder "riker ipsum" for about page. If about page has few contents,
     # it's recommended that you override it in your config/locales files. If your about
     # page is more involved, please override the about.html.erb template entirely
@@ -67,37 +66,37 @@ en:
   ##########
   browse:
     # link to search all items
-    all_link: All Items in the Archive
+    all_link: Todos los objetos de la colección
     # label for browsing filters
-    browse_type: Browse by
+    browse_type: Buscar por
     # how to display specific filters which have no label
-    no_label: No label
+    no_label: Sin Etiqueta
     # label for browsing sort (sort by: alphabetical descending)
-    sort_by: Sort by
+    sort_by: Clasificar
     # page title
-    title: Browse
+    title: Echa un vistazo
 
   ##########
   # ERRORS #
   ##########
   errors:
     # general consolation message to the user on an error
-    apology: We're sorry for the inconvenience.
+    apology: Le pedimos disculpas por la inconveniencia, ocurrió un error.
     # browse page specific message when selected facet cannot be viewed
-    browse: "Cannot browse by key: %{facet}"
+    browse: "No existe ese filtro: %{facet}"
     # page not found (404) explanation
-    not_found: This page was not found!
+    not_found: La página a la que usted está intentando acceder no existe. (404)
     # server error (500) explanation
-    server_error: Something went wrong!
+    server_error: Error del servidor. (500)
 
   #############
   # HOME PAGE #
   #############
   home:
     # greeting to the user
-    greeting: Welcome
+    greeting: Bienvenidos
     # page title
-    title: Home
+    title: Inicio
 
   #############
   # ITEM VIEW #
@@ -106,178 +105,179 @@ en:
     # a box of information shown about each item separate from the text and images
     metadata:
       # category of the item, such as "Writings"
-      category: Category
+      category: Categoría
       # the creator or creators of this item
-      creators: Author(s)
+      creators: Autor(es)
       # the date of this item as it was originally recorded ("display date")
-      date: Date
+      date: Fecha
       # the format of the item, such as "envelope," "photograph," "postcard"
-      format: Format
+      format: Formato
       # locations referenced by this item
-      places: Place(s)
+      places: Lugar(es)
       # subcategory of the item, such as "Letters"
-      subcategory: Subcategory
+      subcategory: Tipo
       # description of the title of the item
-      title: Title
+      title: Titulo
       # any works (often literary) referenced by this item, such as "O Pioneers!"
-      works: Works
+      works: Obras
     # description of missing item error
-    no_item: "No item with identifier %{id} found!"
+    no_item: "No se ha encontrado ningún objeto %{id}!"
     # title for error when item not found
-    not_found: Not Found
+    not_found: No se han encontrado objetos bajo estos criterios
 
   ########################
   # SEARCH AND FILTERING #
   ########################
   search:
     # title text that appears when no search / filters have been applied
-    all_items: All Items
+    all_items: Todos los objetos
     # clearing all search / filters
-    clear_all: Clear Search
+    clear_all: Limpiar criterios de búsqueda
     # clearing only the text search field
-    clear_text: Clear Search Text
+    clear_text: Limpiar búsqueda
     dates:
       # clearing the date filter
-      clear_filter: Clear Date Filter
+      clear_filter: Borrar filtro Fecha
       # the word "date" singular
-      date: Date
+      date: Fecha
       # label for earliest date in range
-      date_from_label: Date From
+      date_from_label: Fecha (de)
       # label for latest date in range
-      date_to_label: Date To
+      date_to_label: Fecha (hasta)
       # earliest date in range day
-      from_day: From Day
+      from_day: A partir del día
       # earliest date in range month
-      from_month: From Month
+      from_month: A partir del mes
       # earliest date in range year
-      from_year: From Year
+      from_year: A partir del año
       # date filter help label
-      help: Date Filter Help
+      help: Ayuda del filtro Fecha
       # divider between a range of dates, such as "2012 to 2014"
-      range_divider: to
+      range_divider: hasta
       # hidden label marking section for date search
-      selection: Date Selection
+      selection: Selección de Fecha
       # hidden label for date filter dropdown
-      show_filters: Show Date Filters
+      show_filters: Mostrar Filtros de Fecha
       # label for applying the selected date filters
-      submit: Filter
+      submit: Usar estos filtros
       # latest date in range day
-      to_day: To Day
+      to_day: Hasta el día
       # latest date in range month
-      to_month: To Month
+      to_month: Hasta el mes
       # latest date in range year
-      to_year: To Year
+      to_year: Hasta el año
     help:
       # section title
-      title: Search Help
+      title: Ayuda
       # search help html, this may need to be recreated per language
       # instead of translated literally due to differences with stemming and grammar
       html: |-
-        <h2 class="sr-only">Search Help</h2>
-        <h3>Basic Search</h3>
-        <p>Simply enter the word you wish to find and the search engine will
-        search for every instance of the word in the journals. For example:
-        Fight. All instances of the use of the word fight will show up on the
-        results page.</p>
-        <h3>Wildcard Searches</h3>
-        <p>Using an asterisk (*) will increase the odds of finding the results
-        you are seeking. For example: Fight*. The search results will display
-        every instance of fight, fights, fighting, etc. More than one wildcard
-        may be used. For example: *ricar*. This search will return most
-        references to the Aricara tribe, including Ricara, Ricares, Aricaris,
-        Ricaries, Ricaree, Ricareis, and Ricarra. Using a question mark (?)
-        instead of an asterisk (*) will allow you to search for a single
-        character. For example, r?n will find all instances of ran and run, but
-        will not find rain or ruin.</p>
-        <h3>Capitalization</h3>
-        <p>Searches are not case sensitive. For example: george will come up
-        with the same results as George.</p>
-        <h3>Phrase Search</h3>
-        <p>Searching for a specific phrase may help narrow down the results.
-        Rather long phrases are no problem. For example: "This white pudding we
-        all esteem".</p>
-        <h3>Subsequent Searches</h3>
-        <p>Because of the creative spellings used by the journalists, it may be
-        necessary to try your search multiple times. For example: P?ro*. This
-        search brings up numerous variant spellings of the French word pirogue,
-        "a large dugout canoe or open boat." Searching for P?*r*og?* will bring
-        up other variant spellings. Searching for canoe or boat also may be
-        helpful.</p>
+        
+        <h4>Búsqueda básica</h4>
+        <p>Es posible insertar la palabra que se desee encontrar y el sistema
+        buscará cada una de las veces que parezca la colección. Por ejemplo:
+        Trabajo. Todas las veces que la palabra trabajo aparezca en los
+        materiales se mostrará en los resultados de la búsqueda.</p>
+        <h4>Búsqueda especial (lematización)</h4>
+        <p>Al utilizar un asterisco (*) usted aumenta las probabilidades de
+        encontrar el resultado que busca. Por ejemplo: Trabajo. Los resultados
+        de esta búsqueda incluirán palabras como trabajo, trabajos, trabajando,
+        etc. También puede utilizar más de un elemento de búsqueda especial.
+        Por ejemplo: *era*. Al buscar así, encontrará palabras como hera,
+        Heráclito, eran, serán, etc. Al usar el signo de interrogación (?) en
+        lugar del asterisco (*), podrá buscar a partir de una sola letra. Por
+        ejemplo, e?a le permitirá encontrar las formas eta y esa, pero no esta
+        ni ella.</p>
+        <h4>Uso de mayúsculas</h4>
+        <p>El sistema no toma en cuenta las mayúsculas. Por ejemplo: Escribir
+        pedro y Pedro le dará los mismos resultados</p>
+        <h4>Búsqueda por frase</h4>
+        <p>Buscar por frase limita el número de resultados. No importa la
+        extensión de la frase. Por ejemplo: "Todos los ciudadanos deben tener
+        iguales derechos ante la ley".</p>
+        <h4>Búsquedas subsecuentes</h4>
+        <p>La multiplicidad de formas en las que puede estar escrita una
+        palabra hace posible que a veces usted necesite repetir su búsqueda.
+        Por ejemplo: para algunas palabras, es posible que se necesite realizar
+        una búsqueda varias veces. Por ejemplo: *erb?. Los resultados de esta
+        búsqueda incluirían las formas yerba e ierba. Al buscar por ?*erb?,
+        aparecería el resultado hierba.</p>
     filters:
       # clearing filters (not the text search)
-      clear_all: Clear Filters
+      clear_all: Borrar Filtros
       # label above the filters
-      filter_by: Filter by
+      filter_by: Filtrar por
       # display when a specific filter option is an empty string
-      no_label: No Label
+      no_label: Sin etiqueta
       # link text to view all the possible filter options
-      see_more: See more
+      see_more: Más opciones
       # hidden label to expand a filter category
-      show: "Show %{label} Filters"
+      show: "Mostrar los filtros de %{label}" 
       # hidden label for filter summary boxes
-      summary_box: "%{specific_filter} Filter"
+      summary_box: "Filtro %{specific_filter}"
     # placeholder for the text search field
-    placeholder: Search for...
+    placeholder: Buscar...
     results:
       # how to display number of results when no search / filters have been applied
       # and therefore user is browsing all items
       general:
-        zero: 0 results
-        one: 1 result
-        other: "%{count} results"
+        zero: No se han encontrado resultados para su búsqueda
+        one: 1 resultado
+        other: "%{count} resultados"
       # labels for individual item descriptions in results
       item:
+        # category of the item
+        category: Categoría
         # creators of the item
-        creator: Creator(s)
+        creator: Autor(es)
         # the date of the item used for search results
-        date: Date
+        date: Fecha
         # the format of the item
-        format: Format
+        format: Formato
         # label to display if the item itself has no title
-        no_title: Untitled
+        no_title: Sin Título
         # the source of the item, such as the repository
-        source: Source
+        source: Fuente
       # how to display number of results when a search / filter have been applied
       # and therefore the user is browsing a subset of items
       query:
-        zero: 0 items
-        one: 1 item
-        other: "%{count} items"
+        zero: No se han encontrado objetos para su búsqueda
+        one: 1 objeto
+        other: "%{count} objetos"
       # summary box of selected search / filters
       summary:
-        query: Search
+        query: Buscar
     # title text that appears when search / filters have been applied
-    search_results: Search Results
+    search_results: Resultados
     # hidden label for the text search input
-    search_text: Search Text
+    search_text: Buscar Texto
     sort:
       # alphabetically ascending sort
-      alpha_asc: "Alphabetically (A-Z)"
+      alpha_asc: "Por orden alfabético (A-Z)"
       # alphabetically descending sort
-      alpha_desc: "Alphabetically (Z-A)"
+      alpha_desc: "Por orden alfabético (Z-A)"
       # sort by fewest to most items
-      count_asc: "Count (least first)"
+      count_asc: "Por cantidad (menos objetos)"
       # sort by most to fewest items
-      count_desc: "Count (most first)"
+      count_desc: "Por cantidad (más objetos)"
       # creator ascending sort
-      creator_asc: "Creator (A-Z)"
+      creator_asc: "Creador (A-Z)"
       # creator descending sort
-      creator_desc: "Creator (Z-A)"
+      creator_desc: "Creador (Z-A)"
       # date ascending sort
-      date_asc: "Date (earliest first)"
+      date_asc: "Fecha (del más antiguo al más reciente)"
       # date descending sort
-      date_desc: "Date (latest first)"
+      date_desc: "Fecha (del más reciente al más antiguo)"
       # title ascending sort
-      title_asc: "Title (A-Z)"
+      title_asc: "Título (A-Z)"
       # title descending sort
-      title_desc: "Title (Z-A)"
+      title_desc: "Título (Z-A)"
       # relevancy (descending), how likely the search results are to be valuable
-      relevancy: "Relevancy"
-      # label for sorting options
-      sort_by: Sort By
+      relevancy: "Relevancia"
+      # label for sorting
     # label for applying text search options ("Go!", "Search", etc)
-    submit: Search
+    submit: Buscar
     # page title
-    title: Search
+    title: Búsqueda
     # browse items without applying any search / filters
-    view_all: View All Items
+    view_all: Ver todos los objetos de la colección
