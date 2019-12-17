@@ -15,7 +15,11 @@ module Orchid::DisplayHelper
 
       # iterate through the field values
       dataArray = data.map do |item|
-        link ? metadata_create_field_link(api_field, item) : item
+        if link
+          metadata_create_field_link(api_field, item)
+        else
+          value_label(api_field, item)
+        end
       end
       html << dataArray
                 .map { |i| "<span>#{i}</span>" }
