@@ -22,7 +22,6 @@ module Orchid::FacetHelper
       # do not need "label" since that will be found in the locale info
       facet_label_translation(type: type, normalized: normalized)
     else
-      # if there is no label specified, use the normalized version
       sanitize(label) || normalized
     end
   end
@@ -135,6 +134,8 @@ module Orchid::FacetHelper
   #   fields / values like person.role, "Postal Card" are stored
   # in locales yml as person_role, Postal_Card
   def value_label field, value
+    msg = "DEPRECATION WARNING: value_label will be removed by Orchid 4.0"
+    Rails.logger.warn(msg)
     # if @page_facets are not present, for example if a search_preset
     # view or a custom action are using the metadata method,
     # do not error but just skip possible translations
