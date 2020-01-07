@@ -88,6 +88,7 @@ module Orchid::ApplicationHelper
     end
 
     new_params
+<<<<<<< HEAD
   end
 
   # Creates classes to populate the <html> element.
@@ -141,6 +142,8 @@ module Orchid::ApplicationHelper
     if page
       "page_#{page}"
     end
+=======
+>>>>>>> 8e9e01d (updates helper formatting to fit our styleguide)
   end
 
   # image is path relative to iiif server + project of image
