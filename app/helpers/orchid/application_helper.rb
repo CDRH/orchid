@@ -84,7 +84,7 @@ module Orchid::ApplicationHelper
       new_params.delete("sort")
     end
 
-    return new_params
+    new_params
   end
 
   # Creates classes to populate the <html> element.
