@@ -26,10 +26,15 @@
         <div class="panel-body collapse <%= class_in %>" id="fc-<%= data_safe_name %>">
           <ul class="list-unstyled">
             <% facet_res.each do |key, value| %>
+              <%# NOTE the below line accommodates Apium v1.0 as well as
+                  v1.1 when facet responses included more information %>
+              <% key, normalized, num = format_facet_response(key, value) %>
+
               <% selected = facet_selected?(facet_name, key) %>
+
               <%# value_label translates language if necessary,
                   create_label puts default label if empty %>
-              <% label = create_label(value_label(facet_name, key),
+              <% label = create_label(value_label(facet_name, normalized),
                   t("search.filters.no_label", default: "No Label")) %>
 
               <!-- list item -->
@@ -37,12 +42,12 @@
                 <li>
                   <%= link_to label, prefix_path("search_path",
                     facet_link(facet_name, key)), rel: "nofollow" %>
-                  <span class="badge"><%= value %></span>
+                  <span class="badge"><%= num %></span>
                 </li>
               <% else %>
                 <li class="selected">
                   <span><%= label %></span>
-                  <span class="badge"><%= value %></span>
+                  <span class="badge"><%= num %></span>
                   <%= link_to prefix_path("search_path",
                     remove_facet(facet_name, key)), rel: "nofollow" do %>
                     <button class="btn btn-default btn-xs"
