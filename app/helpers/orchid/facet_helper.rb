@@ -31,14 +31,14 @@ module Orchid::FacetHelper
     field_name = type.gsub(".", "_")
     # if this is a list of values, we need to return a list as well
     subs = /[\., ]/
-    if value.class == Array
-      value.compact.map do |v|
+    if normalized.class == Array
+      normalized.compact.map do |v|
         v = v.gsub(subs, "_")
         t "facet_value.#{field_name}.#{v}", default: v
       end
     else
-      value_name = value.gsub(subs, "_")
-      t "facet_value.#{field_name}.#{value_name}", default: value
+      value_name = normalized.gsub(subs, "_")
+      t "facet_value.#{field_name}.#{value_name}", default: normalized
     end
   end
 
