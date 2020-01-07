@@ -39,10 +39,14 @@
 
               <% selected = facet_selected?(facet_name, key) %>
 
-              <%# value_label translates language if necessary,
-                  create_label puts default label if empty %>
-              <% label = create_label(value_label(facet_name, nonnormalized),
-                  t("search.filters.no_label", default: "No Label")) %>
+              <% label = create_label(
+                facet_label(
+                  type: facet_name,
+                  normalized: key,
+                  label: nonnormalized
+                ),
+                t("search.filters.no_label")
+              ) %>
 
               <%# list item %>
               <% if !selected %>

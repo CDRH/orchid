@@ -51,7 +51,15 @@
               <% key, nonnormalized, num = format_facet_response(key, value) %>
 
               <tr>
-                  <% text = original.blank? ? t("browse.no_label", default: "No label") : value_label(facet_name, nonnormalized) %>
+                  <% text = create_label(
+                    facet_label(
+                      type: facet_name,
+                      normalized: key,
+                      label: nonnormalized
+                    ),
+                    t("browse.no_label")
+                  ) %>
+
                   <td class="index_num">
                     <%= link_to prefix_path(route_path,
                       f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>

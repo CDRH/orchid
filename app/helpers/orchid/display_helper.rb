@@ -18,7 +18,9 @@ module Orchid::DisplayHelper
         if link
           metadata_create_field_link(api_field, item)
         else
-          value_label(api_field, item)
+          # in this case there isn't a normalized version because
+          # the data comes from a document result, so just use item
+          facet_label(type: api_field, normalized: item, label: item)
         end
       end
       html << dataArray
@@ -33,7 +35,7 @@ module Orchid::DisplayHelper
   #   example: ?f[]=category|Writings
   def metadata_create_field_link(api_field, item)
     search_params = { "f" => ["#{api_field}|#{item}"] }
-    item_label = value_label(api_field, item)
+    item_label = facet_label(type: api_field, normalized: item, label: item)
     link_to item_label, prefix_path(route_path, search_params),
       rel: "nofollow"
   end
