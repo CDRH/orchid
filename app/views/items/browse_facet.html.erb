@@ -48,10 +48,10 @@
             <% @res[facet_name].each do |key, value| %>
               <%# NOTE the below line accommodates Apium v1.0 as well as
                   v1.1 when facet responses included more information %>
-              <% key, normalized, num = format_facet_response(key, value) %>
+              <% key, nonnormalized, num = format_facet_response(key, value) %>
 
               <tr>
-                  <% text = normalized.blank? ? t("browse.no_label", default: "No label") : value_label(facet_name, normalized) %>
+                  <% text = original.blank? ? t("browse.no_label", default: "No label") : value_label(facet_name, nonnormalized) %>
                   <td class="index_num">
                     <%= link_to prefix_path(route_path,
                       f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>

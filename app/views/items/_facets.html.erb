@@ -35,13 +35,13 @@
             <% facet_res.each do |key, value| %>
               <%# NOTE the below line accommodates Apium v1.0 as well as
                   v1.1 when facet responses included more information %>
-              <% key, normalized, num = format_facet_response(key, value) %>
+              <% key, nonnormalized, num = format_facet_response(key, value) %>
 
               <% selected = facet_selected?(facet_name, key) %>
 
               <%# value_label translates language if necessary,
                   create_label puts default label if empty %>
-              <% label = create_label(value_label(facet_name, normalized),
+              <% label = create_label(value_label(facet_name, nonnormalized),
                   t("search.filters.no_label", default: "No Label")) %>
 
               <%# list item %>
