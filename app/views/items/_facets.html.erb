@@ -52,7 +52,16 @@
                 t("search.filters.no_label")
               ) %>
 
-              <%# list item %>
+              <% label = create_label(
+                facet_label(
+                  type: facet_name,
+                  normalized: key,
+                  label: nonnormalized
+                ),
+                t("search.filters.no_label")
+              ) %>
+
+              <!-- list item -->
               <% if !selected %>
                 <li>
                   <%= link_to sanitize(text), prefix_path(route_path,
