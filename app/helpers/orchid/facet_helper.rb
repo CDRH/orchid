@@ -7,13 +7,13 @@ module Orchid::FacetHelper
     new_params.delete("page")
   end
 
-  def create_label key, default="No Label"
+  def create_label(key, default="No Label")
     key.present? ? key : default
   end
 
   # type = "novel"
   # facet = "emma"
-  def facet_link type, facet, remove_others=false
+  def facet_link(type, facet, remove_others=false)
     new_params = copy_params
     # if "f" not present, create new array
     new_params["f"] = [] if new_params["f"].blank?
@@ -32,7 +32,7 @@ module Orchid::FacetHelper
     if !new_params["f"].include?(facet_label)
       new_params["f"] << facet_label
     end
-    return new_params
+    new_params
   end
 
   # can return either true when
@@ -40,38 +40,38 @@ module Orchid::FacetHelper
   # or you can specify that you would like to match exactly
   # f[] = ["category|Writings"], etc
   # will depend on if second parameter is sent
-  def facet_selected? type, facet=""
+  def facet_selected?(type, facet="")
     if params["f"].present?
       if facet && facet.length > 0
-        return params["f"].include?("#{type}|#{facet}")
+        params["f"].include?("#{type}|#{facet}")
       else
-        return params["f"].any? { |f| f.include?(type) }
+        params["f"].any? { |f| f.include?(type) }
       end
     else
-      return false
+      false
     end
   end
 
   def pull_out_fparams
     if params["f"].present?
-      return params["f"].map do |f|
+      params["f"].map do |f|
         f.split("|").first
       end
     else
-      return []
+      []
     end
   end
 
-  def remove_facet type, facet
+  def remove_facet(type, facet)
     new_params = copy_params
     new_params["f"].delete("#{type}|#{facet}")
     # Remove page to return to first page of reorganized results
     new_params.delete("page")
-    return new_params
+    new_params
   end
 
-  def should_display? facet, info
-    return facet.present? && info["flags"] \
+  def should_display?(facet, info)
+    facet.present? && info["flags"] \
       && info["flags"].include?("search_filter")
   end
 
@@ -83,7 +83,7 @@ module Orchid::FacetHelper
   #   facet_value.{field_name}.{value_name}
   #   fields / values like person.role, "Postal Card" are stored
   # in locales yml as person_role, Postal_Card
-  def value_label field, value
+  def value_label(field, value)
     info = @page_facets[field]
     if value.present? && info && info["flags"] \
       && info["flags"].include?("translate")

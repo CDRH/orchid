@@ -84,7 +84,7 @@ module Orchid::ApplicationHelper
       new_params.delete("sort")
     end
 
-    return new_params
+    new_params
   end
 
   # image is path relative to iiif server + project of image
@@ -257,7 +257,7 @@ module Orchid::ApplicationHelper
       end
     end
 
-    return " class=\"site_#{section}\"".html_safe
+    " class=\"site_#{section}\"".html_safe
   end
 
 end
