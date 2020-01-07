@@ -46,24 +46,28 @@
       <% if @res && @res.key?(facet_name) %>
         <table class="index_table">
           <tbody>
-            <% @res[facet_name].each do |list| %>
+            <% @res[facet_name].each do |key, value| %>
+              <%# NOTE the below line accommodates Apium v1.0 as well as
+                  v1.1 when facet responses included more information %>
+              <% key, normalized, num = format_facet_response(key, value) %>
+
               <tr>
-                  <% text = list[0].blank? ? t("browse.no_label", default: "No label") : value_label(facet_name, list[0]) %>
+                  <% text = normalized.blank? ? t("browse.no_label", default: "No label") : value_label(facet_name, normalized) %>
                   <td class="index_num">
                     <%= link_to prefix_path(route_path,
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
-                      <%= list[1] %>
+                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
+                      <%= num %>
                     <% end %>
                   </td>
                   <td class="index_spacer">
                     <%= link_to prefix_path(route_path,
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
+                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
                       <span></span>
                     <% end %>
                   </td>
                   <td class="index_name">
                     <%= link_to prefix_path(route_path,
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
+                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
                       <%= text %>
                     <% end %>
                   </td>
