@@ -20,7 +20,7 @@ module Orchid::DateHelper
   end
 
   def date_present? date
-    return Array(date).reject(&:empty?).present?
+    Array(date).reject(&:empty?).present?
   end
 
   # main method responsible for taking params and returning

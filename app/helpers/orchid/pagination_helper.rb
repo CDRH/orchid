@@ -18,8 +18,8 @@ module Orchid::PaginationHelper
     end
   end
 
-  def to_page page, opts
-    return opts.merge({"page" => page.to_s})
+  def to_page(page, opts)
+    opts.merge({"page" => page.to_s})
   end
 
   def valid_page

@@ -9,8 +9,7 @@
     <% @page_facets.each_with_index do |(facet_name, facet_info), index| %>
       <li role="presentation" class="<%= active?(facet_name, @browse_facet) %>">
         <% if facet_name == @browse_facet %>
-          <%# TODO Fix a11y - Shouldn't be in tab order / focusable %>
-          <a href="#"><%= facet_info["label"] %></a>
+          <a href="#" tabindex="-1"><%= facet_info["label"] %></a>
         <% else %>
           <% id = facet_name.parameterize(separator: ".") %>
           <%= link_to prefix_path("browse_facet_path", facet: id),
@@ -46,24 +45,36 @@
       <% if @res.key?(facet_name) %>
         <table class="index_table">
           <tbody>
-            <% @res[facet_name].each do |list| %>
+            <% @res[facet_name].each do |key, value| %>
+              <%# NOTE the below line accommodates Apium v1.0 as well as
+                  v1.1 when facet responses included more information %>
+              <% key, nonnormalized, num = format_facet_response(key, value) %>
+
               <tr>
-                  <% text = list[0].blank? ? t("browse.no_label", default: "No label") : value_label(facet_name, list[0]) %>
+                  <% text = create_label(
+                    facet_label(
+                      type: facet_name,
+                      normalized: key,
+                      label: nonnormalized
+                    ),
+                    t("browse.no_label")
+                  ) %>
+
                   <td class="index_num">
                     <%= link_to prefix_path("search_path",
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
-                      <%= list[1] %>
+                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
+                      <%= num %>
                     <% end %>
                   </td>
                   <td class="index_spacer">
                     <%= link_to prefix_path("search_path",
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
+                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
                       <span></span>
                     <% end %>
                   </td>
                   <td class="index_name">
                     <%= link_to prefix_path("search_path",
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
+                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
                       <%= text %>
                     <% end %>
                   </td>
