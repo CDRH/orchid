@@ -96,9 +96,8 @@ module Orchid::FacetHelper
       [ key, value["source"], value["num"] ]
     else
       # this is a 1.0 response from Apium
-      msg = "DEPRECATION WARNING: Apium v1.0 responses not supported in Orchid 4.0"
-      Rails.logger.warn(msg)
-
+      msg = "Apium v1.0 responses not supported in Orchid 4.0"
+      ActiveSupport::Deprecation.warn(msg)
       [ key, key, value ]
     end
   end
