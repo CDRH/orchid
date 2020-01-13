@@ -12,10 +12,10 @@ module Orchid::FacetHelper
   end
 
   # type: type of facet (category, format, etc)
-  # value: the normalized value ("willa cather", "Yellowstone Kelly")
-  #        used for URL creation and translation matching
+  # normalized: the normalized value ("willa cather", "Yellowstone Kelly")
+  #     used for URL creation and translation matching
   # label: non normalized value ("Willa Cather", '"Yellowstone Kelly"')
-  def facet_label(type: type, normalized: normalized, label: nil)
+  def facet_label(type: nil, normalized: nil, label: nil)
     # determine if translation needed
     info = @page_facets[type]
     if info && info["flags"] && info["flags"].include?("translate")
@@ -27,7 +27,7 @@ module Orchid::FacetHelper
     end
   end
 
-  def facet_label_translation(type: type, normalized: normalized)
+  def facet_label_translation(type: nil, normalized: nil)
     field_name = type.gsub(".", "_")
     # if this is a list of values, we need to return a list as well
     subs = /[\., ]/
