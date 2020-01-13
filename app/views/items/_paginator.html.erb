@@ -31,7 +31,7 @@
                     rel: "nofollow", "aria-label": "First Page" %>
       </li>
       <%# don't display dots between 1 and 2 %>
-      <% if pages_prior.min > 2 %>
+      <% if pages_prior.min && pages_prior.min > 2 %>
         <li class="disabled"><span aria-label="Jump in interval">…</span></li>
       <% end %>
     <% end %>
@@ -59,7 +59,7 @@
 
     <%# add dots if necessary %>
     <% if current != total %>
-      <% if pages_next.max != total-1 && current != total-1 %>
+      <% if pages_next.max && pages_next.max != total-1 && current != total-1 %>
         <li class="disabled"><span aria-label="Jump in interval">…</span></li>
       <% end %>
       <%# do not display the last page to prevent users from jumping
