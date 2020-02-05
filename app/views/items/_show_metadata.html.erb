@@ -38,7 +38,7 @@
     <% end %>
     <% if @res["works"].present? %>
       <li>
-        <%= metadata(@res, t("item.metadata.works", default: "Works"),
+        <%= sanitize metadata(@res, t("item.metadata.works", default: "Works"),
                      "works") %>
       </li>
     <% end %>
