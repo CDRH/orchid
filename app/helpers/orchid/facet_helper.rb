@@ -22,6 +22,7 @@ module Orchid::FacetHelper
       # do not need "label" since that will be found in the locale info
       facet_label_translation(type: type, normalized: normalized)
     else
+      # if there is no label specified, use the normalized version
       sanitize(label) || normalized
     end
   end
