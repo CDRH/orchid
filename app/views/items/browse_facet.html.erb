@@ -75,7 +75,7 @@
                   <td class="index_name">
                     <%= link_to prefix_path("search_path",
                       f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
-                      <%= text %>
+                      <%= sanitize text %>
                     <% end %>
                   </td>
               </tr>

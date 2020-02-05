@@ -36,7 +36,7 @@ module Orchid::DisplayHelper
   def metadata_create_field_link(api_field, item)
     search_params = { "f" => ["#{api_field}|#{item}"] }
     item_label = facet_label(type: api_field, normalized: item, label: item)
-    link_to item_label, prefix_path("search_path", search_params),
+    link_to sanitize(item_label), prefix_path("search_path", search_params),
       rel: "nofollow"
   end
 
