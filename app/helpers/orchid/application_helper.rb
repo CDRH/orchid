@@ -88,7 +88,6 @@ module Orchid::ApplicationHelper
     end
 
     new_params
-<<<<<<< HEAD
   end
 
   # Creates classes to populate the <html> element.
@@ -142,8 +141,59 @@ module Orchid::ApplicationHelper
     if page
       "page_#{page}"
     end
-=======
->>>>>>> 8e9e01d (updates helper formatting to fit our styleguide)
+  end
+
+  # Creates classes to populate the <html> element.
+  #   Use @page_classes to add custom classes separated by space
+  #
+  # By default outputs:
+  #   [custom classes]        string passed in by opt. @page_classes variable
+  #   section_[@section]      if @section
+  #   controller_[controller] if params[:controller]
+  #   action_[action]         if params[:action]
+  #   page_[page]             orchid page if applicable (browse, item, etc)
+  def html_classes
+    classes = []
+
+    if @page_classes.present?
+      classes << @page_classes
+    end
+
+    if @section.present?
+      classes << "section_#{@section}"
+      # add additional section for home page backwards compatibility
+      classes << "section_home" if current_page? home_path
+    end
+
+    if params[:controller].present?
+      classes << "controller_#{params[:controller]}"
+    end
+
+    if params[:action].present?
+      classes << "action_#{params[:action]}"
+    end
+
+    # separating into a method to allow overriding by application if desired
+    if html_classes_page
+      classes << html_classes_page
+    end
+
+    combined = classes.join(" ")
+
+    " class=\"#{combined}\"".html_safe
+  end
+
+  def html_classes_page
+    # remove the sub-uri from the front of the request path if it exists
+    # and then look for the common orchid page types: browse, search, item, about
+    path = request.path
+    if config.relative_url_root
+      path = path.sub(config.relative_url_root, "")
+    end
+    page = path[/.*(about|browse|search|item).*/,1]
+    if page
+      "page_#{page}"
+    end
   end
 
   # image is path relative to iiif server + project of image
