@@ -35,6 +35,7 @@ controllers.
     - [Section Links](#section-links)
     - [Section Templates](#section-templates)
   - [Stylesheets / Bootstrap](#stylesheets--bootstrap)
+    - [Style by Page](#style-by-page)
   - [(Re)start](#restart)
 - [Assets](#assets)
   - [Javascript Inclusions and Asset
@@ -695,6 +696,19 @@ Conditional stylesheets are included via `@ext_css` instance variable, e.g.:<br>
 Conditional inline styling are included via `@inline_css` instance variable,
 e.g.:<br>
 `@inline_css = [".cats .hidden {display: none;}"]`
+
+#### Style by Page
+In some cases, you may wish to apply specific styles depending on the page, but do not need to go so far as to include a whole stylesheet via the `@ext_css` methods listed above.
+
+On the `<html>` element, you have access to a number of built in classes, or you may choose to pass your own.
+
+- use `@page_classes` variable to assign classes as a string
+- `section_[@section]` is available for [sections](#sections)
+- `controller_[controller]` (example: "controller_general")
+- `action_[action]` (example: "action_show")
+- `page_[page]` assigned for pages with the following in the url: about, browse, item, search
+
+You may customize the behavior of the "page" class by overriding the app helper `html_classes_page`.
 
 ### (Re)start
 After customization, one must (re)start the Rails app.
