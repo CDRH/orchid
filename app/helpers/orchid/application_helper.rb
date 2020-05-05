@@ -105,8 +105,6 @@ module Orchid::ApplicationHelper
 
     if @section.present?
       classes << "section_#{@section}"
-      # add additional section for home page backwards compatibility
-      classes << "section_home" if current_page? home_path
     end
 
     if params[:controller].present?
