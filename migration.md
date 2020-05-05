@@ -2,7 +2,9 @@
 
 ## Unreleased
 
-…
+## 3.0.1 to 3.0.2
+
+References to `site_section` should be changed to `html_classes`.
 
 ## 3.0.0 to 3.0.1
 
