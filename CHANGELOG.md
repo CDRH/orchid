@@ -31,16 +31,84 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 - Adds more classes to html element via html_classes helper to increase granularity for styling
+- Merged `migration.md` into `CHANGELOG.md`
 
 ### Changed
 - Class beginning with `section_` may have a different value than previously
+- Altered documentation substantially, split into parts and augmented existing
 
 ### Removed
 - class `row` removed from `<div class="search_form">`
+- `migration.md` removed
 
 ### Deprecated
 - site_section application helper in favor of html_classes
 
-## Previous Releases
+## [v3.0.1](https://github.com/CDRH/orchid/compare/v3.0.0...v3.0.1) - 2019-10-30 - date search bug and incorrect locale path
 
-There was no changelog kept prior to 3.0.2.
+### Fixed
+- bug with date search
+- incorrect locale path
+
+## [v3.0.0](https://github.com/CDRH/orchid/compare/v2.1.0...v3.0.0) - 2019-10-25 - sections, facet config, iiif, and more
+
+### Fixed
+- improved pagination a11y
+- fix specific options overriding app-wide options
+
+### Added
+- basic support for IIIF image URLs
+- i18n support for item show pages metadata and facet summaries
+- manifest.js file for Sprockets 4 support
+- integrated `api_bridge` into Orchid from deprecated gem
+- facet translation i18n
+- added redirection / rewriting middleware
+- added configurable "sections" to re-use code across multiple routes
+- "skip" link for a11y
+- server side date filter validation
+
+### Changed
+- `metadata` method in DisplayHelper altered to use keyword arg
+- public and private config file alterations (explanation below)
+- altered behavior of language configuration settings and UI
+- sort by `title_sort` rather than `title`
+- reorganized some files for more granular overriding
+- split up routes into reusable / not reusable and refactored
+- search result styling
+- generator actions
+- documentation improved
+- gems used by generator (were deprecated)
+- `render_overridable` check more coherent section override paths
+
+### Removed
+- facets from models and define in `config/facets.yml`
+- google fonts from default templates
+
+### Migration
+- update `metadata` method calls to use keyword arg, "link"
+- add `iiif_path` to `config/private.yml`
+- add `app_options.media_server_dir` and `app_options.thumbnail_size` to `config/public.yml`
+- change `app_options.languages` to list ALL site languages, not just non-default
+- add `IIIF_PATH = PRIVATE["iiif_path"]` to `config/intitializers/config.rb`
+- copy `app/assets/config/manifest.js` to your application (same path)
+- change Gemfile
+  - `sass-rails` to `'sassc-rails', '~> 2.1'`
+  - replace `chromedriver-helper` with `webdrivers`
+  - add version constraint to `'bootstrap-sass', '~> 3.4.1'`
+  - remove `api_bridge`
+- migrate facets config in models to `config/facets.yml` format
+- add facet translations if using multi-language app
+
+## [v2.1.0](https://github.com/CDRH/orchid/compare/v2.0.0...v2.1.0) - 2018-10-19 - Configuration Changes for Language Support, Bug Fixes
+
+### Fixed
+- bug with single language selection display
+- bug with summary boxes
+
+### Changed
+- moves title configuration to locale files
+- minor CSS change
+
+### Migration
+- copy `config/locales/en.yml` to application
+- fill in `project_name`, `project_shortname` and `project_subtitle` in `config/locales` file
