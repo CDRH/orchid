@@ -6,9 +6,14 @@ which fields are used, their order, their text labels, and their options may
 vary. Each facet may also optionally:
 
 - Function as a search filter
-- Have its values from the API translated
+- Have its values from the API translated to another language
 
-Facet configuration is defined in `config/public.yml` for each language as:
+- [Configuration](#configuration)
+- [Translations](#translations)
+
+## Configuration
+
+Facet configuration is defined in `config/public.yml` by language:
 ```yaml
 …
   facets:
@@ -34,8 +39,12 @@ follows:
 `search_filter` - Enables use of facets as search filters on search pages.
 
 `translate` - Enables translation of the facet values in addition to the facet's
-label. These translations may be defined inside any YAML file in
-`config/locales/` with the following format for each language:
+label.
+
+## Translations
+
+Facet translations may be defined inside any YAML file in
+`config/locales/` with the following format:
 
 ```yaml
 [language]:

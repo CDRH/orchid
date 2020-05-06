@@ -4,7 +4,17 @@ Orchid supports different "sections" of an app utilizing the same Orchid logic
 and templates for different purposes. This is primarily for an app to use
 separate paths to access different groups of items from the API.
 
-## Section Config
+For example, you might like to have one website which searches documents by
+18th century musicians, and you would like to also have additional pages which
+feature a specific musician and only searches their documents. Orchid is on it!
+
+- [Config](#config)
+- [Routes](#routes)
+- [Canonical Links](#canonical-links)
+- [Links](#links)
+- [Templates](#templates)
+
+## Config
 
 Section configuration is defined in the main app. Section names are listed in
 `config/public.yml` under the `app_options:` and `sections:` keys. Each section
@@ -50,7 +60,7 @@ production:
   <<: *default
 ```
 
-## Section Routes
+## Routes
 
 Orchid keeps the sections independent by drawing routes with their names
 prefixed with the section name, e.g. `letters_item_path`. The Items controllers
@@ -101,29 +111,12 @@ end
 If one uses a section which segregates items but they are still included by the
 non-section Orchid search, items may be accessible from multiple paths.
 This could lead to display problems if sections apply different styles to items,
-and it will be bad for SEO. Using a canonical URL for each item is handled by a
-helper for the Items controller which can be overridden in the main app at
-`app/helpers/items_helper.rb` as follows:
+and it will be bad for SEO.
 
-```ruby
-module ItemsHelper
-  include Orchid::ItemsHelper
+See the [routes documentation](/docs/routes.md#canonical-item-paths) for information
+about setting up canonical item links.
 
-  def search_item_link(item)
-    title_display = item["title"].present? ?
-      item["title"] : t("search.results.item.no_title", default: "Untitled")
-    path = "#"
-
-    # Logic to determine which path helper to use to define path.
-    # item["category"], item["subcategory"], and item["identifier"] are likely
-    # to be helpful in distinguishing between sections
-
-    link_to title_display, path
-  end
-end
-```
-
-## Section Links
+## Links
 
 Navigation links in the site header are not integrated with section
 pages. The Browse and Search links go to the non-section pages regardless of
@@ -154,7 +147,7 @@ all following parameters are the same parameters to be sent to the path helper.
 <%= link_to prefix_path("item_path", "ABC"), html_options %>
 ```
 
-## Section Templates
+## Templates
 
 Orchid's views and partials are made section-compatible by calling them with
 the `render_overridable` method rather than `render`. The exact same parameters

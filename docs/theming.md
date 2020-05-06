@@ -9,7 +9,7 @@ __Working with Views__
 - [Favicon](#favicon)
 - [Header and Footer](#header-and-footer)
 
-__CSS, JS, and Images__
+__CSS and JS__
 
 - [Global Styles](#global-styles)
 - [Global JavaScript](#global-javascript)
@@ -34,7 +34,7 @@ For example, if you are copying the `about` page in
 app's views directory and copy in `about.html.erb`.
 
 Be aware that if you need access to different variables (objects with `@`
-at the beginning), you will need to [override a controller](/docs/configuration/settings.md#overriding-controllers-and-beyond).
+at the beginning), you will need to [override a controller](/docs/settings.md#overriding-controllers-and-beyond).
 
 If you are new to Ruby on Rails, you may want to familiarize yourself with the
 [Ruby on Rails Action View](https://guides.rubyonrails.org/action_view_overview.html) documentation.

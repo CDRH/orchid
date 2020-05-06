@@ -3,42 +3,66 @@
 By default, Orchid assumes you are developing an English-only application, but
 supports the use of multiple languages. The setup generator called with `rails
 g(enerate) setup` will prompt for your default language and list of all
-languages.
+languages you would like your application to use.
 
-Most of the navigation, buttons, and general wording throughout Orchid has been
-pulled out into strings in `config/locales/en.yml`. Translate each entry of the
-YAML file. You may toggle between languages in the application and view the
-language differences.
+- [Alter Existing Translations](#alter-existing-translations)
+- [Languages Other than English and Spanish](#languages-other-than-english-and-spanish)
+- [Facets](#translating-facets)
+- [Views](#views)
+- [Modify Languages After Creation](#modify-languages-after-creation)
 
-**All translations must start with the language key or Rails will not find the
+Basic information about internationalization in Rails is available in the
+[Rails i18n guide](https://guides.rubyonrails.org/i18n.html).
+
+## Alter Existing Translations
+
+Check out `/config/locales`. You should see yml files with language codes for
+whichever languages you specified in the generator. You may edit
+these files to change strings as desired for things such as your site title,
+home page text, etc.
+
+When adding new views, you may also wish to continue using internationalized
+methods. You may add to the bottom of an existing file or create a new file in
+the `locales` directory.
+
+**All new files must start with the language key or Rails will not find the
 appropriate text.** An example locales file might look like:
-
-```yaml
-# config/locales/en.yml
-en:
-  title: Example Title
-```
-
-The `en` key in the example above is critical to finding the correct string to
-display. By default, Orchid starts with an `en.yml` file and any other languages
-you specified as files with similar names during setup. However, you may add
-more files to help with organization. Just make sure you include the language
-key before you begin creating translated strings:
 
 ```yaml
 # config/locales/explore_en.yml
 en:
   explore:
     ...
-
-# config/locales/explore_es.yml
-es:
-  explore:
-    ...
 ```
 
-Please check the "Facets" section of this README for more information about how
-to customize the behavior and labels of the facets by language.
+## Languages Other than English and Spanish
+
+Most of the navigation, buttons, and general wording throughout Orchid has been
+pulled out into strings in `config/locales/en.yml` and `config/locales/es.yml`.
+Translate each entry of the YAML file into your needed language(s).
+You may toggle between languages in the application and view the
+language differences as you go.
+
+```yaml
+# config/locales/af.yml
+af:
+  title: Site titel
+```
+
+Remember to start your file with the language code, such as the`af` key in the example above!
+
+## Facets
+
+The CDRH API currently only supports a single language, which makes it difficult
+for Orchid applications which need to represent the content in multiple languages.
+
+You can use a yml file to translate facets returned from the API. Read more in the [facets documentation](/docs/facets.md#translations).
+
+Additionally, you can specify different fields and behavior for facets based on
+language. You can learn about it in the
+[facets configuration docs](/docs/facets.md#configuration).
+
+## Views
 
 Though you can add HTML to your locales files, often if you want a view with
 large amounts of content you may prefer to simply work directly with views
@@ -62,7 +86,7 @@ naming convention also applies to partials.
 Please refer to the [[Scoped Routes]] documentation for more information about
 adding more routes to apps which support multiple languages.
 
-## Modify Languages
+## Modify Languages After Creation
 
 To customize your application's use of multiple languages at a later date, alter
 the `language_default` and `languages` values in `config/public.yml` to change
@@ -73,6 +97,6 @@ language_default: es
 languages: en|es|cz
 ```
 
-If adding a new language, copy existing files in `config/locales/` from one
+Then copy existing files in `config/locales/` from an existing
 language to new files for the language being added, for example `de.yml` for
 German, and translate their contents to the new language.
