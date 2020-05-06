@@ -1,0 +1,152 @@
+# Theming and Assets
+
+Orchid has many mechanisms for the host app to customize the appearance of
+the site, from minor tweaks to change the colors, to adding JavaScript and CSS
+to specific pages.
+
+- [Global Styles](#global-styles)
+- [Global JavaScript](#global-javascript)
+- [Favicon](#favicon)
+- [Header and Footer](#header-and-footer)
+- [Page Classes](#page-classes)
+- [Add CSS or JS by Page](#add-css-or-js-by-page)
+TODO
+- [Customizing Views](#customizing-views)
+- [Vendor Assets](#vendor-assets)
+- [Asset Paths in SCSS](#asset-paths-in-scss)
+
+Advanced options:
+
+- [Adding Assets](#adding-assets)
+
+## Global Styles
+
+Orchid gives you a number of ways to customize the look and feel of your site.
+
+__Bootstrap Variables__
+
+Orchid currently uses [Bootstrap 3](https://getbootstrap.com/docs/3.3/)
+for page layouts and basic appearance.
+
+You may change your app's copy of `app/assets/stylesheets/bootstrap-variables.scss`
+to add your own colors and settings.
+
+__Site Specific Styling__
+
+Odds are that you will want to customize your site more than just changing
+the colors and some font sizes.
+
+If you look in `app/assets/stylesheets/application.scss`, you will see
+the files which Rails is using to create `application.css`, one large file
+comprised of all the others. Do not put your styles in this file. Instead,
+you can add your styles to `app/assets/stylesheets/orchid.scss` or create a new
+stylesheet (`.css` or `.scss`) in `app/assets/stylesheets/global/`.
+
+By default, anything in that `global` directory will be compiled into `application.css`.
+
+## Global JavaScript
+
+One should normally not need to edit `app/assets/application.js`. By default,
+this file looks through `app/assets/javascripts/global` for JS files
+and includes them sitewide as part of `application.js`.
+
+Add app-wide JavaScript to `app/assets/javascripts/global/(app name).js` or
+other scripts in `app/assets/javascripts/global/`.
+
+## Favicon
+
+Replace the image at `app/assets/images/favicon.png` to change your app's
+favicon.
+
+For wider favicon support, create the necessary derivative images, copy Orchid's
+`views/layouts/head/_favicon.html.erb` file to the same location in your app,
+and add the additional favicons to `views/layouts/head/_favicon.html.erb`.
+
+## Header and Footer
+
+If you do not need to change the text or links in the footer and are only
+changing the placeholder image, simply replace `app/assets/images/footer_logo.png`
+with your app's footer logo.
+
+If you are switching to a non `.png` format or need to customize other aspects,
+copy Orchid's `views/layouts/body/_footer.html.erb` file to the same location in
+your app and make alterations.
+
+## Page Classes
+
+In some cases, you may wish to apply specific styles depending on the page or
+section, but do not need to include a whole separate stylesheet only for that content.
+
+On the `<html>` element, you have access to a number of built in classes, or
+you may choose to pass your own.
+
+- use `@page_classes` variable to assign classes as a string
+- `section_[@section]` is available for [sections](#sections)
+- `controller_[controller]` (example: "controller_general")
+- `action_[action]` (example: "action_show")
+- `page_[page]` assigned for pages with the following in the url: about, browse, item, search
+
+You may assign `@page_classes` in the controller action or the view. To add this class from the view, insert this code:
+
+```ruby
+<%= @page_classes = "custom_class1 custom_class2" %>
+```
+
+You could then style the page with CSS such as:
+
+```css
+.custom_class1 body {
+  ...
+}
+```
+
+You may customize the behavior of the `page_[page]` class by overriding the app helper `html_classes_page`.
+
+## Add CSS or JS by Page
+
+When a specific page or section requires CSS / JavaScript which are not relevant
+to the rest of the app, you may wish to add a conditional asset.
+
+See [Vendor Assets](#vendor-assets) for more information about 3rd party assets.
+
+First, if you are adding new style or script files which are not globally used,
+place them in `app/assets/stylesheets` and `app/assets/javascripts`, respectively.
+
+As with a normal Rails application, you may choose to call these assets with tags
+such as `stylesheet_link_tag`, but Orchid provides some helpful methods for
+adding assets per page.
+
+All of the following expect an array.
+
+- `@ext_css` to specify stylesheet files to include
+- `@ext_js` to specify script files to include
+- `@inline_css` for passing independent CSS code
+- `@inline_js` for passing independent JS code
+
+You may include these in a controller action or the view.
+
+_Examples_
+
+Include leaflet.css and stamen.css in an action:
+
+```ruby
+@ext_css = %w(leaflet stamen)
+```
+
+Include leaflet.js and search.js in a view:
+
+```ruby
+<%= @ext_js = %w(leaflet search) %>
+```
+
+Apply CSS to a page from a view:
+
+```ruby
+<%= @inline_css = [".cats .hidden {display: none;}"] %>
+```
+
+Apply JS to a page from an action:
+
+```ruby
+@inline_js = ["var power_level = 9000;"]
+```

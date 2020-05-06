@@ -13,25 +13,31 @@ documentation before getting started on customizing your app!
 - [Locating Settings](/docs/configuration/settings.md#locating-settings)
 - [API Connection](/docs/configuration/settings.md#api-connection)
 - [Image Server](/docs/configuration/settings.md#image-server)
+
+## [Theming and Assets](/docs/configuration/theming.md)
+- [Global Styles](/docs/configuration/theming.md#global-styles)
+- [Global JavaScript](/docs/configuration/theming.md#global-javascript)
+- [Favicon](/docs/configuration/theming.md#favicon)
+- [Header and Footer](/docs/configuration/theming.md#header-and-footer)
+- [Page Classes](/docs/configuration/theming.md#page-classes)
+- [Add CSS or JS by Page](/docs/configuration/theming.md#add-css-or-js-by-page)
+
+
+
 - [Canonical Search Item Paths](#canonical-search-item-paths)
 - [Controllers and Actions](#controllers-and-actions)
 - [Facets](#facets)
-- [Favicon](#favicon)
-- [Footer Logo](#footer-logo)
 - [Gitignore](#gitignore)
 - [Languages](#languages)
   - [Modify Languages](#modify-languages)
 - [Redirects and Rewrites](#redirects-and-rewrites)
 - [Routes](#routes)
   - [Scoped Routes](#scoped-routes)
-- [Scripts](#scripts)
 - [Sections](#sections)
   - [Section Config](#section-config)
   - [Section Routes](#section-routes)
   - [Section Links](#section-links)
   - [Section Templates](#section-templates)
-- [Stylesheets / Bootstrap](#stylesheets--bootstrap)
-  - [Style by Page](#style-by-page)
 - [(Re)start](#restart)
 
 
@@ -196,16 +202,9 @@ es:
       Roxanne: Roxanne
 ```
 
-### Favicon
-Replace the image at `app/assets/images/favicon.png` to change your app's
-favicon.
 
-For wider favicon support, create the necessary derivative images and uncomment
-the other markup in `views/layouts/head/_favicon.html.erb`.
 
-### Footer Logo
-Replace the placeholder image at `app/assets/images/footer_logo.png` to change
-your app's footer logo.
+
 
 ### Gitignore
 Add any other files which should not be version controlled to `.gitignore`.
@@ -403,18 +402,6 @@ scope "(:locale)", locale: locales do
 end
 ```
 
-### Scripts
-One should normally not need to edit `app/assets/application.js`.
-
-Add app-wide JavaScript to `app/assets/javascripts/global/(app name).js` or
-other scripts in `app/assets/javascripts/global/`.
-
-Conditional scripting files included via `@ext_js` instance variable, e.g.:<br>
-`@ext_js = %w(leaflet search)`
-
-Conditional inline scripting included via `@inline_js` instance variable, e.g.:<br>
-`@inline_js = ["var power_level = 9000;"]`
-
 ### Sections
 Orchid supports different "sections" of an app utilizing the same Orchid logic
 and templates for different purposes. This is primarily for an app to use
@@ -575,33 +562,6 @@ directory before falling back to using the Orchid templates. This allows for
 granular overrides of views and partials from the main app as needed without
 needing to copy controller methods etc from Orchid.
 
-### Stylesheets / Bootstrap
-One should normally not need to edit `app/assets/application.scss`
-
-Customize Bootstrap in `app/assets/stylseheets/bootstrap-variables.scss`
-
-Add app-wide styling to `app/assets/stylesheets/global/(app name).scss`
-or other stylesheets in `app/assets/stylesheets/global/`
-
-Conditional stylesheets are included via `@ext_css` instance variable, e.g.:<br>
-`@ext_css = %w(leaflet stamen)`
-
-Conditional inline styling are included via `@inline_css` instance variable,
-e.g.:<br>
-`@inline_css = [".cats .hidden {display: none;}"]`
-
-#### Style by Page
-In some cases, you may wish to apply specific styles depending on the page, but do not need to go so far as to include a whole stylesheet via the `@ext_css` methods listed above.
-
-On the `<html>` element, you have access to a number of built in classes, or you may choose to pass your own.
-
-- use `@page_classes` variable to assign classes as a string
-- `section_[@section]` is available for [sections](#sections)
-- `controller_[controller]` (example: "controller_general")
-- `action_[action]` (example: "action_show")
-- `page_[page]` assigned for pages with the following in the url: about, browse, item, search
-
-You may customize the behavior of the "page" class by overriding the app helper `html_classes_page`.
 
 ### (Re)start
 After customization, one must (re)start the Rails app.
