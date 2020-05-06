@@ -1,6 +1,18 @@
 # Configuration
 
-- [API](#api)
+Orchid is a Rails generator which provides basic functionality for search and
+browse, while giving host applications a large amount of freedom to customize
+or override behavior.
+
+If you are just getting started, it is recommended that you learn more about
+the settings from the [settings overview](/docs/configuration/settings.md)
+documentation before getting started on customizing your app!
+
+## [Settings Overview](/docs/configuration/settings.md)
+
+- [Locating Settings](/docs/configuration/settings.md#locating-settings)
+- [API Connection](/docs/configuration/settings.md#api-connection)
+- [Image Server](/docs/configuration/settings.md#image-server)
 - [Canonical Search Item Paths](#canonical-search-item-paths)
 - [Controllers and Actions](#controllers-and-actions)
 - [Facets](#facets)
@@ -22,32 +34,6 @@
   - [Style by Page](#style-by-page)
 - [(Re)start](#restart)
 
-## Configuration
-Most app configuration is located in `config/public.yml` and
-`config/private.yml`. If you are updating your version of Orchid, you may
-already have existing config files, so you will want to compare them against the
-orchid config template files to see if any changes need to be made.
-
-### API
-The API path may be any endpoint in the API to which `/items` can be appended to
-receive a list of items. The path is set in `config/private.yml`. This should
-look like one of the following:
-
-```yaml
-api_path: https://api_dev_path.unl.edu
-api_path: https://api_dev_path.unl.edu/collection/collection_name
-```
-
-There are more variables related to API search results not set when running the
-generator script. You may change the following in `config/public.yml`:
-- The number of search results which come back by default
-- The type of sort which will be used for browsing
-- Facet list sizes and sorting
-- The earliest and latest dates of the app's documents
-
-All of these settings may be overridden in specific requests later as well.
-Please refer to https://github.com/CDRH/api for more information about the
-options.
 
 ### Canonical Search Item Paths
 One may write their app to show items at a variety of paths, to group them
