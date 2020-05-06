@@ -20,8 +20,6 @@ controllers.
   - [Languages](/docs/configuration/languages.md)
   - [Sections](/docs/configuration/sections.md)
 
-- [Links](/docs/links.md)
-
 ## License
 The gem is available as open source under the terms of the [MIT
 License](http://opensource.org/licenses/MIT).
