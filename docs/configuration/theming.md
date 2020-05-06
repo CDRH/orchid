@@ -136,39 +136,56 @@ As with a normal Rails application, you may choose to call these assets with tag
 such as `stylesheet_link_tag`, but Orchid provides some helpful methods for
 adding assets per page.
 
-All of the following expect an array.
-
 - `@ext_css` to specify stylesheet files to include
 - `@ext_js` to specify script files to include
 - `@inline_css` for passing independent CSS code
 - `@inline_js` for passing independent JS code
 
-You may include these in a controller action or the view.
+You may include these in a controller action or the view. Ideally, in order to
+avoid accidentally overwriting extra CSS or JS which may already be added
+elsewhere, use the `add_assets` helper.
 
 _Examples_
 
 Include leaflet.css and stamen.css in an action:
 
 ```ruby
-@ext_css = %w(leaflet stamen)
+@ext_css = helpers.add_assets(@ext_css, %w(leaflet stamen))
 ```
 
 Include leaflet.js and search.js in a view:
 
 ```ruby
-<%= @ext_js = %w(leaflet search) %>
+<% @ext_js = add_assets(@ext_js, %w(leaflet search)) %>
 ```
 
 Apply CSS to a page from a view:
 
 ```ruby
-<%= @inline_css = [".cats .hidden {display: none;}"] %>
+<% @inline_css = [".cats .hidden {display: none;}"] %>
 ```
 
 Apply JS to a page from an action:
 
 ```ruby
 @inline_js = ["var power_level = 9000;"]
+```
+
+To load assets on all pages in a group rendered by a controller, use a [before
+filter](https://guides.rubyonrails.org/action_controller_overview.html#filters)
+to call the `add_assets` helper:
+```ruby
+class GroupController < ApplicationController
+  before_action :append_assets
+  # may also specify actions with `only: [:action2, :action3]`
+…
+  private
+
+  def append_assets
+    @ext_css = helpers.add_assets(@ext_css, "group")
+    @ext_js = helpers.add_assets(@ext_js, "group")
+  end
+end
 ```
 
 ## Asset Paths in SCSS
@@ -194,3 +211,28 @@ TODO: This section is incomplete.
 See the [Rails Asset Pipeline](https://guides.rubyonrails.org/asset_pipeline.html#asset-organization)
 documentation for more information about including vendor files, which may be
 included in the `vendor` directory.
+
+You may need to alter vendor files to include [asset paths](#asset-paths-in-scss)
+in those cases where vendor stylesheets are referring to images, etc.
+
+Some systems seem unable to find our assets through the `link_tree`
+directives which automatically add them to the asset precompilation list.
+For such situations, we still need to add our assets manually in
+`config/initializers/assets.rb`. These filenames indicate what the compiled file
+will be named rather than the source file, so if one's asset file is
+`filename.scss(.erb)` file, it will still be written as `filename.css` here.
+The additions to the precompile list may be broken up for organization e.g.:
+
+```ruby
+# Group A
+Rails.application.config.assets.precompile += %w(
+  group_a.css
+  group_a.js
+)
+
+# Group B
+Rails.application.config.assets.precompile += %w(
+  group_b.css
+  group_b.js
+)
+```
