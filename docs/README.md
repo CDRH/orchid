@@ -13,9 +13,13 @@ controllers.
 
 - [Installation](/docs/installation.md)
 - [Configuration](/docs/configuration.md)
-  - [Settings Overview](/docs/configuration/settings.md)
+  - [Settings Overview and Basics](/docs/configuration/settings.md)
   - [Theming and Assets](/docs/configuration/theming.md)
-- [Assets](/docs/assets.md)
+  - [Routes and Redirects](/docs/configuration/routes.md)
+  - [Customizing Facets and Browse](/docs/configuration/facets.md)
+  - [Languages](/docs/configuration/languages.md)
+  - [Sections](/docs/configuration/sections.md)
+
 - [Links](/docs/links.md)
 
 ## License
