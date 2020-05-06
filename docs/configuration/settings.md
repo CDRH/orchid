@@ -19,6 +19,13 @@ If you are updating your version of Orchid, you will want to compare your versio
 of these files against the Orchid config template files to see if any changes
 need to be made.
 
+`config/public.yml` and `config/private.yml` contain information about how to
+connect to services (like the API), and default settings for things like search,
+browse, site sections, and redirects.
+
+`config/locales/[language].yml` is where you can change your site title and
+other information. See the [languages documentation](/docs/configuration/languages.md).
+
 Most of the options in the config files are well documented in the files themselves,
 there are a few config settings of which you should be aware.
 
