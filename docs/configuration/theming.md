@@ -1,23 +1,62 @@
 # Theming and Assets
 
 Orchid has many mechanisms for the host app to customize the appearance of
-the site, from minor tweaks to change the colors, to adding JavaScript and CSS
-to specific pages.
+the site, from minor tweaks to change the colors to overwriting entirely pages.
+
+__Working with Views__
+
+- [Customizing Views](#customizing-views)
+- [Favicon](#favicon)
+- [Header and Footer](#header-and-footer)
+
+__CSS, JS, and Images__
 
 - [Global Styles](#global-styles)
 - [Global JavaScript](#global-javascript)
-- [Favicon](#favicon)
-- [Header and Footer](#header-and-footer)
 - [Page Classes](#page-classes)
-- [Add CSS or JS by Page](#add-css-or-js-by-page)
-TODO
-- [Customizing Views](#customizing-views)
-- [Vendor Assets](#vendor-assets)
+- [Add Assets by Page](#add-assets-by-page)
 - [Asset Paths in SCSS](#asset-paths-in-scss)
+- [Vendor Assets](#vendor-assets) (incomplete)
 
-Advanced options:
+## Customizing Views
 
-- [Adding Assets](#adding-assets)
+Orchid's pages are brought to life by views and partials located in `app/views`.
+
+A view is HTML and Ruby code which usually (not always) corresponds to the URL or
+controller / action names. Partials are fragments of HTML / Ruby that may be
+included by more than one view.
+
+To override an Orchid view or partial, locate the file in an `app/views`
+subdirectory and copy it to the same location in your application.
+
+For example, if you are copying the `about` page in
+`app/views/general/about.html.erb`, create the `general` directory in your
+app's views directory and copy in `about.html.erb`.
+
+Be aware that if you need access to different variables (objects with `@`
+at the beginning), you will need to [override a controller](#TODO).
+
+If you are new to Ruby on Rails, you may want to familiarize yourself with the
+[Ruby on Rails Action View](https://guides.rubyonrails.org/action_view_overview.html) documentation.
+
+## Favicon
+
+Replace the image at `app/assets/images/favicon.png` to change your app's
+favicon.
+
+For wider favicon support, create the necessary derivative images, copy Orchid's
+`views/layouts/head/_favicon.html.erb` file to the same location in your app,
+and add the additional favicons to `views/layouts/head/_favicon.html.erb`.
+
+## Header and Footer
+
+If you do not need to change the text or links in the footer and are only
+changing the placeholder image, simply replace `app/assets/images/footer_logo.png`
+with your app's footer logo.
+
+If you are switching to a non `.png` format or need to customize other aspects,
+copy Orchid's `views/layouts/body/_footer.html.erb` file to the same location in
+your app and make alterations.
 
 ## Global Styles
 
@@ -52,25 +91,6 @@ and includes them sitewide as part of `application.js`.
 
 Add app-wide JavaScript to `app/assets/javascripts/global/(app name).js` or
 other scripts in `app/assets/javascripts/global/`.
-
-## Favicon
-
-Replace the image at `app/assets/images/favicon.png` to change your app's
-favicon.
-
-For wider favicon support, create the necessary derivative images, copy Orchid's
-`views/layouts/head/_favicon.html.erb` file to the same location in your app,
-and add the additional favicons to `views/layouts/head/_favicon.html.erb`.
-
-## Header and Footer
-
-If you do not need to change the text or links in the footer and are only
-changing the placeholder image, simply replace `app/assets/images/footer_logo.png`
-with your app's footer logo.
-
-If you are switching to a non `.png` format or need to customize other aspects,
-copy Orchid's `views/layouts/body/_footer.html.erb` file to the same location in
-your app and make alterations.
 
 ## Page Classes
 
@@ -150,3 +170,27 @@ Apply JS to a page from an action:
 ```ruby
 @inline_js = ["var power_level = 9000;"]
 ```
+
+## Asset Paths in SCSS
+
+When writing stylesheets, it is often the case that you will need to include
+images or fonts. When doing this in Rails, you need to use the asset pipeline.
+When it comes to the `.scss` files, you can reference these assets in the Rails
+asset pipeline through use of some helpers.
+
+For example:
+
+`image-url("writings/cather.png")` returns `url(/assets/writings/cather.png-716431504781975841)`
+
+If including a font, you can use `font-url`.
+
+Read more about these helpers in the
+[Asset Pipeline](https://guides.rubyonrails.org/asset_pipeline.html#css-and-sass) documentation.
+
+## Vendor Assets
+
+TODO: This section is incomplete.
+
+See the [Rails Asset Pipeline](https://guides.rubyonrails.org/asset_pipeline.html#asset-organization)
+documentation for more information about including vendor files, which may be
+included in the `vendor` directory.

@@ -15,13 +15,18 @@ documentation before getting started on customizing your app!
 - [Image Server](/docs/configuration/settings.md#image-server)
 
 ## [Theming and Assets](/docs/configuration/theming.md)
-- [Global Styles](/docs/configuration/theming.md#global-styles)
-- [Global JavaScript](/docs/configuration/theming.md#global-javascript)
+
+Working with Views
+- [Customizing Views](/docs/configuration/theming.md#customizing-views)
 - [Favicon](/docs/configuration/theming.md#favicon)
 - [Header and Footer](/docs/configuration/theming.md#header-and-footer)
+CSS, JS, and Images
+- [Global Styles](/docs/configuration/theming.md#global-styles)
+- [Global JavaScript](/docs/configuration/theming.md#global-javascript)
 - [Page Classes](/docs/configuration/theming.md#page-classes)
-- [Add CSS or JS by Page](/docs/configuration/theming.md#add-css-or-js-by-page)
-
+- [Add Assets by Page](/docs/configuration/theming.md#add-assets-by-page)
+- [Asset Paths in SCSS](/docs/configuration/theming.md#asset-paths-in-scss)
+- [Vendor Assets](/docs/configuration/theming.md#vendor-assets) (incomplete)
 
 
 - [Canonical Search Item Paths](#canonical-search-item-paths)
