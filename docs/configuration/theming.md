@@ -34,7 +34,7 @@ For example, if you are copying the `about` page in
 app's views directory and copy in `about.html.erb`.
 
 Be aware that if you need access to different variables (objects with `@`
-at the beginning), you will need to [override a controller](#TODO).
+at the beginning), you will need to [override a controller](/docs/configuration/settings.md#overriding-controllers-and-beyond).
 
 If you are new to Ruby on Rails, you may want to familiarize yourself with the
 [Ruby on Rails Action View](https://guides.rubyonrails.org/action_view_overview.html) documentation.
@@ -50,13 +50,12 @@ and add the additional favicons to `views/layouts/head/_favicon.html.erb`.
 
 ## Header and Footer
 
-If you do not need to change the text or links in the footer and are only
-changing the placeholder image, simply replace `app/assets/images/footer_logo.png`
-with your app's footer logo.
+To change the header and footer, you do not necessarily need to overwrite the
+entire application layout file. Instead, consider overriding partials.
 
-If you are switching to a non `.png` format or need to customize other aspects,
-copy Orchid's `views/layouts/body/_footer.html.erb` file to the same location in
-your app and make alterations.
+`app/views/layouts/body/_footer.html.erb`
+`app/views/layouts/body/_navbar.html.erb`
+`app/views/layouts/body/_title.html.erb`
 
 ## Global Styles
 
