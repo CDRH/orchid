@@ -13,6 +13,7 @@ controllers.
 
 - [Installation](/docs/installation.md)
 - [Configuration](/docs/configuration.md)
+  - [Settings Overview](/docs/configuration/settings.md)
 - [Assets](/docs/assets.md)
 - [Links](/docs/links.md)
 
