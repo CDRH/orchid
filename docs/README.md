@@ -1,25 +1,16 @@
 # Orchid
 
-Orchid is a multi-lingual Rails engine which handles common functionality across
-Rails apps which rely on the CDRH API. It includes a generator for configuring
-new Rails apps, which can primarily connect to the endpoint for the entire API's
-contents, or connect to an endpoint that only searches a specific collection's
-contents. Apps can also configure additional "sections" which use independent
-API configurations and search filtering UI, as well as the ability to granularly
-overrides templates without the need to copy or create additional Rails
-controllers.
+## Getting Started
 
-## General Documentation
+- [Installation](/docs/installation.md) - dependencies and generator
+- [Settings Overview and Basics](/docs/settings.md)
+- [Helpful Helpers](/docs/helpers.md) - specific Orchid helpers
 
-- [Installation](/docs/installation.md)
-- [Configuration](/docs/configuration.md)
-  - [Settings Overview and Basics](/docs/configuration/settings.md)
-  - [Theming and Assets](/docs/configuration/theming.md)
-  - [Routes and Redirects](/docs/configuration/routes.md)
-  - [Customizing Facets and Browse](/docs/configuration/facets.md)
-  - [Languages](/docs/configuration/languages.md)
-  - [Sections](/docs/configuration/sections.md)
+## Theming and Customization
 
-## License
-The gem is available as open source under the terms of the [MIT
-License](http://opensource.org/licenses/MIT).
+- [Customizing Facets](/docs/facets.md) - browse pages and search filters
+- [Languages](/docs/languages.md) - add languages or alter existing text
+- [Overriding Defaults](/docs/overrides.md) - controllers, helpers, and more
+- [Routes and Redirects](/docs/routes.md) - work with Orchid's existing routes, set up redirects, and search paths
+- [Sections](/docs/sections.md) - create a "sub" Orchid site within your site
+- [Theming and Assets](/docs/theming.md) - views, CSS, and JS

@@ -1,56 +1,9 @@
 # Routes and Redirects
 
-- [Canonical Search Item Paths](#canonical-search-item-paths)
 - [Redirects and Rewrites](#redirects-and-rewrites)
 - [Routes](#routes)
   - [Scoped Routes](#scoped-routes)
-
-## Canonical Search Item Paths
-
-One may write their app to show items at a variety of paths, to group them
-according to criteria such as category / subcategory and/or to render items
-without parts of some of their IDs in the URL.
-
-Corresponding routes must be defined the app's `config/routes.rb`, e.g.:
-
-```ruby
-…
-  get 'life/:id', to: 'life#show', as: :life_item,
-    constraints: { id: /chronology|shortbio|longbio|woodress/ }
-  get 'writings/books/:id', to: 'items#show', as: :writings_book_item,
-      constraints: { id: /(\d{4}|nf006(?:_\d{2})?|nf060|nf061)/ }
-…
-```
-
-These can be utilized by writing links in views and partials to use the path
-helpers `life_item_path(id: item_id)`, `writings_books_item_path(id: item_id)`.
-
-To render links throughout the app canonically, we need the links in search
-results to use these path helpers as well. This is facilitated by overriding the
-helper method used to render them in `app/helpers/items_helper.rb`:
-
-```ruby
-module ItemsHelper
-  include Orchid::ItemsHelper
-
-  def search_item_link(item)
-    category = item["category"].downcase
-    item_id = item["identifier"][/^cat\.(.+)$/, 1]
-    path = "#"
-    title_display = item["title"].present? ?
-      item["title"] : t("search.results.item.no_title", default: "Untitled")
-
-    if category == "life"
-      item_id = item_id[/^life\.(.+)$/, 1]
-      path = life_item_path(id: item_id)
-    elsif category == "writing"
-      path = writings_book_item_path(id: item_id)
-    end
-
-    link_to title_display, path
-  end
-end
-```
+- [Canonical Item Paths](#canonical-item-paths)
 
 ## Redirects and Rewrites
 
@@ -59,7 +12,7 @@ This may be useful if you are moving to Orchid from an older website and are
 updating the URL structure, or would like to clean up URLs with `.html` and
 `.php`. Copy the `config/redirects.example.yml` file to whatever name you would
 like (`config/redirects.yml` for our purposes) and enable it in the
-`config/public.yml` file. You can add more than one redirect file if you wish:
+`config/public.yml` file. You may add more than one redirect file if you wish:
 
 ```yaml
 # config/public.yml
@@ -108,6 +61,8 @@ are:
   destination URL. It will still be matched against the `from` value though.
 
 ## Routes
+
+(Are you looking for [section routes](/docs/sections.md#routes)?)
 
 Orchid's routes load after the application's routes by default. This means that
 generally you may add routes to the app's `config/routes.rb` file as normal.
@@ -168,3 +123,63 @@ scope "(:locale)", locale: locales do
   get '/about/team', to: 'general#about_team', as: 'about_team'
 end
 ```
+
+## Canonical Item Paths
+
+The app display the same item at a variety of paths, for example, if using [sections](/docs/sections.md) or using custom URLs to group items according to criteria such as category / subcategory.
+
+This isn't good for a number of reasons, such as SEO. Preferably, each item will only show up at one canonical path. How does Orchid know which URL this is?
+
+First off, it's recommended to lock down your item routes to recognize if they've
+been asked to display an item incorrectly. In the below example,
+the `life/:id` route is only prepared to display four documents. the
+`writings/books/:id` route is looking for ids such as `0001` or `nf060`.
+
+```ruby
+…
+  get 'life/:id', to: 'life#show', as: :life_item,
+    constraints: { id: /chronology|shortbio|longbio|woodress/ }
+  get 'writings/books/:id', to: 'items#show', as: :writings_book_item,
+      constraints: { id: /(\d{4}|nf006(?:_\d{2})?|nf060|nf061)/ }
+…
+```
+
+Typically, we can write links in views and partials which use the named path, such as
+
+```ruby
+life_item_path(id: item_id)
+writings_books_item_path(id: item_id)
+```
+
+But when creating links dynamically, such as in search results, we need to
+set up some rules to help the app decide which path is appropriate.
+
+This is facilitated by overriding the
+helper method used to render them in `app/helpers/items_helper.rb`:
+
+```ruby
+module ItemsHelper
+  include Orchid::ItemsHelper
+
+  def search_item_link(item)
+    category = item["category"].downcase
+    item_id = item["identifier"][/^cat\.(.+)$/, 1]
+    path = "#"
+    title_display = item["title"].present? ?
+      item["title"] : t("search.results.item.no_title", default: "Untitled")
+
+    if category == "life"
+      item_id = item_id[/^life\.(.+)$/, 1]
+      path = life_item_path(id: item_id)
+    elsif category == "writing"
+      path = writings_book_item_path(id: item_id)
+    end
+
+    link_to title_display, path
+  end
+end
+```
+
+The above example uses `category` to determine the appropriate route, but your
+logic may be quite different depending on how you will be selecting routes for
+pages.

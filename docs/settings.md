@@ -8,7 +8,6 @@ those values at any time!
 - [Locating Settings](#locating-settings)
 - [API Connection](#api-connection)
 - [Image Server](#image-server)
-- [Overriding Controllers and Beyond](#overriding-controllers-and-beyond)
 
 ## Locating Settings
 
@@ -20,11 +19,12 @@ of these files against the Orchid config template files to see if any changes
 need to be made.
 
 `config/public.yml` and `config/private.yml` contain information about how to
-connect to services (like the API), and default settings for things like search,
-browse, site sections, and redirects.
+connect to services (like the API), and default settings for things like
+[search and browse facets](/docs/facets.md), [site sections](/docs/sections.md),
+and [redirects](/docs/routes.md#redirects-and-rewrites).
 
 `config/locales/[language].yml` is where you can change your site title and
-other information. See the [languages documentation](/docs/configuration/languages.md).
+other information. Read more in the [languages documentation](/docs/languages.md).
 
 Most of the options in the config files are well documented in the files themselves,
 there are a few config settings of which you should be aware.
@@ -81,56 +81,4 @@ media_server_dir: collection_name
 thumbnail_size: "!200,200"
 ```
 
-For more information about using IIIF images in Orchid, please see [TODO LINK].
-
-## Overriding Controllers and Beyond
-
-In general, most files within Orchid can be overridden by copying that file to
-the same location in your Rails app and altering it as desired.
-
-This is not always a recommended workflow, however, as it duplicates a lot of
-code and makes it more difficult to update your app. Below are some instructions
-for common portions which may need to be overridden.
-
-### Controllers
-
-It is possible to override the behavior of specific actions within controllers.
-To add or override a controller action, first create a file in the controllers
-directory with a name ending in `_override.rb`. For example,
-`app/controllers/general_override.rb`.
-
-Add line at the top that indicates which controller you are
-working on:
-
-```ruby
-GeneralController.class_eval do
-
-  def action_name
-    [code here]
-  end
-
-end
-```
-
-You may wish to copy the original Orchid action into your controller override
-in order to make small alterations to the behavior rather than starting from
-scratch.
-
-Be aware that any instance variables in the original Orchid action may still
-be expected by the corresponding view.
-
-### Helpers
-
-To override Orchid helper behavior, check out the structure in `app/helpers`.
-Do not modify anything in `app/helpers/orchid`. Instead, copy one of the files
-in the `helpers` directory to your application. You may now rewrite specific
-methods in the `app/helpers/orchid` files or add your own.
-
-### Views and Assets
-
-Please see the [theming documentation](/docs/configuration/theming.md)
-for information about overriding views, partials, and assets.
-
-### Routes
-
-Please see the [routing](#TODO) documentation about how to customize the routes.
+For more information about using IIIF images in Orchid, please see [the helpers documentation](/docs/helpers.md).

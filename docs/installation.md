@@ -36,7 +36,7 @@ rails g setup
 ```
 The setup script will prompt you to enter some values. Don't worry if you don't know all of them, you can change those values later.
 
-Use the [locating settings](/docs/configuration/settings.md#locating-settings) docs to find these settings in the app.
+Use the [locating settings](/docs/settings.md#locating-settings) docs to find these settings in the app.
 
 ## RVM
 
