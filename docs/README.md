@@ -9,11 +9,12 @@ API configurations and search filtering UI, as well as the ability to granularly
 overrides templates without the need to copy or create additional Rails
 controllers.
 
-## Contents
+## General Documentation
 
 - [Installation](/docs/installation.md)
 - [Configuration](/docs/configuration.md)
   - [Settings Overview](/docs/configuration/settings.md)
+  - [Theming and Assets](/docs/configuration/theming.md)
 - [Assets](/docs/assets.md)
 - [Links](/docs/links.md)
 
