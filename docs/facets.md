@@ -3,10 +3,10 @@
 Facets are API fields used to group items with similar metadata in the "Browse"
 pages, e.g. items with the same value in a `category` field. For each language,
 which fields are used, their order, their text labels, and their options may
-vary. Each facet may also optionally:
+vary.
 
-- Function as a search filter
-- Have its values from the API translated to another language
+Each facet may be configured to function as a search filter and to be
+translated to another language.
 
 - [Configuration](#configuration)
 - [Translations](#translations)
