@@ -112,3 +112,47 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Migration
 - copy `config/locales/en.yml` to application
 - fill in `project_name`, `project_shortname` and `project_subtitle` in `config/locales` file
+
+## [v2.0.0](https://github.com/CDRH/orchid/compare/v1.1.1...v2.0.0) - 2018-07-24 - Multiple Language Support
+
+### Added
+- relocates text throughout site to `en.yml` file
+- specify language_default and languages in `config.public.yml`
+
+### Migration
+- copy `config/locales/en.yml` to your app
+- review overridden partials / views / helpers for strings which should be changed to match localization support
+- redo `facets.rb` to match multiple language support
+  - (1.1.1 style will continue to work if you do not change them)
+  - define with `Facets.facet_info` instead of `@facet_info`
+
+## [v1.1.1](https://github.com/CDRH/orchid/compare/v1.1.0...v1.1.1) - 2018-07-02 - Fix date filtering; Gem updates
+
+### Fixed
+- regularized date filter removal like facet removal
+- updated gems to address Sprockets vulnerability
+
+## [v1.1.0](https://github.com/CDRH/orchid/compare/v1.0.0...v1.1.0) - 2018-05-21 - Rails 5.2.0
+
+### Changed
+- updates Orchid to support Rails 5.2
+
+## [v1.0.0](https://github.com/CDRH/orchid/compare/v0.1.0...v1.0.0) - 2018-01-11 - Enable Customization
+
+### Added
+- draw and override routes before and after Orchid defaults
+- overridable controller
+
+### Changed
+- extensive changes to views
+- asset inclusion in top level directory
+- configuration now includes public and private yaml files
+- sorting options now configurable for search / browse
+- reorganized flash messages
+- changes to SCSS
+- dependency versions bumped
+
+### Migration
+- there are no notes for migrating to this version
+
+## [v0.1.0](https://github.com/CDRH/orchid/tree/v0.1.0) - 2017-05-01 - Initial Launch
