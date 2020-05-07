@@ -6,24 +6,31 @@ g(enerate) setup` will prompt for your default language and list of all
 languages you would like your application to use.
 
 - [Alter Existing Translations](#alter-existing-translations)
+- [Add More Translations](#add-more-translations)
 - [Languages Other than English and Spanish](#languages-other-than-english-and-spanish)
 - [Facets](#translating-facets)
 - [Views](#views)
 - [Modify Languages After Creation](#modify-languages-after-creation)
 
-Basic information about internationalization in Rails is available in the
+More information about internationalization in Rails is available in the
 [Rails i18n guide](https://guides.rubyonrails.org/i18n.html).
 
 ## Alter Existing Translations
 
-Check out `/config/locales`. You should see yml files with language codes for
-whichever languages you specified in the generator. You may edit
-these files to change strings as desired for things such as your site title,
-home page text, etc.
+Check out `/config/locales`. You should see yml files with named by language
+codes. You may edit these files to change strings as desired for things such as
+your site title, home page text, etc.
 
-When adding new views, you may also wish to continue using internationalized
-methods. You may add to the bottom of an existing file or create a new file in
-the `locales` directory.
+## Add More Translations
+
+When adding new views, you will need to make sure that all textual content is
+translatable to all the languages of your site.
+
+For shorter text or simple paragraphs, you may define your terms in a locale
+file and instruct Rails to look for it.
+
+You may add your new translations to the bottom of an existing file or create a
+new file in the `locales` directory.
 
 **All new files must start with the language key or Rails will not find the
 appropriate text.** An example locales file might look like:
@@ -32,8 +39,17 @@ appropriate text.** An example locales file might look like:
 # config/locales/explore_en.yml
 en:
   explore:
-    ...
+    title: Exploring the World
 ```
+
+You could then call this string from a view with the `t` helper:
+
+```ruby
+<%= t "explore.title", default: "Exploring the World" %>
+```
+
+The default keyword is optional, and provides a fallback if for some reason
+the app can't find a translation of the string.
 
 ## Languages Other than English and Spanish
 
@@ -83,8 +99,9 @@ mountains view would render `mountains.cz.html.erb`. A request for a language
 without a specific view will render the general file `mountains.html.erb`. This
 naming convention also applies to partials.
 
-Please refer to the [[Scoped Routes]] documentation for more information about
-adding more routes to apps which support multiple languages.
+Please refer to the [Scoped Routes](/docs/routes.md#scoped-routes)
+documentation for more information about adding more routes to apps which
+support multiple languages.
 
 ## Modify Languages After Creation
 
