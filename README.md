@@ -13,8 +13,8 @@ controllers.
 
 Read about installation and configuration instructions in the [Orchid Documentation](docs/README.md).
 
-Orchid maintains a [CHANGELOG](CHANGELOG.md) are provided for upgrading after
-new releases
+Orchid maintains a [CHANGELOG](CHANGELOG.md) to assist with upgrading after new
+releases.
 
 ## License
 The gem is available as open source under the terms of the [MIT

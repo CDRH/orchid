@@ -62,7 +62,7 @@ images, or if you would like to use images on any item or custom pages, you may
 wish to use a IIIF-compatible image server.
 
 Fill in the path to this image server in `private.yml`. If you are using the
-`cdrhmedia` server, not include the collection in the path.
+`cdrhmedia` server, do not include the collection in the path.
 
 ```yaml
 # config/private.yml
