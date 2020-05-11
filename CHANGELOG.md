@@ -1,0 +1,158 @@
+# Orchid Changelog
+
+All notable changes to Orchid will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic
+Versioning](https://semver.org/spec/v2.0.0.html).
+
+<!-- Template - Please preserve this order of sections
+## [Unreleased] - Brief description
+[Unreleased]: https://github.com/CDRH/orchid/compare/v#.#.#...dev
+
+### Fixed
+
+### Added
+
+### Changed
+
+### Removed
+
+### Migration
+
+### Deprecated
+
+### Contributors
+-->
+
+## [Unreleased]
+
+## [v3.0.2](https://github.com/CDRH/orchid/compare/v3.0.1...v3.0.2) - html_classes for styling and minor fixes
+
+### Added
+- Adds more classes to html element via html_classes helper to increase granularity for styling
+- Merged `migration.md` into `CHANGELOG.md`
+
+### Changed
+- Class beginning with `section_` may have a different value than previously
+- Altered documentation substantially, split into parts and augmented existing
+
+### Removed
+- class `row` removed from `<div class="search_form">`
+- `migration.md` removed
+
+### Deprecated
+- site_section application helper in favor of html_classes
+
+## [v3.0.1](https://github.com/CDRH/orchid/compare/v3.0.0...v3.0.1) - date search bug and incorrect locale path
+
+### Fixed
+- bug with date search
+- incorrect locale path
+
+## [v3.0.0](https://github.com/CDRH/orchid/compare/v2.1.0...v3.0.0) - sections, facet config, iiif, and more
+
+### Fixed
+- improved pagination a11y
+- fix specific options overriding app-wide options
+
+### Added
+- basic support for IIIF image URLs
+- i18n support for item show pages metadata and facet summaries
+- manifest.js file for Sprockets 4 support
+- integrated `api_bridge` into Orchid from deprecated gem
+- facet translation i18n
+- added redirection / rewriting middleware
+- added configurable "sections" to re-use code across multiple routes
+- "skip" link for a11y
+- server side date filter validation
+
+### Changed
+- `metadata` method in DisplayHelper altered to use keyword arg
+- public and private config file alterations (explanation below)
+- altered behavior of language configuration settings and UI
+- sort by `title_sort` rather than `title`
+- reorganized some files for more granular overriding
+- split up routes into reusable / not reusable and refactored
+- search result styling
+- generator actions
+- documentation improved
+- gems used by generator (were deprecated)
+- `render_overridable` check more coherent section override paths
+
+### Removed
+- facets from models and define in `config/facets.yml`
+- google fonts from default templates
+
+### Migration
+- update `metadata` method calls to use keyword arg, "link"
+- add `iiif_path` to `config/private.yml`
+- add `app_options.media_server_dir` and `app_options.thumbnail_size` to `config/public.yml`
+- change `app_options.languages` to list ALL site languages, not just non-default
+- add `IIIF_PATH = PRIVATE["iiif_path"]` to `config/intitializers/config.rb`
+- copy `app/assets/config/manifest.js` to your application (same path)
+- change Gemfile
+  - `sass-rails` to `'sassc-rails', '~> 2.1'`
+  - replace `chromedriver-helper` with `webdrivers`
+  - add version constraint to `'bootstrap-sass', '~> 3.4.1'`
+  - remove `api_bridge`
+- migrate facets config in models to `config/facets.yml` format
+- add facet translations if using multi-language app
+
+## [v2.1.0](https://github.com/CDRH/orchid/compare/v2.0.0...v2.1.0) - Configuration Changes for Language Support, Bug Fixes
+
+### Fixed
+- bug with single language selection display
+- bug with summary boxes
+
+### Changed
+- moves title configuration to locale files
+- minor CSS change
+
+### Migration
+- copy `config/locales/en.yml` to application
+- fill in `project_name`, `project_shortname` and `project_subtitle` in `config/locales` file
+
+## [v2.0.0](https://github.com/CDRH/orchid/compare/v1.1.1...v2.0.0) - Multiple Language Support
+
+### Added
+- relocates text throughout site to `en.yml` file
+- specify language_default and languages in `config.public.yml`
+
+### Migration
+- copy `config/locales/en.yml` to your app
+- review overridden partials / views / helpers for strings which should be changed to match localization support
+- redo `facets.rb` to match multiple language support
+  - (1.1.1 style will continue to work if you do not change them)
+  - define with `Facets.facet_info` instead of `@facet_info`
+
+## [v1.1.1](https://github.com/CDRH/orchid/compare/v1.1.0...v1.1.1) - Fix date filtering; Gem updates
+
+### Fixed
+- regularized date filter removal like facet removal
+- updated gems to address Sprockets vulnerability
+
+## [v1.1.0](https://github.com/CDRH/orchid/compare/v1.0.0...v1.1.0) - Rails 5.2.0
+
+### Changed
+- updates Orchid to support Rails 5.2
+
+## [v1.0.0](https://github.com/CDRH/orchid/compare/v0.1.0...v1.0.0) - Enable Customization
+
+### Added
+- draw and override routes before and after Orchid defaults
+- overridable controller
+
+### Changed
+- extensive changes to views
+- asset inclusion in top level directory
+- configuration now includes public and private yaml files
+- sorting options now configurable for search / browse
+- reorganized flash messages
+- changes to SCSS
+- dependency versions bumped
+
+### Migration
+- there are no notes for migrating to this version
+
+## [v0.1.0](https://github.com/CDRH/orchid/tree/v0.1.0) - Initial Launch

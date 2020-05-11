@@ -9,7 +9,13 @@ API configurations and search filtering UI, as well as the ability to granularly
 overrides templates without the need to copy or create additional Rails
 controllers.
 
-**[Orchid Documentation](docs/README.md)**
+## Next steps
 
-[Migration instructions](migration.md) are provided for upgrading after new
+Read about installation and configuration instructions in the [Orchid Documentation](docs/README.md).
+
+Orchid maintains a [CHANGELOG](CHANGELOG.md) to assist with upgrading after new
 releases.
+
+## License
+The gem is available as open source under the terms of the [MIT
+License](http://opensource.org/licenses/MIT).

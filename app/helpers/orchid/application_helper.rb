@@ -87,6 +87,57 @@ module Orchid::ApplicationHelper
     return new_params
   end
 
+  # Creates classes to populate the <html> element.
+  #   Use @page_classes to add custom classes separated by space
+  #
+  # By default outputs:
+  #   [custom classes]        string passed in by opt. @page_classes variable
+  #   section_[@section]      if @section
+  #   controller_[controller] if params[:controller]
+  #   action_[action]         if params[:action]
+  #   page_[page]             orchid page if applicable (browse, item, etc)
+  def html_classes
+    classes = []
+
+    if @page_classes.present?
+      classes << @page_classes
+    end
+
+    if @section.present?
+      classes << "section_#{@section}"
+    end
+
+    if params[:controller].present?
+      classes << "controller_#{params[:controller]}"
+    end
+
+    if params[:action].present?
+      classes << "action_#{params[:action]}"
+    end
+
+    # separating into a method to allow overriding by application if desired
+    if html_classes_page
+      classes << html_classes_page
+    end
+
+    combined = classes.join(" ")
+
+    " class=\"#{combined}\"".html_safe
+  end
+
+  def html_classes_page
+    # remove the sub-uri from the front of the request path if it exists
+    # and then look for the common orchid page types: browse, search, item, about
+    path = request.path
+    if config.relative_url_root
+      path = path.sub(config.relative_url_root, "")
+    end
+    page = path[/.*(about|browse|search|item).*/,1]
+    if page
+      "page_#{page}"
+    end
+  end
+
   # image is path relative to iiif server + project of image
   #   "documents/doc.0001.jpg" or "doc.1887.82.jpg"
   # Parameter syntax reference:
@@ -234,30 +285,9 @@ module Orchid::ApplicationHelper
     render "#{path}#{partial}", kwargs
   end
 
+  deprecate site_section: "deprecated in favor of html_classes"
   def site_section
-    if @site_section.present?
-      # Use override from instance variable
-      section = @site_section
-    else
-      if current_page? home_path
-        section = "home"
-      elsif request.path[/^\/[^\/]+?\/.+/]
-        # If request path has a sub-uri section (or namespacing),
-        # use that part of the path (e.g. "browse" of "/browse/creator")
-        section = request.path[/^\/([^\/]+?)\/.+/, 1]
-      else
-        # If path matches controller or action name, use that (e.g. "/about")
-        if request.path[/^\/#{params["controller"]}$/]
-          section = params["controller"]
-        elsif request.path[/^\/#{params["action"]}$/]
-          section = params["action"]
-        else
-          section = "pages"
-        end
-      end
-    end
-
-    return " class=\"site_#{section}\"".html_safe
+    html_classes
   end
 
 end
