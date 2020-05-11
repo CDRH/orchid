@@ -27,7 +27,7 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [v3.0.2](https://github.com/CDRH/orchid/compare/v3.0.1...v3.0.2) - 2020-05-05 - html_classes for styling and minor fixes
+## [v3.0.2](https://github.com/CDRH/orchid/compare/v3.0.1...v3.0.2) - html_classes for styling and minor fixes
 
 ### Added
 - Adds more classes to html element via html_classes helper to increase granularity for styling
@@ -44,13 +44,13 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Deprecated
 - site_section application helper in favor of html_classes
 
-## [v3.0.1](https://github.com/CDRH/orchid/compare/v3.0.0...v3.0.1) - 2019-10-30 - date search bug and incorrect locale path
+## [v3.0.1](https://github.com/CDRH/orchid/compare/v3.0.0...v3.0.1) - date search bug and incorrect locale path
 
 ### Fixed
 - bug with date search
 - incorrect locale path
 
-## [v3.0.0](https://github.com/CDRH/orchid/compare/v2.1.0...v3.0.0) - 2019-10-25 - sections, facet config, iiif, and more
+## [v3.0.0](https://github.com/CDRH/orchid/compare/v2.1.0...v3.0.0) - sections, facet config, iiif, and more
 
 ### Fixed
 - improved pagination a11y
@@ -99,7 +99,7 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - migrate facets config in models to `config/facets.yml` format
 - add facet translations if using multi-language app
 
-## [v2.1.0](https://github.com/CDRH/orchid/compare/v2.0.0...v2.1.0) - 2018-10-19 - Configuration Changes for Language Support, Bug Fixes
+## [v2.1.0](https://github.com/CDRH/orchid/compare/v2.0.0...v2.1.0) - Configuration Changes for Language Support, Bug Fixes
 
 ### Fixed
 - bug with single language selection display
@@ -113,7 +113,7 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - copy `config/locales/en.yml` to application
 - fill in `project_name`, `project_shortname` and `project_subtitle` in `config/locales` file
 
-## [v2.0.0](https://github.com/CDRH/orchid/compare/v1.1.1...v2.0.0) - 2018-07-24 - Multiple Language Support
+## [v2.0.0](https://github.com/CDRH/orchid/compare/v1.1.1...v2.0.0) - Multiple Language Support
 
 ### Added
 - relocates text throughout site to `en.yml` file
@@ -126,18 +126,18 @@ Versioning](https://semver.org/spec/v2.0.0.html).
   - (1.1.1 style will continue to work if you do not change them)
   - define with `Facets.facet_info` instead of `@facet_info`
 
-## [v1.1.1](https://github.com/CDRH/orchid/compare/v1.1.0...v1.1.1) - 2018-07-02 - Fix date filtering; Gem updates
+## [v1.1.1](https://github.com/CDRH/orchid/compare/v1.1.0...v1.1.1) - Fix date filtering; Gem updates
 
 ### Fixed
 - regularized date filter removal like facet removal
 - updated gems to address Sprockets vulnerability
 
-## [v1.1.0](https://github.com/CDRH/orchid/compare/v1.0.0...v1.1.0) - 2018-05-21 - Rails 5.2.0
+## [v1.1.0](https://github.com/CDRH/orchid/compare/v1.0.0...v1.1.0) - Rails 5.2.0
 
 ### Changed
 - updates Orchid to support Rails 5.2
 
-## [v1.0.0](https://github.com/CDRH/orchid/compare/v0.1.0...v1.0.0) - 2018-01-11 - Enable Customization
+## [v1.0.0](https://github.com/CDRH/orchid/compare/v0.1.0...v1.0.0) - Enable Customization
 
 ### Added
 - draw and override routes before and after Orchid defaults
@@ -155,4 +155,4 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Migration
 - there are no notes for migrating to this version
 
-## [v0.1.0](https://github.com/CDRH/orchid/tree/v0.1.0) - 2017-05-01 - Initial Launch
+## [v0.1.0](https://github.com/CDRH/orchid/tree/v0.1.0) - Initial Launch
