@@ -17,7 +17,7 @@ More information about internationalization in Rails is available in the
 
 ## Alter Existing Translations
 
-Check out `/config/locales`. You should see yml files with named by language
+Check out `/config/locales`. You should see yml files named by language
 codes. You may edit these files to change strings as desired for things such as
 your site title, home page text, etc.
 

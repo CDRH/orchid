@@ -26,7 +26,7 @@ default: &default
 
 To get started quickly, follow the examples in
 [`config/redirects.example.yml`](../lib/generators/templates/redirects.yml).
-The file is formatted as a list of associate arrays so each rule begins with
+The file is formatted as a list of associative arrays so each rule begins with
 `-` and following indented lines have the rule's keys and values. Every rule
 must have the `method`, `from`, and `to` keys and values.
 
