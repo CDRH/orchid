@@ -37,6 +37,8 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - check overridden partials / views for `render_overridable` calls without
   path to views directory
   - Ex: `render_overridable "items", "sort"` instead of `render_overridable "sort"`
+### Fixed
+- bug with search pagination
 
 ## [v3.0.2](https://github.com/CDRH/orchid/compare/v3.0.1...v3.0.2) - html_classes for styling and minor fixes
 
