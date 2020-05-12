@@ -128,6 +128,8 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - check overridden partials / views for `render_overridable` calls without
   path to views directory
   - Ex: `render_overridable "items", "sort"` instead of `render_overridable "sort"`
+### Fixed
+- bug with search pagination
 
 ### Fixed
 - bug with search pagination when small result set
