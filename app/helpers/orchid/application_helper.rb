@@ -212,34 +212,26 @@ module Orchid::ApplicationHelper
   end
 
   def prefix_path(path, *args, **kwargs)
+    # Hash with rocket syntax `"f" => ["...|..."]` comes through in args here,
+    # so merge into kwargs and empty args
+    if args.length == 1 && args[0].is_a?(Hash)
+      kwargs = kwargs.merge(args[0])
+      args = []
+    end
 
-    # if this is a hash, then add the section if appropriate
-    # and pass it back as is, since link_to can accept a hash
-    # for the path argument instead of a routes helper
-    if path.is_a?(Hash)
-      @section.present? ? path.merge({section: @section}) : path
-    else
-      # Hash with rocket syntax `"f" => ["...|..."]` comes through in args here,
-      # so merge into kwargs and empty args
-      if args.length == 1 && args[0].is_a?(Hash)
-        kwargs = kwargs.merge(args[0])
-        args = []
-      end
+    path_helper = @section.present? ? "#{@section}_#{path}" : path
 
-      path_helper = @section.present? ? "#{@section}_#{path}" : path
-
-      if args.empty?
-        if kwargs.empty?
-          send(path_helper)
-        else
-          send(path_helper, kwargs)
-        end
+    if args.empty?
+      if kwargs.empty?
+        send(path_helper)
       else
-        if kwargs.empty?
-          send(path_helper, args)
-        else
-          send(path_helper, args, kwargs)
-        end
+        send(path_helper, kwargs)
+      end
+    else
+      if kwargs.empty?
+        send(path_helper, args)
+      else
+        send(path_helper, args, kwargs)
       end
     end
   end

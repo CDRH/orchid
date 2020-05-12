@@ -13,7 +13,7 @@
   <ul class="dropdown-menu">
     <% sort_fields_search.each do |sort_field, label| %>
       <%= render_overridable("sort_dropdown_item", label: label,
-        sort_url: params.merge(sort: sort_field)) %>
+        sort_url: prefix_path("search_path", sort(sort_field))) %>
     <% end %>
   </ul>
 
