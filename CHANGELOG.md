@@ -27,6 +27,17 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- search_preset functionality and documentation added
+
+### Changed
+- altered `render_overridable` calls with full path to partials
+
+### Migration
+- check overridden partials / views for `render_overridable` calls without
+  path to views directory
+  - Ex: `render_overridable "items", "sort"` instead of `render_overridable "sort"`
+
 ## [v3.0.2](https://github.com/CDRH/orchid/compare/v3.0.1...v3.0.2) - html_classes for styling and minor fixes
 
 ### Added
