@@ -1,19 +1,25 @@
-<%# set @site_section and @content_label in the action %>
+<%# for instructions about how to use the search preset feature, please refer
+to docs/search_preset.md %>
 
-<h2><%= @content_label %></h2>
+<%# provide the following:
+  - @res : API response object ($api.query(options))
+  - @route_path : string representing route used to call this template ("image_gallery_path")
+  - @content_label : OPTIONAL overrides @title for h1
+  - @preset_class : OPTIONAL adds CSS class on <div>
+%>
 
-<div class="row search_form search_preset search_preset_<%= @content_label.parameterize %>">
+<h1><%= @content_label || @title %></h1>
 
-  <%# do not display any facet options or summary boxes
-      for this view, even though they have likely been selected %>
+<div class="row search_form search_preset search_preset_<%= @preset_class %>">
 
-  <%= render "search_preset_text" %>
+  <%# do not display any facet options or summary boxes for this view %>
 
-  <%= render "sort_and_page_ui" %>
+  <%= render_overridable "items", "search_preset_text" %>
+  <%= render_overridable "items", "sort_and_page_ui" %>
 
   <!-- search results section -->
-  <%= render "search_res_count" %>
-  <%= render "search_res_items" %>
+  <%= render_overridable "items", "search_res_count" %>
+  <%= render_overridable "items", "search_res_items" %>
 
-  <%= render "sort_and_page_ui" %>
+  <%= render_overridable "items", "sort_and_page_ui" %>
 </div>

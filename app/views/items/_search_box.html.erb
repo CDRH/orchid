@@ -9,13 +9,13 @@
               <!-- search box -->
               <%= text_field_tag(:q, params[:q], :placeholder => t("search.placeholder", default: "Search for..."), :class => "form-control") %>
               <!-- add existing search parameters to query -->
-              <%= render_overridable("hidden_fields") %>
+              <%= render_overridable("items", "hidden_fields") %>
               <!-- submit -->
               <span class="input-group-btn">
                 <%= submit_tag t("search.submit", default: "Search"), class: "btn btn-primary", name: nil, data: { disable_with: false } %>
               </span>
             <% end %>
-            <%= render_overridable("help") %>
+            <%= render_overridable("items", "help") %>
             <%= link_to t("search.view_all", default: "View All Items"),
               prefix_path("search_path"), rel: "search" %>
           </div>
