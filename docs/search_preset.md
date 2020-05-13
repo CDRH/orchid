@@ -2,37 +2,72 @@
 
 Some websites may wish to have a simplified list of search results that presents items already winnowed down with facets or a search term to the user without the options of adding or removing facets. For example, the Cody Archive's "Topic" document lists, or an image gallery. These results still need basic functionality such as pagination and sort, but they do not require an entire infrastructure of browsing / faceting.
 
-With this need in mind, Orchid provides a view, `items/search_preset.html.erb` to build item lists of this nature, and allow easy overriding for customization. First, create a route in your app to a new action.
+With this need in mind, Orchid provides a view, `items/search_preset.html.erb` to build item lists of this nature, and allow easy overriding for customization. There are three steps to setting up a search preset.
+
+1. [Route](#route)
+2. [Action](#action)
+3. [Views](#views)
+
+## Route
+
+First, create a route in your app to a new action.
 
 `config/routes.rb`
 ```ruby
   get '/memorabilia/souvenirs', to: 'items#souvenirs', as: 'souvenirs'
 ```
 
-In the matching action, create a query to retrieve your particular item list. The query will fallback on your app's default search settings, or you may alter them. Render the action's search results to the search preset view.
+## Action
 
-*Make sure to set the `@content_label` and `@site_section` as well.*  `@content_label` will provide a header and `<title>` value, while `@site_section` will be used to highlight any relevant navigation and apply specific styles used in CSS.
+In the action matching your route, set up a couple variables, create a query to
+retrieve an item list, and render the search preset view.
 
-When writing your query, if you are working with an action that may be used within a `section` (see [relevant documentation](#sections) for sections), be mindful that you may need to use a different API connection than the `$api` variable to gain access to default options specified in that section's configuration.
+NOTE: If you are working with a `section` (see
+[relevant documentation](#sections) for sections), be mindful that you may need
+to use a different API connection than the `$api` variable to gain access to
+default options specified in that section's configuration.
+
+Here's an example search preset action:
 
 ```ruby
 def souvenirs
+  # optional settings
+  @title = "Topics: Wild West Show"
   @content_label = "Souvenirs"
-  @site_section = "memorabilia"
+  @preset_class = "category_souvenir"
 
+  # query to return only souvenir documents
   options = params.permit!.deep_dup
   options["f"] = "category|souvenir"
   @res = $api.query(options)
+
+  # render search preset with route information
+  @route_path "souvenirs_path"
   render "search_preset"
 end
 ```
+Optional settings:
 
-You will also want to either remove or customize `items/_search_preset_text.html.erb`, which gives you the ability to provide explanatory text for the contents.  If you have multiple search preset sections, you may wish to override this file with conditionals or pull in different partials.
+- @title: not specific to search preset! Used to populate `<title>`.
+  Used for `<h1>` if `@content_label` not defined.
+- @content_label: used for the `<h1>` tag
+- @preset_class: applies `search_preset_(@preset_class)` class to `<div>` surrounding search preset page for custom styling
 
-```
-<% if @site_section == "memorabilia" %>
-  <p>The majority of the memorabilia is...</p>
-<% else %>
-  <%= render "some_partial_of_your_choice" %>
-<% end %>
-```
+Required:
+
+- @res: result of a `.query` call to the API or subset API (@section)
+- @route_path: string representation of the route used to get to this action
+
+## Views
+
+There are two views / partials made available for the search preset functionality.
+
+- `items/search_preset.html.erb`
+- `items/_search_preset_text.html.erb`
+
+The former imitates the default search page but removes references to facets.
+The `_search_preset_text` file gives you an easily overridable way to add
+content to the top of the section you are designing. For example, explanatory
+material about an image gallery, or links to other search presets based around
+topics. If you do not require any content above the search results, simply add
+an empty file at `items/_search_preset_text.html.erb`.
