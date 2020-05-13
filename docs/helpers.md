@@ -70,3 +70,22 @@ render_overridable("items", "browse")
 You can call it the same way you would typically call `render`.
 
 Read more in the [sections docs](/docs/sections.md#templates).
+
+## route_path and @route_path
+
+Allows for overriding the default behavior of views / partials such as sort
+and pagination. The default behavior is to use "search_path".
+
+`route_path` is important for search preset functionality. Read more about
+[search presets](/docs/search_preset.md).
+
+Example:
+
+```ruby
+# controller/action
+
+  def image_gallery
+    @route_path = "image_gallery_path"
+    render "items/search_preset"
+  end
+```
