@@ -43,7 +43,7 @@ def souvenirs
 
   # render search preset with route information
   @route_path "souvenirs_path"
-  render "search_preset"
+  render_overridable "items", "search_preset"
 end
 ```
 Optional settings:
@@ -60,13 +60,21 @@ Required:
 
 ## Views
 
-There are two views / partials made available for the search preset functionality.
+There are several views / partials made available for the search preset functionality.
 
 - `items/search_preset.html.erb`
+- `items/_search_preset_res_items.html.erb`
 - `items/_search_preset_text.html.erb`
 
-The former imitates the default search page but removes references to facets.
-The `_search_preset_text` file gives you an easily overridable way to add
+`search_preset` imitates the default search page but removes references to
+facets. Typically, you should not override this view unless making substaintial
+changes to the layout of the page.
+
+`_search_preset_res_items` renders the traditional `items/_search_res_items`
+partial automatically, but if you would like to create a custom layout / display
+for the specific items being returned, you may override this partial.
+
+`_search_preset_text` gives you an easily overridable way to add
 content to the top of the section you are designing. For example, explanatory
 material about an image gallery, or links to other search presets based around
 topics. If you do not require any content above the search results, simply add
