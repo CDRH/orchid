@@ -32,7 +32,6 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - Fix removed Sprockets 4.x app/assets/config/manifest.js lines
 - Adjust hierarchy of headers to meet accessibility guidelines
 
-<<<<<<< HEAD
 ### Added
 - keyboard navigation for collapsible filter panels
 - role=button added to anchor tags styled as a button
@@ -129,6 +128,10 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - check overridden partials / views for `render_overridable` calls without
   path to views directory
   - Ex: `render_overridable "items", "sort"` instead of `render_overridable "sort"`
+=======
+### Fixed
+- bug with search pagination when small result set
+
 ## [v3.0.3](https://github.com/CDRH/orchid/compare/v3.0.2...v3.0.3) - pagination bugfix
 
 ### Fixed
