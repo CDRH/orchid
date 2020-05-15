@@ -6,7 +6,7 @@ module Orchid::PaginationHelper
     if total > 1
       current = valid_page
       pages_prior = (current-display_range..current-1).reject { |x| x <= 1 }
-      pages_next = (current+1..current+display_range).reject { |x| x >= total }
+      pages_next = (current+1..current+display_range).reject { |x| x > total }
 
       render_overridable("items", "paginator",
         current: current,

@@ -1,0 +1,25 @@
+removing value_label from app
+
+remaining code should be API agnostic as far as display and queries
+apps which have overwritten helpers may encounter errors
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Author:    Jessica Dussault <jdussault4@gmail.com>
+#
+# interactive rebase in progress; onto 8a835d6
+# Last commands done (7 commands done):
+#    pick 3e97f88 fixes misnamed variable
+#    pick 66f7050 removing value_label from app
+# Next commands to do (14 remaining commands):
+#    pick c342771 fixes bad keyword arguments
+#    pick d0db1b3 adds Rails deprecation warning instead of generic logger
+# You are currently rebasing branch 'bucket-aggregations-2' on '8a835d6'.
+#
+# Changes to be committed:
+#	modified:   app/helpers/orchid/display_helper.rb
+#	modified:   app/views/items/_facets.html.erb
+#	modified:   app/views/items/_summary_boxes.html.erb
+#	modified:   app/views/items/browse_facet.html.erb
+#
