@@ -27,6 +27,9 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+- bug with search pagination when small result set
+
 ## [v3.0.3](https://github.com/CDRH/orchid/compare/v3.0.2...v3.0.3) - pagination bugfix
 
 ### Fixed
