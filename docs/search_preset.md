@@ -5,7 +5,7 @@ Some websites may wish to have a simplified list of search results that presents
 With this need in mind, Orchid provides a view, `items/search_preset.html.erb` to build item lists of this nature, and allow easy overriding for customization. There are three steps to setting up a search preset.
 
 1. [Route](#route)
-2. [Controller Action](#controller_action)
+2. [Controller Action](#controller-action)
 3. [Views and Locales](#views-and-locales)
 
 ## Route
