@@ -42,7 +42,7 @@ def souvenirs
   @res = $api.query(options)
 
   # render search preset with route information
-  @route_path "souvenirs_path"
+  @route_path = "souvenirs_path"
   render_overridable "items", "search_preset"
 end
 ```
