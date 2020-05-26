@@ -28,10 +28,10 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
-- search_preset functionality and documentation added
+- search_preset functionality and documentation
 
 ### Changed
-- altered `render_overridable` calls with full path to partials
+- `render_overridable` calls with full path to partials
 
 ### Migration
 - check overridden partials / views for `render_overridable` calls without
