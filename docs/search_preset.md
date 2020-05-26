@@ -38,7 +38,7 @@ def souvenirs
 
   # query to return only souvenir documents
   options = params.permit!.deep_dup
-  options["f"] = "category|souvenir"
+  options["f"] = ["category|souvenir"]
   @res = $api.query(options)
 
   # render search preset with route information
