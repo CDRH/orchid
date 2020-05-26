@@ -23,9 +23,9 @@ In the action matching your route, set up a couple variables, create a query to
 retrieve an item list, and render the search preset view.
 
 NOTE: If you are working with a `section` (see
-[relevant documentation](#sections) for sections), be mindful that you may need
-to use a different API connection than the `$api` variable to gain access to
-default options specified in that section's configuration.
+[relevant documentation](/docs/sections.md) for sections), be mindful that you
+may need to use a different API connection than the `$api` variable to gain
+access to default options specified in that section's configuration.
 
 Here's an example search preset action:
 
@@ -55,7 +55,7 @@ Optional settings:
 
 Required:
 
-- @res: result of a `.query` call to the API or subset API (@section)
+- @res: result of a `.query` call to `$api` or `$api_sections[@section]`
 - @route_path: string representation of the route used to get to this action
 
 ## Views and Locales
@@ -68,7 +68,7 @@ image gallery, you can add basic HTML in the locale files such as
 `config/locales/en.yml` and `config/locales/es.yml` under
 `search_preset.about_html`.
 
-Sometimes, however, you may need to alter the appearance of behavior of your
+Sometimes, however, you may need to alter the appearance or behavior of your
 search preset. In that case, you will need to override some of the views:
 
 - `items/search_preset.html.erb`
