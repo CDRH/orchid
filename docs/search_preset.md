@@ -60,14 +60,19 @@ Required:
 
 ## Views
 
-There are several views / partials made available for the search preset functionality.
+Good news, you only need to alter one view to get search presets working! If
+you are happy with the default appearance, consider yourself done after creating
+a file at `items/_search_preset_text.html.erb` and filling in your commentary.
+
+However, if you would like to alter the appearance or behavior, there are
+several views / partials made available for the search preset functionality.
 
 - `items/search_preset.html.erb`
 - `items/_search_preset_res_items.html.erb`
 - `items/_search_preset_text.html.erb`
 
 `search_preset` imitates the default search page but removes references to
-facets. Typically, you should not override this view unless making substaintial
+facets. Typically, you should not override this view unless making substantial
 changes to the layout of the page.
 
 `_search_preset_res_items` renders the traditional `items/_search_res_items`
