@@ -6,7 +6,7 @@ With this need in mind, Orchid provides a view, `items/search_preset.html.erb` t
 
 1. [Route](#route)
 2. [Action](#action)
-3. [Views](#views)
+3. [Views and Locales](#views-and-locales)
 
 ## Route
 
@@ -58,14 +58,18 @@ Required:
 - @res: result of a `.query` call to the API or subset API (@section)
 - @route_path: string representation of the route used to get to this action
 
-## Views
+## Views and Locales
 
-Good news, you only need to alter one view to get search presets working! If
-you are happy with the default appearance, consider yourself done after creating
-a file at `items/_search_preset_text.html.erb` and filling in your commentary.
+Good news, if you are happy with the default appearance, consider yourself done!
 
-However, if you would like to alter the appearance or behavior, there are
-several views / partials made available for the search preset functionality.
+If you would like to add a small amount of commentary
+to the top of your search preset, for example a description of the images in an
+image gallery, you can add basic HTML in the locale files such as
+`config/locales/en.yml` and `config/locales/es.yml` under
+`search_preset.about_html`.
+
+Sometimes, however, you may need to alter the appearance of behavior of your
+search preset. In that case, you will need to override some of the views:
 
 - `items/search_preset.html.erb`
 - `items/_search_preset_res_items.html.erb`
@@ -82,5 +86,5 @@ for the specific items being returned, you may override this partial.
 `_search_preset_text` gives you an easily overridable way to add
 content to the top of the section you are designing. For example, explanatory
 material about an image gallery, or links to other search presets based around
-topics. If you do not require any content above the search results, simply add
-an empty file at `items/_search_preset_text.html.erb`.
+topics. If adding only basic HTML, consider using the i18n functionality under
+`search_preset.about`.

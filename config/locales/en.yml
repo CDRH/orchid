@@ -281,3 +281,9 @@ en:
     title: Search
     # browse items without applying any search / filters
     view_all: View All Items
+
+  #################
+  # SEARCH PRESET #
+  #################
+  search_preset:
+    about_html: ""
