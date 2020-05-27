@@ -285,6 +285,17 @@ module Orchid::ApplicationHelper
     render "#{path}#{partial}", kwargs
   end
 
+  # route_path is used for those views / partials such as pagination
+  # and sort which may be used by a variety of actions, and therefore
+  # need flexible routing
+  #
+  # Default route is "search_path" but user may specify
+  # @route_path (expects valid route name as string) in action or view
+  # to override
+  def route_path
+    @route_path || "search_path"
+  end
+
   deprecate site_section: "deprecated in favor of html_classes"
   def site_section
     html_classes

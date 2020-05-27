@@ -281,3 +281,9 @@ es:
     title: Búsqueda
     # browse items without applying any search / filters
     view_all: Ver todos los objetos de la colección
+
+  #################
+  # SEARCH PRESET #
+  #################
+  search_preset:
+    about_html: ""

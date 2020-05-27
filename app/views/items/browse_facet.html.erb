@@ -32,7 +32,7 @@
 
   <ul class="dropdown-menu">
     <% sort_fields_facets.each do |sort_field, label| %>
-      <%= render_overridable("sort_dropdown_item", label: label,
+      <%= render_overridable("items", "sort_dropdown_item", label: label,
         sort_url: prefix_path("browse_facet_path", facet_sort: sort_field)) %>
     <% end %>
   </ul>

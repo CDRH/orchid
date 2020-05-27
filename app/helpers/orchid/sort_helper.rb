@@ -24,7 +24,7 @@ module Orchid::SortHelper
     # Pull value out of single-element array
     sort_by = sort_by.first if sort_by.class == Array
 
-    render_overridable("sort", sort_by: sort_by)
+    render_overridable("items", "sort", sort_by: sort_by)
   end
 
   def sort_fields_facets
