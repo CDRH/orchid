@@ -9,7 +9,7 @@
         <div class="input-group-btn"
              aria-label="<%= t "search.clear_text", default: "Clear Search Text" %>"
              title="<%= t "search.clear_text", default: "Clear Search Text" %>">
-          <%= link_to prefix_path("search_path", clear_search_text),
+          <%= link_to prefix_path(route_path, clear_search_text),
                       class: "btn btn-default btn-sm", rel: "nofollow",
                       role: "button" do %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -30,7 +30,7 @@
         <div class="input-group-btn"
              title="<%= t "search.dates.clear_filter", default: "Clear Date Filter" %>"
              aria-label="<%= t "search.dates.clear_filter", default: "Clear Date Filter" %>">
-          <%= link_to prefix_path("search_path", clear_dates_params),
+          <%= link_to prefix_path(route_path, clear_dates_params),
             class: "btn btn-default btn-sm", rel: "nofollow",
             role: "button" do %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -55,7 +55,7 @@
           <div class="input-group-btn"
                title="<%= t("search.filters.clear", label: label, default: "Clear #{label} Filter") %>"
                aria-label="<%= t("search.filters.clear", label: label, default: "Clear #{label} Filter") %>">
-            <%= link_to prefix_path("search_path", remove_facet(type, facet)),
+            <%= link_to prefix_path(route_path, remove_facet(type, facet)),
               class: "btn btn-default btn-sm", rel: "nofollow",
               role: "button" do %>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
