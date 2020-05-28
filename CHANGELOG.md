@@ -32,6 +32,7 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 - `render_overridable` calls with full path to partials
+- `"search_path"` changed to `route_path` to allow overrides
 
 ### Migration
 - check overridden partials / views for `render_overridable` calls without
