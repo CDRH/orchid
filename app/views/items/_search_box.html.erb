@@ -4,7 +4,7 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-md-10">
-            <%= form_tag prefix_path("search_path"), method: "get",
+            <%= form_tag prefix_path(route_path), method: "get",
               class: "input-group" do %>
               <!-- search box -->
               <%= text_field_tag(:q, params[:q], :placeholder => t("search.placeholder", default: "Search for..."), :class => "form-control") %>
@@ -17,11 +17,11 @@
             <% end %>
             <%= render_overridable("items", "help") %>
             <%= link_to t("search.view_all", default: "View All Items"),
-              prefix_path("search_path"), rel: "search" %>
+              prefix_path(route_path), rel: "search" %>
           </div>
           <div class="col-md-2">
             <%= link_to t("search.clear_all", default: "Clear Search"),
-              prefix_path("search_path"),
+              prefix_path(route_path),
               class: "btn btn-danger clear_main_search_text", rel: "search" %>
           </div>
         </div> <!-- /row -->
