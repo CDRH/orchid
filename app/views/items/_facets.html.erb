@@ -44,15 +44,15 @@
               <!-- list item -->
               <% if !selected %>
                 <li>
-                  <%= link_to sanitize(text), prefix_path("search_path",
+                  <%= link_to label, prefix_path(route_path,
                     facet_link(facet_name, key)), rel: "nofollow" %>
-                  <span class="badge"><%= num %></span>
+                  <span class="badge"><%= value %></span>
                 </li>
               <% else %>
                 <li class="selected">
-                  <span><%= sanitize text %></span>
-                  <span class="badge"><%= num %></span>
-                  <%= link_to prefix_path("search_path",
+                  <span><%= label %></span>
+                  <span class="badge"><%= value %></span>
+                  <%= link_to prefix_path(route_path,
                     remove_facet(facet_name, key)), rel: "nofollow" do %>
                     <button class="btn btn-default btn-xs"
                             title="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>"

@@ -61,21 +61,21 @@
                   ) %>
 
                   <td class="index_num">
-                    <%= link_to prefix_path("search_path",
-                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
-                      <%= num %>
+                    <%= link_to prefix_path(route_path,
+                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
+                      <%= list[1] %>
                     <% end %>
                   </td>
                   <td class="index_spacer">
-                    <%= link_to prefix_path("search_path",
-                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
+                    <%= link_to prefix_path(route_path,
+                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
                       <span></span>
                     <% end %>
                   </td>
                   <td class="index_name">
-                    <%= link_to prefix_path("search_path",
-                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
-                      <%= sanitize text %>
+                    <%= link_to prefix_path(route_path,
+                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
+                      <%= text %>
                     <% end %>
                   </td>
               </tr>
