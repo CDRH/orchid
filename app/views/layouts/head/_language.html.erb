@@ -1,0 +1,10 @@
+<%# links for alternate language pages %>
+<% if APP_OPTS["languages"].present? && APP_OPTS["languages"][/\|/] %>
+  <% APP_OPTS["languages"].split("|").each do |lang_code| %>
+    <%# if this is the currently selected language
+        then no alternative link is needed for it %>
+    <% next if lang_code == I18n.locale.to_s %>
+    <link rel="alternate" hreflang="<%= lang_code %>"
+      href="<%= locale_link(lang_code) %>" />
+  <% end %>
+<% end %>
