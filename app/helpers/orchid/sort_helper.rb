@@ -14,6 +14,8 @@ module Orchid::SortHelper
     if params["sort"].blank?
       if params["q"].present?
         sort_by = "relevancy|desc"
+      elsif SECTIONS && SECTIONS.dig(@section, "api_options", "sort")
+        sort_by = SECTIONS[@section]["api_options"]["sort"]
       else
         sort_by = API_OPTS["sort"].present? ? API_OPTS["sort"] : "title|asc"
       end

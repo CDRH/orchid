@@ -10,6 +10,7 @@ module Orchid::ItemsHelper
     title_display = item["title"].present? ?
       item["title"] : t("search.results.item.no_title", default: "Untitled")
 
-    link_to title_display, prefix_path("item_path", id: item["identifier"])
+    sanitized = sanitize title_display
+    link_to sanitized, prefix_path("item_path", id: item["identifier"])
   end
 end
