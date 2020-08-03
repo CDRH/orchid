@@ -17,7 +17,7 @@
       </li>
     <% else %>
       <li>
-        <%= link_to prefix_path("search_path", to_page(current-1, opts)),
+        <%= link_to prefix_path(route_path, to_page(current-1, opts)),
                     rel: "prev" do %>
           <span aria-label="Previous Page (<%= current - 1 %>)">&laquo;</span>
         <% end %>
@@ -27,7 +27,7 @@
     <%# add the first page if you're not on it, add dots if necessary %>
     <% if current != 1 %>
       <li>
-        <%= link_to "1", prefix_path("search_path", to_page(1, opts)),
+        <%= link_to "1", prefix_path(route_path, to_page(1, opts)),
                     rel: "nofollow", "aria-label": "First Page" %>
       </li>
       <%# don't display dots between 1 and 2 %>
@@ -39,7 +39,7 @@
     <%# prior pages %>
     <% pages_prior.each do |page| %>
       <li>
-        <%= link_to page.to_s, prefix_path("search_path", to_page(page, opts)),
+        <%= link_to page.to_s, prefix_path(route_path, to_page(page, opts)),
                     rel: "nofollow", "aria-label": "Page #{page}" %>
       </li>
     <% end %>
@@ -52,14 +52,14 @@
     <%# next pages %>
     <% pages_next.each do |page| %>
       <li>
-        <%= link_to page.to_s, prefix_path("search_path", to_page(page, opts)),
+        <%= link_to page.to_s, prefix_path(route_path, to_page(page, opts)),
                     rel: "nofollow", "aria-label": "Page #{page}" %>
       </li>
     <% end %>
 
     <%# add dots if necessary %>
     <% if current != total %>
-      <% if pages_next.max != total-1 && current != total-1 %>
+      <% if pages_next.max != total && current != total-1 %>
         <li class="disabled"><span aria-label="Jump in interval">…</span></li>
       <% end %>
       <%# do not display the last page to prevent users from jumping
@@ -73,7 +73,7 @@
       </li>
     <% else %>
       <li>
-        <%= link_to prefix_path("search_path", to_page(current+1, opts)),
+        <%= link_to prefix_path(route_path, to_page(current+1, opts)),
                     rel: "next" do %>
           <span aria-label="Next Page (<%= current + 1 %>)">&raquo;</span>
         <% end %>

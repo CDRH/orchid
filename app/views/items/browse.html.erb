@@ -1,7 +1,7 @@
 <h1><% t "browse.title", default: "Browse" %></h1>
 
 <p>
-  <%= link_to t("browse.all_link", default: "All Items in the Archive"), prefix_path("search_path"),
+  <%= link_to t("browse.all_link", default: "All Items in the Archive"), prefix_path(route_path),
         class: "btn btn-lg btn-default", rel: "search" %>
 </p>
 

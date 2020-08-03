@@ -1,4 +1,3 @@
-<% @site_section = "search" %>
 <% if params["q"].blank? && params["f"].blank? %>
   <h1><%= t "search.all_items", default: "All Items" %></h1>
 <% else %>
@@ -6,27 +5,27 @@
 <% end %>
 
 <div class="search_form">
-  <%= render_overridable("search_box") %>
+  <%= render_overridable("items", "search_box") %>
 
   <div class="col-sm-3">
     <div class="clearfix">
       <h2 class="pull-left">
         <%= t "search.filters.filter_by", default: "Filter by" %>:
       </h2>
-      <%= render_overridable("clear_facets") %>
+      <%= render_overridable("items", "clear_facets") %>
     </div>
-    <%= render_overridable("date_limit") %>
-    <%= render_overridable("facets", facets: @res.facets) %>
+    <%= render_overridable("items", "date_limit") %>
+    <%= render_overridable("items", "facets", facets: @res.facets) %>
   </div> <!-- col-md-3 -->
 
   <div class="col-sm-9">
-    <%= render_overridable("summary_boxes") %>
-    <%= render_overridable("sort_and_page_ui") %>
+    <%= render_overridable("items", "summary_boxes") %>
+    <%= render_overridable("items", "sort_and_page_ui") %>
 
     <!-- search results section -->
-    <%= render_overridable("search_res_count") %>
-    <%= render_overridable("search_res_items") %>
+    <%= render_overridable("items", "search_res_count") %>
+    <%= render_overridable("items", "search_res_items") %>
 
-    <%= render_overridable("sort_and_page_ui") %>
+    <%= render_overridable("items", "sort_and_page_ui") %>
   </div>
 </div>

@@ -14,6 +14,8 @@ module Orchid::SortHelper
     if params["sort"].blank?
       if params["q"].present?
         sort_by = "relevancy|desc"
+      elsif defined?(SECTIONS) && SECTIONS.dig(@section, "api_options", "sort")
+        sort_by = SECTIONS[@section]["api_options"]["sort"]
       else
         sort_by = API_OPTS["sort"].present? ? API_OPTS["sort"] : "title|asc"
       end
@@ -24,7 +26,7 @@ module Orchid::SortHelper
     # Pull value out of single-element array
     sort_by = sort_by.first if sort_by.class == Array
 
-    render_overridable("sort", sort_by: sort_by)
+    render_overridable("items", "sort", sort_by: sort_by)
   end
 
   def sort_fields_facets

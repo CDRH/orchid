@@ -12,5 +12,6 @@
 - [Languages](/docs/languages.md) - add languages or alter existing text
 - [Overriding Defaults](/docs/overrides.md) - controllers, helpers, and more
 - [Routes and Redirects](/docs/routes.md) - work with Orchid's existing routes, set up redirects, and search paths
+- [Search Presets](/docs/search_preset.md) - a subset of search results which do not require a full section (image galleries, topic galleries, etc)
 - [Sections](/docs/sections.md) - create a "sub" Orchid site within your site
 - [Theming and Assets](/docs/theming.md) - views, CSS, and JS
