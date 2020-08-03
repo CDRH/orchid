@@ -25,17 +25,22 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Contributors
 -->
 
-## [Unreleased]
+## [v3.1.0](https://github.com/CDRH/orchid/compare/v3.0.3...v3.1.0) - search_preset, improved section links, and misc display
 
 ### Fixed
 - bug with search pagination when small result set
+- section sort reflects section configuration by default
 
 ### Added
 - search_preset functionality and documentation
+- title display accommodates italics and other markup
 
 ### Changed
 - `render_overridable` calls with full path to partials
 - `"search_path"` changed to `route_path` to allow overrides
+
+### Removed
+- Reference to `@site_section` which was no longer in use
 
 ### Migration
 - check overridden partials / views for `render_overridable` calls without
