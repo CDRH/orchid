@@ -11,7 +11,7 @@
       <% class_in =  start_open ? "in" : "" %>
       <% class_glyphicon = start_open ? "glyphicon-chevron-down" : "glyphicon-chevron-right" %>
 
-      <div class="panel panel-default">
+      <div class="panel panel-default panel-filter panel-filter-<%= info['label'].parameterize %>">
 
         <!-- panel heading -->
         <div class="clearfix panel-heading" data-toggle="collapse"
