@@ -7,6 +7,21 @@ This is not always a recommended workflow, however, as it duplicates a lot of
 code and makes it more difficult to update your app. Below are some instructions
 for common portions which may need to be overridden.
 
+- [Settings](#settings)
+- [Controllers](#controllers)
+  - [API Requests](#api-requests)
+- [Helpers](#helpers)
+- [Views and Assets](#views-and-assets)
+- [Routes](#routes)
+
+## Settings
+
+Options such as which filters appear on your search and browse page,
+number of results per page, the location of the image server, languages, and
+more are part of the application's configuration.
+
+Please refer to the [settings documentation](/docs/settings.md) for more information.
+
 ## Controllers
 
 It is possible to override the behavior of specific actions within controllers.
@@ -33,6 +48,15 @@ scratch.
 
 Be aware that any instance variables in the original Orchid action may still
 be expected by the corresponding view.
+
+Customizing a section controller? Check out the
+[sections documentation](/docs/sections.md#controller).
+
+### API Requests
+
+When overriding a controller, you may find it useful to alter the API request.
+Please see the documentation for [API Requests](/docs/api_requests.md) for
+more information.
 
 ## Helpers
 

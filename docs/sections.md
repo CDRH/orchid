@@ -10,6 +10,7 @@ feature a specific musician and only searches their documents. Orchid is on it!
 
 - [Config](#config)
 - [Routes](#routes)
+- [Controller](#controller)
 - [Canonical Links](#canonical-links)
 - [Links](#links)
 - [Templates](#templates)
@@ -105,6 +106,23 @@ scope '/writings/letters', defaults: { section: "letters" } do
   get 'known', to: 'letters#known_letters', as: :letters_known
 end
 ```
+
+## Controller
+
+When creating your own section, you are not required to add a new controller,
+as all of the sections are powered by the ItemsController class out of the box.
+
+However, you may find it helpful to add a controller if you have custom actions
+or views. In order to still have access to controller methods and view helpers,
+you will need to set up your controller to inherit the ItemsController:
+
+```ruby
+class InthenewseventsController < ItemsController
+end
+```
+
+This means you may still use instance variables such as `@items_api` when
+creating custom queries.
 
 ## Canonical Item Links
 
