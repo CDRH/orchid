@@ -67,7 +67,7 @@ en:
   ##########
   browse:
     # link to search all items
-    all_link: All Items in the Archive
+    all_link: All Items in the Collection
     # label for browsing filters
     browse_type: Browse by
     # how to display specific filters which have no label
