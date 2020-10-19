@@ -9,7 +9,7 @@ to docs/search_preset.md %>
 %>
 
 <%# title %>
-<%= render "search_preset_header" %>
+<%= render_overridable "items", "search_preset_header" %>
 
 <div class="row search_form search_preset search_preset_<%= @preset_class %>">
 
