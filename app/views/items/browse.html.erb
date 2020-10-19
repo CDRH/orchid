@@ -1,9 +1,4 @@
-<h1><% t "browse.title", default: "Browse" %></h1>
-
-<p>
-  <%= link_to t("browse.all_link", default: "All Items in the Archive"), prefix_path(route_path),
-        class: "btn btn-lg btn-default", rel: "search" %>
-</p>
+<%= render_overridable "items", "browse_header" %>
 
 <h3><%= t "browse.browse_type", default: "Browse by" %>:</h3>
 <% @page_facets.each_slice(3) do |slice| %>
