@@ -25,6 +25,11 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Contributors
 -->
 
+## [Unreleased](https://github.com/CDRH/orchid/compare/v3.1.0...dev) - splitting templates
+
+### Added
+- partials for browse, browse_facet, index, and search_preset header content for easier overriding
+
 ## [v3.1.0](https://github.com/CDRH/orchid/compare/v3.0.3...v3.1.0) - search_preset, improved section links, and misc display
 
 ### Fixed
