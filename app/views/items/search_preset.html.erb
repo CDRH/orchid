@@ -8,7 +8,8 @@ to docs/search_preset.md %>
   - @preset_class : OPTIONAL adds CSS class on <div>
 %>
 
-<h1><%= @content_label || @title %></h1>
+<%# title %>
+<%= render "search_preset_header" %>
 
 <div class="row search_form search_preset search_preset_<%= @preset_class %>">
 
