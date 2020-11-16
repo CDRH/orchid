@@ -31,7 +31,11 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - displays flash message if API is down, instead of pages throwing errors
 - Fix removed Sprockets 4.x app/assets/config/manifest.js lines
 - Adjust hierarchy of headers to meet accessibility guidelines
+- bug with locales yaml creation
 
+
+### Changed
+- `ALL_LANGUAGES` setting changed back to `languages`
 
 ## [v3.1.0](https://github.com/CDRH/orchid/compare/v3.0.3...v3.1.0) - search_preset, improved section links, and misc display
 
