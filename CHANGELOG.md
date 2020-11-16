@@ -84,6 +84,9 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Migration
 - rename `languages` and `ALL_LANGUAGES` to `all_languages` in `public.yml` file
 
+### Changed
+- `ALL_LANGUAGES` setting changed back to `languages`
+
 ## [v3.1.0](https://github.com/CDRH/orchid/compare/v3.0.3...v3.1.0) - search_preset, improved section links, and misc display
 
 ### Fixed
