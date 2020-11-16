@@ -25,10 +25,16 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Contributors
 -->
 
-## [Unreleased](https://github.com/CDRH/orchid/compare/v3.1.0...dev) - splitting templates
+## [Unreleased](https://github.com/CDRH/orchid/compare/v3.1.0...dev) - splitting templates, fixing languages
+
+### Fixed
+- bug with locales yaml creation
 
 ### Added
 - partials for browse, browse_facet, index, and search_preset header content for easier overriding
+
+### Changed
+- `ALL_LANGUAGES` setting changed back to `languages`
 
 ## [v3.1.0](https://github.com/CDRH/orchid/compare/v3.0.3...v3.1.0) - search_preset, improved section links, and misc display
 
