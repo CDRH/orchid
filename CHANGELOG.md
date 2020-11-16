@@ -32,6 +32,8 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 - partials for browse, browse_facet, index, and search_preset header content for easier overriding
+- displays language toggle options in respective languages, therefore English instead of en, Español instead of es, etc
+- helper method `language_toggle_link` moves logic for language links out of view
 
 ### Changed
 - `ALL_LANGUAGES` setting changed back to `languages`

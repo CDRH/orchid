@@ -1,0 +1,18 @@
+# Below is a list of languages currently supported by Orchid
+#
+# If you want to add an additional language, you will need
+# to add it to your app's languages.yml file below in the
+# langs key, then include the langs in your language's key.
+
+
+langs: &langs
+  en: English
+  es: Español
+
+en:
+  languages:
+    <<: *langs
+
+es:
+  languages:
+    <<: *langs
