@@ -9,7 +9,7 @@ default: &default
     # defaults to "en" (english) if no default language set
     language_default: en
     # pipe delineated codes for all languages, e.g. "en|es|cz"
-    ALL_LANGUAGES: en
+    all_languages: en
     # for application title settings, please alter the files in config/locales
 
     # IMAGES
