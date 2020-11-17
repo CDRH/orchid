@@ -1,8 +1,4 @@
-<% if params["q"].blank? && params["f"].blank? %>
-  <h1><%= t "search.all_items", default: "All Items" %></h1>
-<% else %>
-  <h1><%= t "search.search_results", default: "Search Results" %></h1>
-<% end %>
+<%= render_overridable("items", "index_header") %>
 
 <div class="search_form">
   <%= render_overridable("items", "search_box") %>

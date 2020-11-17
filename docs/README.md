@@ -5,6 +5,7 @@
 - [Installation](/docs/installation.md) - dependencies and generator instructions
 - [Settings Overview and Basics](/docs/settings.md) - learn where and what you can change out of the box
 - [Helpful Helpers](/docs/helpers.md) - specific Orchid helpers
+- Testing - Run `rails test` from within the Orchid repository
 
 ## Theming and Customization
 
