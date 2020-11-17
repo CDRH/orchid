@@ -9,8 +9,8 @@ module Orchid
 
       # If multiple languages, constrain locale to non-default language codes
       locales = nil
-      if defined?(APP_OPTS) && APP_OPTS["languages"].present?
-        other_languages = APP_OPTS["languages"].split("|")
+      if defined?(APP_OPTS) && APP_OPTS["all_languages"].present?
+        other_languages = APP_OPTS["all_languages"].split("|")
           .reject { |l| l == APP_OPTS["language_default"] }
 
         if other_languages.present?
