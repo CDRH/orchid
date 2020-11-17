@@ -157,6 +157,26 @@ module Orchid::ApplicationHelper
     "#{server}/#{project}%2F#{image_esc}/#{iiif_opts}"
   end
 
+  # returns a link to switch site language preferences
+  def language_toggle_link(lang_code)
+    lang_name = t("languages.#{lang_code}", default: lang_code.upcase)
+
+    if lang_code == I18n.locale.to_s
+      # if this is the current site language, disable link
+      link_to lang_name, "#",
+        class: "btn btn-primary disabled",
+        hreflang: lang_code,
+        rel: "alternate",
+        tabindex: -1
+    else
+      link_to lang_name,
+        locale_link(lang_code),
+        class: "btn btn-default",
+        hreflang: lang_code,
+        rel: "alternate"
+    end
+  end
+
   def locale
     I18n.locale
   end
