@@ -29,6 +29,7 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 - bug with locales yaml creation
+- es locale file will be copied into app if Spanish requested
 
 ### Added
 - partials for browse, browse_facet, index, and search_preset header content for easier overriding
@@ -44,8 +45,11 @@ Versioning](https://semver.org/spec/v2.0.0.html).
   - `language` (head)
 
 ### Changed
-- `ALL_LANGUAGES` setting changed back to `languages`
 - language documentation clarified and expanded
+- references to `APP_OPTS["languages"]` changed to use `all_languages`
+
+### Migration
+- rename `languages` and `ALL_LANGUAGES` to `all_languages` in `public.yml` file
 
 ## [v3.1.0](https://github.com/CDRH/orchid/compare/v3.0.3...v3.1.0) - search_preset, improved section links, and misc display
 

@@ -76,9 +76,6 @@ class SetupGenerator < Rails::Generators::Base
                  "#{@new_app}/config/private.yml")
     FileUtils.cp("#{@this_app}/lib/generators/templates/public.yml",
                  "#{@new_app}/config/public.yml")
-    # en locale file is always copied by default
-    FileUtils.cp("#{@this_app}/config/locales/en.yml",
-                 "#{@new_app}/config/locales/en.yml")
 
     puts "Please enter the following for initial app customization"
 
@@ -87,12 +84,11 @@ class SetupGenerator < Rails::Generators::Base
 
     langs = prompt_for_value("All languages, including primary (separated with a pipe: en|es|cz)",
                              "en")
-    config_set("public", "languages", langs)
+    config_set("public", "all_languages", langs)
 
     all_langs = langs.blank? ? [] : langs.split("|")
     all_langs.each do |lang|
-      # for each language which is not english, create a locale file
-      next if lang == "en"
+      # create a locale file for each specified language
       copy_locale(lang)
     end
 
@@ -111,7 +107,7 @@ class SetupGenerator < Rails::Generators::Base
     # pre-made translations. Users will need to supply their own values for the
     # strings in the file.
 
-    Array(langs).each do |lang|
+    all_langs.each do |lang|
       config_set("locales/#{lang}", "project_name", project_name,
                  uncomment: true)
       config_set("locales/#{lang}", "project_shortname", project_shortname,
@@ -172,9 +168,19 @@ config/initializers/config.rb
   end
 
   def copy_locale(lang)
-    FileUtils.cp("#{@this_app}/config/locales/en.yml",
-                 "#{@new_app}/config/locales/#{lang}.yml")
-    gsub_file "#{@new_app}/config/locales/#{lang}.yml", /^en:$/, "#{lang}:"
+    supported_langs = [ "en", "es" ]
+
+    if supported_langs.include?(lang)
+      # by default, copy the locale files of any languages Orchid supports over
+      FileUtils.cp("#{@this_app}/config/locales/#{lang}.yml",
+                   "#{@new_app}/config/locales/#{lang}.yml")
+    else
+      # for non-supported languages, copy the english template with the expectation
+      # that it will be translated into the correct language
+      FileUtils.cp("#{@this_app}/config/locales/en.yml",
+                   "#{@new_app}/config/locales/#{lang}.yml")
+      gsub_file "#{@new_app}/config/locales/#{lang}.yml", /^en:$/, "#{lang}:"
+    end
   end
 
   def copy_remaining_templates
