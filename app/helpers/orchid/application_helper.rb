@@ -183,7 +183,7 @@ module Orchid::ApplicationHelper
 
   def locale_link(lang_code)
     locales = APP_OPTS["all_languages"].split("|")
-      .reject { |l| l == APP_OPTS["all_language_default"] }.join("|")
+      .reject { |l| l == APP_OPTS["language_default"] }.join("|")
     url = request.fullpath
 
     if lang_code == APP_OPTS["language_default"]
