@@ -30,6 +30,7 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 - bug with locales yaml creation
 - es locale file will be copied into app if Spanish requested
+- thumbnail size in `public.yml` requires quotation marks for newer psyche yaml gem
 
 ### Added
 - partials for browse, browse_facet, index, and search_preset header content for easier overriding

@@ -125,6 +125,10 @@ class SetupGenerator < Rails::Generators::Base
     config_set("public", "media_server_dir", answer)
 
     answer = prompt_for_value("Thumbnail Size (default: !200,200)", "!200,200")
+    # due to the exclamation mark, this needs to be surrounded in quotation marks
+    if !answer[/^".*"$/]
+      answer = "\"#{answer}\""
+    end
     config_set("public", "thumbnail_size", answer)
 
     # private config customization
