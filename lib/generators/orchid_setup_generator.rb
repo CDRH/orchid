@@ -1,4 +1,4 @@
-class SetupGenerator < Rails::Generators::Base
+class OrchidSetupGenerator < Rails::Generators::Base
 
   desc <<-EOS
     This generator prepares applications for API integration:
