@@ -32,7 +32,7 @@ Then, install the gem and run the Orchid generator:
 ```bash
 bundle install
 spring stop
-rails g setup
+rails g orchid_setup
 ```
 The setup script will prompt you to enter some values. Don't worry if you don't know all of them, you can change those values later.
 

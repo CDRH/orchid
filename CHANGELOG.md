@@ -25,10 +25,14 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Contributors
 -->
 
-## [Unreleased](https://github.com/CDRH/orchid/compare/v3.1.1...dev)
+## [Unreleased](https://github.com/CDRH/orchid/compare/v3.1.1...dev) - unreleased
 
+=======
 ### Added
 - role=button added to anchor tags styled as a button
+
+### Changed
+- rails g setup is now rails g orchid_setup
 
 ## [v3.1.1](https://github.com/CDRH/orchid/compare/v3.1.0...v3.1.1) - splitting templates, fixing languages
 
