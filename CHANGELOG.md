@@ -34,6 +34,7 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 - rails g setup is now rails g orchid_setup
 - updates jquery 1.x to 3.x
+- rails g setup is now rails g orchid_setup
 
 ### Migration
 - modify existing app's `application.js`
