@@ -202,10 +202,11 @@ Section configuration example file copied to config/sections/section.example.yml
   end
 
   def favicon
-    FileUtils.cp("#{@this_app}/app/assets/images/favicon.png",
-                 "#{@new_app}/app/assets/images/favicon.png")
 
-    "Favicon copied to app/assets/images/favicon.png"
+    FileUtils.cp_r("#{@this_app}/app/assets/images/favicon",
+                 "#{@new_app}/app/assets/images/favicon")
+
+    "Favicons and icons copied to app/assets/images/favicon"
   end
 
   def footer_logo
