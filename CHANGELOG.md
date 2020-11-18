@@ -27,6 +27,9 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased](https://github.com/CDRH/orchid/compare/v3.1.1...dev) - unreleased
 
+### Added
+- keyboard navigation for collapsible filter panels
+
 ### Changed
 - updates jquery 1.x to 3.x
 - rails g setup is now rails g orchid_setup
