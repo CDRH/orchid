@@ -25,6 +25,16 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Contributors
 -->
 
+## [Unreleased](https://github.com/CDRH/orchid/compare/v3.1.1...dev) - unreleased
+
+### Changed
+- updates jquery 1.x to 3.x
+
+### Migration
+- modify existing app's `application.js`
+  - change `//= require jquery` to `//= require jquery3`
+  - apps will continue to function with older jquery if not modified
+
 ## [v3.1.1](https://github.com/CDRH/orchid/compare/v3.1.0...v3.1.1) - splitting templates, fixing languages
 
 ### Fixed
