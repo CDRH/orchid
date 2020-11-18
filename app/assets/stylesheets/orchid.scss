@@ -75,6 +75,12 @@
   }
 }
 
+.panel-heading-link > .panel-heading {
+  color: $gray-dark;
+  background-color: $panel-default-heading-bg;
+  border-color: $panel-inner-border;
+}
+
 // Index Pages
 .index_num {
   font-size: 1.2em;
