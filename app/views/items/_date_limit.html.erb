@@ -62,7 +62,11 @@
       <%= hidden_field_tag(:q, params["q"]) %>
 
       <div class="clearfix">
-        <%= submit_tag t("search.dates.submit", default: "Filter"), class: "btn btn-primary buffer-right-sm", name: nil, data: { disable_with: false } %>
+        <%= submit_tag t("search.dates.submit", default: "Filter"),
+          class: "btn btn-primary buffer-right-sm",
+          name: nil, role: "button",
+          data: { disable_with: false }
+        %>
         <button type="button" class="btn btn-link glyphicon glyphicon-question-sign pull-right"
           data-toggle="collapse" data-target="#date_help"
           aria-expanded="false" aria-controls="date_help"
