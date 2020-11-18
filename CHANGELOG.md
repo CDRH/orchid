@@ -29,7 +29,8 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 =======
 ### Added
-- role=button added to anchor tags styled as a button\
+- role=button added to anchor tags styled as a button
+- keyboard navigation for collapsible filter panels
 
 ### Fixed
 - displays flash message if API is down, instead of pages throwing errors
