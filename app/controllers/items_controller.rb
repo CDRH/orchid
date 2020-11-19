@@ -42,7 +42,7 @@ class ItemsController < ApplicationController
     @res = @items_api.query(options).facets
 
     # Warn when approaching facet result limit
-    result_size = @res.length
+    result_size = @res ? @res.length : 0
     if result_size == 10000
       raise {"Facet results list has hit the limit of 10000. Revisit facet
         result handling NOW"}
@@ -55,6 +55,7 @@ class ItemsController < ApplicationController
     end
 
     @title = "#{t "browse.browse_type"} #{@browse_facet_info["label"]}"
+    check_response
     render_overridable("items", "browse_facet", locals: { sort_by: sort_by })
   end
 
@@ -70,15 +71,23 @@ class ItemsController < ApplicationController
 
     @title = t "search.title"
     @res = @items_api.query(options)
-
+    check_response
     render_overridable("items", "index")
   end
 
   def show
     item_retrieve(params["id"])
+    check_response
   end
 
   private
+
+  # display a flash message if the API response has an error
+  def check_response
+    if !@res || @res.error
+      flash[:error] = t "errors.api"
+    end
+  end
 
   def item_retrieve(id)
     @res = @items_api.get_item_by_id(id).first

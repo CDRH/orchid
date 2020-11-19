@@ -172,7 +172,10 @@ module ApiBridge
         res = Net::HTTP.get_response(URI(url))
         JSON.parse(res.body)
       rescue => e
-        raise "Something went wrong with request to #{url}: #{e.inspect}"
+        Rails.logger.error("Something wrong with API request to #{url}: #{e.inspect}")
+        {
+          "error" => e.inspect
+        }
       end
     end
 
