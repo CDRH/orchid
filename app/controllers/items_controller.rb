@@ -90,7 +90,11 @@ class ItemsController < ApplicationController
 
   # display a flash message if the API response has an error
   def check_response
+<<<<<<< HEAD
     if @res.blank? || @res.error
+=======
+    if !@res || @res.error
+>>>>>>> 38450dd (catches api error and adds flash warning to affected pages)
       flash[:error] = t "errors.api"
     end
   end
