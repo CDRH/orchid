@@ -29,17 +29,23 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 =======
 ### Added
-- role=button added to anchor tags styled as a button
+- role=button added to anchor tags styled as a button\
+
+### Fixed
+- displays flash message if API is down, instead of pages throwing errors
 
 ### Changed
 - rails g setup is now rails g orchid_setup
 - updates jquery 1.x to 3.x
 - rails g setup is now rails g orchid_setup
+- check_response method added to items_controller
 
 ### Migration
 - modify existing app's `application.js`
   - change `//= require jquery` to `//= require jquery3`
   - apps will continue to function with older jquery if not modified
+  - add `errors.api` and `search.results.error` to locale files
+  - check items_overrides and views/items for changes related to display items when API is unavailable
 
 
 ## [v3.1.1](https://github.com/CDRH/orchid/compare/v3.1.0...v3.1.1) - splitting templates, fixing languages
