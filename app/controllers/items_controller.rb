@@ -59,6 +59,7 @@ class ItemsController < ApplicationController
     end
 
     @title = "#{t "browse.browse_type"} #{@browse_facet_info["label"]}"
+    check_response
     render_overridable("items", "browse_facet", locals: { sort_by: sort_by })
   end
 
@@ -79,6 +80,7 @@ class ItemsController < ApplicationController
 
   def show
     item_retrieve(params["id"])
+    check_response
   end
 
   private
