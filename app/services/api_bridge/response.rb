@@ -15,6 +15,10 @@ module ApiBridge
       @res.dig("res", "count")
     end
 
+    def error
+      @res.dig("error")
+    end
+
     def facets
       @res.dig("res", "facets")
     end

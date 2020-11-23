@@ -43,7 +43,7 @@
     <% id = facet_name.parameterize(separator: ".")  %>
     <div role="tabpanel"
       class="tab-pane <%= active?(facet_name, @browse_facet) %>" id="<%= id %>">
-      <% if @res.key?(facet_name) %>
+      <% if @res && @res.key?(facet_name) %>
         <table class="index_table">
           <tbody>
             <% @res[facet_name].each do |list| %>

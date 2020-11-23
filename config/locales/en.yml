@@ -81,6 +81,8 @@ en:
   # ERRORS #
   ##########
   errors:
+    # unable to contact the API
+    api: Some contents of the site are unavailable at this time, please check back later.
     # general consolation message to the user on an error
     apology: We're sorry for the inconvenience.
     # browse page specific message when selected facet cannot be viewed
@@ -219,6 +221,8 @@ en:
     # placeholder for the text search field
     placeholder: Search for...
     results:
+      # display for number of results when API response is error
+      error: Unable to display results
       # how to display number of results when no search / filters have been applied
       # and therefore user is browsing all items
       general:
