@@ -1,4 +1,4 @@
-<% if @res.count && @res.count > 0 %>
+<% if @res.present? && @res.count > 0 %>
   <% @res.items.each do |item| %>
     <div class="searchResults buffer-bottom-sm">
       <h3><%= search_item_link(item) %></h3>
