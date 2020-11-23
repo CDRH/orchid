@@ -30,6 +30,9 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 - displays flash message if API is down, instead of pages throwing errors
 
+### Added
+- keyboard navigation for collapsible filter panels
+
 ### Changed
 - updates jquery 1.x to 3.x
 - rails g setup is now rails g orchid_setup
