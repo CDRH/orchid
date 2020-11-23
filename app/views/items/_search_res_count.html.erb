@@ -1,4 +1,4 @@
-<% if @res.count.nil? %>
+<% if @res.count.blank? %>
   <h2><%= t "search.results.error" %></h2>
 <% elsif params["q"].blank? && params["f"].blank? %>
   <h2><%= t "search.results.query", count: @res.count %></h2>
