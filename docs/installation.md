@@ -14,7 +14,32 @@
 
 ## Install
 
-If you already have Ruby / Rails installed, create a new Rails app (`rails new (your app)`) and add this line to the app's Gemfile:
+Make a new directory with the following files: 
+
+- .ruby-gemset (contents: "[whatever you want to name your gemset]")
+- .ruby-version (contents: "ruby-2.6.6")
+
+cd into the directory again and install ruby if prompted
+
+Next, isntall the correct verion of ruby (currently the last v5)
+
+```
+gem install rails -v 5.2.4.4
+```
+
+check that your rails version is correct
+
+```
+rails -v
+```
+
+now create a new app in the same directory
+
+```
+rails new .
+```
+
+Aadd this line to the app's Gemfile:
 
 ```ruby
 # Specify desired tag (release), branch, or ref
