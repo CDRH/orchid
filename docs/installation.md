@@ -21,7 +21,7 @@ Make a new directory with the following files:
 
 cd into the directory again and install ruby if prompted
 
-Next, install the correct verion of ruby (currently the last v5)
+Next, install the most recent version of Rails 5.x
 
 ```
 gem install rails -v 5.2.4.4
