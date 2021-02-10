@@ -21,7 +21,7 @@ Make a new directory with the following files:
 
 cd into the directory again and install ruby if prompted
 
-Next, isntall the correct verion of ruby (currently the last v5)
+Next, install the correct verion of ruby (currently the last v5)
 
 ```
 gem install rails -v 5.2.4.4
@@ -39,7 +39,7 @@ now create a new app in the same directory
 rails new .
 ```
 
-Aadd this line to the app's Gemfile:
+Add this line to the app's Gemfile:
 
 ```ruby
 # Specify desired tag (release), branch, or ref
