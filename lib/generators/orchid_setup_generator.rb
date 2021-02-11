@@ -202,7 +202,6 @@ Section configuration example file copied to config/sections/section.example.yml
   end
 
   def favicon
-
     FileUtils.cp_r("#{@this_app}/app/assets/images/favicon",
                  "#{@new_app}/app/assets/images/favicon")
 

@@ -1,6 +1,6 @@
 <div class="row search_controls">
   <div class="col-md-4 search_limit">
-    <% if (@res.count > 1) %>
+    <% if (@res.count && @res.count > 1) %>
       <%= sorter %>
     <% end %>
   </div>
