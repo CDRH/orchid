@@ -25,6 +25,11 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Contributors
 -->
 
+## [Unreleased](https://github.com/CDRH/orchid/compare/v3.1.1...dev)
+
+### Added
+- role=button added to anchor tags styled as a button
+
 ## [v3.1.1](https://github.com/CDRH/orchid/compare/v3.1.0...v3.1.1) - splitting templates, fixing languages
 
 ### Fixed
