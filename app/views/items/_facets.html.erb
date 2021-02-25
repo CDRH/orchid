@@ -14,12 +14,19 @@
       <div class="panel panel-default panel-filter panel-filter-<%= info['label'].parameterize %>">
 
         <!-- panel heading -->
-        <div class="clearfix panel-heading" data-toggle="collapse"
-             data-target="#fc-<%= data_safe_name %>" role="Option"
-             aria-label="<%= t("search.filters.show", label: info['label'], default: "Show #{info['label']} Filters") %>">
-          <h3 class="pull-left panel-title"><%= info["label"] %></h3>
-          <span class="pull-right glyphicon <%= class_glyphicon %>" aria-hidden="true"></span>
-        </div>
+        <a
+          aria-label="<%= t("search.filters.show", label: info['label'], default: "Show #{info['label']} Filters") %>"
+          class="panel-heading-link"
+          data-toggle="collapse"
+          href="#fc-<%= data_safe_name %>"
+          role="button">
+          <div class="clearfix panel-heading">
+            <h3 class="pull-left panel-title">
+              <%= info["label"] %>
+            </h3>
+            <span class="pull-right glyphicon <%= class_glyphicon %>" aria-hidden="true"></span>
+          </div>
+        </a>
 
         <!-- panel body -->
         <%# if requested parameter, then do not collapse facet %>

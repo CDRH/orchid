@@ -80,6 +80,8 @@ es:
   # ERRORS #
   ##########
   errors:
+    # unable to contact API
+    api: Algunos contenidos del sitio no están disponibles. Por favor, vuelva más tarde.
     # general consolation message to the user on an error
     apology: Le pedimos disculpas por la inconveniencia, ocurrió un error.
     # browse page specific message when selected facet cannot be viewed
@@ -218,6 +220,8 @@ es:
     # placeholder for the text search field
     placeholder: Buscar...
     results:
+      # display for number of results when API response is error
+      error: Los resultados no se pueden visualizar
       # how to display number of results when no search / filters have been applied
       # and therefore user is browsing all items
       general:
