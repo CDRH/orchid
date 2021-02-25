@@ -32,6 +32,7 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 - keyboard navigation for collapsible filter panels
+- role=button added to anchor tags styled as a button
 
 ### Changed
 - updates jquery 1.x to 3.x
