@@ -6,7 +6,7 @@ new Rails apps, which can primarily connect to the endpoint for the entire API's
 contents, or connect to an endpoint that only searches a specific collection's
 contents. Apps can also configure additional "sections" which use independent
 API configurations and search filtering UI, as well as the ability to granularly
-overrides templates without the need to copy or create additional Rails
+override templates without the need to copy or create additional Rails
 controllers.
 
 ## Next steps
