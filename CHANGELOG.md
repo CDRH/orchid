@@ -29,6 +29,7 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 - displays flash message if API is down, instead of pages throwing errors
+- Fix removed Sprockets 4.x app/assets/config/manifest.js lines
 
 ### Added
 - keyboard navigation for collapsible filter panels
