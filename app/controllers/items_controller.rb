@@ -78,6 +78,7 @@ class ItemsController < ApplicationController
   def show
     item_retrieve(params["id"])
     check_response
+    @res = @res.first
   end
 
   private
@@ -90,9 +91,9 @@ class ItemsController < ApplicationController
   end
 
   def item_retrieve(id)
-    @res = @items_api.get_item_by_id(id).first
+    @res = @items_api.get_item_by_id(id)
     if @res
-      url = @res["uri_html"]
+      url = @res.first["uri_html"]
       @html = Net::HTTP.get(URI.parse(url)) if url
       @title = item_title
 
