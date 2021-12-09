@@ -84,7 +84,7 @@ class ItemsController < ApplicationController
 
   # display a flash message if the API response has an error
   def check_response
-    if !@res || (@res.key?("error") && @res.error)
+    if !@res || @res.error
       flash[:error] = t "errors.api"
     end
   end
