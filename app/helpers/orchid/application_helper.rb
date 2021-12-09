@@ -98,6 +98,8 @@ module Orchid::ApplicationHelper
   #   page_[page]             orchid page if applicable (browse, item, etc)
   def html_classes
     classes = []
+    classes << ".no-js"
+
 
     if @page_classes.present?
       classes << @page_classes
