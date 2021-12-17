@@ -31,7 +31,7 @@
 .buffer-right-xl {
   margin-right: 2em;
 }
-.no-js .collapse { display: block; }
+
 
 // Unique Elements
 // ===============
@@ -121,3 +121,6 @@
     content: " …";
   }
 }
+
+//uncollapse if no javascript
+.no-js .collapse { display: block; }
