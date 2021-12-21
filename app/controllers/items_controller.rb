@@ -39,7 +39,9 @@ class ItemsController < ApplicationController
     }
 
     # Get facet results
-    @res = @items_api.query(options).facets
+    @res = @items_api.query(options)
+    check_response
+    @res = @res.facets
 
     # Warn when approaching facet result limit
     result_size = @res ? @res.length : 0
@@ -55,7 +57,6 @@ class ItemsController < ApplicationController
     end
 
     @title = "#{t "browse.browse_type"} #{@browse_facet_info["label"]}"
-    check_response
     render_overridable("items", "browse_facet", locals: { sort_by: sort_by })
   end
 
@@ -77,20 +78,21 @@ class ItemsController < ApplicationController
 
   def show
     item_retrieve(params["id"])
-    check_response
   end
 
   private
 
   # display a flash message if the API response has an error
   def check_response
-    if !@res || (@res.key?("error") && @res.error)
+    if @res.blank? || @res.error
       flash[:error] = t "errors.api"
     end
   end
 
   def item_retrieve(id)
-    @res = @items_api.get_item_by_id(id).first
+    @res = @items_api.get_item_by_id(id)
+    check_response
+    @res = @res.first
     if @res
       url = @res["uri_html"]
       @html = Net::HTTP.get(URI.parse(url)) if url
