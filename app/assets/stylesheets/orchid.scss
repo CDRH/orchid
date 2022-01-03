@@ -32,6 +32,8 @@
   margin-right: 2em;
 }
 
+// uncollapse if no javascript
+.no-js .collapse { display: block; }
 
 // Unique Elements
 // ===============
@@ -121,6 +123,3 @@
     content: " …";
   }
 }
-
-//uncollapse if no javascript
-.no-js .collapse { display: block; }
