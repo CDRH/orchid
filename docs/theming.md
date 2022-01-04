@@ -91,10 +91,36 @@ and includes them sitewide as part of `application.js`.
 Add app-wide JavaScript to `app/assets/javascripts/global/(app name).js` or
 other scripts in `app/assets/javascripts/global/`.
 
+## Orchid-wide styles and JavaScripts
+
+If you need to make changes that affect all of Orchid (please be careful), you 
+need to make changes in the Orchid repo itself. It is best to test them with a 
+local copy of Orchid linked to a locally downloaded app in its Gemfile. Note 
+that files like applications.scss and application.js are overwritten in 
+Orchid-generated apps.
+
+Changes to Orchid styling should be made in the file 
+`app/assets/stylesheets/orchid.scss`. Scripts should go in the folder 
+`app/assets/javascripts/global`. If they do not appear in your app, make sure 
+that they are in the proper folder and are being properly required in 
+`app/assets/javascripts/orchid.js`. (The line `//= require_tree ./global` 
+includes this folder).
+
+Scripts from external developers go into `vendor/assets/javascripts`. They 
+should be required by name `//= require modernizr-custom` (files in the vendor 
+folder are automatically in scope to `orchid.js`).
+
+If you get precompilations erros in a test app, when you make a change in 
+Orchid, the problem is often the local cache. Clear it with `rake assets:clean` 
+and then run `bundle update` again. Otherwise you may need to edit the manifest
+files. See [Rails Asset Pipeline](https://guides.rubyonrails.org/asset_pipeline.html#asset-organization) 
+for more information.
+
 ## Page Classes
 
 In some cases, you may wish to apply specific styles depending on the page or
-section, but do not need to include a whole separate stylesheet only for that content.
+section, but do not need to include a whole separate stylesheet only for that 
+content.
 
 On the `<html>` element, you have access to a number of built in classes, or
 you may choose to pass your own.
