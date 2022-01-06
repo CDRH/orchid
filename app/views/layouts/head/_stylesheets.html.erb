@@ -1,7 +1,7 @@
-  <!-- Stylesheets -->
+  <%# Stylesheets %>
   <%= stylesheet_link_tag 'application', media: nil %>
   <% if @ext_css.present? || @inline_css.present? %>
-  <!-- Conditional -->
+  <%# Conditional %>
   <% end %>
   <% if @ext_css.present?
     Array.wrap(@ext_css).each do |css| %>

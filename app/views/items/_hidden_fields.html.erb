@@ -1,4 +1,4 @@
-<!-- include existing parameters-->
+<%# include existing parameters%>
 <% if params["f"].present? %>
   <% params["f"].each do |f| %>
     <%= hidden_field_tag "f[]", f %>

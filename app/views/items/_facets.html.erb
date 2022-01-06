@@ -13,7 +13,7 @@
 
       <div class="panel panel-default panel-filter panel-filter-<%= info['label'].parameterize %>">
 
-        <!-- panel heading -->
+        <%# panel heading %>
         <a
           aria-label="<%= t("search.filters.show", label: info['label'], default: "Show #{info['label']} Filters") %>"
           class="panel-heading-link"
@@ -28,7 +28,7 @@
           </div>
         </a>
 
-        <!-- panel body -->
+        <%# panel body %>
         <%# if requested parameter, then do not collapse facet %>
         <div class="panel-body collapse <%= class_in %>" id="fc-<%= data_safe_name %>">
           <ul class="list-unstyled">
@@ -39,7 +39,7 @@
               <% label = create_label(value_label(facet_name, key),
                   t("search.filters.no_label", default: "No Label")) %>
 
-              <!-- list item -->
+              <%# list item %>
               <% if !selected %>
                 <li>
                   <%= link_to label, prefix_path(route_path,
@@ -67,9 +67,9 @@
             prefix_path("browse_facet_path",
             facet: facet_name.parameterize(separator: ".")),
             class: "btn btn-info btn-xs", rel: "nofollow", role: "button" %>
-        </div> <!-- /panel-body -->
+        </div> <%# /panel-body %>
 
-      </div> <!-- /panel panel-default -->
+      </div> <%# /panel panel-default %>
     <% end %>
   <% end %>
 <% end %>
