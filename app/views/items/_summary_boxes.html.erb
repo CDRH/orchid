@@ -1,5 +1,5 @@
 <div class="clearfix search-filters">
-  <!-- text search -->
+  <%# text search %>
   <% if params["q"].present? %>
     <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
       <div class="input-group">
@@ -19,7 +19,7 @@
     </div>
   <% end %>
 
-  <!-- date search -->
+  <%# date search %>
   <% if date_selection?(params["date_from"], params["date_to"]) %>
     <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
       <div class="input-group">
@@ -40,7 +40,7 @@
     </div>
   <% end %>
 
-  <!-- selected facets -->
+  <%# selected facets %>
   <% if params["f"].present? %>
     <% params["f"].each do |f| %>
       <% type, facet = f.split("|") %>
