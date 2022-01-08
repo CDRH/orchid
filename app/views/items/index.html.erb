@@ -12,13 +12,13 @@
     </div>
     <%= render_overridable("items", "date_limit") %>
     <%= render_overridable("items", "facets", facets: @res.facets) %>
-  </div> <!-- col-md-3 -->
+  </div> <%# col-md-3 %>
 
   <div class="col-sm-9">
     <%= render_overridable("items", "summary_boxes") %>
     <%= render_overridable("items", "sort_and_page_ui") %>
 
-    <!-- search results section -->
+    <%# search results section %>
     <%= render_overridable("items", "search_res_count") %>
     <%= render_overridable("items", "search_res_items") %>
 
