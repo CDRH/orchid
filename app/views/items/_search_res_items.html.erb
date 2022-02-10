@@ -4,35 +4,27 @@
       <h3><%= search_item_link(item) %></h3>
       <div class="row">
         <div class="<%= item["highlight"].present? ? "col-md-4" : "col-md-12" %> search_results_info">
-          <ul>
+          <dl>
             <% if item["date_display"].present? %>
-              <li>
-                <%= metadata(item, t("search.results.item.date",
+              <%= metadata(item, t("search.results.item.date",
                   default: "Date"), "date_display", link: false) %>
-              </li>
             <% end %>
             <%# creator is a multivalued, nested field %>
             <% if item["creator"].present? %>
-              <li>
-                <%= metadata(item, t("search.results.item.creator",
+              <%= metadata(item, t("search.results.item.creator",
                   default: "Creator"), "creator.name", link: false) %>
-              </li>
             <% end %>
             <%# format can be a multivalued or single keyword field %>
             <% if item["format"].present? %>
-              <li>
-                <%= metadata(item, t("search.results.item.format",
+              <%= metadata(item, t("search.results.item.format",
                   default: "Format"), "format", link: false) %>
-              </li>
             <% end %>
             <%# source can be a multivalued or single keyword field %>
             <% if item["source"].present? %>
-              <li>
-                <%= metadata(item, t("search.results.item.source",
+              <%= metadata(item, t("search.results.item.source",
                   default: "Source"), "source", link: false) %>
-              </li>
             <% end %>
-          </ul>
+          </dl>
         </div>
         <% if item["highlight"].present? %>
           <div class="col-md-8 search_results_text">

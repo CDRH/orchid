@@ -12,17 +12,16 @@ module Orchid::DisplayHelper
 
     if data.present?
       html = metadata_label(label, length: data.length)
-
       # iterate through the field values
       dataArray = data.map do |item|
         if link
           metadata_create_field_link(api_field, item)
         else
-          value_label(api_field, item)
+          "<dd>#{value_label(api_field, item)}</dd>"
         end
       end
       html << dataArray
-                .map { |i| "<span>#{i}</span>" }
+                .map { |i| "#{i}" }
                 .join(separator)
 
       sanitize html
@@ -34,8 +33,9 @@ module Orchid::DisplayHelper
   def metadata_create_field_link(api_field, item)
     search_params = { "f" => ["#{api_field}|#{item}"] }
     item_label = value_label(api_field, item)
-    link_to item_label, prefix_path(route_path, search_params),
+    link = link_to item_label, prefix_path(route_path, search_params),
       rel: "nofollow"
+    "<dd>#{link}</dd>"
   end
 
   # regardless of whether the results are a simple array or an array
@@ -56,7 +56,7 @@ module Orchid::DisplayHelper
   #   or could be used by overriding applications if desired
   def metadata_label(label, length: nil)
     # TODO add pluralization that uses locale
-    "<strong>#{label}:</strong> "
+    "<dt><strong>#{label}:</strong> </dt>"
   end
 
 end
