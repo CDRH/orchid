@@ -233,6 +233,13 @@ Read more about these helpers in the
 
 TODO: This section is incomplete.
 
+If you want to include scripts from an external vendor in your app, put them in 
+vendor/assets/javascripts. Scripts here will be automatically linked in the asset pipeline, but they 
+should also be required in app/assets/javascripts/application.js:
+`//= require leaflet.js`
+
+It may be necessary to clear the cache with `rake assets:clean` to get the app to compile.
+
 See the [Rails Asset Pipeline](https://guides.rubyonrails.org/asset_pipeline.html#asset-organization)
 documentation for more information about including vendor files, which may be
 included in the `vendor` directory.
