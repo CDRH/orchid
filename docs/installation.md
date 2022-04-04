@@ -73,3 +73,14 @@ echo '(app name)' > (app_name)/.ruby-gemset
 cd (app name)
 bundle install
 ```
+
+## Updating modernizr-custom.js
+The Modernizr file is used to make sure that all content is visible if JavaScript is not installed, for the sake of accessibility. If you need to update it, the latest version can be downloaded at https://github.com/Modernizr/Modernizr/releases. Navigate in your terminal to the folder you downloaded and run `npm install`. Update the `lib/config-all.json` file with the following line under `"feature-detects"`:
+```
+  "feature-detects": [
+    "dom/classlist"
+  ]
+```
+All other features in this list are unnecessary, and some may prevent the app from working, so make sure they are removed.
+
+Then from the modernizr parent directory, run `./bin/modernizr -c lib/config-all.json -u`. Copy the `modernizr.js` file that appears into your local Orchid repo, put it into `vendor/assets/javascripts`, and rename it as `modernizr-custom.js` (replacing the existing file).

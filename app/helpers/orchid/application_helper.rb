@@ -98,6 +98,8 @@ module Orchid::ApplicationHelper
   #   page_[page]             orchid page if applicable (browse, item, etc)
   def html_classes
     classes = []
+    classes << "no-js"
+
 
     if @page_classes.present?
       classes << @page_classes
@@ -167,13 +169,15 @@ module Orchid::ApplicationHelper
         class: "btn btn-primary disabled",
         hreflang: lang_code,
         rel: "alternate",
-        tabindex: -1
+        tabindex: -1,
+        role: "button"
     else
       link_to lang_name,
         locale_link(lang_code),
         class: "btn btn-default",
         hreflang: lang_code,
-        rel: "alternate"
+        rel: "alternate",
+        role: "button"
     end
   end
 
