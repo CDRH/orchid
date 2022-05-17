@@ -56,20 +56,24 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - update existing apps' `app/assets/config/manifest.js` to include Sprockets 3.x
   and 4.x defaults like the updated template to be copied by the generator
   https://github.com/CDRH/orchid/commit/b90a3f4063352c2220aa12184bbb933799a9d601
-=======
 
 ### Changed
 - rails g setup is now rails g orchid_setup
 - updates jquery 1.x to 3.x
 - rails g setup is now rails g orchid_setup
 - check_response method added to items_controller
+- updated documentation on assets and updating modernizr
+- changed instructions on how to install rails and generate a new app
 
 ### Migration
 - modify existing app's `application.js`
   - change `//= require jquery` to `//= require jquery3`
   - apps will continue to function with older jquery if not modified
-  - add `errors.api` and `search.results.error` to locale files
-  - check items_overrides and views/items for changes related to display items when API is unavailable
+- add `errors.api` and `search.results.error` to locale files
+- check items_overrides and views/items for changes related to display items when API is unavailable
+- update existing apps' `app/assets/config/manifest.js` to include Sprockets 3.x
+  and 4.x defaults like the updated template to be copied by the generator
+  https://github.com/CDRH/orchid/commit/b90a3f4063352c2220aa12184bbb933799a9d601
 
 
 ## [v3.1.1](https://github.com/CDRH/orchid/compare/v3.1.0...v3.1.1) - splitting templates, fixing languages
