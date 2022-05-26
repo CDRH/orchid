@@ -1,4 +1,5 @@
 # Orchid Config
+require "byebug"
 
 PUBLIC = YAML.load_file("#{Rails.root}/config/public.yml")[Rails.env]
 PRIVATE = YAML.load_file("#{Rails.root}/config/private.yml")[Rails.env]
@@ -11,10 +12,23 @@ APP_OPTS = PUBLIC["app_options"]
 IIIF_PATH = PRIVATE["iiif_path"]
 
 FACETS = PUBLIC["facets"]
+def get_facets(facet_set)
+  facets = []
+  facet_set.each do |facet|
+    if facet.class == Array
+      if facet[1]["alternate"]
+        facets << [facet[0], facet[1]["alternate"]]
+      else
+        facets << facet[0]
+      end
+    end
+  end
+  facets
+end
 
 if API_PATH
   puts "Connecting to API at #{API_PATH}"
-  $api = ApiBridge::Query.new(API_PATH, Orchid::facets.keys, API_OPTS)
+  $api = ApiBridge::Query.new(API_PATH, get_facets(Orchid::facets), API_OPTS)
 else
   raise "API path not found. Check config/private.yml is correctly defined"
 end
@@ -35,7 +49,7 @@ if APP_OPTS.key?("sections")
 
     puts "Connecting to API for section: #{name}"
     $api_sections[name] = ApiBridge::Query.new(API_PATH,
-      Orchid::facets(section: name).keys, SECTIONS[name]["api_options"])
+      get_facets(Orchid::facets(section: name)), SECTIONS[name]["api_options"])
   end
 end
 
