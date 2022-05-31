@@ -3,6 +3,9 @@
 <%# TODO refactor the top portion of this %>
 <% if facets %>
   <% @page_facets.each do |facet_name, info| %>
+    <% if info["alternate"] %>
+      <% facet_name = info["alternate"] %>
+    <% end %>
     <% if should_display?(facets[facet_name], info) %>
       <% facet_res = facets[facet_name] %>
       <% data_safe_name = facet_name.parameterize  %>

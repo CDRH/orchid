@@ -64,7 +64,6 @@ class ItemsController < ApplicationController
     if params["sort"].blank? && params["q"].present?
       params["sort"] = ["relevancy|desc"]
     end
-
     options = params.permit!.deep_dup
     options, @from, @to = helpers.date_filter(options)
 
