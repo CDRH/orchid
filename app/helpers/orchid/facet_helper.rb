@@ -13,7 +13,8 @@ module Orchid::FacetHelper
 
   # type = "novel"
   # facet = "emma"
-  def facet_link type, facet, remove_others=false
+  def facet_link(type, facet, remove_others=false, original_facet=nil)
+    type = original_facet if original_facet
     new_params = copy_params
     # if "f" not present, create new array
     new_params["f"] = [] if new_params["f"].blank?
