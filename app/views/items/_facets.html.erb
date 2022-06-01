@@ -4,6 +4,7 @@
 <% if facets %>
   <% @page_facets.each do |facet_name, info| %>
     <% if info["alternate"] %>
+      <% original_facet = facet_name %>
       <% facet_name = info["alternate"] %>
     <% end %>
     <% if should_display?(facets[facet_name], info) %>
@@ -48,7 +49,7 @@
               <% if !selected %>
                 <li>
                   <%= link_to sanitize(text), prefix_path("search_path",
-                    facet_link(facet_name, key)), rel: "nofollow" %>
+                    facet_link(facet_name, key, false, original_facet)), rel: "nofollow" %>
                   <span class="badge"><%= num %></span>
                 </li>
               <% else %>
