@@ -42,7 +42,9 @@
     <div role="tabpanel"
       class="tab-pane <%= active?(facet_name, @browse_facet) %>" id="<%= id %>">
       <%# need to find the "correct" facet name %>
+      <% original_facet = facet_name %>
       <% facet_name = facet_info["alternate"] if facet_info["alternate"] %>
+      
       <% if @res.key?(facet_name) %>
         <table class="index_table">
           <tbody>
@@ -62,19 +64,19 @@
                   ) %>
                   <td class="index_num">
                     <%= link_to prefix_path("search_path",
-                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
+                      f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
                       <%= num %>
                     <% end %>
                   </td>
                   <td class="index_spacer">
                     <%= link_to prefix_path("search_path",
-                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
+                      f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
                       <span></span>
                     <% end %>
                   </td>
                   <td class="index_name">
                     <%= link_to prefix_path("search_path",
-                      f: ["#{facet_name}|#{key}"]), rel: "nofollow" do %>
+                      f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
                       <%= sanitize text %>
                     <% end %>
                   </td>
