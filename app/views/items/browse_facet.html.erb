@@ -60,8 +60,7 @@
       <%# need to find the "correct" facet name %>
       <% original_facet = facet_name %>
       <% facet_name = facet_info["alternate"] if facet_info["alternate"] %>
-
-      <% if @res && @res.key?(facet_name) %>)
+      <% if @res && @res.key?(facet_name) %>
         <table class="index_table">
           <tbody>
             <% @res[facet_name].each do |key, value| %>
