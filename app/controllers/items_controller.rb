@@ -15,14 +15,17 @@ class ItemsController < ApplicationController
     if @browse_facet.include?(".")
       @page_facets.each_with_index do |(facet_name, facet_info), index|
         if @browse_facet == facet_name.parameterize(separator: ".")
-          @browse_facet = facet_name
+          if @page_facets[facet_name]["alternate"]
+            @browse_facet = [facet_name, @page_facets[facet_name]["alternate"]]
+          else
+            @browse_facet = facet_name
+          end
           break
         end
       end
     end
-
     # Get selected facet's info
-    @browse_facet_info = @page_facets[@browse_facet]
+    @browse_facet_info = @page_facets[@browse_facet] || @page_facets[@browse_facet[0]]
     if @browse_facet_info.blank?
       redirect_to browse_path, notice: t("errors.browse",
         facet: @browse_facet, default: "Cannot browse by key: '#{@browse_facet}'")
@@ -31,9 +34,8 @@ class ItemsController < ApplicationController
 
     sort_by = params["facet_sort"].present? ?
       params["facet_sort"] : API_OPTS["browse_sort"]
-
     options = {
-      facet: @browse_facet,
+      facet: @browse_facet.to_s,
       facet_num: 10000,
       facet_sort: sort_by,
       num: 0
