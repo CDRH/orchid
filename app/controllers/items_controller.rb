@@ -11,6 +11,7 @@ class ItemsController < ApplicationController
   def browse_facet
     # Reverse facet name from url-formatting
     @browse_facet = params[:facet]
+    @filter = params[:f]
     if @browse_facet.include?(".")
       @page_facets.each_with_index do |(facet_name, facet_info), index|
         if @browse_facet == facet_name.parameterize(separator: ".")
@@ -39,7 +40,9 @@ class ItemsController < ApplicationController
       facet_sort: sort_by,
       num: 0
     }
-
+    if @filter
+      options["f"]=@filter
+    end
     # Get facet results
     @res = @items_api.query(options)
     check_response
@@ -59,7 +62,9 @@ class ItemsController < ApplicationController
     end
 
     @title = "#{t "browse.browse_type"} #{@browse_facet_info["label"]}"
-    render_overridable("items", "browse_facet", locals: { sort_by: sort_by })
+    check_response
+    @route_path = "browse_facet_path"
+    render_overridable("items", "browse_facet", locals: { sort_by: sort_by, route_path: @route_path })
   end
 
   def index
@@ -70,7 +75,6 @@ class ItemsController < ApplicationController
     end
     options = params.permit!.deep_dup
     options, @from, @to = helpers.date_filter(options)
-
     @title = t "search.title"
     @res = @items_api.query(options)
     check_response
