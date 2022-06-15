@@ -22,17 +22,33 @@
   </ul>
 </nav>
 
-<div class="btn-group buffer-bottom-sm">
-  <button type="button" class="btn btn-default dropdown-toggle"
-    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= t "browse.sort_by", default: "Sort by" %>: <%= sort_selected_label("facets", sort_by) %>
-    <span class="caret"></span>
-  </button>
-
-  <ul class="dropdown-menu">
-    <% sort_fields_facets.each do |sort_field, label| %>
-      <%= render_overridable("items", "sort_dropdown_item", label: label,
-        sort_url: prefix_path("browse_facet_path", facet_sort: sort_field)) %>
+<ul class="list-unstyled">
+  <% @res[@browse_facet].each do |key, value| %>
+    <% selected = facet_selected?(@browse_facet, key) %>
+    <%# value_label translates language if necessary,
+        create_label puts default label if empty %>
+    <% label = create_label(value_label(@browse_facet, key),
+        t("search.filters.no_label", default: "No Label")) %>
+    <%# list item %>
+    <% if !selected %>
+      <li>
+        <%= link_to label, prefix_path(route_path,
+          facet_link(@browse_facet, key)), rel: "nofollow" %>
+        <span class="badge"><%= value %></span>
+      </li>
+    <% else %>
+      <li class="selected">
+        <span><%= label %></span>
+        <span class="badge"><%= value %></span>
+        <%= link_to prefix_path(route_path,
+          remove_facet(@browse_facet, key)), rel: "nofollow" do %>
+          <button class="btn btn-default btn-xs"
+                  title="<%= t("search.filters.clear", label: @page_facets[@browse_facet]['label'], default: "Clear #{@page_facets[@browse_facet]['label']} Filter") %>"
+                  aria-label="<%= t("search.filters.clear", label: @page_facets[@browse_facet]['label'], default: "Clear #{@page_facets[@browse_facet]['label']} Filter") %>">
+            <span class="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 </div>
@@ -85,5 +101,4 @@
       <% end %>
     </div>
   <% end %>
-</div>
-
+</ul>
