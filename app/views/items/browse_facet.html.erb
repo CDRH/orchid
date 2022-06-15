@@ -23,56 +23,33 @@
   </ul>
 </nav>
 
-<div class="btn-group buffer-bottom-sm">
-  <button type="button" class="btn btn-default dropdown-toggle"
-    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= t "browse.sort_by", default: "Sort by" %>: <%= sort_selected_label("facets", sort_by) %>
-    <span class="caret"></span>
-  </button>
-
-  <ul class="dropdown-menu">
-    <% sort_fields_facets.each do |sort_field, label| %>
-      <%= render_overridable("items", "sort_dropdown_item", label: label,
-        sort_url: prefix_path("browse_facet_path", facet_sort: sort_field)) %>
+<ul class="list-unstyled">
+  <% @res[@browse_facet].each do |key, value| %>
+    <% selected = facet_selected?(@browse_facet, key) %>
+    <%# value_label translates language if necessary,
+        create_label puts default label if empty %>
+    <% label = create_label(value_label(@browse_facet, key),
+        t("search.filters.no_label", default: "No Label")) %>
+    <%# list item %>
+    <% if !selected %>
+      <li>
+        <%= link_to label, prefix_path(route_path,
+          facet_link(@browse_facet, key)), rel: "nofollow" %>
+        <span class="badge"><%= value %></span>
+      </li>
+    <% else %>
+      <li class="selected">
+        <span><%= label %></span>
+        <span class="badge"><%= value %></span>
+        <%= link_to prefix_path(route_path,
+          remove_facet(@browse_facet, key)), rel: "nofollow" do %>
+          <button class="btn btn-default btn-xs"
+                  title="<%= t("search.filters.clear", label: @page_facets[@browse_facet]['label'], default: "Clear #{@page_facets[@browse_facet]['label']} Filter") %>"
+                  aria-label="<%= t("search.filters.clear", label: @page_facets[@browse_facet]['label'], default: "Clear #{@page_facets[@browse_facet]['label']} Filter") %>">
+            <span class="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
+        <% end %>
+      </li>
     <% end %>
-  </ul>
-</div>
-
-<div class="tab-content">
-  <% @page_facets.each_with_index do |(facet_name, facet_info), index| %>
-    <% id = facet_name.parameterize(separator: ".")  %>
-    <div role="tabpanel"
-      class="tab-pane <%= active?(facet_name, @browse_facet) %>" id="<%= id %>">
-      <% if @res && @res.key?(facet_name) %>
-        <table class="index_table">
-          <tbody>
-            <% @res[facet_name].each do |list| %>
-              <tr>
-                  <% text = list[0].blank? ? t("browse.no_label", default: "No label") : value_label(facet_name, list[0]) %>
-                  <td class="index_num">
-                    <%= link_to prefix_path(route_path,
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
-                      <%= list[1] %>
-                    <% end %>
-                  </td>
-                  <td class="index_spacer">
-                    <%= link_to prefix_path(route_path,
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
-                      <span></span>
-                    <% end %>
-                  </td>
-                  <td class="index_name">
-                    <%= link_to prefix_path(route_path,
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
-                      <%= text %>
-                    <% end %>
-                  </td>
-              </tr>
-            <% end %>
-          <tbody>
-        </table>
-      <% end %>
-    </div>
   <% end %>
-</div>
-
+</ul>
