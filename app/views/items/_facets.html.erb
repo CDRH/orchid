@@ -12,7 +12,7 @@
       <% facet_res = facets[facet_name] %>
       <% data_safe_name = facet_name.parameterize  %>
       <% fparams = pull_out_fparams %>
-      <% start_open = fparams.include?(facet_name) %>
+      <% start_open = fparams.include?(original_facet) %>
       <% class_in =  start_open ? "in" : "" %>
       <% class_glyphicon = start_open ? "glyphicon-chevron-down" : "glyphicon-chevron-right" %>
 
@@ -41,8 +41,7 @@
               <%# NOTE the below line accommodates Apium v1.0 as well as
                   v1.1 when facet responses included more information %>
               <% key, label, num = format_facet_response(key, value) %>
-
-              <% selected = facet_selected?(facet_name, key) %>
+              <% selected = facet_selected?(original_facet, key) %>
 
               <% text = create_label(
                 facet_label(
@@ -65,7 +64,7 @@
                   <span><%= sanitize text %></span>
                   <span class="badge"><%= num %></span>
                   <%= link_to prefix_path(route_path,
-                    remove_facet(facet_name, key)), rel: "nofollow" do %>
+                    remove_facet(original_facet, key)), rel: "nofollow" do %>
                     <button class="btn btn-default btn-xs"
                             title="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>"
                             aria-label="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>">
