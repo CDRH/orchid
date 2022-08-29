@@ -111,8 +111,9 @@
           <tbody>
         </table>
       <% end %>
-    </div>
+    </div>q
   <% end %>
 </ul>
-<%= link_to "Search", prefix_path("search_path", f: params[:f]), rel: "nofollow", class: "btn btn-default" %>
+<% byebug %>
+<%= link_to "Search", prefix_path("home_path", f: params[:f]), rel: "nofollow", class: "btn btn-default" %>
 <% end %>
