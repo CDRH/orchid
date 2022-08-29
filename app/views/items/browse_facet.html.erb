@@ -53,13 +53,13 @@
                   <% text = list[0].blank? ? t("browse.no_label", default: "No label") : value_label(facet_name, list[0]) %>
                   <td class="index_num">
                     <%= link_to prefix_path(route_path,
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
-                      <%= list[1] %>
+                      f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
+                      <%= num %>
                     <% end %>
                   </td>
                   <td class="index_spacer">
                     <%= link_to prefix_path(route_path,
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
+                      f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
                       <span></span>
                     <% end %>
                   </td>
@@ -74,8 +74,9 @@
           <tbody>
         </table>
       <% end %>
-    </div>
+    </div>q
   <% end %>
 </ul>
-<%= link_to "Search", prefix_path("search_path", f: params[:f]), rel: "nofollow", class: "btn btn-default" %>
+<% byebug %>
+<%= link_to "Search", prefix_path("home_path", f: params[:f]), rel: "nofollow", class: "btn btn-default" %>
 <% end %>
