@@ -22,21 +22,6 @@
   </ul>
 </nav>
 
-<div class="btn-group buffer-bottom-sm">
-  <button type="button" class="btn btn-default dropdown-toggle"
-    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= t "browse.sort_by", default: "Sort by" %>: <%= sort_selected_label("facets", sort_by) %>
-    <span class="caret"></span>
-  </button>
-
-  <ul class="dropdown-menu">
-    <% sort_fields_facets.each do |sort_field, label| %>
-      <%= render_overridable("items", "sort_dropdown_item", label: label,
-        sort_url: prefix_path("browse_facet_path", facet_sort: sort_field)) %>
-    <% end %>
-  </ul>
-</div>
-
 <div class="tab-content">
   <% @page_facets.each_with_index do |(facet_name, facet_info), index| %>
     <% id = facet_name.parameterize(separator: ".")  %>
@@ -48,28 +33,81 @@
       <% if @res && @res.key?(facet_name) %>
         <table class="index_table">
           <tbody>
-            <% @res[facet_name].each do |list| %>
-              <tr>
-                  <% text = list[0].blank? ? t("browse.no_label", default: "No label") : value_label(facet_name, list[0]) %>
-                  <td class="index_num">
-                    <%= link_to prefix_path(route_path,
-                      f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
-                      <%= num %>
-                    <% end %>
-                  </td>
-                  <td class="index_spacer">
-                    <%= link_to prefix_path(route_path,
-                      f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
-                      <span></span>
-                    <% end %>
-                  </td>
-                  <td class="index_name">
-                    <%= link_to prefix_path(route_path,
-                      f: ["#{facet_name}|#{list[0]}"]), rel: "nofollow" do %>
-                      <%= text %>
-                    <% end %>
-                  </td>
-              </tr>
+            <% @res[facet_name].each do |key, value| %>
+              <%# NOTE the below line accommodates Apium v1.0 as well as
+                  v1.1 when facet responses included more information %>
+              <% key, label, num = format_facet_response(key, value) %>
+
+              <% selected = facet_selected?(facet_name, key) %>
+              <% if !selected %>
+                <tr>
+                    <% text = create_label(
+                      facet_label(
+                        type: facet_name,
+                        normalized: key,
+                        label: label
+                      ),
+                      t("browse.no_label")
+                    ) %>
+                    <td class="index_num">
+                      <%= link_to prefix_path(route_path,
+                        f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
+                        <%= num %>
+                      <% end %>
+                    </td>
+                    <td class="index_spacer">
+                      <%= link_to prefix_path(route_path,
+                        f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
+                        <span></span>
+                      <% end %>
+                    </td>
+                    <td class="index_name">
+                      <%= link_to prefix_path(route_path,
+                        f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
+                        <%= sanitize text %>
+                      <% end %>
+                    </td>
+                </tr>
+              <% else %>
+                  <tr class = "selected" >
+                    <% text = create_label(
+                      facet_label(
+                        type: facet_name,
+                        normalized: key,
+                        label: label
+                      ),
+                      t("browse.no_label")
+                    ) %>
+                    <td class="index_num">
+                      <%= link_to prefix_path(route_path,
+                        f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
+                        <%= num %>
+                      <% end %>
+                    </td>
+                    <td class="index_spacer">
+                      <%= link_to prefix_path(route_path,
+                        f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
+                        <span></span>
+                      <% end %>
+                    </td>
+                    <td class="index_name">
+                      <%= link_to prefix_path(route_path,
+                        f: ["#{original_facet}|#{key}"]), rel: "nofollow" do %>
+                        <%= sanitize text %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <%= link_to prefix_path(route_path,
+                          remove_facet(facet_name, key)), rel: "nofollow" do %>
+                          <button class="btn btn-default btn-xs"
+                                  title="<%= t("search.filters.clear", label: @page_facets[facet_name]['label'], default: "Clear #{@page_facets[facet_name]['label']} Filter") %>"
+                                  aria-label="<%= t("search.filters.clear", label: @page_facets[facet_name]['label'], default: "Clear #{@page_facets[facet_name]['label']} Filter") %>">
+                            <span class="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
+                          </button>
+                      <% end %>
+                    </td>
+                </tr>
+              <% end %>
             <% end %>
           <tbody>
         </table>
@@ -78,4 +116,3 @@
   <% end %>
 </ul>
 <%= link_to "Search", prefix_path("home_path", f: params[:f]), rel: "nofollow", class: "btn btn-default" %>
-<% end %>
