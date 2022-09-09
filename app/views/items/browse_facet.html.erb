@@ -37,8 +37,7 @@
               <%# NOTE the below line accommodates Apium v1.0 as well as
                   v1.1 when facet responses included more information %>
               <% key, label, num = format_facet_response(key, value) %>
-
-              <% selected = facet_selected?(facet_name, key) %>
+              <% selected = facet_selected?(original_facet, key) %>
               <% if !selected %>
                 <tr>
                     <% text = create_label(
