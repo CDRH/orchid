@@ -96,10 +96,10 @@
                     </td>
                     <td>
                       <%= link_to prefix_path(route_path,
-                          remove_facet(facet_name, key)), rel: "nofollow" do %>
+                          remove_facet(original_facet, key)), rel: "nofollow" do %>
                           <button class="btn btn-default btn-xs"
-                                  title="<%= t("search.filters.clear", label: @page_facets[facet_name]['label'], default: "Clear #{@page_facets[facet_name]['label']} Filter") %>"
-                                  aria-label="<%= t("search.filters.clear", label: @page_facets[facet_name]['label'], default: "Clear #{@page_facets[facet_name]['label']} Filter") %>">
+                                  title="<%= t("search.filters.clear", label: @page_facets[original_facet]['label'], default: "Clear #{@page_facets[original_facet]['label']} Filter") %>"
+                                  aria-label="<%= t("search.filters.clear", label: @page_facets[original_facet]['label'], default: "Clear #{@page_facets[original_facet]['label']} Filter") %>">
                             <span class="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
                           </button>
                       <% end %>
