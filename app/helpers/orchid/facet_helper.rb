@@ -66,7 +66,12 @@ module Orchid::FacetHelper
 
   def remove_facet type, facet
     new_params = copy_params
-    new_params["f"].delete("#{type}|#{facet}")
+    if type.include?(".year")
+      type_date = type.chomp(".year")
+      new_params["f"].delete("#{type_date}|#{facet}")
+    else
+      new_params["f"].delete("#{type}|#{facet}")
+    end
     
     # Remove page to return to first page of reorganized results
     new_params.delete("page")
