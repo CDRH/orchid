@@ -174,3 +174,7 @@ section-specific template overrides in the main app's `app/views/(secton name)/`
 directory before falling back to using the Orchid templates. This allows for
 granular overrides of views and partials from the main app as needed without
 needing to copy controller methods etc from Orchid.
+
+# Improve this documentation
+
+This documentation should be updated and clarified, see https://github.com/CDRH/orchid/issues/238
