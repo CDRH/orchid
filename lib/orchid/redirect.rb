@@ -88,7 +88,7 @@ module Orchid
     end
 
     def load_yaml(path)
-      YAML.load_file(path)
+      YAML.load_file(path, permitted_classes: [Regexp])
     rescue => e
       puts "Orchid::Redirect - Unable to open #{path}:\n  #{e}"
       exit 1
