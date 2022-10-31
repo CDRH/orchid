@@ -42,7 +42,7 @@ default: &default
       - title_sort|asc
     num: 50
     # facet info on search page
-    facet_limit: 20
+    facet_limit: 5000
     facet_sort: count|desc
     # facet info on browse page
     browse_sort: term|asc
