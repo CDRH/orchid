@@ -75,10 +75,12 @@
               <% end %>
             <% end %>
           </ul>
-          <%= link_to t("search.filters.see_more", default: "See more"),
-            prefix_path("browse_facet_path",
-            facet: original_facet.parameterize(separator: ".")),
-            class: "btn btn-info btn-xs", rel: "nofollow", role: "button" %>
+          <% if facet_res.count > PUBLIC["api_options"]["facet_limit"] %>
+            <%= link_to t("search.filters.see_more", default: "See more"),
+              prefix_path("browse_facet_path",
+              facet: original_facet.parameterize(separator: ".")),
+              class: "btn btn-info btn-xs", rel: "nofollow", role: "button" %>
+          <% end %>
         </div> <!-- /panel-body -->
 
       </div> <%# /panel panel-default %>
