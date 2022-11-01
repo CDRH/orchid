@@ -75,7 +75,7 @@
               <% end %>
             <% end %>
           </ul>
-          <% if facet_res.count > PUBLIC["api_options"]["facet_limit"] %>
+          <% if facet_res.count >= @facet_limit %>
             <%= link_to t("search.filters.see_more", default: "See more"),
               prefix_path("browse_facet_path",
               facet: original_facet.parameterize(separator: ".")),
