@@ -1,7 +1,6 @@
 <%# expects
   - "sort_by" sort value (e.g. "count|desc")
 %>
-
 <h1><%= t "browse.browse_type", default: "Browse by" %> <%= @browse_facet_info["label"] %></h1>
 <nav>
   <ul class="nav nav-tabs buffer-bottom" role="tablist">
@@ -20,7 +19,8 @@
     <% end %>
   </ul>
 </nav>
-
+<p>Select facets listed below, then click "search" to see search results</p>
+<%= link_to "Search", prefix_path("home_path", f: params[:f]), rel: "nofollow", class: "btn btn-default" %>
 <div class="tab-content">
   <% @page_facets.each_with_index do |(facet_name, facet_info), index| %>
     <% id = facet_name.parameterize(separator: ".")  %>
@@ -114,4 +114,3 @@
     </div>q
   <% end %>
 </ul>
-<%= link_to "Search", prefix_path("home_path", f: params[:f]), rel: "nofollow", class: "btn btn-default" %>
