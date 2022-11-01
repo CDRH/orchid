@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
       params["facet_sort"] : API_OPTS["browse_sort"]
     options = {
       facet: @browse_facet.to_s,
-      facet_num: 10000,
+      facet_limit: 10000,
       facet_sort: sort_by,
       num: 0
     }
