@@ -78,10 +78,11 @@ Git diff [previous version tag] app/helpers
   and 4.x defaults like the updated template to be copied by the generator
   https://github.com/CDRH/orchid/commit/b90a3f4063352c2220aa12184bbb933799a9d601
 - Raise `facet_limit` if more facets are desired
-- Upgrade existing apps to use Ruby 3 and Rails 6.1.7, run the rails upgrade tool
-- Make sure that data repos are up to date with latest version of Datura and (if you want to use the new API functionality) the API schema.
+- Upgrade existing apps to use Ruby 3 and Rails 6.1.7, following the instructions [here](https://guides.rubyonrails.org/v6.1/6_1_release_notes.html)
+- Make sure that data repos are up to date with latest version of Datura and (if you want to use the new API functionality) the API schema. See new schema (2.0) documentation [here](https://github.com/CDRH/datura/docs/schema_v2.md)
 - change facets to be compatible with new api, add nested facets to take advantage of the nested bucket aggregation functionality
 - change references to `value_label` from `facet_label`
+- update to Elasticsearch 8.5 or later, see [dev docs instructions](https://github.com/CDRH/cdrh_dev_docs/publishing/2_basic_requirements.md#elasticsearch)
 
 ## [v3.1.1](https://github.com/CDRH/orchid/compare/v3.1.0...v3.1.1) - splitting templates, fixing languages
 
