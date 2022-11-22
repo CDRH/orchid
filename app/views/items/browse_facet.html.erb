@@ -29,7 +29,8 @@
       class="tab-pane <%= active?(facet_name, @browse_facet) %>" id="<%= id %>">
       <%# need to find the "correct" facet name %>
       <% original_facet = facet_name %>
-      <% facet_name = facet_info["alternate"] if facet_info["alternate"] %>
+      <% facet_name = facet_info["aggregation_name"] if facet_info["aggregation_name"] %>
+
       <% if @res && @res.key?(facet_name) %>
         <table class="index_table">
           <tbody>
@@ -111,6 +112,6 @@
           <tbody>
         </table>
       <% end %>
-    </div>q
+    </div>
   <% end %>
 </ul>
