@@ -15,8 +15,8 @@ class ItemsController < ApplicationController
     if @browse_facet.include?(".")
       @page_facets.each_with_index do |(facet_name, facet_info), index|
         if @browse_facet == facet_name.parameterize(separator: ".")
-          if @page_facets[facet_name]["alternate"]
-            @browse_facet = [facet_name, @page_facets[facet_name]["alternate"]]
+          if @page_facets[facet_name]["aggregation_name"]
+            @browse_facet = [facet_name, @page_facets[facet_name]["aggregation_name"]]
           else
             @browse_facet = facet_name
           end

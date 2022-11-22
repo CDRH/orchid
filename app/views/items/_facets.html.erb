@@ -4,9 +4,9 @@
 <% if facets %>
   <% @page_facets.each do |facet_name, info| %>
     <% original_facet = facet_name %>
-    <% if info["alternate"] %>
+    <% if info["aggregation_name"] %>
       
-      <% facet_name = info["alternate"] %>
+      <% facet_name = info["aggregation_name"] %>
     <% end %>
     <% if should_display?(facets[facet_name], info) %>
       <% facet_res = facets[facet_name] %>

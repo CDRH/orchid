@@ -16,8 +16,8 @@ def get_facets(facet_set)
   facets = []
   facet_set.each do |facet|
     if facet.class == Array
-      if facet[1]["alternate"]
-        facets << [facet[0], facet[1]["alternate"]]
+      if facet[1]["aggregation_name"]
+        facets << [facet[0], facet[1]["aggregation_name"]]
       else
         facets << facet[0]
       end
