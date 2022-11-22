@@ -52,11 +52,7 @@
     <%# next pages %>
     <% pages_next.each do |page| %>
       <li>
-<<<<<<< HEAD
         <%= link_to page.to_s, prefix_path(route_path, to_page(page, opts)),
-=======
-        <%= link_to page.to_s, prefix_path("search_path", to_page(page, opts)),
->>>>>>> 92d4caa (Revert "alters prefix_path and pagination / sort to be location agnostic")
                     rel: "nofollow", "aria-label": "Page #{page}" %>
       </li>
     <% end %>
