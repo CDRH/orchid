@@ -12,10 +12,17 @@ APP_OPTS = PUBLIC["app_options"]
 IIIF_PATH = PRIVATE["iiif_path"]
 
 FACETS = PUBLIC["facets"]
+
 def get_facets(facet_set)
+  # facets will be sent to api in query url under f[]=
+  # the api expects an array of facets
   facets = []
   facet_set.each do |facet|
     if facet.class == Array
+      # a subarray will be constructed for nested bucket aggregations
+      # example ["rdf.predicate[rdf.type#case_role]", "case_roles"]
+      # first facet can be parsed by api to match nested fields, but is illegal in ES query
+      # second facet provides an aggregation label that is legal for ES
       if facet[1]["aggregation_name"]
         facets << [facet[0], facet[1]["aggregation_name"]]
       else

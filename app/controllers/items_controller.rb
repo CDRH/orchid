@@ -14,8 +14,11 @@ class ItemsController < ApplicationController
     @filter = params[:f]
     if @browse_facet.include?(".")
       @page_facets.each_with_index do |(facet_name, facet_info), index|
+        # handling nested facets, matching them to api response
         if @browse_facet == facet_name.parameterize(separator: ".")
           if @page_facets[facet_name]["aggregation_name"]
+            # handling the nested bucket aggregation functionality
+            # facet will be in the format ["rdf.predicate[rdf.type#person_relationship]", "person_relationships"]
             @browse_facet = [facet_name, @page_facets[facet_name]["aggregation_name"]]
           else
             @browse_facet = facet_name

@@ -3,9 +3,11 @@
 <%# TODO refactor the top portion of this %>
 <% if facets %>
   <% @page_facets.each do |facet_name, info| %>
+    <%# handling nested bucket aggregations in format ["rdf.predicate[rdf.type#case_role]", "case_roles"] %>
+    <%# query will be based on the original facet, the first part %>
+    <%# api response will use the aggregation name, the second part %>
     <% original_facet = facet_name %>
     <% if info["aggregation_name"] %>
-      
       <% facet_name = info["aggregation_name"] %>
     <% end %>
     <% if should_display?(facets[facet_name], info) %>
