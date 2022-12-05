@@ -30,22 +30,16 @@
                      "category") %>
       </li>
     <% end %>
-    <% if @res["subcategory"].present? %>
+    <% if @res["category2"].present? %>
       <li>
-        <%= metadata(@res, t("item.metadata.subcategory",
-                     default: "Subcategory"), "subcategory") %>
+        <%= metadata(@res, t("item.metadata.category2",
+                     default: "Subcategory"), "category2") %>
       </li>
     <% end %>
-    <% if @res["works"].present? %>
-      <li>
-        <%= metadata(@res, t("item.metadata.works", default: "Works"),
-                     "works") %>
-      </li>
-    <% end %>
-    <% if @res["places"].present? %>
+    <% if @res["spatial"].present? %>
       <li>
         <%= metadata(@res, t("item.metadata.places", default: "Place(s)"),
-                     "places") %>
+                     "spatial.name") %>
       </li>
     <% end %>
     <%# When copying this template into projects, consider adding rel tag to the source link
