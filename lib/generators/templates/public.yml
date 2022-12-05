@@ -36,7 +36,7 @@ default: &default
   api_options:
     # example of default filter for all queries
     # f:
-    #   - subcategory|Writings
+    #   - category2|Writings
     # sorting and response number
     sort:
       - title_sort|asc
@@ -78,11 +78,11 @@ default: &default
         label: People
         flags:
           - search_filter
-      languages:
+      language:
         label: Language
         flags:
           - search_filter
-      subcategory:
+      category2:
         label: Subcategory
         flags:
           - search_filter
@@ -94,7 +94,7 @@ default: &default
         label: Format
         flags:
           - search_filter
-      places:
+      spatial.name:
         label: Places
         flags:
           - search_filter

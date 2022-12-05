@@ -38,7 +38,7 @@ default: &default
   api_options:
     # only browse and search letters
     f:
-      - subcategory|Letters
+      - category2|Letters
     …
 
   facets:
