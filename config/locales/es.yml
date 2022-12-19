@@ -120,6 +120,8 @@ es:
       category: Tipo
       # description of the title of the item
       title: Titulo
+      # any works (often literary) referenced by this item, such as "O Pioneers!"
+      citation.title: Obras
     # description of missing item error
     no_item: "No se ha encontrado ningún objeto %{id}!"
     # title for error when item not found

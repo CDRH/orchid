@@ -36,6 +36,12 @@
                      default: "Subcategory"), "category2") %>
       </li>
     <% end %>
+    <% if @res["citation"].present? %>
+      <li>
+        <%= metadata(@res, t("item.metadata.works",
+                     default: "Works"), "citation.title") %>
+      </li>
+    <% end %>
     <% if @res["spatial"].present? %>
       <li>
         <%= metadata(@res, t("item.metadata.places", default: "Place(s)"),

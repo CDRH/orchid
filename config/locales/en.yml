@@ -121,6 +121,8 @@ en:
       category2: Subcategory
       # description of the title of the item
       title: Title
+      # any works (often literary) referenced by this item, such as "O Pioneers!"
+      citation.title: Works
     # description of missing item error
     no_item: "No item with identifier %{id} found!"
     # title for error when item not found
