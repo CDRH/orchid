@@ -22,7 +22,7 @@ module Orchid::DisplayHelper
         end
       end
       html << dataArray
-                .map { |i| "<span>#{i}</span>" }
+                .map { |i| "<dd>#{i}</dd>" }
                 .join(separator)
 
       sanitize html
@@ -56,7 +56,7 @@ module Orchid::DisplayHelper
   #   or could be used by overriding applications if desired
   def metadata_label(label, length: nil)
     # TODO add pluralization that uses locale
-    "<strong>#{label}:</strong> "
+    "<dt><strong>#{label}:</strong> </dt>"
   end
 
 end
