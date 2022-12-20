@@ -22,7 +22,7 @@ module Orchid::DisplayHelper
         end
       end
       html << dataArray
-                .map { |i| "#{i}" }
+                .map { |i| "<dd>#{i}</dd>" }
                 .join(separator)
 
       sanitize html
@@ -36,7 +36,6 @@ module Orchid::DisplayHelper
     item_label = value_label(api_field, item)
     link_to item_label, prefix_path(route_path, search_params),
       rel: "nofollow"
-    "<dd>#{link}</dd>"
   end
 
   # regardless of whether the results are a simple array or an array
