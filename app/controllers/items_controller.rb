@@ -65,7 +65,6 @@ class ItemsController < ApplicationController
     end
 
     @title = "#{t "browse.browse_type"} #{@browse_facet_info["label"]}"
-    check_response
     @route_path = "browse_facet_path"
     render_overridable("items", "browse_facet", locals: { sort_by: sort_by, route_path: @route_path })
   end
