@@ -92,6 +92,23 @@ module ApiBridge
       !!result
     end
 
+    def set_section(section)
+      @section = section
+      @section.chomp!("_") if @section.present?
+    end
+
+    def page_facets
+      @section.present? ?
+        Orchid::facets(section: @section) : Orchid::facets
+    end
+
+    def should_display?(facet)
+      # accounting for facets with alternate names
+      info = page_facets[facet] ? page_facets[facet] : page_facets[facet[0]]
+      facet.present? && info["flags"] \
+        && info["flags"].include?("search_filter")
+    end
+
     # create a version of the request parameters to manipulate
     # without modifying the original set
     # the incoming parameters can either be a hash built in the controller
@@ -123,7 +140,7 @@ module ApiBridge
           app_filtered = app.reject do |a|
             req_f_fields.include?(a.split("|").first)
           end
-          app_filtered + req
+          app_filtered 
         else
           # Default is to override app option with request option
           req
@@ -134,6 +151,12 @@ module ApiBridge
       opts = remove_rows(opts)
       # remove page and replace with start
       opts = calc_start(opts)
+
+      # filter out s
+      if params_hash["action"] == "index"
+        set_section(params_hash["section"])
+        opts["facet"].filter! { |facet| should_display?(facet) }
+      end
       # remove .year from the middle of date filters for api's sake which
       # automatically adds Jan 1 and Dec 31 to incoming date strings of years
       opts["f"].map { |f| f.slice!(".year") } if opts.has_key?("f")
@@ -185,5 +208,8 @@ module ApiBridge
     end
 
   end
+
+
+
 
 end
