@@ -67,6 +67,7 @@ Git diff [previous version tag] app/helpers
 - code style changes, like comments in erb format instead of html
 - facet_num changed to facet_limit in config files
 - facet_limit raised to 5000 by default
+- facets not marked with "search filter" will not query API
 
 ### Migration
 - modify existing app's `application.js`
