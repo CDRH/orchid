@@ -21,7 +21,7 @@
   </ul>
 </nav>
 <p>Select facets listed below, then click "search" to see search results</p>
-<%= link_to "Search", prefix_path("home_path", f: params[:f]), rel: "nofollow", class: "btn btn-default" %>
+<%= link_to "Search", prefix_path("search_path", f: params[:f]), rel: "nofollow", class: "btn btn-default" %>
 <div class="tab-content">
   <% @page_facets.each_with_index do |(facet_name, facet_info), index| %>
     <% id = facet_name.parameterize(separator: ".")  %>
