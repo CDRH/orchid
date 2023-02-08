@@ -46,6 +46,7 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - check_response method added to items_controller
 - updated documentation on assets and updating modernizr
 - changed instructions on how to install rails and generate a new app
+- facets not marked with "search filter" will not query API
 
 ### Migration
 - modify existing app's `application.js`
