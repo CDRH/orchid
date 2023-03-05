@@ -140,7 +140,7 @@ module ApiBridge
           app_filtered = app.reject do |a|
             req_f_fields.include?(a.split("|").first)
           end
-          app_filtered 
+          app_filtered + req
         else
           # Default is to override app option with request option
           req
