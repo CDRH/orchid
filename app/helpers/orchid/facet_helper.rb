@@ -104,10 +104,10 @@ module Orchid::FacetHelper
           t "facet_value.#{field_name}.#{value_name}", default: value
         end
       else
-        value
+        parse_md_brackets(value)
       end
     else
-      value
+      parse_md_brackets(value)
     end
   end
 
