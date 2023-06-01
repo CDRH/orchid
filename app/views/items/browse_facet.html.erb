@@ -24,6 +24,21 @@
 <% if params[:f] %>
   <%= link_to "Search", prefix_path("search_path", f: params[:f]), rel: "nofollow", class: "btn btn-default" %>
 <% end %>
+<div class="btn-group buffer-bottom-sm">
+  <button type="button" class="btn btn-default dropdown-toggle"
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= t "browse.sort_by", default: "Sort by" %>: <%= sort_selected_label("facets", sort_by) %>
+    <span class="caret"></span>
+  </button>
+
+  <ul class="dropdown-menu">
+    <% sort_fields_facets.each do |sort_field, label| %>
+      <%= render_overridable("items", "sort_dropdown_item", label: label,
+        sort_url: prefix_path("browse_facet_path", f: params[:f], facet_sort: sort_field)) %>
+    <% end %>
+  </ul>
+</div>
+
 <div class="tab-content">
   <% @page_facets.each_with_index do |(facet_name, facet_info), index| %>
     <% id = facet_name.parameterize(separator: ".")  %>
