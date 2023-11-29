@@ -9,7 +9,6 @@ module Orchid::DisplayHelper
   #       in a list, defaults to " | "
   def metadata(res, label, api_field, link: true, separator: " | ", show_label: true)
     data = metadata_get_field_values(res, api_field)
-
     if data.present?
       html = show_label ? metadata_label(label, length: data.length) : ""
 
@@ -47,7 +46,8 @@ module Orchid::DisplayHelper
     if api_field.include?(".")
       nested = api_field.split(".")
       # fields are only nested one level deep
-      res[nested.first].map { |doc| doc[nested[1]] }
+      # make hash an array if it is not already
+      Array(res[nested.first]).map { |doc| doc[nested[1]] }
     else
       Array(res[api_field])
     end
