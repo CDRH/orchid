@@ -43,6 +43,9 @@ module Orchid::ApplicationHelper
             return "active" if current_page? v
           elsif comparison.class == Symbol
             return "active" if current_page? comparison => v
+          elsif comparison.class == Array
+            #consider whether I want to use the short name instead
+            return "active" if v == comparison[0]
           else
             return "active" if v == comparison
           end

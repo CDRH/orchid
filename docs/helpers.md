@@ -48,10 +48,10 @@ Example:
 
 ```ruby
 # use this
-link_to "label", prefix_path("search_path", { "f" => ["subcategory|Manuscript"] })
+link_to "label", prefix_path("search_path", { "f" => ["category2|Manuscript"] })
 
 # as opposed to
-link_to "label", search_path( { "f" => [ "subcategory|Manuscript" ]})
+link_to "label", search_path( { "f" => [ "category2|Manuscript" ]})
 ```
 
 Read more in the [sections docs](/docs/sections.md#links).

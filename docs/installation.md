@@ -17,14 +17,14 @@
 Make a new directory with the following files: 
 
 - .ruby-gemset (contents: "[whatever you want to name your gemset]")
-- .ruby-version (contents: "ruby-2.6.6")
+- .ruby-version (contents: "ruby-3.1.2")
 
 cd into the directory again and install ruby if prompted
 
-Next, install the most recent version of Rails 5.x
+Next, install the most recent version of Rails 6.x
 
 ```
-gem install rails -v 5.2.4.4
+gem install rails -v 6.1.7
 ```
 
 check that your rails version is correct

@@ -1,4 +1,5 @@
 # Orchid Config
+require "byebug"
 
 PUBLIC = YAML.load_file("#{Rails.root}/config/public.yml")[Rails.env]
 PRIVATE = YAML.load_file("#{Rails.root}/config/private.yml")[Rails.env]
@@ -12,9 +13,29 @@ IIIF_PATH = PRIVATE["iiif_path"]
 
 FACETS = PUBLIC["facets"]
 
+def get_facets(facet_set)
+  # facets will be sent to api in query url under f[]=
+  # the api expects an array of facets
+  facets = []
+  facet_set.each do |facet|
+    if facet.class == Array
+      # a subarray will be constructed for nested bucket aggregations
+      # example ["rdf.predicate[rdf.type#case_role]", "case_roles"]
+      # first facet can be parsed by api to match nested fields, but is illegal in ES query
+      # second facet provides an aggregation label that is legal for ES
+      if facet[1]["aggregation_name"]
+        facets << [facet[0], facet[1]["aggregation_name"]]
+      else
+        facets << facet[0]
+      end
+    end
+  end
+  facets
+end
+
 if API_PATH
   puts "Connecting to API at #{API_PATH}"
-  $api = ApiBridge::Query.new(API_PATH, Orchid::facets.keys, API_OPTS)
+  $api = ApiBridge::Query.new(API_PATH, get_facets(Orchid::facets), API_OPTS)
 else
   raise "API path not found. Check config/private.yml is correctly defined"
 end
@@ -35,7 +56,7 @@ if APP_OPTS.key?("sections")
 
     puts "Connecting to API for section: #{name}"
     $api_sections[name] = ApiBridge::Query.new(API_PATH,
-      Orchid::facets(section: name).keys, SECTIONS[name]["api_options"])
+      get_facets(Orchid::facets(section: name)), SECTIONS[name]["api_options"])
   end
 end
 

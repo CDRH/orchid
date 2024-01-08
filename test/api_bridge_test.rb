@@ -6,7 +6,7 @@ class Orchid::Test < ActiveSupport::TestCase
   def before_setup
     super
     @f_app = ["collection|letters", "keyword|production"]
-    @facet_app = ["creator.name", "date.year", "subcategory"]
+    @facet_app = ["creator.name", "date.year", "category2"]
     @api = ApiBridge::Query.new("https://test.unl.edu/v1",
       @facet_app,
       { "num" => 5, "sort" => "title|asc", "f" => @f_app }
@@ -153,8 +153,8 @@ class Orchid::Test < ActiveSupport::TestCase
 
     # set a new filter which is not the same as the app wide filter
     assert_equal(
-      @f_app + ["subcategory|memos"],
-      @api.prepare_options({ "f" => ["subcategory|memos"] })["f"]
+      @f_app + ["category2|memos"],
+      @api.prepare_options({ "f" => ["category2|memos"] })["f"]
     )
 
     # check that filter collisions preference the request
@@ -163,13 +163,13 @@ class Orchid::Test < ActiveSupport::TestCase
         "collection|letters",
         "keyword|development",
         "keyword|in_review",
-        "subcategory|marginalia"
+        "category2|marginalia"
       ],
       @api.prepare_options({
         "f" => [
           "keyword|development",
           "keyword|in_review",
-          "subcategory|marginalia"
+          "category2|marginalia"
         ]
       })["f"]
     )
