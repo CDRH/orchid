@@ -46,11 +46,17 @@
       <% type, facet = f.split("|") %>
       <% info = @page_facets[type] %>
       <% label = info ? info["label"] : type.titleize %>
-
+      <%# url params are modified, find how the facet was originally formatted for display %>
+      <% if @res.facets[type] %>
+        <% original_facet = @res.facets[type][facet]["source"] %>
+      <% else %>
+        <%# facet will not be present in res if it is not marked as search filter, just use url params in that case %>
+        <% original_facet = facet %>
+      <% end %>
       <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
         <div class="input-group">
           <div class="input-group-addon" title="<%= t "search.filters.summary_box", specific_filter: label, default: "#{label} Filter" %>">
-            <%= label %> : <%= facet_label(type: type, normalized: facet) %>
+            <%= label %> : <%= facet_label(type: type, normalized: original_facet) %>
           </div>
           <div class="input-group-btn"
                title="<%= t("search.filters.clear", label: label, default: "Clear #{label} Filter") %>"
