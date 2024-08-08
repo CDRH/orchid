@@ -1,5 +1,4 @@
 default: &default
-
   app_options:
     # the version of this rails application
     version: 0.0.1

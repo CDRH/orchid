@@ -328,4 +328,16 @@ module Orchid::ApplicationHelper
     html_classes
   end
 
+  def static_image(filename)
+    "#{STATIC_IMAGE_PATH}/#{filename}"
+  end
+
+  def audio_file(filename)
+    "#{AUDIO_FILE_PATH}/#{filename}"
+  end
+
+  def video_file(filename)
+    "#{VIDEO_FILE_PATH}/#{filename}"
+  end
+
 end

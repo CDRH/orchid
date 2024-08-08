@@ -10,6 +10,9 @@ API_OPTS = PUBLIC["api_options"]
 API_PATH = PRIVATE["api_path"]
 APP_OPTS = PUBLIC["app_options"]
 IIIF_PATH = PRIVATE["iiif_path"]
+STATIC_IMAGE_PATH = PRIVATE["static_image_path"]
+AUDIO_FILE_PATH = PRIVATE["audio_file_path"]
+VIDEO_FILE_PATH = PRIVATE["video_file_path"]
 
 FACETS = PUBLIC["facets"]
 
