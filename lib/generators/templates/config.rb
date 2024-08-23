@@ -1,8 +1,8 @@
 # Orchid Config
 require "byebug"
 
-PUBLIC = YAML.load_file("#{Rails.root}/config/public.yml")[Rails.env]
-PRIVATE = YAML.load_file("#{Rails.root}/config/private.yml")[Rails.env]
+PUBLIC = YAML.load_file("#{Rails.root}/config/public.yml", aliases: true)[Rails.env]
+PRIVATE = YAML.load_file("#{Rails.root}/config/private.yml", aliases: true)[Rails.env]
 
 VERSION = PUBLIC["app_options"]["version"]
 
