@@ -50,7 +50,7 @@
       <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
         <div class="input-group">
           <div class="input-group-addon" title="<%= t "search.filters.summary_box", specific_filter: label, default: "#{label} Filter" %>">
-            <%= label %> : <%= value_label(type, facet) %>
+            <%= label %> : <%= facet_label(type: type, normalized: facet) %>
           </div>
           <div class="input-group-btn"
                title="<%= t("search.filters.clear", label: label, default: "Clear #{label} Filter") %>"

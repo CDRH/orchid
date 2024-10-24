@@ -4,3 +4,4 @@
 //= link_tree ../../images/favicon
 //= link_tree ../../javascripts/orchid .js
 //= link_tree ../../stylesheets/orchid .css
+//= link_tree ../../../../vendor/assets

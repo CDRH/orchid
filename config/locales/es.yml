@@ -115,13 +115,13 @@ es:
       # the format of the item, such as "envelope," "photograph," "postcard"
       format: Formato
       # locations referenced by this item
-      places: Lugar(es)
+      spatial.name: Lugar(es)
       # subcategory of the item, such as "Letters"
-      subcategory: Tipo
+      category: Tipo
       # description of the title of the item
       title: Titulo
       # any works (often literary) referenced by this item, such as "O Pioneers!"
-      works: Obras
+      citation.title: Obras
     # description of missing item error
     no_item: "No se ha encontrado ningún objeto %{id}!"
     # title for error when item not found

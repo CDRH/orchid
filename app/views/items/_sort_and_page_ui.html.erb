@@ -1,10 +1,14 @@
 <div class="row search_controls">
-  <div class="col-md-4 search_limit">
-    <% if (@res.count && @res.count > 1) %>
-      <%= sorter %>
-    <% end %>
-  </div>
-  <div class="col-md-8 pagination_container">
-    <%= paginator @res.pages %>
-  </div>
+  <% if !@res.count %>
+    <% flash[:error] = "due to technical limitations, search results over 10000 items are not available. Please click the back button on your browser, or enter a new search query." %>
+  <% else %>
+    <div class="col-md-4 search_limit">
+      <% if (@res.count > 1) %>
+        <%= sorter %>
+      <% end %>
+    </div>
+    <div class="col-md-8 pagination_container">
+      <%= paginator @res.pages %>
+    </div>
+  <% end %>
 </div>

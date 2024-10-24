@@ -12,7 +12,7 @@ module ApiBridge
     end
 
     def count
-      @res.dig("res", "count")
+      @res.dig("res", "count", "value")
     end
 
     def error

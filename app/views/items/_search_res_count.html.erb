@@ -1,7 +1,9 @@
 <% if @res.count.blank? %>
   <h2><%= t "search.results.error" %></h2>
 <% elsif params["q"].blank? && params["f"].blank? %>
-  <h2><%= t "search.results.query", count: @res.count %></h2>
+  <% if @res.count.class == Integer %>
+    <h2 class="h1"><%= t "search.results.query", count: @res.count %></h2>
+  <% end %>
 <% else %>
   <h2><%= t "search.results.general", count: @res.count %></h2>
 <% end %>
