@@ -80,7 +80,7 @@ class ItemsController < ApplicationController
     @title = t "search.title"
     @res = @items_api.query(options)
     check_response
-    @facet_limit = @section.present? ? SECTIONS[@section]["facet_limit"] : PUBLIC["api_options"]["facet_limit"]
+    @facet_limit = @section.present? ? SECTIONS[@section]["api_options"]["facet_limit"] : PUBLIC["api_options"]["facet_limit"]
     render_overridable("items", "index")
   end
 
