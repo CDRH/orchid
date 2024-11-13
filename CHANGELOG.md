@@ -76,6 +76,7 @@ Git diff [previous version tag] app/helpers
 - facet_num changed to facet_limit in config files
 - facet_limit raised to 5000 by default
 - facets not marked with `flags: - search_filter` will not query API
+- loading of assets from manifest.js has new defaults
 
 ### Migration
 - modify existing app's `application.js`
@@ -86,11 +87,14 @@ Git diff [previous version tag] app/helpers
 - update existing apps' `app/assets/config/manifest.js` to include Sprockets 3.x
   and 4.x defaults like the updated template to be copied by the generator
   https://github.com/CDRH/orchid/commit/b90a3f4063352c2220aa12184bbb933799a9d601
-- Raise `facet_limit` if more facets are desired
+- make sure favicon files are in app/assets/images (not in a separate /favicon folder)
+- place vendor files within /vendor/assets.
+- Raise `facet_limit` if more facets are desired. Add line setting `facet_limit in the controllers` if index methods have been overridden: `@facet_limit = @section.present? ? SECTIONS[@section]["api_options"]["facet_limit"] : PUBLIC["api_options"]["facet_limit"]`
 - Upgrade existing apps to use Ruby 3 and Rails 6.1.7, following the instructions [here](https://guides.rubyonrails.org/v6.1/6_1_release_notes.html)
 - Make sure that data repos are up to date with latest version of Datura and (if you want to use the new API functionality) the API schema. See new schema (2.0) documentation [here](https://github.com/CDRH/datura/docs/schema_v2.md)
 - change facets to be compatible with new api, add nested facets to take advantage of the nested bucket aggregation functionality
-- change references to `value_label` from `facet_label`
+- change references to `value_label` from `facet_label`, and modify or delete overrides that use this method.
+- Where overrides reference the facet count, make sure that they are referencing the "num" key of this hash.
 - update to Elasticsearch 8.5 or later, see [dev docs instructions](https://github.com/CDRH/cdrh_dev_docs/publishing/2_basic_requirements.md#elasticsearch)
 
 ## [v3.1.1](https://github.com/CDRH/orchid/compare/v3.1.0...v3.1.1) - splitting templates, fixing languages
