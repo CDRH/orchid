@@ -63,7 +63,7 @@
                 </li>
               <% else %>
                 <li class="selected">
-                  <span><%= label %></span>
+                  <span><%= sanitize(text) %></span>
                   <span class="badge"><%= num %></span>
                   <%= link_to prefix_path(route_path,
                     remove_facet(original_facet, key)), rel: "nofollow" do %>

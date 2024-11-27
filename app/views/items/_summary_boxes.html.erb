@@ -46,11 +46,13 @@
       <% type, facet = f.split("|") %>
       <% info = @page_facets[type] %>
       <% label = info ? info["label"] : type.titleize %>
-
+      <% facet_value = @res.facets[type][facet] %>
+      <%# look up in @res what the corresponding non-normalized facet is %>
+      <% source = format_facet_response(type, facet_value)[1] %>
       <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
         <div class="input-group">
           <div class="input-group-addon" title="<%= t "search.filters.summary_box", specific_filter: label, default: "#{label} Filter" %>">
-            <%= label %> : <%= facet_label(type: type, normalized: facet) %>
+            <%= label %> : <%= facet_label(type: type, normalized: facet, label: source) %>
           </div>
           <div class="input-group-btn"
                title="<%= t("search.filters.clear", label: label, default: "Clear #{label} Filter") %>"
