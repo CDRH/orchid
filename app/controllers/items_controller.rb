@@ -11,7 +11,6 @@ class ItemsController < ApplicationController
   def browse_facet
     # Reverse facet name from url-formatting
     @browse_facet = params[:facet]
-    @filter = params[:f]
     if @browse_facet.include?(".")
       @page_facets.each_with_index do |(facet_name, facet_info), index|
         # handling nested facets, matching them to api response
@@ -43,14 +42,10 @@ class ItemsController < ApplicationController
       facet_sort: sort_by,
       num: 0
     }
-    if @filter
-      options["f"]=@filter
-    end
     # Get facet results
     @res = @items_api.query(options)
     check_response
     @res = @res.facets
-
     # Warn when approaching facet result limit
     result_size = @res ? @res.length : 0
     if result_size == 10000
@@ -65,8 +60,7 @@ class ItemsController < ApplicationController
     end
 
     @title = "#{t "browse.browse_type"} #{@browse_facet_info["label"]}"
-    @route_path = "browse_facet_path"
-    render_overridable("items", "browse_facet", locals: { sort_by: sort_by, route_path: @route_path })
+    render_overridable("items", "browse_facet", locals: { sort_by: sort_by })
   end
 
   def index
