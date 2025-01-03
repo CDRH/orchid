@@ -41,6 +41,18 @@ follows:
 `translate` - Enables translation of the facet values in addition to the facet's
 label.
 
+## Nested bucket aggregations
+This new functionality in Orchid allows you to facet on a nested field, filtered on the value of a different field under the same parent field. See below for the proper syntax, this sample query facets on `spatial.name` where `spatial.type` is equal to "court_location".
+
+```yaml
+      spatial.name[spatial.type#court_location]:
+        label: Court Name
+        aggregation_name: spatial.name
+        flags:
+        - search_filter
+```
+It is necessary to specify `aggregation_name` so that the proper Elasticsearch query can be constructed and the results retrieved. It should be equal to the title so that the proper face text (rather than the normalized, all lower case values) can be displayed.
+
 ## Translations
 
 Facet translations may be defined inside any YAML file in
