@@ -26,7 +26,7 @@
               </li>
             <% end %>
             <%# source can be a multivalued or single keyword field %>
-            <% if item["has_source"]["title"].present? %>
+            <% if item["has_source"].present? && item["has_source"]["title"].present? %>
               <li>
                 <%= metadata(item, t("search.results.item.has_source.title",
                   default: "Source"), "has_source.title", link: false) %>
