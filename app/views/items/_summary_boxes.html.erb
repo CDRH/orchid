@@ -46,7 +46,7 @@
       <% type, facet = f.split("|") %>
       <% info = @page_facets[type] %>
       <% label = info ? info["label"] : type.titleize %>
-      <% if info["aggregation_name"] %>
+      <% if info && info["aggregation_name"] %>
         <% type = info["aggregation_name"] %>
       <% end %>
       <% facet_value = @res.facets[type] ? @res.facets[type][facet] : nil %>
