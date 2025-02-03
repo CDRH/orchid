@@ -20,7 +20,11 @@ Facet configuration is defined in `config/public.yml` by language:
     [language]:
       [api_field]:
         label: [display_text]
+        # necessary only for nested bucket aggregations feature
+        aggregation_name:
+          [api_field]
         # Optional features
+        
         flags:
           - search_filter
           - translate
