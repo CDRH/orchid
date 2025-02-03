@@ -29,7 +29,7 @@ Facet configuration is defined in `config/public.yml` by language:
 
 - `language` - Language code matching the code(s) set in `config/public.yml`
 - `api_field` - Field name from the API. Field names may be nested (e.g.
-  `creator.name`)
+  `creator.name`). You may also filter nested fields based on the value of a different nested field, see below under "Nested bucket aggregations".
 - `display_text` - Text displayed for the facet label for this language
 
 The `flags:` key and its list of contained flag names may be omitted. A flag's
@@ -42,7 +42,7 @@ follows:
 label.
 
 ## Nested bucket aggregations
-This new functionality in Orchid allows you to facet on a nested field, filtered on the value of a different field under the same parent field. See below for the proper syntax, this sample query facets on `spatial.name` where `spatial.type` is equal to "court_location".
+This new functionality in Orchid allows you to facet on a nested field, filtered on the value of a different nested field (under the same parent field). See below for the proper syntax. This sample query facets on `spatial.name` where `spatial.type` is equal to "court_location".
 
 ```yaml
       spatial.name[spatial.type#court_location]:
@@ -51,7 +51,7 @@ This new functionality in Orchid allows you to facet on a nested field, filtered
         flags:
         - search_filter
 ```
-It is necessary to specify `aggregation_name` so that the proper Elasticsearch query can be constructed and the results retrieved. It should be equal to the title so that the proper face text (rather than the normalized, all lower case values) can be displayed.
+It is necessary to specify `aggregation_name` so that the proper Elasticsearch query can be constructed and the results retrieved. It should be equal to the first field name so that text can be displayed with proper punctuation and capitalization. Within the ES query, `aggregation_name` can be any arbitrary name, but the original nested facet should be used or else a normalized version will be returned (a version used internally by Elasticsearch with all lowercase and punctuation removed).
 
 ## Translations
 
