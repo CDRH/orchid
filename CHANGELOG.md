@@ -25,7 +25,7 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ### Contributors
 -->
 ## General instructions for migrating overrides
-If you have a Rails app based on Orchid, run the following commands to see which override files have changed, and how they have changed. This way you can check to see if you have similar code in your
+If you have a Rails app based on Orchid, run the following commands to see which override files have changed, and how they have changed. This way you can check to see if you have similar code in your app.
 ```
 git diff --name-only [previous version tag] app/views/items app/views/layouts/body app/views/controllers  app/helpers
 Git diff [previous version tag] app/views/items 
