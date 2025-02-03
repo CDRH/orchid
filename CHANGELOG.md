@@ -96,7 +96,7 @@ Git diff [previous version tag] app/helpers
 - Where overrides reference the facet count, make sure that they are referencing the "num" key of this hash.
 - update to Elasticsearch 8.5 or later, see [dev docs instructions](https://github.com/CDRH/cdrh_dev_docs/publishing/2_basic_requirements.md#elasticsearch)
 - See (documentation on facets)[https://github.com/CDRH/orchid/blob/main/docs/facets.md] for facet-related changes.
-- When overrides and config files are copied from Orchid and modified, update them to reflect the file in the new Orchid.
+- When overrides and config files are copied from Orchid and modified, update them to reflect the file in the new Orchid. Pay particular attention to `config/initializers/config.rb` which contains code necessary for new facet functionality
 
 ## [v3.1.1](https://github.com/CDRH/orchid/compare/v3.1.0...v3.1.1) - splitting templates, fixing languages
 
