@@ -86,7 +86,7 @@ Git diff [previous version tag] app/helpers
 - update existing apps' `app/assets/config/manifest.js` to include Sprockets 3.x
   and 4.x defaults like the updated template to be copied by the generator
   https://github.com/CDRH/orchid/commit/b90a3f4063352c2220aa12184bbb933799a9d601
-- make sure favicon files are in app/assets/images (not in a separate /favicon folder)
+- make sure favicon files are in app/assets/images (not in a separate /favicon folder) and change the `app/views/_favicon.erb.html` override to remove `favicon/` from the images linked in favicon_link_tag.
 - place vendor files within /vendor/assets.
 - Raise `facet_limit` if more facets are desired. Add line setting `facet_limit in the controllers` if index methods have been overridden: `@facet_limit = @section.present? ? SECTIONS[@section]["api_options"]["facet_limit"] : PUBLIC["api_options"]["facet_limit"]`
 - Upgrade existing apps to use Ruby 3 and Rails 6.1.7, following the instructions [here](https://guides.rubyonrails.org/v6.1/6_1_release_notes.html)
@@ -96,7 +96,7 @@ Git diff [previous version tag] app/helpers
 - Where overrides reference the facet count, make sure that they are referencing the "num" key of this hash.
 - update to Elasticsearch 8.5 or later, see [dev docs instructions](https://github.com/CDRH/cdrh_dev_docs/publishing/2_basic_requirements.md#elasticsearch)
 - See (documentation on facets)[https://github.com/CDRH/orchid/blob/main/docs/facets.md] for facet-related changes.
-- When overrides and config files are copied from Orchid and modified, update them to reflect the file in the new Orchid. Pay particular attention to `config/initializers/config.rb` which contains code necessary for new facet functionality
+- When overrides and config files are copied from Orchid and modified, update them to reflect the file in the new Orchid. Pay particular attention to `config/initializers/config.rb` which contains code necessary for new facet functionality.
 
 ## [v3.1.1](https://github.com/CDRH/orchid/compare/v3.1.0...v3.1.1) - splitting templates, fixing languages
 
