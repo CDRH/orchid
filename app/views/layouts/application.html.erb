@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>" <%= html_classes %>>
+<html lang="<%= I18n.locale %>" <%= sanitize html_classes %>>
   <%= render_overridable("layouts/head", "head") %>
   <body class="<%= "language_#{I18n.locale}" %>">
     <a href="#main-content" class="sr-only sr-only-focusable">

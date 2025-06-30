@@ -325,7 +325,7 @@ module Orchid::ApplicationHelper
 
   deprecate site_section: "deprecated in favor of html_classes"
   def site_section
-    html_classes
+    sanitize html_classes
   end
 
   def static_image(filename)
