@@ -1,6 +1,6 @@
 <div class="row search_controls">
   <% if !@res.count %>
-    <% flash[:error] = "due to technical limitations, search results over 10000 items are not available. Please click the back button on your browser, or enter a new search query." %>
+    <% flash[:error] = "Search results are not currently available, due to technical limitations or an error in the API. Please enter a new search query or try again later." %>
   <% else %>
     <div class="col-md-4 search_limit">
       <% if (@res.count > 1) %>
