@@ -248,18 +248,23 @@ module Orchid::ApplicationHelper
 
     path_helper = @section.present? ? "#{@section}_#{path}" : path
 
-    if args.empty?
-      if kwargs.empty?
-        send(path_helper)
+    begin
+      if args.empty?
+        if kwargs.empty?
+          send(path_helper)
+        else
+          send(path_helper, kwargs)
+        end
       else
-        send(path_helper, kwargs)
+        if kwargs.empty?
+          send(path_helper, args)
+        else
+          send(path_helper, args, kwargs)
+        end
       end
-    else
-      if kwargs.empty?
-        send(path_helper, args)
-      else
-        send(path_helper, args, kwargs)
-      end
+    rescue
+      #if one of the paramaters is causing an error, just use the path
+      send(path)
     end
   end
 
