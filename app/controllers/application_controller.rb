@@ -4,11 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :set_locale, :set_section
 
   def set_locale
-    locale = (params["locale"] || APP_OPTS["language_default"] || "en").gsub(/[^a-zA-Z]/, "")
-    if locale.blank?
-      locale = "en"
-    end
-    I18n.locale = locale
+    locale = params["locale"]
+    I18n.locale = I18n.available_locales.map(&:to_s).include?(locale) ? locale : (APP_OPTS["language_default"] || "en")
   end
 
   def default_url_options
