@@ -65,8 +65,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_section
-    @section = params[:section].gsub(/[^a-zA-Z_-]/, "") if params[:section]
-    @section.chomp!("_") if @section.present?
-    # params.delete :section
+    if defined?(SECTIONS) && SECTIONS.present? && SECTIONS.keys.map(&:to_s).include?(params[:section])
+      @section = params[:section]
+    end
   end
 end

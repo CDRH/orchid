@@ -262,20 +262,10 @@ module Orchid::ApplicationHelper
         end
       end
     rescue => e
-      #use path instead in case of error
-      if args.empty?
-        if kwargs.empty?
-          send(path)
-        else
-          send(path, kwargs)
-        end
-      else
-        if kwargs.empty?
-          send(path, args)
-        else
-          send(path, args, kwargs)
-        end
-      end
+      # Log the original error for debugging
+      Rails.logger.error "error occurred with processing section path link (#{path_helper}): #{e.message}"
+      # show 500 error
+      render plain: "Sorry, an error occurred with processing section path links.", status: 500
     end
   end
 
