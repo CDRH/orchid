@@ -12,18 +12,7 @@ class ApplicationController < ActionController::Base
     params["locale"] ? { locale: I18n.locale } : {}
   end
 
-  rescue_from StandardError, with: :handle_server_error
-
   private
-
-  def handle_server_error(exception)
-    # Log the error
-    Rails.logger.error "Server Error: #{exception.message}"
-    Rails.logger.error exception.backtrace.join("\n")
-    
-    # Display an error message
-    render plain: "Sorry, an error occurred. Please email us at cdrh@unl.edu if the problem persists.", status: 500
-  end
 
   # Render section overrides
   # View name does not include the locale or extensions
