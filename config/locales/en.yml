@@ -12,7 +12,7 @@ en:
   #################
   general:
     # footer content with link to CDRH site
-    cdrh_link_html: Created by the <a href="https://cdrh.unl.edu">Center for Digital Research in the Humanities</a>.
+    cdrh_link_html: Created by the <a href="https://cdrh.unl.edu">Center for Digital Research in the Humanities</a> at the <a href="https://www.unl.edu/">University of Nebraska–Lincoln</a>.
     # close a popup window
     close: Close
     # Below commented to avoid fallback use from a project site omitting them
