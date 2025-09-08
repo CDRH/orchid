@@ -1,4 +1,4 @@
-<div id="footer">
+<footer id="footer">
   <div class="container">
     <div class="footer_info">
       <p><%= t "general.cdrh_link_html" %></p>
@@ -7,4 +7,5 @@
       </div>
     </div><%# /footer_info %>
   </div> <%# /container %>
-</div><%# /footer %>
+  <%= render_overridable("layouts/body", "back_to_top") %>
+</footer><%# /footer %>
