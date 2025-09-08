@@ -72,6 +72,14 @@
   }
 }
 
+#content-wrapper, 
+#footer p {
+  a.btn,
+  a.btn:hover {
+    text-decoration: none;
+  }
+}
+
 
 // Site Section-specific
 // =====================
