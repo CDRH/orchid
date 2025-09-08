@@ -58,6 +58,20 @@
   }
 }
 
+// Links
+// =====
+
+#content-wrapper, 
+#footer p {
+   a {
+    text-decoration: underline;
+  }
+
+  a:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
 
 // Site Section-specific
 // =====================
@@ -132,7 +146,7 @@
   background: #fff;
   text-decoration: none;
   font-weight: 500;
-  border: solid 1px $gray-light;
+  border: solid 1px $gray-lighter;
   bottom: 0;
   box-shadow: 0px 0px 5px 3px rgba($gray-dark,0.3);
   padding: .5rem 2rem 0.5rem 1.25rem; // .1em 1em .3em 1em; 
@@ -142,7 +156,7 @@
 
   &:hover {
   color: #000;
-  background-color: $gray-light;
+  background-color: $gray-lighter;
   }
 
   &:after {
