@@ -1,5 +1,4 @@
 default: &default
-
   app_options:
     # the version of this rails application
     version: 0.0.1
@@ -36,13 +35,13 @@ default: &default
   api_options:
     # example of default filter for all queries
     # f:
-    #   - subcategory|Writings
+    #   - category2|Writings
     # sorting and response number
     sort:
       - title_sort|asc
     num: 50
     # facet info on search page
-    facet_limit: 20
+    facet_limit: 5000
     facet_sort: count|desc
     # facet info on browse page
     browse_sort: term|asc
@@ -78,11 +77,11 @@ default: &default
         label: People
         flags:
           - search_filter
-      languages:
+      language:
         label: Language
         flags:
           - search_filter
-      subcategory:
+      category2:
         label: Subcategory
         flags:
           - search_filter
@@ -94,7 +93,7 @@ default: &default
         label: Format
         flags:
           - search_filter
-      places:
+      spatial.name:
         label: Places
         flags:
           - search_filter

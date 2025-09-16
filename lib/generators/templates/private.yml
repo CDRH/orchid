@@ -4,6 +4,10 @@ default: &default
   api_path: https://cdrhdev1.unl.edu/api/v1
   # path to iiif server, NOT including the project directory
   iiif_path: https://cdrhmedia.unl.edu/iiif/2
+  #below setting for static images should be changed for the specific server
+  static_image_path: https://cdrhrailsdev.unl.edu/media/images
+  audio_file_path: https://cdrhrailsdev.unl.edu/media/audio
+  video_file_path: https://cdrhrailsdev.unl.edu/media/video
 
 test:
   <<: *default

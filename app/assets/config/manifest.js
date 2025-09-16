@@ -10,3 +10,6 @@
 
 // Orchid engine's manifest: orchid/app/assets/config/orchid/manifest.js
 //= link orchid/manifest.js
+
+// Include all Rails app assets from directories inside /vendor/assets
+//= link_tree ../../../vendor/assets

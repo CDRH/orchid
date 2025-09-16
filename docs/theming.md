@@ -42,11 +42,11 @@ If you are new to Ruby on Rails, you may want to familiarize yourself with the
 ## Favicon
 
 Replace the image at `app/assets/images/favicon.png` to change your app's
-favicon.
+favicon. Favicons should go in the /images folder and not in /images/favicon as was the case with older apps.
 
 For wider favicon support, create the necessary derivative images, copy Orchid's
 `views/layouts/head/_favicon.html.erb` file to the same location in your app,
-and add the additional favicons to `views/layouts/head/_favicon.html.erb`.
+and add the additional favicons to `views/layouts/head/_favicon.html.erb`. (Again, make sure there is no `/favicon` in the `favicon_link_tag` path).
 
 ## Header and Footer
 
@@ -83,6 +83,8 @@ stylesheet (`.css` or `.scss`) in `app/assets/stylesheets/global/`.
 By default, anything in that `global` directory will be compiled into `application.css`.
 
 ## Global JavaScript
+
+Make sure that `app/assets/config/manifest.js` matches the code in the Orchid repo, especially if you are upgrading an app. (aside from any necessary customizations).
 
 One should normally not need to edit `app/assets/application.js`. By default,
 this file looks through `app/assets/javascripts/global` for JS files
@@ -155,7 +157,7 @@ to the rest of the app, you may wish to add a conditional asset.
 See [Vendor Assets](#vendor-assets) for more information about 3rd party assets.
 
 First, if you are adding new style or script files which are not globally used,
-place them in `app/assets/stylesheets` and `app/assets/javascripts`, respectively.
+place them in `app/assets/stylesheets` and `app/assets/javascripts`, respectively. There may be an error if you try to link a file in the global folder with the `add_assets` method as listed below
 
 As with a normal Rails application, you may choose to call these assets with tags
 such as `stylesheet_link_tag`, but Orchid provides some helpful methods for
@@ -168,7 +170,7 @@ adding assets per page.
 
 You may include these in a controller action or the view. Ideally, in order to
 avoid accidentally overwriting extra CSS or JS which may already be added
-elsewhere, use the `add_assets` helper.
+elsewhere, use the `add_assets` helper. 
 
 _Examples_
 
@@ -177,6 +179,8 @@ Include leaflet.css and stamen.css in an action:
 ```ruby
 @ext_css = helpers.add_assets(@ext_css, %w(leaflet stamen))
 ```
+(Note that `add_assets(@ext_css, "map.css") ` is not the correct syntax and `@ext_css = add_assets(@ext_css, "map")` is the correct syntax. It is not necessary to include the extension name)
+
 
 Include leaflet.js and search.js in a view:
 
