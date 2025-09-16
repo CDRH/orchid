@@ -15,14 +15,16 @@
                 <%= submit_tag t("search.submit", default: "Search"), class: "btn btn-primary", name: nil, data: { disable_with: false } %>
               </span>
             <% end %>
-            <%= render_overridable("items", "help") %>
-            <%= link_to t("search.view_all", default: "View All Items"),
-              prefix_path(route_path), rel: "search" %>
           </div>
           <div class="col-md-2">
             <%= link_to t("search.clear_all", default: "Clear Search"),
               prefix_path(route_path),
               class: "btn btn-danger clear_main_search_text", rel: "search", role: "button" %>
+          </div>
+          <div class="col-md-12">
+            <%= render_overridable("items", "help") %>
+            <%= link_to t("search.view_all", default: "View All Items"),
+              prefix_path(route_path), rel: "search" %>
           </div>
         </div> <%# /row %>
       </div> <%# /panel-body %>
