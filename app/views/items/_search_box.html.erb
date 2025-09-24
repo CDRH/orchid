@@ -24,7 +24,7 @@
           <div class="col-md-12">
             <%= render_overridable("items", "help") %>
             <%= link_to t("search.view_all", default: "View All Items"),
-              prefix_path(route_path), rel: "search" %>
+              prefix_path(route_path), rel: "search", class: "btn btn-link" %>
           </div>
         </div> <%# /row %>
       </div> <%# /panel-body %>
