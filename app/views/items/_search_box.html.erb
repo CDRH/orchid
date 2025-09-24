@@ -3,7 +3,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-10">
+          <div class="col-md-10 buffer-bottom-sm">
             <%= form_tag prefix_path(route_path), method: "get", role: "search", 
               class: "input-group" do %>
               <%# search box %>
@@ -16,7 +16,7 @@
               </span>
             <% end %>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 buffer-bottom-sm">
             <%= link_to t("search.clear_all", default: "Clear Search"),
               prefix_path(route_path),
               class: "btn btn-danger clear_main_search_text", rel: "search", role: "button" %>
