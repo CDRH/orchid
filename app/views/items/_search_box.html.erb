@@ -4,7 +4,7 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-md-10">
-            <%= form_tag prefix_path(route_path), method: "get",
+            <%= form_tag prefix_path(route_path), method: "get", role: "search", 
               class: "input-group" do %>
               <%# search box %>
               <%= text_field_tag(:q, params[:q], :placeholder => t("search.placeholder", default: "Search for..."), :class => "form-control") %>
