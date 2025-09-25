@@ -178,3 +178,9 @@
     left: 6px;
   }
 }
+
+$navbar-link-height: ($navbar-height - 2px); 
+
+.navbar-default .navbar-nav > li > a {
+  min-height: $navbar-link-height;
+}
