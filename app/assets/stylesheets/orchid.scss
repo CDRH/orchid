@@ -179,8 +179,17 @@
   }
 }
 
+// Bootstrap navbar alignment fixes
+
 $navbar-link-height: ($navbar-height - 2px); 
 
 .navbar-default .navbar-nav > li > a {
   min-height: $navbar-link-height;
+}
+
+@media screen and (min-width: $screen-md) {
+  header .navbar-default .navbar-collapse {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }
