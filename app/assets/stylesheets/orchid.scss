@@ -250,51 +250,59 @@ a:focus {
 // Browse / Index Pages
 // =====================
 
-.action_browse_facet .browse-results ul {
-  display: table;
-  list-style: none;
-  padding-left: 0;
+.action_browse_facet {
 
-  li {
-    margin-left: -2px;
-
+  ul.nav-tabs li {
     a {
       background: white;
       border-left-color: #aaa;
       border-right-color: #aaa;
       border-top-color: #aaa;
       border-bottom-color: $gray-dark;
-      display: flex;
-      padding: 2px 2px 4px 2px;
       text-decoration: none;
-
-      &:hover {
-        background-color: white;
-      }
     }
 
-    &:not(.active) a {
+      &:not(.active) a {
       &:focus-visible,
       &:hover {
         background: darken($navbar-default-bg, 6.5%);
         border-color: $gray-light;
         color: $gray-dark;
       }
+    }
+  }
 
-      p {
-        margin: 0;
-      }
-      
-      .index_name_col {
+  .browse-results ul {
+    display: table;
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      margin-left: -2px;
+
+      a {
         display: flex;
-        flex-grow: 1;
+        padding: 2px 2px 4px 2px;
 
-        .index_separator {
-          border-bottom: 1px dotted #333;
-          flex-grow: 1;
-          height: calc(100% - 4px); // 1.975rem;
+        &:hover {
+          background-color: white;
+        }
+
+        p {
           margin: 0;
-          min-width: 3rem;
+        }
+        
+        .index_name_col {
+          display: flex;
+          flex-grow: 1;
+
+          .index_separator {
+            border-bottom: 1px dotted #333;
+            flex-grow: 1;
+            height: calc(100% - 4px); // 1.975rem;
+            margin: 0;
+            min-width: 3rem;
+          }
         }
       }
     }
