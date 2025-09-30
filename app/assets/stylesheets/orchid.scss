@@ -35,6 +35,21 @@
 // uncollapse if no javascript
 .no-js .collapse { display: block; }
 
+// sr-only with clip instead of position: absolute
+.sr-only-clip {
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7  */
+  clip: rect(1px, 1px, 1px, 1px); /* other legacy browsers */
+  clip-path: inset(50%); /* modern browsers */
+  border: 0;
+  display: inline-block;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 1px;
+}
+
 // Unique Elements
 // ===============
 #content-wrapper {
@@ -65,6 +80,7 @@
 // Links
 // =====
 
+// Undoing Bootstrap's lack of link decoration
 .main-content, 
 #footer p {
    a {
@@ -84,75 +100,12 @@
   }
 }
 
-
-// Site Section-specific
-// =====================
-
-// Search Pages
-.page_search, .search_preset {
-  .pagination_container {
-    text-align: right;
-
-    .pagination {
-      margin: 0;
-    }
-  }
-
-  .search-filters {
-    min-height: 2.75em;
-  }
+// Undoing Boostrap's focus outline overrides
+a:focus {
+  outline-offset: initial;
 }
-
-.panel-heading-link > .panel-heading {
-  color: $gray-dark;
-  background-color: $panel-default-heading-bg;
-  border-color: $panel-inner-border;
-}
-
-// Index Pages
-.index_num {
-  font-size: 1.2em;
-  text-align: right;
-  vertical-align: top;
-}
-
-.index_spacer {
-  vertical-align: top;
-
-  span {
-    display: block;
-    width: 2em;
-    height: 1.2em;
-    margin: 0 .5em;
-    border-bottom: 1px dotted #333;
-  }
-}
-
-.index_table {
-  tr:hover {
-    background-color: #fff;
-  }
-
-  a {
-    display: block;
-  }
-}
-
-// Search Results
-
-.search_results_highlights {
-  p:before {
-    content: "… ";
-  }
-
-  p:after {
-    content: " …";
-  }
-}
-
 
 // Back to Top link
-
 
 .back_to_top a {
   background: #fff;
@@ -179,7 +132,123 @@
   }
 }
 
+
+// Site Section-specific
+// =====================
+
+// Search Pages
+.page_search, .search_preset {
+  .pagination_container {
+    text-align: right;
+
+    .pagination {
+      margin: 0;
+    }
+  }
+
+  .search-filters {
+    min-height: 2.75em;
+  }
+}
+
+
+.search_form .searchbox {
+
+  .row > div:first-child {
+    margin-bottom: 20px;
+  }
+  .panel-body {
+    padding: 18px;
+  }
+
+  .panel-search-help {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+
+    .panel-heading-link {
+
+      > h2.panel-heading {
+        background-color: initial;
+        border: none;
+        border-radius: initial;
+        color: inherit; // Use variable for link color
+        display: inline;
+        font-size: 16px;
+        margin: 0;
+        padding: 0 0 0 5px;
+
+        .glyphicon {
+          font-size: 12px;
+          margin-left: 5px;
+        }
+
+        .panel-title {
+          font-size: inherit;
+        }
+      }
+    }
+    
+    .panel-body {
+      padding: 5px;
+
+      .well {
+        margin-top: 6px;
+
+        > h3 {
+          font-size: 2.5rem;
+
+          &:first-of-type {
+            margin-top: 6px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Facet panels
+
+.panel-heading-link > .panel-heading {
+  color: $gray-dark;
+  background-color: $panel-default-heading-bg;
+  border-color: $panel-inner-border;
+}
+
+.searchbox .input-group .form-control:first-child {
+  height: 100%;
+}
+
+.clear_main_search_text {
+  line-height: 1;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  white-space: initial;
+}
+
+.panel-filter.badge {
+  margin-left: 2px;
+}
+
+.badge {
+  margin-left: 2px;
+  margin-top: -3px;
+}
+
+// Search Results
+
+.search_results_highlights {
+  p:before {
+    content: "… ";
+  }
+
+  p:after {
+    content: " …";
+  }
+}
+
 // Bootstrap navbar alignment fixes
+// =====================
 
 $navbar-link-height: ($navbar-height - 2px); 
 

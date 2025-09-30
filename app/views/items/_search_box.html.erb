@@ -3,7 +3,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-12 buffer-bottom-sm">
+          <div class="col-md-12">
             <%= form_tag prefix_path(route_path), method: "get", role: "search", 
               class: "input-group" do %>
               <%# search box %>
@@ -18,13 +18,11 @@
           </div>
           <div class="col-xs-8">
             <%= render_overridable("items", "help") %>
-            <%= link_to t("search.view_all", default: "View All Items"),
-              prefix_path(route_path), rel: "search", class: "btn btn-link" %>
           </div>
           <div class="col-xs-4 text-right">
-            <%= link_to t("search.clear_all", default: "Clear Search"),
+            <%= link_to t("search.clear_all", default: "Reset Search"),
               prefix_path(route_path),
-              class: "btn btn-danger clear_main_search_text", rel: "search", role: "button" %>
+              class: "clear_main_search_text", rel: "search" %>
           </div>
         </div> <%# /row %>
       </div> <%# /panel-body %>
