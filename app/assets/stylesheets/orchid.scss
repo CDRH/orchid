@@ -254,15 +254,16 @@ a:focus {
 
   ul.nav-tabs li {
     a {
+      text-decoration: none;
+    }
+
+    &:not(.active) a {
       background: white;
       border-left-color: #aaa;
       border-right-color: #aaa;
       border-top-color: #aaa;
       border-bottom-color: $gray-dark;
-      text-decoration: none;
-    }
 
-      &:not(.active) a {
       &:focus-visible,
       &:hover {
         background: darken($navbar-default-bg, 6.5%);
