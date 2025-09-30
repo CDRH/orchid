@@ -250,68 +250,59 @@ a:focus {
 // Browse / Index Pages
 // =====================
 
-.index_table {
-  margin-top: 0.75rem;
+.action_browse_facet .browse-results ul {
+  display: table;
+  list-style: none;
+  padding-left: 0;
 
-  th {
-    font-weight: initial;
-  }
+  li {
+    margin-left: -2px;
 
-  // Name & Number - shared styles
-
-  .index_name, 
-  .index_num {
     a {
+      background: white;
+      border-left-color: #aaa;
+      border-right-color: #aaa;
+      border-top-color: #aaa;
+      border-bottom-color: $gray-dark;
       display: flex;
+      padding: 2px 2px 4px 2px;
+      text-decoration: none;
+
+      &:hover {
+        background-color: white;
+      }
     }
-  }
 
-  .index_name a:after, 
-  .index_num a:before {
-    content: '';
-    border-bottom: 1px dotted #333;
-    flex-grow: 1;
-    margin: 0;
-    height: 1.95rem;
-  }
+    &:not(.active) a {
+      &:focus-visible,
+      &:hover {
+        background: darken($navbar-default-bg, 6.5%);
+        border-color: $gray-light;
+        color: $gray-dark;
+      }
 
-  // Name-specific styles
-  .index_name {
-    a {
-      padding-left: 4px;
+      p {
+        margin: 0;
+      }
       
-      &:after {
-        margin-left: 2px;
-        min-width: 30px;
+      .index_name_col {
+        display: flex;
+        flex-grow: 1;
+
+        .index_separator {
+          border-bottom: 1px dotted #333;
+          flex-grow: 1;
+          height: calc(100% - 4px); // 1.975rem;
+          margin: 0;
+          min-width: 3rem;
+        }
       }
     }
   }
+}
 
-  // Number-specific styles
-  .index_num {
-    text-align: right;
-    vertical-align: top;
-
-    a {
-      padding-left: 4px;
-      padding-right: 4px;
-
-      :before {
-        margin-left: -4px;
-        margin-right: 2px;
-      }
-    }
-  }
-
-  // Hover styles
-  tr:hover {
-    background-color: #fff;
-    
-    .index_name a:after,
-    .index_num a:before {
-      border-bottom-color: #071742;
-    }
-  }
+.index_num {
+  font-size: inherit;
 }
 
 // Bootstrap navbar alignment fixes
