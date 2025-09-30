@@ -247,6 +247,73 @@ a:focus {
   }
 }
 
+// Browse / Index Pages
+// =====================
+
+.index_table {
+  margin-top: 0.75rem;
+
+  th {
+    font-weight: initial;
+  }
+
+  // Name & Number - shared styles
+
+  .index_name, 
+  .index_num {
+    a {
+      display: flex;
+    }
+  }
+
+  .index_name a:after, 
+  .index_num a:before {
+    content: '';
+    border-bottom: 1px dotted #333;
+    flex-grow: 1;
+    margin: 0;
+    height: 1.95rem;
+  }
+
+  // Name-specific styles
+  .index_name {
+    a {
+      padding-left: 4px;
+      
+      &:after {
+        margin-left: 2px;
+        min-width: 30px;
+      }
+    }
+  }
+
+  // Number-specific styles
+  .index_num {
+    text-align: right;
+    vertical-align: top;
+
+    a {
+      padding-left: 4px;
+      padding-right: 4px;
+
+      :before {
+        margin-left: -4px;
+        margin-right: 2px;
+      }
+    }
+  }
+
+  // Hover styles
+  tr:hover {
+    background-color: #fff;
+    
+    .index_name a:after,
+    .index_num a:before {
+      border-bottom-color: #071742;
+    }
+  }
+}
+
 // Bootstrap navbar alignment fixes
 // =====================
 
