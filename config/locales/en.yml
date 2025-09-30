@@ -135,7 +135,7 @@ en:
     # title text that appears when no search / filters have been applied
     all_items: All Items
     # clearing all search / filters
-    clear_all: Clear Search
+    clear_all: Reset Search
     # clearing only the text search field
     clear_text: Clear Search Text
     dates:
@@ -175,7 +175,6 @@ en:
       # search help html, this may need to be recreated per language
       # instead of translated literally due to differences with stemming and grammar
       html: |-
-        <h2 class="sr-only">Search Help</h2>
         <h3>Basic Search</h3>
         <p>Simply enter the word you wish to find and the search engine will
         search for every instance of the word in the journals. For example:
