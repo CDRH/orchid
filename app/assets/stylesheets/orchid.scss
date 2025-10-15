@@ -323,6 +323,17 @@ $navbar-link-height: ($navbar-height - 2px);
   min-height: $navbar-link-height;
 }
 
+@media screen and (max-width: $screen-md-max) {
+  .navbar-default .navbar-nav {
+    margin-left: 0;
+    margin-right: 0;
+
+    > li > a {
+      padding-left: 20px;
+    }
+  }
+}
+
 @media screen and (min-width: $screen-md) {
   header .navbar-default .navbar-collapse {
     padding-left: 0px;
