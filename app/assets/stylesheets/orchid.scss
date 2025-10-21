@@ -151,12 +151,18 @@ a:focus {
   }
 }
 
+// Searchbox
 
 .search_form .searchbox {
 
   .row > div:first-child {
     margin-bottom: 20px;
   }
+
+  .input-group .form-control:first-child {
+    height: 100%;
+  }
+  
   .panel-body {
     padding: 18px;
   }
@@ -166,41 +172,49 @@ a:focus {
     box-shadow: none;
     margin: 0;
 
-    .panel-heading-link {
+    button.panel-heading-link {
+      border: none;
+      padding: 0;
+      text-decoration: underline;
 
-      > h2.panel-heading {
-        background-color: initial;
-        border: none;
-        border-radius: initial;
-        color: inherit; // Use variable for link color
-        display: inline;
-        font-size: 16px;
-        margin: 0;
-        padding: 0 0 0 5px;
-
-        .glyphicon {
-          font-size: 12px;
-          margin-left: 5px;
-        }
-
-        .panel-title {
-          font-size: inherit;
-        }
+      &:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
       }
     }
-    
-    .panel-body {
-      padding: 5px;
 
-      .well {
-        margin-top: 6px;
+    > .panel-heading {
+      background-color: initial;
+      border: none;
+      border-radius: initial;
+      color: inherit; // Use variable for link color
+      display: inline;
+      font-size: 16px;
+      margin: 0;
+      padding: 0;
 
-        > h3 {
-          font-size: 2.5rem;
+      .glyphicon {
+        font-size: 12px;
+        margin-left: 5px;
+      }
 
-          &:first-of-type {
-            margin-top: 6px;
-          }
+      .panel-title {
+        font-size: inherit;
+      }
+    }
+  }
+  
+  .panel-body {
+    padding: 5px;
+
+    .well {
+      margin-top: 6px;
+
+      > h3 {
+        font-size: 2.5rem;
+
+        &:first-of-type {
+          margin-top: 6px;
         }
       }
     }
@@ -213,10 +227,6 @@ a:focus {
   color: $gray-dark;
   background-color: $panel-default-heading-bg;
   border-color: $panel-inner-border;
-}
-
-.searchbox .input-group .form-control:first-child {
-  height: 100%;
 }
 
 .clear_main_search_text {
@@ -256,7 +266,7 @@ $navbar-link-height: ($navbar-height - 2px);
   min-height: $navbar-link-height;
 }
 
-@media screen and (min-width: $screen-md) {
+@media screen and (min-width: $screen-sm) {
   header .navbar-default .navbar-collapse {
     padding-left: 0px;
     padding-right: 0px;
