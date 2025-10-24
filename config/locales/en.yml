@@ -206,6 +206,7 @@ en:
         helpful.</p>
     filters:
       # clearing filters (not the text search)
+      clear: Clear Filter
       clear_all: Clear Filters
       # label above the filters
       filter_by: Filter by
