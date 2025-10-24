@@ -26,7 +26,7 @@
           class="panel-heading-link"
           data-toggle="collapse"
           href="#fc-<%= data_safe_name %>"
-          role="button">
+        role="button">
           <div class="clearfix panel-heading">
             <h3 class="pull-left panel-title">
               <%= info["label"] %>
@@ -66,10 +66,11 @@
                   <span><%= sanitize(text) %></span>
                   <span class="badge"><%= num %></span>
                   <%= link_to prefix_path(route_path,
-                    remove_facet(original_facet, key)), rel: "nofollow" do %>
-                    <button class="btn btn-default btn-xs"
-                            title="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>"
-                            aria-label="<%= t("search.filters.clear", label: info['label'], default: "Clear #{info['label']} Filter") %>">
+                    remove_facet(original_facet, key)), rel: "nofollow",
+                    class: "btn btn-default btn-xs",
+                    title: t("search.filters.clear", label: info['label'], default: "Clear Filter"),
+                    'aria-label': t("search.filters.clear", label: info['label'], default: "Clear Filter") + " : " + sanitize(text)
+                    do %>
                       <span class="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                   <% end %>
