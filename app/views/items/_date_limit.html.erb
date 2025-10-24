@@ -25,7 +25,7 @@
           <% if date_selection?(params["date_from"], params["date_to"]) %>
             <%= link_to prefix_path(route_path, clear_dates_params),
               class: "pull-right btn btn-default btn-xs",
-              aria-label: t("search.dates.clear_filter",
+              'aria-label': t("search.dates.clear_filter",
               default: "Clear Date Filter"), rel: "nofollow", role: "button",
               title: "Clear Date Filter" do %>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -36,15 +36,15 @@
         <%= text_field_tag "date_from[]", dfrom[0], id: "date_from",
           class: "form-control input-sm", placeholder: DATE_FIRST[0],
           maxlength: 4, size: 4, title: "From Year",
-          aria-label: t("search.dates.from_year", default: "From Year") %>
+          'aria-label': t("search.dates.from_year", default: "From Year") %>
         <%= text_field_tag "date_from[]", dfrom[1],
           class: "form-control input-sm", placeholder: DATE_FIRST[1],
           maxlength: 2, size: 2, title: "From Month",
-          aria-label: t("search.dates.from_month", default: "From Month") %>
+          'aria-label': t("search.dates.from_month", default: "From Month") %>
         <%= text_field_tag "date_from[]", dfrom[2],
           class: "form-control input-sm", placeholder: DATE_FIRST[2],
           maxlength: 2, size: 2, title: "From Day",
-          aria-label: t("search.dates.from_day", default: "From Day") %>
+          'aria-label': t("search.dates.from_day", default: "From Day") %>
       </div>
 
       <%# date to %>
@@ -54,15 +54,15 @@
         <%= text_field_tag "date_to[]", dto[0], id: "date_to",
           class: "form-control input-sm", placeholder: DATE_LAST[0],
           maxlength: 4, size: 4, title: "To Year",
-          aria-label: t("search.dates.to_year", default: "To Year") %>
+          'aria-label': t("search.dates.to_year", default: "To Year") %>
         <%= text_field_tag "date_to[]", dto[1],
           class: "form-control input-sm", placeholder: DATE_LAST[1],
           maxlength: 2, size: 2, title: "To Month",
-          aria-label: t("search.dates.to_month", default: "To Month") %>
+          'aria-label': t("search.dates.to_month", default: "To Month") %>
         <%= text_field_tag "date_to[]", dto[2],
           class: "form-control input-sm", placeholder: DATE_LAST[2],
           maxlength: 2, size: 2, title: "To Day",
-          aria-label: t("search.dates.to_day", default: "To Day") %>
+          'aria-label': t("search.dates.to_day", default: "To Day") %>
       </div>
       <%= render_overridable("hidden_fields") %>
       <%= hidden_field_tag(:q, params["q"]) %>
