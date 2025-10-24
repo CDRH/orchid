@@ -65,8 +65,8 @@
             <%= link_to prefix_path(route_path, remove_facet(type, facet)),
               class: "btn btn-default btn-sm", rel: "nofollow",
               role: "button", 
-              'aria-label': t("search.filters.clear", label: label, default: "Clear Filter") + ": #{label}: #{facet_label}",
-              title: t("search.filters.clear", label: label, default: "Clear Filter") do %>
+              title: t("search.filters.clear", label: label, default: "Clear Filter"),
+              'aria-label': t("search.filters.clear", label: label, default: "Clear Filter") + ": #{label}: #{facet_label}" do %>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             <% end %>
           </div>
