@@ -1,5 +1,5 @@
 <% if params["f"].present? || date_selection?(params["date_from"], params["date_to"]) %>
-  <div class="pull-right buffer-bottom-sm">
+  <div class="pull-right buffer-bottom-sm clear-facets">
     <%= link_to prefix_path(route_path, { q: params["q"] }),
       class: "btn btn-default btn-sm",
       rel: "nofollow", role: "button" do %>
