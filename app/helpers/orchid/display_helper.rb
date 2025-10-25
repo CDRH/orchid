@@ -23,7 +23,7 @@ module Orchid::DisplayHelper
         end
       end
       html << dataArray
-                .map { |i| "<span>#{i}</span>" }
+                .map { |i| "<li>#{i}</li>" }
                 .join(separator)
 
       sanitize html
