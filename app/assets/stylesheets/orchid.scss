@@ -255,6 +255,16 @@ a:focus {
 }
 
 .panel-filter {
+
+  &.panel-filter-date {
+    legend {
+      border: none;
+      font-size: $font-size-base;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  }
+  
   .facet-list li:not(.selected) {
     a {
       text-decoration: none;
