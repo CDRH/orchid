@@ -264,7 +264,7 @@ a:focus {
       margin-bottom: 5px;
     }
   }
-  
+
   .facet-list li:not(.selected) {
     a {
       text-decoration: none;
@@ -297,6 +297,11 @@ a:focus {
       text-align: center;
     }
   }
+}
+
+.clear-date-filter .btn-default.btn-xs {
+  line-height: 1;
+  padding: 3px 5px;
 }
 
 .clear-facets .glyphicon.glyphicon-remove {
