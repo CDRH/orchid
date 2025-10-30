@@ -117,7 +117,7 @@ es:
       # locations referenced by this item
       spatial.name: Lugar(es)
       # subcategory of the item, such as "Letters"
-      category: Tipo
+      category2: Tipo
       # description of the title of the item
       title: Titulo
       # any works (often literary) referenced by this item, such as "O Pioneers!"
