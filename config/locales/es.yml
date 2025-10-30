@@ -245,9 +245,9 @@ es:
       # how to display number of results when a search / filter have been applied
       # and therefore the user is browsing a subset of items
       query:
-        zero: No se han encontrado objetos para su búsqueda
-        one: 1 objeto
-        other: "%{count} objetos"
+        zero: No se han encontrado resultados para su búsqueda
+        one: 1 resultado
+        other: "%{count} resultados"
       # summary box of selected search / filters
       summary:
         query: Buscar

@@ -244,9 +244,9 @@ en:
       # how to display number of results when a search / filter have been applied
       # and therefore the user is browsing a subset of items
       query:
-        zero: 0 items
-        one: 1 item
-        other: "%{count} items"
+        zero: 0 results
+        one: 1 result
+        other: "%{count} results"
       # summary box of selected search / filters
       summary:
         query: Search
