@@ -221,6 +221,9 @@ en:
     # placeholder for the text search field
     placeholder: Search for...
     results:
+      # for calling these labels without numerical values
+      singular: result
+      plural: results
       # display for number of results when API response is error
       error: Unable to display results
       # how to display number of results when no search / filters have been applied

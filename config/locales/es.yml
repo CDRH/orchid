@@ -221,6 +221,9 @@ es:
     # placeholder for the text search field
     placeholder: Buscar...
     results:
+      # for calling these labels without the numerical values
+      singular: resultado
+      plural: resultados
       # display for number of results when API response is error
       error: Los resultados no se pueden visualizar
       # how to display number of results when no search / filters have been applied
