@@ -432,6 +432,11 @@ $navbar-link-height: ($navbar-height - 2px);
 
 // Inline uls for metadata values
 
+.metadata {
+  list-style: none;
+  padding-left: 0;
+}
+
 .metadata,
 .search_results_info {
   ul > li {
