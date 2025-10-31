@@ -7,7 +7,7 @@ module Orchid::DisplayHelper
   #       to displaying a link
   # separator: the characters used to distinguish between items
   #       in a list, defaults to " | "
-  def metadata(res, label, api_field, link: true, separator: " | ", show_label: true)
+  def metadata(res, label, api_field, link: true, separator: "", show_label: true)
     data = metadata_get_field_values(res, api_field)
     if data.present?
       html = show_label ? metadata_label(label, length: data.length) : ""
@@ -22,9 +22,11 @@ module Orchid::DisplayHelper
           facet_label(type: api_field, normalized: item, label: item)
         end
       end
+      html << "<ul>"
       html << dataArray
-                .map { |i| "<span>#{i}</span>" }
-                .join(separator)
+                .map { |i| "<li>#{i}</li>" }
+                .join("")
+      html << "</ul>"
 
       sanitize html
     end
