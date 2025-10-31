@@ -67,7 +67,7 @@
                   <span class="index_name"><%= sanitize text %></span><span class="sr-only-clip">, </span>
                   <span class="index_separator"></span>
                 </p>
-                <p class="index_num"><%= num %><span class="sr-only-clip"><% if (num > 1) %> results<% else %> result<% end %></span></p>
+                <p class="index_num"><%= num %><span class="sr-only-clip"><% if (num != 1) %> <%= t("search.results.plural", default: "results") %><% else %> <%= t("search.results.singular", default: "result") %><% end %></span></p>
               <% end %>
             </li>
         <% end %>
