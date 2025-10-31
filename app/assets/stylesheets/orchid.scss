@@ -144,6 +144,12 @@ a:focus {
   }
 }
 
+// Undoing Bootstrap 3.4's nowrap on .btn class,
+// which causes text to spill out of flex buttons
+
+.btn {
+  white-space: initial;
+}
 
 // Site Section-specific
 // =====================
