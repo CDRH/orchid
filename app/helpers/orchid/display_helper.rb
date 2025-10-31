@@ -25,6 +25,7 @@ module Orchid::DisplayHelper
       html << "<ul>"
       html << dataArray
                 .map { |i| "<li>#{i}</li>" }
+                .join(separator)
       html << "</ul>"
 
       sanitize html
