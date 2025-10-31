@@ -22,9 +22,11 @@ module Orchid::DisplayHelper
           facet_label(type: api_field, normalized: item, label: item)
         end
       end
+      html << <ul>
       html << dataArray
                 .map { |i| "<li>#{i}</li>" }
                 .join(separator)
+      html << </ul>
 
       sanitize html
     end
