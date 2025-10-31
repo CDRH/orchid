@@ -430,3 +430,27 @@ $navbar-link-height: ($navbar-height - 2px);
   }
 }
 
+// Inline uls for metadata values
+
+.metadata,
+.search_results_info {
+  ul > li {
+    display: flex;
+
+      > ul {
+      list-style: none;
+      padding-left: 0.5rem;
+      
+      > li {
+        display: inline;
+        position: relative;
+
+        &:not(:last-of-type):after {
+          content: " | ";
+          display: inline;
+          position: relative;
+        }
+      }
+    }
+  }
+}
