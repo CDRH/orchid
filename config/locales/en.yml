@@ -206,6 +206,7 @@ en:
         helpful.</p>
     filters:
       # clearing filters (not the text search)
+      clear: Clear Filter
       clear_all: Clear Filters
       # label above the filters
       filter_by: Filter by
@@ -220,6 +221,9 @@ en:
     # placeholder for the text search field
     placeholder: Search for...
     results:
+      # for calling these labels without numerical values
+      singular: result
+      plural: results
       # display for number of results when API response is error
       error: Unable to display results
       # how to display number of results when no search / filters have been applied
@@ -243,9 +247,9 @@ en:
       # how to display number of results when a search / filter have been applied
       # and therefore the user is browsing a subset of items
       query:
-        zero: 0 items
-        one: 1 item
-        other: "%{count} items"
+        zero: 0 results
+        one: 1 result
+        other: "%{count} results"
       # summary box of selected search / filters
       summary:
         query: Search

@@ -1,13 +1,12 @@
 <%# TODO verify that all of the below is true for Elasticsearch %>
 <div class="panel panel-default panel-search-help">
-  <a aria-label="Show Search Help" role="button" class="panel-heading-link collapsed"
+  <button aria-label="Show Search Help" class="panel-heading-link btn-link collapsed"
     data-toggle="collapse" data-target="#search_help"
     aria-expanded="false" aria-controls="search_help">
     <h2 class="panel-heading">
       <span class="panel-title"><%= t "search.help.title", default: "Search Help" %></span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     </h2>
-  </a>
-  
+  </button>
   <div class="panel-body collapse" id="search_help" aria-expanded="false" style="height: 30px;">
       <div class="well"><%= t "search.help.html" %></div>
   </div> <%# /search_help %>

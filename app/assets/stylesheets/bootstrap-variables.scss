@@ -230,7 +230,7 @@ $legend-color:                   $gray-dark !default;
 $legend-border-color:            #e5e5e5 !default;
 
 //** Background color for textual input addons
-$input-group-addon-bg:           $gray-lighter !default;
+$input-group-addon-bg:           $light-lighter !default;
 //** Border color for textual input addons
 $input-group-addon-border-color: $input-border !default;
 
@@ -382,9 +382,9 @@ $navbar-default-border:            #ddd !default;
 // Navbar links
 $navbar-default-link-color:                $gray !default;
 $navbar-default-link-hover-color:          $gray-dark !default;
-$navbar-default-link-hover-bg:             transparent !default;
+$navbar-default-link-hover-bg:            darken($navbar-default-bg, 8%) !default;
 $navbar-default-link-active-color:         $gray-dark !default;
-$navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%) !default;
+$navbar-default-link-active-bg:            darken($navbar-default-bg, 16%) !default;
 $navbar-default-link-disabled-color:       $gray-light !default;
 $navbar-default-link-disabled-bg:          transparent !default;
 
