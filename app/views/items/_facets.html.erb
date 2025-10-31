@@ -61,16 +61,22 @@
                     facet_link(facet_name, key, false, original_facet)), rel: "nofollow" do %>
                     <span class="facet-text"><%= sanitize(text) %></span><span class="sr-only-clip">:</span>
                     <% if (num != 1) %>
-                    <span class="badge"><%= num %><span class="sr-only-clip"> results</span></span>
+                    <span class="badge"><%= num %><span class="sr-only-clip"> <%= t("search.results.plural", default: "results") %></span></span>
                     <% else %>
-                    <span class="badge"><%= num %><span class="sr-only-clip"> results</span></span>
+                    <span class="badge"><%= num %><span class="sr-only-clip">  <%= t("search.results.singular", default: "result") %></span></span>
                     <% end %>
                   <% end %>
                 </li>
               <% else %>
                 <li class="selected">
-                  <span><%= sanitize(text) %></span>
-                  <span class="badge"><%= num %></span>
+                  <a href="#" aria-disabled="true" rel="nofollow">
+                   <span class="facet-text"><%= sanitize(text) %></span><span class="sr-only-clip">:</span>
+                    <% if (num != 1) %>
+                    <span class="badge"><%= num %><span class="sr-only-clip"> <%= t("search.results.plural", default: "results") %></span></span>
+                    <% else %>
+                    <span class="badge"><%= num %><span class="sr-only-clip">  <%= t("search.results.singular", default: "result") %></span></span>
+                    <% end %>
+                  </a>
                   <%= link_to prefix_path(route_path,
                     remove_facet(original_facet, key)), rel: "nofollow",
                     class: "btn btn-default btn-xs",

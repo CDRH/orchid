@@ -1,49 +1,58 @@
 <div class="clearfix search-filters">
+
+
+<% if params["q"].present? || date_selection?(params["date_from"], params["date_to"]) || params["f"].present? %>
+<h2 class="sr-only" id="#filtered-by">Current Filters</h2>
+  <ul class="current-filters" aria-labelledby="#filtered-by">
   <%# text search %>
   <% if params["q"].present? %>
+    <li>
     <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
       <div class="input-group">
         <div class="input-group-addon" title="<%= t "search.search_text", default: "Search Text" %>">
           <%= t "search.results.summary.query", default: "Search" %> : <%= params["q"] %>
         </div>
-        <div class="input-group-btn"
-             aria-label="<%= t "search.clear_text", default: "Clear Search Text" %>"
-             title="<%= t "search.clear_text", default: "Clear Search Text" %>">
+        <div class="input-group-btn">
           <%= link_to prefix_path(route_path, clear_search_text),
-                      class: "btn btn-default btn-sm", rel: "nofollow",
-                      role: "button" do %>
+              class: "btn btn-default btn-sm", 
+              rel: "nofollow",
+              role: "button",
+              title: t("search.clear_text", default: "Clear Search Text"),
+              'aria-label': t("search.clear_text", default: "Clear Search Text") do %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           <% end %>
         </div>
       </div>
     </div>
+    </li>
   <% end %>
 
   <%# date search %>
   <% if date_selection?(params["date_from"], params["date_to"]) %>
+  <li>
     <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">
       <div class="input-group">
         <div class="input-group-addon" title="<%= t "search.dates.selection", default: "Date Selection" %>">
           <%= t "search.dates.date", default: "Date" %> :
           <%= @from %> <%= t "search.dates.range_divider", default: "to" %> <%= @to %>
         </div>
-        <div class="input-group-btn"
-             role="button"
-             title="<%= t "search.dates.clear_filter", default: "Clear Date Filter" %>"
-             aria-label="<%= t "search.dates.clear_filter", default: "Clear Date Filter" %>">
+        <div class="input-group-btn">
           <%= link_to prefix_path(route_path, clear_dates_params),
-            class: "btn btn-default btn-sm", rel: "nofollow" do %>
+            class: "btn btn-default btn-sm", 
+            rel: "nofollow",
+            rol: "button",
+            title:  t("search.dates.clear_filter", default: "Clear Date Filter"), 
+            'aria-label': t("search.dates.clear_filter", default: "Clear Date Filter") do %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           <% end %>
         </div>
       </div>
     </div>
+  </li>
   <% end %>
 
   <%# selected facets %>
   <% if params["f"].present? %>
-    <h2 class="sr-only" id="#filtered-by">Current Filters</h2>
-    <ul class="current-filters" aria-labelledby="#filtered-by">
     <% params["f"].each do |f| %>
       <li>
       <% type, facet = f.split("|") %>
@@ -74,6 +83,7 @@
       </div>
       </li>
     <% end %>
-    </ul>
+  <% end %>
+  </ul>
   <% end %>
 </div>
