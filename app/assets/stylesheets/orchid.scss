@@ -73,8 +73,11 @@
 
   .footer_logo a {
     display: inline-block;
-    max-height: 100px;
-    width: auto;
+
+    img {
+      max-height: 100px;
+      width: auto;
+    }
   }
 }
 
