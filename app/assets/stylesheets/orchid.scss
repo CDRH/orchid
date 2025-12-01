@@ -65,13 +65,16 @@
 // Unique Elements
 // ===============
 #content-wrapper {
-  margin-bottom: 3em;
+  padding-bottom: 3em;
 }
 #footer {
-  margin-bottom: 9em;
+  padding-bottom: 3em;
+  padding-top: 3em;
 
   .footer_logo a {
     display: inline-block;
+    max-height: 100px;
+    width: auto;
   }
 }
 
