@@ -453,6 +453,7 @@ $navbar-link-height: ($navbar-height - 2px);
 .search_results_info {
   ul > li {
     display: flex;
+    flex-wrap: wrap;
 
       > ul {
       list-style: none;
