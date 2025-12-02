@@ -1,5 +1,9 @@
-<% if params["q"].blank? && params["f"].blank? %>
-  <h1><%= t "search.all_items", default: "All Items" %></h1>
+<% if params["q"].present? && params["f"].present? %>
+  <h1><%= "#{t "search.search_results"} for \"#{params["q"]}\" - #{params["f"].map { |filter| filter.split("|")[1]}.join(" / ")}" %></h1>
+<% elsif params["q"].present? %>
+  <h1><%= "#{t "search.search_results"} for \"#{params["q"]}\"" %></h1>
+<% elsif params["f"].present? %>
+  <h1><%= "#{t "search.search_results"} for #{params["f"].map { |filter| filter.split("|")[1]}.join(" / ")}" %></h1>
 <% else %>
-  <h1><%= t "search.search_results", default: "Search Results" %></h1>
+  <h1><%= t "search.all_items", default: "All Items" %></h1>
 <% end %>
