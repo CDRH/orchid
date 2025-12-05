@@ -71,7 +71,15 @@ class ItemsController < ApplicationController
     end
     options = params.permit!.deep_dup
     options, @from, @to = helpers.date_filter(options)
-    @title = t "search.title"
+    if params["f"].present? && params["q"].present?
+      @title = "#{t "search.search_results"}: \"#{params["q"]}\" - #{display_filters(params)}"
+    elsif params["q"].present?
+      @title = "#{t "search.search_results"}: \"#{params["q"]}\""
+    elsif params["f"].present?
+      @title = "#{t "search.search_results"}: #{display_filters(params)}"
+    else
+      @title = t "search.title"
+    end
     @res = @items_api.query(options)
     check_response
     @facet_limit = @section.present? ? SECTIONS[@section]["api_options"]["facet_limit"] : PUBLIC["api_options"]["facet_limit"]
@@ -133,4 +141,9 @@ class ItemsController < ApplicationController
       Orchid::facets(section: @section) : Orchid::facets
   end
 
+  def display_filters(params)
+    if params["f"]
+      params["f"].map { |filter| filter.split("|")[1]}.join(" / ")
+    end
+  end
 end
