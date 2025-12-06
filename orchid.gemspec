@@ -7,8 +7,8 @@ require "orchid/version"
 Gem::Specification.new do |s|
   s.name        = "orchid"
   s.version     = Orchid::VERSION
-  s.authors     = ["Jessica Dussault", "Greg Tunink", "Karin Dalziel"]
-  s.email       = ["jdussault4@gmail.com", "techgique@gmail.com", "kdalziel@unl.edu"]
+  s.authors     = ["Jessica Dussault", "Greg Tunink", "Karin Dalziel", "Will Dewey"]
+  s.email       = ["jdussault4@gmail.com", "techgique@gmail.com", "kdalziel@unl.edu", "wdewey2@unl.edu"]
   s.homepage    = "https://cdrh.unl.edu"
   s.summary     = "Template for CDRH API sites"
   s.description = "Template for sites powered off of CDRH API"
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", ">5.2.0", "<7.0"
+  s.add_dependency "rails", "> 6.1", "< 7.0"
 
   s.add_development_dependency "sqlite3"
 end

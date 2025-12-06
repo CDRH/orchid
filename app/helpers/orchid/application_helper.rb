@@ -43,6 +43,9 @@ module Orchid::ApplicationHelper
             return "active" if current_page? v
           elsif comparison.class == Symbol
             return "active" if current_page? comparison => v
+          elsif comparison.class == Array
+            #consider whether I want to use the short name instead
+            return "active" if v == comparison[0]
           else
             return "active" if v == comparison
           end
@@ -98,6 +101,8 @@ module Orchid::ApplicationHelper
   #   page_[page]             orchid page if applicable (browse, item, etc)
   def html_classes
     classes = []
+    classes << "no-js"
+
 
     if @page_classes.present?
       classes << @page_classes
@@ -167,13 +172,15 @@ module Orchid::ApplicationHelper
         class: "btn btn-primary disabled",
         hreflang: lang_code,
         rel: "alternate",
-        tabindex: -1
+        tabindex: -1,
+        role: "button"
     else
       link_to lang_name,
         locale_link(lang_code),
         class: "btn btn-default",
         hreflang: lang_code,
-        rel: "alternate"
+        rel: "alternate",
+        role: "button"
     end
   end
 
@@ -240,7 +247,6 @@ module Orchid::ApplicationHelper
     end
 
     path_helper = @section.present? ? "#{@section}_#{path}" : path
-
     if args.empty?
       if kwargs.empty?
         send(path_helper)
@@ -318,7 +324,19 @@ module Orchid::ApplicationHelper
 
   deprecate site_section: "deprecated in favor of html_classes"
   def site_section
-    html_classes
+    sanitize html_classes
+  end
+
+  def static_image(filename)
+    "#{STATIC_IMAGE_PATH}/#{filename}"
+  end
+
+  def audio_file(filename)
+    "#{AUDIO_FILE_PATH}/#{filename}"
+  end
+
+  def video_file(filename)
+    "#{VIDEO_FILE_PATH}/#{filename}"
   end
 
 end

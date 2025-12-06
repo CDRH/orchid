@@ -1,4 +1,4 @@
-<% if @res.count > 0 %>
+<% if @res.present? && @res.count && @res.count > 0 %>
   <% @res.items.each do |item| %>
     <div class="searchResults buffer-bottom-sm">
       <h3><%= search_item_link(item) %></h3>
@@ -26,10 +26,10 @@
               </li>
             <% end %>
             <%# source can be a multivalued or single keyword field %>
-            <% if item["source"].present? %>
+            <% if item["has_source"].present? && item["has_source"]["title"].present? %>
               <li>
-                <%= metadata(item, t("search.results.item.source",
-                  default: "Source"), "source", link: false) %>
+                <%= metadata(item, t("search.results.item.has_source.title",
+                  default: "Source"), "has_source.title", link: false) %>
               </li>
             <% end %>
           </ul>

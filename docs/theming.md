@@ -42,11 +42,11 @@ If you are new to Ruby on Rails, you may want to familiarize yourself with the
 ## Favicon
 
 Replace the image at `app/assets/images/favicon.png` to change your app's
-favicon.
+favicon. Favicons should go in the /images folder and not in /images/favicon as was the case with older apps.
 
 For wider favicon support, create the necessary derivative images, copy Orchid's
 `views/layouts/head/_favicon.html.erb` file to the same location in your app,
-and add the additional favicons to `views/layouts/head/_favicon.html.erb`.
+and add the additional favicons to `views/layouts/head/_favicon.html.erb`. (Again, make sure there is no `/favicon` in the `favicon_link_tag` path).
 
 ## Header and Footer
 
@@ -84,6 +84,8 @@ By default, anything in that `global` directory will be compiled into `applicati
 
 ## Global JavaScript
 
+Make sure that `app/assets/config/manifest.js` matches the code in the Orchid repo, especially if you are upgrading an app. (aside from any necessary customizations).
+
 One should normally not need to edit `app/assets/application.js`. By default,
 this file looks through `app/assets/javascripts/global` for JS files
 and includes them sitewide as part of `application.js`.
@@ -91,10 +93,36 @@ and includes them sitewide as part of `application.js`.
 Add app-wide JavaScript to `app/assets/javascripts/global/(app name).js` or
 other scripts in `app/assets/javascripts/global/`.
 
+## Orchid-wide styles and JavaScripts
+
+If you need to make changes that affect all of Orchid (please be careful), you 
+need to make changes in the Orchid repo itself. It is best to test them with a 
+local copy of Orchid linked to a locally downloaded app in its Gemfile. Note 
+that files like applications.scss and application.js are overwritten in 
+Orchid-generated apps.
+
+Changes to Orchid styling should be made in the file 
+`app/assets/stylesheets/orchid.scss`. Scripts should go in the folder 
+`app/assets/javascripts/global`. If they do not appear in your app, make sure 
+that they are in the proper folder and are being properly required in 
+`app/assets/javascripts/orchid.js`. (The line `//= require_tree ./global` 
+includes this folder).
+
+Scripts from external developers go into `vendor/assets/javascripts`. They 
+should be required by name `//= require modernizr-custom` (files in the vendor 
+folder are automatically in scope to `orchid.js`).
+
+If you get precompilations erros in a test app, when you make a change in 
+Orchid, the problem is often the local cache. Clear it with `rake assets:clean` 
+and then run `bundle update` again. Otherwise you may need to edit the manifest
+files. See [Rails Asset Pipeline](https://guides.rubyonrails.org/asset_pipeline.html#asset-organization) 
+for more information.
+
 ## Page Classes
 
 In some cases, you may wish to apply specific styles depending on the page or
-section, but do not need to include a whole separate stylesheet only for that content.
+section, but do not need to include a whole separate stylesheet only for that 
+content.
 
 On the `<html>` element, you have access to a number of built in classes, or
 you may choose to pass your own.
@@ -129,7 +157,7 @@ to the rest of the app, you may wish to add a conditional asset.
 See [Vendor Assets](#vendor-assets) for more information about 3rd party assets.
 
 First, if you are adding new style or script files which are not globally used,
-place them in `app/assets/stylesheets` and `app/assets/javascripts`, respectively.
+place them in `app/assets/stylesheets` and `app/assets/javascripts`, respectively. There may be an error if you try to link a file in the global folder with the `add_assets` method as listed below
 
 As with a normal Rails application, you may choose to call these assets with tags
 such as `stylesheet_link_tag`, but Orchid provides some helpful methods for
@@ -142,7 +170,7 @@ adding assets per page.
 
 You may include these in a controller action or the view. Ideally, in order to
 avoid accidentally overwriting extra CSS or JS which may already be added
-elsewhere, use the `add_assets` helper.
+elsewhere, use the `add_assets` helper. 
 
 _Examples_
 
@@ -151,6 +179,8 @@ Include leaflet.css and stamen.css in an action:
 ```ruby
 @ext_css = helpers.add_assets(@ext_css, %w(leaflet stamen))
 ```
+(Note that `add_assets(@ext_css, "map.css") ` is not the correct syntax and `@ext_css = add_assets(@ext_css, "map")` is the correct syntax. It is not necessary to include the extension name)
+
 
 Include leaflet.js and search.js in a view:
 
@@ -206,6 +236,13 @@ Read more about these helpers in the
 ## Vendor Assets
 
 TODO: This section is incomplete.
+
+If you want to include scripts from an external vendor in your app, put them in 
+vendor/assets/javascripts. Scripts here will be automatically linked in the asset pipeline, but they 
+should also be required in app/assets/javascripts/application.js:
+`//= require leaflet.js`
+
+It may be necessary to clear the cache with `rake assets:clean` to get the app to compile.
 
 See the [Rails Asset Pipeline](https://guides.rubyonrails.org/asset_pipeline.html#asset-organization)
 documentation for more information about including vendor files, which may be

@@ -35,6 +35,7 @@ def souvenirs
   @title = "Topics: Wild West Show"
   @content_label = "Souvenirs"
   @preset_class = "category_souvenir"
+  params["sort"] ||= ["date|asc"]
 
   # query to return only souvenir documents
   options = params.permit!.deep_dup
@@ -52,6 +53,7 @@ Optional settings:
   Used for `<h1>` if `@content_label` not defined.
 - @content_label: used for the `<h1>` tag
 - @preset_class: applies `search_preset_(@preset_class)` class to `<div>` surrounding search preset page for custom styling
+- `params["sort"]`: Set a specific default sort for this search preset
 
 Required:
 

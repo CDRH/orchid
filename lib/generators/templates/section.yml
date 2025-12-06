@@ -3,13 +3,13 @@ default: &default
   api_options:
     # only return section items by default
     f:
-      - subcategory|section
+      - category2|section
     # sorting and response number
     sort:
       - date|asc
     num: 50
     # facet info on search page
-    facet_limit: 20
+    facet_limit: 5000
     facet_sort: count|desc
     # facet info on browse page
     browse_sort: term|asc
@@ -34,11 +34,11 @@ default: &default
         label: People
         flags:
           - search_filter
-      languages:
+      language:
         label: Language
         flags:
           - search_filter
-      subcategory:
+      category2:
         label: Subcategory
         flags:
           - search_filter
@@ -50,7 +50,7 @@ default: &default
         label: Format
         flags:
           - search_filter
-      places:
+      spatial.name:
         label: Places
         flags:
           - search_filter

@@ -80,6 +80,8 @@ es:
   # ERRORS #
   ##########
   errors:
+    # unable to contact API
+    api: Algunos contenidos del sitio no están disponibles. Por favor, vuelva más tarde.
     # general consolation message to the user on an error
     apology: Le pedimos disculpas por la inconveniencia, ocurrió un error.
     # browse page specific message when selected facet cannot be viewed
@@ -113,13 +115,13 @@ es:
       # the format of the item, such as "envelope," "photograph," "postcard"
       format: Formato
       # locations referenced by this item
-      places: Lugar(es)
+      spatial.name: Lugar(es)
       # subcategory of the item, such as "Letters"
-      subcategory: Tipo
+      category: Tipo
       # description of the title of the item
       title: Titulo
       # any works (often literary) referenced by this item, such as "O Pioneers!"
-      works: Obras
+      citation.title: Obras
     # description of missing item error
     no_item: "No se ha encontrado ningún objeto %{id}!"
     # title for error when item not found
@@ -218,6 +220,8 @@ es:
     # placeholder for the text search field
     placeholder: Buscar...
     results:
+      # display for number of results when API response is error
+      error: Los resultados no se pueden visualizar
       # how to display number of results when no search / filters have been applied
       # and therefore user is browsing all items
       general:

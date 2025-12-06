@@ -1,7 +1,8 @@
 <% if params["f"].present? || date_selection?(params["date_from"], params["date_to"]) %>
   <div class="pull-right buffer-bottom-sm">
     <%= link_to prefix_path(route_path, { q: params["q"] }),
-      class: "btn btn-default btn-sm", rel: "nofollow" do %>
+      class: "btn btn-default btn-sm",
+      rel: "nofollow", role: "button" do %>
       <%= t "search.filters.clear_all", default: "Clear Filters" %>
       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
     <% end %>

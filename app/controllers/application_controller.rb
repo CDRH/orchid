@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :set_locale, :set_section
 
   def set_locale
-    I18n.locale = params["locale"] || APP_OPTS["language_default"] || "en"
+    locale = params["locale"]
+    I18n.locale = I18n.available_locales.map(&:to_s).include?(locale) ? locale : (APP_OPTS["language_default"] || "en")
   end
 
   def default_url_options
@@ -64,8 +65,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_section
-    @section = params[:section]
-    @section.chomp!("_") if @section.present?
-    params.delete :section
+    if defined?(SECTIONS) && SECTIONS.present? && SECTIONS.keys.map(&:to_s).include?(params[:section])
+      @section = params[:section]
+    end
   end
 end

@@ -3,6 +3,11 @@ module Orchid::PaginationHelper
   def paginator total_pages, display_range=2
     new_params = copy_params
     total = total_pages.to_i
+    #avoid error where exceeding Elasticsearch's 10000 item limit
+    if total > 200
+      total = 200
+      total_pages = 200
+    end
     if total > 1
       current = valid_page
       pages_prior = (current-display_range..current-1).reject { |x| x <= 1 }

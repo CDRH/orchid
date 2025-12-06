@@ -3,12 +3,18 @@
 <% class_glyphicon = date_selected ? "glyphicon-chevron-down" : "glyphicon-chevron-right" %>
 
 <div class="panel panel-default panel-filter panel-filter-date">
-  <div class="clearfix panel-heading" data-toggle="collapse"
-       data-target="#dates" role="Option"
-       aria-label="<%= t "search.dates.show_filters", default: "Show Date Filters" %>">
-    <h3 class="pull-left panel-title"><%= t "search.dates.date", default: "Date" %></h3>
-    <span class="pull-right glyphicon <%= class_glyphicon %>" aria-hidden="true"></span>
-  </div>
+  <a aria-label="<%= t "search.dates.show_filters", default: "Show Date Filters" %>"
+    class="panel-heading-link"
+    data-toggle="collapse"
+    href="#dates"
+    role="button">
+    <div class="clearfix panel-heading">
+      <h3 class="pull-left panel-title">
+        <%= t "search.dates.date", default: "Date" %>
+      </h3>
+      <span class="pull-right glyphicon <%= class_glyphicon %>" aria-hidden="true"></span>
+    </div>
+  </a>
   <div class="panel-body collapse <%= class_in %>" id="dates">
     <%= form_tag prefix_path(route_path), method: "get" do %>
       <%# date from %>
@@ -62,7 +68,11 @@
       <%= hidden_field_tag(:q, params["q"]) %>
 
       <div class="clearfix">
-        <%= submit_tag t("search.dates.submit", default: "Filter"), class: "btn btn-primary buffer-right-sm", name: nil, data: { disable_with: false } %>
+        <%= submit_tag t("search.dates.submit", default: "Filter"),
+          class: "btn btn-primary buffer-right-sm",
+          name: nil, role: "button",
+          data: { disable_with: false }
+        %>
         <button type="button" class="btn btn-link glyphicon glyphicon-question-sign pull-right"
           data-toggle="collapse" data-target="#date_help"
           aria-expanded="false" aria-controls="date_help"

@@ -12,7 +12,11 @@ module ApiBridge
     end
 
     def count
-      @res.dig("res", "count")
+      @res.dig("res", "count", "value")
+    end
+
+    def error
+      @res.dig("error")
     end
 
     def facets

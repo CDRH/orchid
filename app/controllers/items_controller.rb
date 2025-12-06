@@ -13,15 +13,21 @@ class ItemsController < ApplicationController
     @browse_facet = params[:facet]
     if @browse_facet.include?(".")
       @page_facets.each_with_index do |(facet_name, facet_info), index|
+        # handling nested facets, matching them to api response
         if @browse_facet == facet_name.parameterize(separator: ".")
-          @browse_facet = facet_name
+          if @page_facets[facet_name]["aggregation_name"]
+            # handling the nested bucket aggregation functionality
+            # facet will be in the format ["rdf.predicate[rdf.type#person_relationship]", "person_relationships"]
+            @browse_facet = [facet_name, @page_facets[facet_name]["aggregation_name"]]
+          else
+            @browse_facet = facet_name
+          end
           break
         end
       end
     end
-
     # Get selected facet's info
-    @browse_facet_info = @page_facets[@browse_facet]
+    @browse_facet_info = @page_facets[@browse_facet] || @page_facets[@browse_facet[0]]
     if @browse_facet_info.blank?
       redirect_to browse_path, notice: t("errors.browse",
         facet: @browse_facet, default: "Cannot browse by key: '#{@browse_facet}'")
@@ -30,19 +36,18 @@ class ItemsController < ApplicationController
 
     sort_by = params["facet_sort"].present? ?
       params["facet_sort"] : API_OPTS["browse_sort"]
-
     options = {
-      facet: @browse_facet,
-      facet_num: 10000,
+      facet: @browse_facet.to_s,
+      facet_limit: 10000,
       facet_sort: sort_by,
       num: 0
     }
-
     # Get facet results
-    @res = @items_api.query(options).facets
-
+    @res = @items_api.query(options)
+    check_response
+    @res = @res.facets
     # Warn when approaching facet result limit
-    result_size = @res.length
+    result_size = @res ? @res.length : 0
     if result_size == 10000
       raise {"Facet results list has hit the limit of 10000. Revisit facet
         result handling NOW"}
@@ -64,13 +69,12 @@ class ItemsController < ApplicationController
     if params["sort"].blank? && params["q"].present?
       params["sort"] = ["relevancy|desc"]
     end
-
     options = params.permit!.deep_dup
     options, @from, @to = helpers.date_filter(options)
-
     @title = t "search.title"
     @res = @items_api.query(options)
-
+    check_response
+    @facet_limit = @section.present? ? SECTIONS[@section]["api_options"]["facet_limit"] : PUBLIC["api_options"]["facet_limit"]
     render_overridable("items", "index")
   end
 
@@ -80,8 +84,17 @@ class ItemsController < ApplicationController
 
   private
 
+  # display a flash message if the API response has an error
+  def check_response
+    if @res.blank? || @res.error
+      flash[:error] = t "errors.api"
+    end
+  end
+
   def item_retrieve(id)
-    @res = @items_api.get_item_by_id(id).first
+    @res = @items_api.get_item_by_id(id)
+    check_response
+    @res = @res.first
     if @res
       url = @res["uri_html"]
       @html = Net::HTTP.get(URI.parse(url)) if url
@@ -121,4 +134,3 @@ class ItemsController < ApplicationController
   end
 
 end
-

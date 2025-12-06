@@ -1,7 +1,7 @@
-  <!-- Scripts -->
+  <%# Scripts %>
   <%= javascript_include_tag 'application' %>
   <% if @ext_js.present? || @inline_js.present? %>
-  <!-- Conditional -->
+  <%# Conditional %>
   <% end %>
   <% if @ext_js.present?
     Array.wrap(@ext_js).each do |js| %>

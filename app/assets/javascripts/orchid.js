@@ -7,3 +7,5 @@
 
 // Orchid-wide Scripting
 //======================
+//= require_tree ./global
+//= require modernizr-custom

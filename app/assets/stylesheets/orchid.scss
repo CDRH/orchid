@@ -32,6 +32,8 @@
   margin-right: 2em;
 }
 
+// uncollapse if no javascript
+.no-js .collapse { display: block; }
 
 // Unique Elements
 // ===============
@@ -73,6 +75,12 @@
   .search-filters {
     min-height: 2.75em;
   }
+}
+
+.panel-heading-link > .panel-heading {
+  color: $gray-dark;
+  background-color: $panel-default-heading-bg;
+  border-color: $panel-inner-border;
 }
 
 // Index Pages

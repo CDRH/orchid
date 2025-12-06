@@ -14,8 +14,7 @@ module Orchid
 
   def facets(section: nil)
     facets = []
-
-    if section.present? && SECTIONS[section]["facets"].present?
+    if section.present? && defined?(SECTIONS) && SECTIONS[section] && SECTIONS[section]["facets"].present?
       facets = SECTIONS[section]["facets"]
     else
       facets = FACETS
