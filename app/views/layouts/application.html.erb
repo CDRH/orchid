@@ -3,7 +3,7 @@
   <%= render_overridable("layouts/head", "head") %>
   <body class="<%= "language_#{I18n.locale}" %>">
     <%= render_overridable("layouts/body", "skip_to_main") %>
-    <div id="body-wrapper">
+    <div id="body_wrapper">
       <%= render_overridable("layouts/body", "header") %>
       <%= render_overridable("layouts/body", "contents") %>
       <%= render_overridable("layouts/body", "footer") %>

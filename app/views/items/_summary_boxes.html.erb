@@ -2,8 +2,8 @@
 
 
 <% if params["q"].present? || date_selection?(params["date_from"], params["date_to"]) || params["f"].present? %>
-<h2 class="sr-only" id="#filtered-by">Current Filters</h2>
-  <ul class="current-filters" aria-labelledby="#filtered-by">
+<h2 class="sr-only" id="filtered_by">Current Filters</h2>
+  <ul class="current-filters" aria-labelledby="#filtered_by">
   <%# text search %>
   <% if params["q"].present? %>
     <li>

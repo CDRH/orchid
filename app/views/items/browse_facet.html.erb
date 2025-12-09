@@ -1,7 +1,7 @@
 <%# expects
   - "sort_by" sort value (e.g. "count|desc")
 %>
-<h1 id="browseBy"><%= t "browse.browse_type", default: "Browse by" %> <%= @browse_facet_info["label"] %></h1>
+<h1 id="browse_by"><%= t "browse.browse_type", default: "Browse by" %> <%= @browse_facet_info["label"] %></h1>
 <nav aria-label="Facets Menu">
   <ul class="nav nav-tabs buffer-bottom">
     <% @page_facets.each_with_index do |(facet_name, facet_info), index| %>
