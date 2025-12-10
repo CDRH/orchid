@@ -209,7 +209,7 @@ Section configuration example file copied to config/sections/section.example.yml
   end
 
   def footer_logo
-    logo_image = "footer-logo.png"
+    logo_image = "footer_logo.png"
     FileUtils.cp("#{@this_app}/app/assets/images/#{logo_image}",
                  "#{@new_app}/app/assets/images/#{logo_image}")
 
