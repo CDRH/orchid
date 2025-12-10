@@ -3,7 +3,7 @@
     <div class="searchResults buffer-bottom-sm">
       <h3><%= search_item_link(item) %></h3>
       <div class="row">
-        <div class="<%= item["highlight"].present? ? "col-md-4" : "col-md-12" %> search_results_info">
+        <div class="<%= item["highlight"].present? ? "col-md-4" : "col-md-12" %> search-results-info">
           <ul>
             <% if item["date_display"].present? %>
               <li>
@@ -35,9 +35,9 @@
           </ul>
         </div>
         <% if item["highlight"].present? %>
-          <div class="col-md-8 search_results_text">
+          <div class="col-md-8 search-results-text">
             <% item["highlight"].each do |key, hls| %>
-              <div class="search_results_highlights well">
+              <div class="search-results-highlights well">
                 <strong><%= key.titleize %>:</strong>
                 <% hls.each do |hl| %>
                   <p><%= hl.html_safe %></p>

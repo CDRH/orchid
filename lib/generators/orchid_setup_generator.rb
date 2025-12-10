@@ -3,7 +3,7 @@ class OrchidSetupGenerator < Rails::Generators::Base
   desc <<-EOS
     This generator prepares applications for API integration:
       - Generates config files
-      - Generates favicon and footer_logo images
+      - Generates favicon and footer logo images
       - Updates Gemfile to add dependencies, remove unwanted, replace
         unsupported gems
       - Generates .gitignore file
@@ -209,7 +209,7 @@ Section configuration example file copied to config/sections/section.example.yml
   end
 
   def footer_logo
-    logo_image = "footer_logo.png"
+    logo_image = "footer-logo.png"
     FileUtils.cp("#{@this_app}/app/assets/images/#{logo_image}",
                  "#{@new_app}/app/assets/images/#{logo_image}")
 

@@ -1,7 +1,7 @@
 <% langs = APP_OPTS["all_languages"] %>
 
 <% if langs.present? && langs[/\|/] %>
-  <div class="language_link btn-group" role="group" aria-label="language choice">
+  <div class="language-link btn-group" role="group" aria-label="language choice">
     <% langs.split("|").each do |lang_code| %>
       <%= language_toggle_link(lang_code) %>
     <% end %>
