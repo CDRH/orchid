@@ -102,6 +102,10 @@ git diff [previous version tag] app/helpers
   Content" link (link now goes to the `<main>` element with id
   `content_wrapper`)
 
+### Migration
+- To be added later. This will be a complicated subject and documenting it well
+  will benefit from revisions while migrating sites which are powered by Orchid
+
 ## [v4.0.0] - API v2 and faceting by nested fields, Ruby & Rails upgrades
 [v4.0.0]: https://github.com/CDRH/orchid/compare/v3.1.2...v4.0.0
 
