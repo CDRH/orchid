@@ -49,7 +49,7 @@ module Orchid::DisplayHelper
       nested = api_field.split(".")
       # fields are only nested one level deep
       # make hash an array if it is not already
-      Array.wrap(res[nested.first]).map { |doc| doc[nested[1]] }.flatten
+      Array.wrap(res[nested.first]).compact.map { |doc| doc[nested[1]]  }.flatten
     else
       Array(res[api_field])
     end
