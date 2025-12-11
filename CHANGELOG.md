@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic
 Versioning](https://semver.org/spec/v2.0.0.html).
 
+## General instructions for migrating overrides
+If you have a Rails app based on Orchid, run the following commands to see which override files have changed, and how they have changed. This way you can check to see if you have similar code in your app.
+
+```bash
+git diff --name-only [previous version tag] app/views/items app/views/layouts/body app/views/controllers  app/helpers
+git diff [previous version tag] app/views/items
+git diff [previous version tag] app/views/layouts/body
+git diff [previous version tag] app/controllers
+git diff [previous version tag] app/helpers
+```
+
 <!-- Template - Please preserve this order of sections
 ## [Unreleased] - Brief description
 [Unreleased]: https://github.com/CDRH/orchid/compare/v#.#.#...dev
@@ -94,7 +105,7 @@ Git diff [previous version tag] app/helpers
 - empty `div` with `tabindex="1"` that was used for the old "Skip to Main Content" 
   link (link now goes to the `<main>` element with id `content-wrapper`)
 
-## [v4.0.0](https://github.com/CDRH/orchid/compare/v3.1.1...v4.0.0)
+## [v4.0.0](https://github.com/CDRH/orchid/compare/v3.1.2...v4.0.0) - API v2 and faceting by nested fields, Ruby & Rails upgrades
 
 ### Fixed
 - displays flash message if API is down, instead of pages throwing errors
@@ -151,13 +162,20 @@ Git diff [previous version tag] app/helpers
 - place vendor files within /vendor/assets.
 - Raise `facet_limit` if more facets are desired. Add line setting `facet_limit in the controllers` if index methods have been overridden: `@facet_limit = @section.present? ? SECTIONS[@section]["api_options"]["facet_limit"] : PUBLIC["api_options"]["facet_limit"]`
 - Upgrade existing apps to use Ruby 3 and Rails 6.1.7, following the instructions [here](https://guides.rubyonrails.org/v6.1/6_1_release_notes.html)
-- Make sure that data repos are up to date with latest version of Datura and (if you want to use the new API functionality) the API schema. See new schema (2.0) documentation [here](https://github.com/CDRH/datura/docs/schema_v2.md)
+- Make sure that data repos are up to date with latest version of Datura and (if you want to use the new API functionality) the API schema. See [new schema documentation](https://github.com/CDRH/datura/docs/schema_v2.md)
 - change facets to be compatible with new api, add nested facets to take advantage of the nested bucket aggregation functionality
 - change references to `value_label` from `facet_label`, and modify or delete overrides that use this method.
 - Where overrides reference the facet count, make sure that they are referencing the "num" key of this hash.
 - update to Elasticsearch 8.5 or later, see [dev docs instructions](https://github.com/CDRH/cdrh_dev_docs/publishing/2_basic_requirements.md#elasticsearch)
-- See (documentation on facets)[https://github.com/CDRH/orchid/blob/main/docs/facets.md] for facet-related changes.
+- See [documentation on facets](https://github.com/CDRH/orchid/blob/main/docs/facets.md) for facet-related changes.
 - When overrides and config files are copied from Orchid and modified, update them to reflect the file in the new Orchid. Pay particular attention to `config/initializers/config.rb` which contains code necessary for new facet functionality.
+
+## [v3.1.2] - Relax Rails version constraint
+[v3.1.2]: https://github.com/CDRH/orchid/compare/v3.1.1...v3.1.2
+
+### Changed
+
+- Relax Rails version constraint to not restrict to a single minor release of Rails (e.g. 5.2.x)
 
 ## [v3.1.1](https://github.com/CDRH/orchid/compare/v3.1.0...v3.1.1) - splitting templates, fixing languages
 
