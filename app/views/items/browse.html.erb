@@ -7,7 +7,7 @@
       <div class="col-md-3">
         <% id = facet_name.parameterize(separator: ".") %>
         <%= link_to prefix_path("browse_facet_path", facet: id),
-           role: "button",
+          role: "button",
           class: "btn btn-lg btn-block btn-default" do %>
           <%= facet_info["label"] %>
         <% end %>
