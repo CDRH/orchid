@@ -35,15 +35,6 @@ git diff [previous version tag] app/helpers
 
 ### Contributors
 -->
-## General instructions for migrating overrides
-If you have a Rails app based on Orchid, run the following commands to see which override files have changed, and how they have changed. This way you can check to see if you have similar code in your app.
-```
-git diff --name-only [previous version tag] app/views/items app/views/layouts/body app/views/controllers  app/helpers
-Git diff [previous version tag] app/views/items 
-Git diff [previous version tag] app/views/layouts/body
-Git diff [previous version tag] app/controllers
-Git diff [previous version tag] app/helpers
-```
 
 ## [v4.1.0](https://github.com/CDRH/orchid/compare/v4.0.0...v4.1.0) - accessibility remediation
 
