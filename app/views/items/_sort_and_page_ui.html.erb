@@ -1,13 +1,13 @@
-<div class="row search_controls">
+<div class="row search-controls">
   <% if !@res.count %>
     <% flash[:error] = "Search results are not currently available, due to technical limitations or an error in the API. Please enter a new search query or try again later." %>
   <% else %>
-    <div class="col-md-4 search_limit">
+    <div class="col-md-4 search-limit">
       <% if (@res.count > 1) %>
         <%= sorter %>
       <% end %>
     </div>
-    <div class="col-md-8 pagination_container">
+    <div class="col-md-8 pagination-container">
       <%= paginator @res.pages %>
     </div>
   <% end %>

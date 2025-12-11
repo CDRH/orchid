@@ -3,11 +3,11 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-10">
-            <%= form_tag prefix_path(route_path), method: "get",
+          <div class="col-md-12">
+            <%= form_tag prefix_path(route_path), method: "get", role: "search", 
               class: "input-group" do %>
               <%# search box %>
-              <%= text_field_tag(:q, params[:q], :placeholder => t("search.placeholder", default: "Search for..."), :class => "form-control") %>
+              <%= text_field_tag(:q, params[:q], :placeholder => t("search.placeholder", default: "Search for..."), :class => "form-control", aria: { label: "Search" }) %>
               <%# add existing search parameters to query %>
               <%= render_overridable("items", "hidden_fields") %>
               <%# submit %>
@@ -15,14 +15,14 @@
                 <%= submit_tag t("search.submit", default: "Search"), class: "btn btn-primary", name: nil, data: { disable_with: false } %>
               </span>
             <% end %>
-            <%= render_overridable("items", "help") %>
-            <%= link_to t("search.view_all", default: "View All Items"),
-              prefix_path(route_path), rel: "search" %>
           </div>
-          <div class="col-md-2">
-            <%= link_to t("search.clear_all", default: "Clear Search"),
+          <div class="col-xs-8">
+            <%= render_overridable("items", "help") %>
+          </div>
+          <div class="col-xs-4 text-right">
+            <%= link_to t("search.clear_all", default: "Reset Search"),
               prefix_path(route_path),
-              class: "btn btn-danger clear_main_search_text", rel: "search", role: "button" %>
+              class: "clear-main-search-text", rel: "search" %>
           </div>
         </div> <%# /row %>
       </div> <%# /panel-body %>

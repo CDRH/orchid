@@ -12,7 +12,7 @@ en:
   #################
   general:
     # footer content with link to CDRH site
-    cdrh_link_html: Created by the <a href="https://cdrh.unl.edu">Center for Digital Research in the Humanities</a>.
+    cdrh_link_html: Created by the <a href="https://cdrh.unl.edu">Center for Digital Research in the Humanities</a> at the <a href="https://www.unl.edu/">University of Nebraska–Lincoln</a>.
     # close a popup window
     close: Close
     # Below commented to avoid fallback use from a project site omitting them
@@ -135,7 +135,7 @@ en:
     # title text that appears when no search / filters have been applied
     all_items: All Items
     # clearing all search / filters
-    clear_all: Clear Search
+    clear_all: Reset Search
     # clearing only the text search field
     clear_text: Clear Search Text
     dates:
@@ -175,7 +175,6 @@ en:
       # search help html, this may need to be recreated per language
       # instead of translated literally due to differences with stemming and grammar
       html: |-
-        <h2 class="sr-only">Search Help</h2>
         <h3>Basic Search</h3>
         <p>Simply enter the word you wish to find and the search engine will
         search for every instance of the word in the journals. For example:
@@ -207,6 +206,7 @@ en:
         helpful.</p>
     filters:
       # clearing filters (not the text search)
+      clear: Clear Filter
       clear_all: Clear Filters
       # label above the filters
       filter_by: Filter by
@@ -221,6 +221,9 @@ en:
     # placeholder for the text search field
     placeholder: Search for...
     results:
+      # for calling these labels without numerical values
+      singular: result
+      plural: results
       # display for number of results when API response is error
       error: Unable to display results
       # how to display number of results when no search / filters have been applied
@@ -244,9 +247,9 @@ en:
       # how to display number of results when a search / filter have been applied
       # and therefore the user is browsing a subset of items
       query:
-        zero: 0 items
-        one: 1 item
-        other: "%{count} items"
+        zero: 0 results
+        one: 1 result
+        other: "%{count} results"
       # summary box of selected search / filters
       summary:
         query: Search

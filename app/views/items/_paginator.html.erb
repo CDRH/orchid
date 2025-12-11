@@ -7,7 +7,7 @@
   total (total pages)
 %>
 
-<nav>
+<nav aria-label="Pagination">
   <ul class="pagination">
 
     <%# previous button %>
@@ -46,7 +46,7 @@
 
     <%# current page %>
     <li class="active">
-      <span aria-label="Current Page (<%= current %>)"><%= current %></span>
+      <a href="#" aria-current="page" aria-disabled="true"><%= current %></a>
     </li>
 
     <%# next pages %>

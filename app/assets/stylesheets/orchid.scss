@@ -35,19 +35,56 @@
 // uncollapse if no javascript
 .no-js .collapse { display: block; }
 
+// sr-only with clip instead of position: absolute
+.sr-only-clip {
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7  */
+  clip: rect(1px, 1px, 1px, 1px); /* other legacy browsers */
+  clip-path: inset(50%); /* modern browsers */
+  border: 0;
+  display: inline-block;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 1px;
+}
+
+// clip-path only, no display style
+.sr-only-clip-path {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 // Unique Elements
 // ===============
-#content-wrapper {
-  margin-bottom: 3em;
+#content_wrapper {
+  padding-bottom: 3em;
 }
 #footer {
-  margin-bottom: 9em;
+  padding-bottom: 3em;
+  padding-top: 3em;
+
+  .footer-logo a {
+    display: inline-block;
+
+    img {
+      max-height: 100px;
+      width: auto;
+    }
+  }
 }
 
 // Language Switching
 // ==================
 
-.language_link {
+.language-link {
   display: inline-block;
   padding-bottom: .3em;
 
@@ -58,13 +95,74 @@
   }
 }
 
+// Links
+// =====
+
+// Undoing Bootstrap's lack of link decoration
+.main-content, 
+#footer p {
+   a {
+    text-decoration: underline;
+  }
+
+  a:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+.main-content, 
+#footer p {
+  a.btn,
+  a.btn:hover {
+    text-decoration: none;
+  }
+}
+
+// Undoing Boostrap's focus outline overrides
+a:focus {
+  outline-offset: initial;
+}
+
+// Back to Top link
+
+.back-to-top a {
+  background: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  border: solid 1px $gray-lighter;
+  bottom: 0;
+  box-shadow: 0px 0px 5px 3px rgba($gray-dark,0.3);
+  padding: .5rem 2rem 0.5rem 1.25rem; // .1em 1em .3em 1em; 
+  position: fixed;
+  right: 2%;
+  z-index: 1000;
+
+  &:hover {
+  color: #000;
+  background-color: $gray-lighter;
+  }
+
+  &:after {
+    content: "\2191";
+    position: relative;
+    top: -1px;
+    left: 6px;
+  }
+}
+
+// Undoing Bootstrap 3.4's nowrap on .btn class,
+// which causes text to spill out of flex buttons
+
+.btn {
+  white-space: initial;
+}
 
 // Site Section-specific
 // =====================
 
 // Search Pages
-.page_search, .search_preset {
-  .pagination_container {
+.page_search, .search-preset {
+  .pagination-container {
     text-align: right;
 
     .pagination {
@@ -77,49 +175,299 @@
   }
 }
 
+
+.search-form .searchbox {
+
+  .row > div:first-child {
+    margin-bottom: 20px;
+  }
+
+  .panel-heading-link.btn-link {
+    padding: 0;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+    }
+
+    h2 {
+      padding: 0;
+    }
+  }
+
+  .panel-body {
+    padding: 18px;
+  }
+
+  // Search help
+  .panel-search-help {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+
+    .panel-heading-link {
+
+      > h2.panel-heading {
+        background-color: initial;
+        border: none;
+        border-radius: initial;
+        color: inherit; // Use variable for link color
+        display: inline;
+        font-size: 16px;
+        margin: 0;
+        padding: 0 0 0 5px;
+
+        .glyphicon {
+          font-size: 12px;
+          margin-left: 5px;
+        }
+
+        .panel-title {
+          font-size: inherit;
+        }
+      }
+    }
+    
+    .panel-body {
+      padding: 5px;
+
+      .well {
+        margin-top: 6px;
+
+        > h3 {
+          font-size: 2.5rem;
+
+          &:first-of-type {
+            margin-top: 6px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Facet panels
+
 .panel-heading-link > .panel-heading {
   color: $gray-dark;
   background-color: $panel-default-heading-bg;
   border-color: $panel-inner-border;
 }
 
-// Index Pages
-.index_num {
-  font-size: 1.2em;
-  text-align: right;
-  vertical-align: top;
+.searchbox .input-group .form-control:first-child {
+  height: 100%;
 }
 
-.index_spacer {
-  vertical-align: top;
+.clear-main-search-text {
+  line-height: 1;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  white-space: initial;
+}
 
-  span {
-    display: block;
-    width: 2em;
-    height: 1.2em;
-    margin: 0 .5em;
-    border-bottom: 1px dotted #333;
+.panel-filter {
+
+  &.panel-filter-date {
+    legend {
+      border: none;
+      font-size: $font-size-base;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  }
+
+  .facet-list li:not(.selected) {
+    a {
+      text-decoration: none;
+
+      .facet-text {
+        text-decoration: underline;
+      }
+    }
+
+    a:hover {
+      text-decoration: none;
+      
+      .facet-text {
+        text-decoration-thickness: 2px;
+      }
+    }
+  }
+
+
+  .badge {
+    margin-left: 2px;
+    margin-top: -3px;
+  }
+  .selected 
+    a[aria-disabled="true"] {
+      color: inherit;
+      cursor: not-allowed;
+      text-decoration: none;
+    }
+    .btn.btn-xs {
+      margin-top: -0.4rem;
+      min-height: 24px;
+      min-width: 24px;
+      padding: 0.33rem 0.5rem;
+      text-align: center;
   }
 }
 
-.index_table {
-  tr:hover {
-    background-color: #fff;
-  }
-
-  a {
-    display: block;
-  }
+.clear-date-filter .btn-default.btn-xs {
+  line-height: 1;
+  padding: 3px 5px;
 }
+
+.clear-facets .glyphicon.glyphicon-remove {
+  margin-left: 0.5rem;
+  top: 2px;
+}
+
+.search-filters .btn-sm .glyphicon.glyphicon-remove {
+  top: 2px;
+}
+
+ul.current-filters {
+  list-style: none;
+  padding-left: 0;
+}
+
+
 
 // Search Results
 
-.search_results_highlights {
+.search-results-highlights {
   p:before {
     content: "… ";
   }
 
   p:after {
     content: " …";
+  }
+}
+
+// Browse / Index Pages
+// =====================
+
+.action_browse_facet {
+
+  ul.nav-tabs li {
+    a {
+      text-decoration: none;
+    }
+
+    &:not(.active) a {
+      background: white;
+      border-left-color: #aaa;
+      border-right-color: #aaa;
+      border-top-color: #aaa;
+      border-bottom-color: $gray-dark;
+
+      &:focus-visible,
+      &:hover {
+        background: darken($navbar-default-bg, 6.5%);
+        border-color: $gray-light;
+        color: $gray-dark;
+      }
+    }
+  }
+
+  .browse-results ul {
+    display: table;
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      margin-left: -2px;
+
+      a {
+        display: flex;
+        padding: 2px 2px 4px 2px;
+
+        &:hover {
+          background-color: white;
+        }
+
+        p {
+          margin: 0;
+        }
+        
+        .index-name-col {
+          display: flex;
+          flex-grow: 1;
+
+          .index-separator {
+            border-bottom: 1px dotted #333;
+            flex-grow: 1;
+            height: calc(100% - 4px); // 1.975rem;
+            margin: 0;
+            min-width: 3rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.index-num {
+  font-size: inherit;
+}
+
+// Bootstrap navbar alignment fixes
+// =====================
+
+$navbar-link-height: ($navbar-height - 2px); 
+
+.navbar-default .navbar-nav > li > a {
+  min-height: $navbar-link-height;
+}
+
+@media screen and (min-width: $screen-md) {
+  header .navbar-default .navbar-collapse {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+@media screen and (max-width: $screen-md-max) {
+  .navbar-default .navbar-nav {
+    margin-left: 0;
+    margin-right: 0;
+
+    > li > a {
+      padding-left: 20px;
+    }
+  }
+}
+
+// Inline uls for metadata values
+
+.metadata {
+  list-style: none;
+  padding-left: 0;
+}
+
+.metadata,
+.search-results-info {
+  ul > li {
+    display: flex;
+
+      > ul {
+      list-style: none;
+      padding-left: 0.5rem;
+      
+      > li {
+        display: inline;
+        position: relative;
+
+        &:not(:last-of-type):after {
+          content: " | ";
+          display: inline;
+          position: relative;
+        }
+      }
+    }
   }
 }

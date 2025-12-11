@@ -2,28 +2,30 @@
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse"
-        data-target=".navbar-collapse">
+        data-target=".navbar-collapse" aria-label="Expand or collapse main menu">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
     </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="<%= active?(home_path) %>">
-          <%= link_to t("home.title", default: "Home"), home_path %>
-        </li>
-        <li class="<%= active?(/^#{config.relative_url_root}\/browse/,
-          request.path) %>">
-          <%= link_to t("browse.title", default: "Browse"), browse_path %>
-        </li>
-        <li class="<%= active?(search_path) %>">
-          <%= link_to t("search.title", default: "Search"), search_path, rel: "search" %>
-        </li>
-        <li class="<%= active?(about_path) %>">
-          <%= link_to t("about.title", default: "About"), about_path %>
-        </li>
-      </ul>
-    </div>
+    <nav class="navbar-collapse collapse" aria-label="Main Menu">
+      <div class="row">
+        <ul class="nav navbar-nav">
+          <li class="<%= active?(home_path) %>">
+            <%= link_to t("home.title", default: "Home"), home_path %>
+          </li>
+          <li class="<%= active?(/^#{config.relative_url_root}\/browse/,
+            request.path) %>">
+            <%= link_to t("browse.title", default: "Browse"), browse_path %>
+          </li>
+          <li class="<%= active?(search_path) %>">
+            <%= link_to t("search.title", default: "Search"), search_path, rel: "search" %>
+          </li>
+          <li class="<%= active?(about_path) %>">
+            <%= link_to t("about.title", default: "About"), about_path %>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </div>
 </div><%# /navbar %>

@@ -36,25 +36,78 @@ git diff [previous version tag] app/helpers
 ### Contributors
 -->
 
-## [Unreleased] - Brief description
-[Unreleased]: https://github.com/CDRH/orchid/compare/v4.0.0...dev
+## [v4.1.0] - Accessibility Remediation
+[v4.1.0]: https://github.com/CDRH/orchid/compare/v4.0.0...v4.1.0
 
 ### Fixed
+- Closing carat missing from `<html>` tag
+- Color contrast ratios not meeting WCAG 2.1 guidelines
+- `aria_label` typo, which should be `aria-label`
+- Long Browse button labels extending outside container
+- Footer links that didn't encompass the entire logo image
+- Page title not changing when URL changes; `<title>` attribute
+  on Search Results pages now changes when search parameters are changed
+- Misaligned elements in navbar and search pages
+- Searchbox focus order not matching visual order
+- Duplicate IDs in date limit form
+- Empty links in clear facet buttons
+- `search.filters.clear` setting missing from `en.yml` and `es.yml`
+- Duplicate `category` setting in `es.yml`
+- Current tab on Browse pages being read separately from other tabs by screen
+  readers
 
 ### Added
+- "Back to Top" link
+- Underline for links so they can be distinguished without color
+- Alt text for footer logo
+- ARIA attributes for site navigation
+- ARIA attributes for Browse navigation
+- ARIA attributes for searchbox elements
+- Singular and plural variables in YAML for use on facet badges and browse
+  badges
+- Visually hidden text for facet list links so their meaning is clearer when
+  announced by screen readers
 
 ### Changed
+- Replacing plain `<div>`s with semantic HTML tags for landmarks (`<header>`,
+  `<main>`, `<footer>`, and `role="search"`)
+- Add `.main-content` class to `<main>` to address CSS precedence problems with
+  `#content_wrapper`
+- Point "Skip to Main content" link to `#content_wrapper` instead of empty
+  `<div>`
+- Improve responsive design by collapsing main menu at narrow browser widths
+- Make font sizes responsive for titles and headings
+- Replace outdated UNL logo with UNL + CDRH logo and reduce filesize
+- Update footer byline to include a link to UNL
+- Change footer links from `http://` to `https://`
+- Change Browse tabs into a navigation menu (instead of a tablist) to better 
+  reflect that the page will be reloaded—not dynamically changed—to display
+  results
+- Change Browse page lists of links into unordered lists instead of tables
+- Change Search Help link into a button to reflect that it's an in-page change
+- Put date limit form fields inside fieldsets
+- Clean up HTML and ARIA attributes for "Clear filter" buttons
+- Clean up HTML and ARIA attributes for pagination
+- Change HTML for metadata fields with hash values to use unordered lists
+  instead of plain text
+- Change "items" verbiage to "results" instead
+- Standardize `id`s to use underscores (snake case)
+- Standardize `class` names to use hyphens (kebab case)
 
 ### Removed
+- Duplicate charset from `<meta>` tags
+- Extraneous `</div>` tag in navbar partial
+- Invalid use of `aria-controls` on Browse page
+- Empty `div` with `tabindex="1"` that was used for the old "Skip to Main
+  Content" link (link now goes to the `<main>` element with id
+  `content_wrapper`)
 
 ### Migration
-
-### Deprecated
-
-### Contributors
+- To be added later. This will be a complicated subject and documenting it well
+  will benefit from revisions while migrating sites which are powered by Orchid
 
 ## [v4.0.0] - API v2 and faceting by nested fields, Ruby & Rails upgrades
-[v4.0.0]: https://github.com/CDRH/orchid/compare/v3.1.2...dev
+[v4.0.0]: https://github.com/CDRH/orchid/compare/v3.1.2...v4.0.0
 
 ### Fixed
 - displays flash message if API is down, instead of pages throwing errors
