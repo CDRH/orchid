@@ -1,6 +1,6 @@
 <% if @res.present? && @res.count && @res.count > 0 %>
   <% @res.items.each do |item| %>
-    <div class="searchResults buffer-bottom-sm">
+    <div class="search-results buffer-bottom-sm">
       <h3><%= search_item_link(item) %></h3>
       <div class="row">
         <div class="<%= item["highlight"].present? ? "col-md-4" : "col-md-12" %> search-results-info">
