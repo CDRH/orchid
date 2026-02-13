@@ -36,12 +36,39 @@ git diff [previous version tag] app/helpers
 ### Contributors
 -->
 
-## [Unreleased] - TBD
-[Unreleased]: https://github.com/CDRH/orchid/compare/v4.1.0...dev
+## [Unreleased] - Accessibility Fixes and Reverted Recently-Changed Class and ID Punctuation
+[Unreleased] <!--: https://github.com/CDRH/orchid/compare/v4.1.0...dev -->
 
 ### Fixed
 
+- The following changes from the 4.1.0 release were returned to the way they were in 4.0.0:
+  - Standardize `id`s to use underscores (snake case):
+    - `#content-wrapper`
+    - `#body-wrapper`
+  
+  - Standardize `class` names to use hyphens (kebab case):
+    - `.language_link`
+    - `.search_preset`
+    - `.search_results_highlights`
+    - `.search_results_info`
+    - `.search_results_text`
+    - `.search_controls`
+    - `.search_limit`
+    - `.pagination_container`
+    - `.clear_main_search_text`
+    - `.index_table`
+    - `.index_num`
+    - `.index_separator`
+    - `.index_name`
+    - `.index_name_col`
+    - `.footer_info`
+    - `.footer_logo`
+- Fix misaligned elements on search preset pages
+
 ### Added
+
+- Add UNL link to `cdrh_link_html` in the Spanish locales file (`config/locales/es.yml`)
+- Add CSS styles to account for multi-word facet labels
 
 ### Changed
 
