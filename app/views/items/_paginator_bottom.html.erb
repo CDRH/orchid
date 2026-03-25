@@ -1,0 +1,96 @@
+<%# locals:
+  current (page)
+  opts (params)
+  pages_next (a range of the next pages to display)
+  pages_prior (a range of the prev pages to display)
+  range (how many pages to display on either side)
+  total (total pages)
+%>
+
+<div class="row search_controls">
+  <% if !@res.count %>
+    <% flash[:error] = "Search results are not currently available, due to technical limitations or an error in the API. Please enter a new search query or try again later." %>
+  <% else %>
+    <div class="col-md-12 pagination_container">
+
+    <%# pagination %>
+    <h2 class="sr-only" id="bottom_pagination_label">Bottom Pagination</h2>
+    <nav aria-labelledby="bottom_pagination_label">
+      <ul class="pagination">
+
+        <%# previous button %>
+        <% if current == 1 %>
+          <li class="disabled">
+            <a href="#" aria-label="No Previous Page">&laquo;</a>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to prefix_path(route_path, to_page(current-1, opts)),
+                        rel: "prev" do %>
+              <span aria-label="Previous Page (<%= current - 1 %>)">&laquo;</span>
+            <% end %>
+          </li>
+        <% end %>
+
+        <%# add the first page if you're not on it, add dots if necessary %>
+        <% if current != 1 %>
+          <li>
+            <%= link_to "1", prefix_path(route_path, to_page(1, opts)),
+                        rel: "nofollow", "aria-label": "First Page" %>
+          </li>
+          <%# don't display dots between 1 and 2 %>
+          <% if pages_prior.present? && pages_prior.min > 2 %>
+            <li class="disabled"><span aria-label="Jump in interval">…</span></li>
+          <% end %>
+        <% end %>
+
+        <%# prior pages %>
+        <% pages_prior.each do |page| %>
+          <li>
+            <%= link_to page.to_s, prefix_path(route_path, to_page(page, opts)),
+                        rel: "nofollow", "aria-label": "Page #{page}" %>
+          </li>
+        <% end %>
+
+        <%# current page %>
+        <li class="active">
+          <a href="#" aria-current="page" aria-disabled="true"><%= current %></a>
+        </li>
+
+        <%# next pages %>
+        <% pages_next.each do |page| %>
+          <li>
+            <%= link_to page.to_s, prefix_path(route_path, to_page(page, opts)),
+                        rel: "nofollow", "aria-label": "Page #{page}" %>
+          </li>
+        <% end %>
+
+        <%# add dots if necessary %>
+        <% if current != total %>
+          <% if pages_next.max != total && current != total-1 %>
+            <li class="disabled"><span aria-label="Jump in interval">…</span></li>
+          <% end %>
+          <%# do not display the last page to prevent users from jumping
+              to the end of tens of thousands of pages of results, potentially %>
+        <% end %>
+
+        <%# next button %>
+        <% if current == total %>
+          <li class="disabled">
+            <a href="#" aria-label="No Next Page">&raquo;</a>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to prefix_path(route_path, to_page(current+1, opts)),
+                        rel: "next" do %>
+              <span aria-label="Next Page (<%= current + 1 %>)">&raquo;</span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+
+    </div>
+  <% end %>
+</div>
+
