@@ -8,7 +8,10 @@
       <% end %>
     </div>
     <div class="col-md-8 pagination_container">
-      <%= paginator @res.pages %>
+    <h2 class="sr-only" id="pagination_label">Pagination</h2>
+      <nav aria-labelledby="pagination_label">
+        <%= paginator @res.pages %>
+      </nav>
     </div>
   <% end %>
 </div>

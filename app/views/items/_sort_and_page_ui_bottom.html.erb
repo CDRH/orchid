@@ -1,0 +1,12 @@
+<div class="row search_controls">
+  <% if !@res.count %>
+    <% flash[:error] = "Search results are not currently available, due to technical limitations or an error in the API. Please enter a new search query or try again later." %>
+  <% else %>
+    <div class="col-12 pagination_container">
+      <h2 class="sr-only" id="bottom_pagination_label">Pagination</h2>
+        <nav aria-labelledby="bottom_pagination_label">
+          <%= paginator @res.pages %>
+        </nav>
+      </div>
+  <% end %>
+</div>
