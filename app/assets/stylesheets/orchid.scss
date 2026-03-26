@@ -161,21 +161,6 @@ a:focus {
 // Site Section-specific
 // =====================
 
-// Search Pages
-.page_search, .search_preset {
-  .pagination_container {
-    text-align: right;
-
-    .pagination {
-      margin: 0;
-    }
-  }
-
-  .search-filters {
-    min-height: 2.75em;
-  }
-}
-
 .search_form .searchbox {
 
   .row > div:first-child {
@@ -334,6 +319,32 @@ ul.current-filters {
   padding-left: 0;
 }
 
+
+// Sort and Page UI
+.page_search, 
+.search_preset {
+  .search_controls {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    justify-content: space-between;
+  }
+
+  .pagination_container {
+    margin-left: auto;
+    text-align: right;
+
+    .pagination {
+      float: initial;
+      margin: 0;
+    }
+  }
+
+  .search-filters {
+    min-height: 2.75em;
+  }
+}
 
 
 // Search Results
