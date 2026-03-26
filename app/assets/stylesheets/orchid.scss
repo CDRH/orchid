@@ -64,14 +64,15 @@
 
 // Unique Elements
 // ===============
-#content_wrapper {
+
+#content-wrapper {
   padding-bottom: 3em;
 }
 #footer {
   padding-bottom: 3em;
   padding-top: 3em;
 
-  .footer-logo a {
+  .footer_logo a {
     display: inline-block;
 
     img {
@@ -84,7 +85,7 @@
 // Language Switching
 // ==================
 
-.language-link {
+.language_link {
   display: inline-block;
   padding-bottom: .3em;
 
@@ -160,23 +161,8 @@ a:focus {
 // Site Section-specific
 // =====================
 
-// Search Pages
-.page_search, .search-preset {
-  .pagination-container {
-    text-align: right;
-
-    .pagination {
-      margin: 0;
-    }
-  }
-
-  .search-filters {
-    min-height: 2.75em;
-  }
-}
-
-
-.search-form .searchbox {
+// Search box
+.search_form .searchbox {
 
   .row > div:first-child {
     margin-bottom: 20px;
@@ -259,7 +245,7 @@ a:focus {
   height: 100%;
 }
 
-.clear-main-search-text {
+.clear_main_search_text {
   line-height: 1;
   padding-bottom: 1rem;
   padding-top: 1rem;
@@ -334,7 +320,28 @@ ul.current-filters {
   padding-left: 0;
 }
 
+// Sort and Page UI
+.search_controls {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  justify-content: space-between;
 
+  .pagination_container {
+    margin-left: auto;
+    text-align: right;
+
+    .pagination {
+      float: initial;
+      margin: 0;
+    }
+  }
+}
+
+.search-filters {
+  min-height: 2.75em;
+}
 
 // Search Results
 
@@ -394,11 +401,11 @@ ul.current-filters {
           margin: 0;
         }
         
-        .index-name-col {
+        .index_name_col {
           display: flex;
           flex-grow: 1;
 
-          .index-separator {
+          .index_separator {
             border-bottom: 1px dotted #333;
             flex-grow: 1;
             height: calc(100% - 4px); // 1.975rem;
@@ -411,7 +418,7 @@ ul.current-filters {
   }
 }
 
-.index-num {
+.index_num {
   font-size: inherit;
 }
 

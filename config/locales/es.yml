@@ -11,7 +11,7 @@ es:
     # footer content with link to CDRH site
     cdrh_link_html: |-
       Creado por el <a href="https://cdrh.unl.edu">Centro de Investigación
-      Digital en las Humanidades</a>.
+      Digital en las Humanidades</a> de la <a href="https://www.unl.edu/">Universidad de Nebraska—Lincoln</a>.
     # close a popup window
     close: Cerrar
     # Below commented to avoid fallback use from a project site omitting them

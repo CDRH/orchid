@@ -1,6 +1,6 @@
 $(function() {
   // Filter collapse/expand indicators
-  $('.search-form .panel-heading-link').click(function() {
+  $('.search_form .panel-heading-link').click(function() {
     $this = $(this)
     if ( $this.find('.glyphicon-chevron-right').length > 0 ) {
       $this.find('.glyphicon-chevron-right')

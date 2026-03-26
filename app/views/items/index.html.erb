@@ -1,10 +1,10 @@
 <%= render_overridable("items", "index_header") %>
 
-<div class="search-form">
+<div class="search_form">
   <%= render_overridable("items", "search_box") %>
 
   <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-4 col-md-3">
       <div class="clearfix">
         <h2 class="pull-left">
           <%= t "search.filters.filter_by", default: "Filter by" %>:
@@ -14,13 +14,13 @@
       <%= render_overridable("items", "date_limit") %>
       <%= render_overridable("items", "facets", facets: @res.facets) %>
     </div> <%# col-md-3 %>
-    <div class="col-sm-9">
+    <div class="col-sm-8 col-md-9">
       <%= render_overridable("items", "summary_boxes") %>
       <%= render_overridable("items", "sort_and_page_ui") %>
       <%# search results section %>
       <%= render_overridable("items", "search_res_count") %>
       <%= render_overridable("items", "search_res_items") %>
-      <%= render_overridable("items", "sort_and_page_ui") %>
+      <%= render_overridable("items", "sort_and_page_ui_bottom") %>
     </div>
   </div>
 </div>
