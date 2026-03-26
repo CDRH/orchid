@@ -9,8 +9,8 @@ to docs/search_preset.md %>
 %>
 
 <%# title %>
-<%= render_overridable "items", "search_preset_header" %>
-<%= render_overridable "items", "search_preset_text" %>
+<%= render_overridable("items", "search_preset_header") %>
+<%= render_overridable("items", "search_preset_text") %>
 
 <div class="search_form search_preset search_preset_<%= @preset_class %>">
   <%= render_overridable("items", "search_box") %>
@@ -18,12 +18,11 @@ to docs/search_preset.md %>
   <div class="row">
 
     <%# do not display any facet options or summary boxes for this view %>
-    <%= render_overridable "items", "sort_and_page_ui" %>
+    <%= render_overridable("items", "sort_and_page_ui") %>
 
     <%# search results section %>
-    <%= render_overridable "items", "search_res_count" %>
-    <%= render_overridable "items", "search_preset_res_items" %>
-
-    <%= render_overridable "items", "sort_and_page_ui" %>
+    <%= render_overridable("items", "search_res_count") %>
+    <%= render_overridable("items", "search_preset_res_items") %>
+    <%= render_overridable("items", "sort_and_page_ui_bottom") %>
   </div>
 </div>
