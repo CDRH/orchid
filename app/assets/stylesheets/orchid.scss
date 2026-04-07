@@ -200,9 +200,6 @@ a:focus {
       padding: 0;
       text-decoration: underline;
 
-      &:hover {
-        text-decoration-thickness: 2px;
-      }
 
       > h2.panel-heading {
         background-color: initial;
@@ -222,7 +219,12 @@ a:focus {
 
         .panel-title {
           font-size: inherit;
+          text-decoration: underline;
         }
+      }
+
+      &:hover > h2.panel-heading .panel-title {
+        text-decoration-thickness: 2px;
       }
     }
 
