@@ -8,6 +8,8 @@ es:
   # GENERAL PAGES #
   #################
   general:
+    # Skip to main content link
+    skip_link: Salto al contenido
     # footer content with link to CDRH site
     cdrh_link_html: |-
       Creado por el <a href="https://cdrh.unl.edu">Centro de Investigación
