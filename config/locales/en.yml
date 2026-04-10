@@ -11,8 +11,10 @@ en:
   # GENERAL PAGES #
   #################
   general:
-    # Skip to main content link
+    # Skip to main content link text
     skip_link: Skip to main content
+    # Back to Top link text
+    back_to_top: Back to top
     # footer content with link to CDRH site
     cdrh_link_html: Created by the <a href="https://cdrh.unl.edu">Center for Digital Research in the Humanities</a> at the <a href="https://www.unl.edu/">University of Nebraska–Lincoln</a>.
     # close a popup window
