@@ -172,8 +172,9 @@ module Orchid::ApplicationHelper
         class: "btn btn-primary disabled",
         hreflang: lang_code,
         rel: "alternate",
-        tabindex: -1,
-        role: "button"
+        role: "button",
+        'aria-disabled': true,
+        'aria-selected': true
     else
       link_to lang_name,
         locale_link(lang_code),
