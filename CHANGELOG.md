@@ -36,8 +36,8 @@ git diff [previous version tag] app/helpers
 ### Contributors
 -->
 
-## [Unreleased] - Accessibility Fixes and Reverted Recently-Changed Class and ID Punctuation
-[Unreleased] <!--: https://github.com/CDRH/orchid/compare/v4.1.0...dev -->
+## [v4.1.1] - Accessibility Fixes and Reverting Recent Class and ID Punctuation Changes
+[v4.1.0]: https://github.com/CDRH/orchid/compare/v4.1.0...v4.1.1
 
 ### Fixed
 
@@ -64,11 +64,13 @@ git diff [previous version tag] app/helpers
    -  `#content-wrapper` is now `#content_wrapper`
     - `#body-wrapper` is now `#body_wrapper`
 - Fix misaligned elements on search preset pages
+- Fixes missing span tag in `_clear_facets.html.erb`
 
 ### Added
 
 - Add UNL link to `cdrh_link_html` in the Spanish locales file (`config/locales/es.yml`)
 - Add CSS styles to account for multi-word facet labels
+- Add `aria-current="page"` to current page link in navigation menu
 
 ### Changed
 
@@ -80,8 +82,6 @@ git diff [previous version tag] app/helpers
 ### Migration
 
 ### Deprecated
-
-### Contributors
 
 ## [v4.1.0] - Accessibility Remediation
 [v4.1.0]: https://github.com/CDRH/orchid/compare/v4.0.0...v4.1.0
