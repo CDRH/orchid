@@ -37,7 +37,7 @@ git diff [previous version tag] app/helpers
 -->
 
 ## [v4.1.1] - Accessibility Fixes and Reverting Recent Class and ID Punctuation Changes
-[v4.1.0]: https://github.com/CDRH/orchid/compare/v4.1.0...v4.1.1
+[v4.1.1]: https://github.com/CDRH/orchid/compare/v4.1.0...v4.1.1
 
 ### Fixed
 
@@ -76,12 +76,6 @@ git diff [previous version tag] app/helpers
 
 - Split sort and page UI into a top partial and bottom partial and assign each pagination `<nav>` a unique accessible name
 - Use flexbox instead of grid for sort and page UI layout to accommodate longer sort option labels
-
-### Removed
-
-### Migration
-
-### Deprecated
 
 ## [v4.1.0] - Accessibility Remediation
 [v4.1.0]: https://github.com/CDRH/orchid/compare/v4.0.0...v4.1.0
