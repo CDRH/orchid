@@ -36,6 +36,47 @@ git diff [previous version tag] app/helpers
 ### Contributors
 -->
 
+## [v4.1.1] - Accessibility Fixes and Reverting Recent Class and ID Punctuation Changes
+[v4.1.1]: https://github.com/CDRH/orchid/compare/v4.1.0...v4.1.1
+
+### Fixed
+
+- In a few cases, standardizing punctuation used across ids and classnames resulted in breaking changes in the 4.1.0 release. In this new release, the following have been reverted to the punctuation they had in 4.0.0, before standardization (4.1.0 version on the left, corrected version on the right).
+  - Classes 
+    - `.language-link` is now `.language_link`
+    - `.search-form` is now `search_form`
+    - `.search-preset` is now `.search_preset`
+    - `.search-results-highlights` is now `.search_results_highlights`
+    - `.search-results-info` is now `.search_results_info`
+    - `.search-results-text` is now `.search_results_text`
+    - `.search-controls` is now `.search_controls`
+    - `.search-limit` is now `.search_limit`
+    - `.pagination-container` is now `.pagination_container`
+    - `.clear-main-search-text` is now `.clear_main_search_text`
+    - `.index-table` is now `.index_table`
+    - `.index-num` is now `.index_num`
+    - `.index-separator` is now `.index_separator`
+    - `.index-name` is now `.index_name`
+    - `.index-name-col` is now `.index_name_col`
+    - `.footer-info` is now `.footer_info`
+    - `.footer-logo` is now `.footer_logo` 
+ - IDs
+   -  `#content-wrapper` is now `#content_wrapper`
+    - `#body-wrapper` is now `#body_wrapper`
+- Fix misaligned elements on search preset pages
+- Fixes missing span tag in `_clear_facets.html.erb`
+
+### Added
+
+- Add UNL link to `cdrh_link_html` in the Spanish locales file (`config/locales/es.yml`)
+- Add CSS styles to account for multi-word facet labels
+- Add `aria-current="page"` to current page link in navigation menu
+
+### Changed
+
+- Split sort and page UI into a top partial and bottom partial and assign each pagination `<nav>` a unique accessible name
+- Use flexbox instead of grid for sort and page UI layout to accommodate longer sort option labels
+
 ## [v4.1.0] - Accessibility Remediation
 [v4.1.0]: https://github.com/CDRH/orchid/compare/v4.0.0...v4.1.0
 

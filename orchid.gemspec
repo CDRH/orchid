@@ -7,8 +7,8 @@ require "orchid/version"
 Gem::Specification.new do |s|
   s.name        = "orchid"
   s.version     = Orchid::VERSION
-  s.authors     = ["Jessica Dussault", "Greg Tunink", "Karin Dalziel", "Will Dewey"]
-  s.email       = ["jdussault4@gmail.com", "techgique@gmail.com", "kdalziel@unl.edu", "wdewey2@unl.edu"]
+  s.authors     = ["Jessica Dussault", "Greg Tunink", "Karin Dalziel", "Will Dewey", "Erin Kay Chambers"]
+  s.email       = ["jdussault4@gmail.com", "techgique@gmail.com", "kdalziel@unl.edu", "wdewey2@unl.edu", "erinchambers@unl.edu"]
   s.homepage    = "https://cdrh.unl.edu"
   s.summary     = "Template for CDRH API sites"
   s.description = "Template for sites powered off of CDRH API"
