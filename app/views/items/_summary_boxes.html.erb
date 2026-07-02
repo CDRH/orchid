@@ -62,7 +62,8 @@
       <% if info && info["aggregation_name"] %>
         <% type = info["aggregation_name"] %>
       <% end %>
-      <% facet_value = @res.facets[type] ? @res.facets[type][facet] : nil %>
+      <% facet_value = @res.facets && @res.facets[type] ?
+                       @res.facets[type][facet] : nil %>
       <%# look up in @res what the corresponding non-normalized facet is %>
       <% source = facet_value ? format_facet_response(type, facet_value)[1] : nil %>
       <div class="pull-left form-inline buffer-bottom-sm buffer-right-sm">

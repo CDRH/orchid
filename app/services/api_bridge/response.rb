@@ -16,7 +16,7 @@ module ApiBridge
     end
 
     def error
-      @res.dig("error")
+      @res.dig("res", "message")
     end
 
     def facets
