@@ -36,6 +36,23 @@ git diff [previous version tag] app/helpers
 ### Contributors
 -->
 
+## [v4.2.0] - Error Messages and Accessibility Fixes
+[v4.2.0]: https://github.com/CDRH/orchid/compare/v4.1.1...v4.2.0
+
+### Fixed
+- Error trying to retrieve facets if an error response from API with no facets
+- Incorrect capitalization on `aria-label` attribute
+
+### Changed
+- Only use default i18n error message if no API response object
+- Retrieve appropriate nested JSON element with error message from API
+- Only set default flash error message in template if no results and controller
+  set no error message
+- Pagination `aria-labelledby` to `aria-label`
+
+### Removed
+- Unneeded screen reader only H2's by pagination
+
 ## [v4.1.1] - Accessibility Fixes and Reverting Recent Class and ID Punctuation Changes
 [v4.1.1]: https://github.com/CDRH/orchid/compare/v4.1.0...v4.1.1
 
